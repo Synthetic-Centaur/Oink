@@ -5,6 +5,9 @@ import { Provider } from 'react-redux'
 import configureStore from './store/configureStore'
 import App from './containers/App'
 import injectTapEventPlugin from 'react-tap-event-plugin'
+import createBrowserHistory from 'history/lib/createBrowserHistory'
+import { syncReduxAndRouter, routeReducer } from 'redux-simple-router'
+import { Router, Route } from 'react-router'
 
 //Needed for React Developer Tools
 window.React = React;
@@ -19,7 +22,9 @@ const rootElement = document.getElementById('app')
 
 render(
   <Provider store={store}>
-    <App/>
+    <Router history={history}>
+
+    </Router>
   </Provider>,
   rootElement
 )
