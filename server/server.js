@@ -13,9 +13,9 @@ import React from 'react'
 import { renderToString } from 'react-dom/server'
 import { Provider } from 'react-redux'
 
-import configureStore from '../common/store/configureStore'
-import App from '../common/containers/App'
-import { fetchCounter } from '../common/api/counter'
+import configureStore from '../client/store/configureStore'
+import App from '../client/containers/App'
+import { fetchCounter } from '../client/api/counter'
 
 const app = new Express()
 const port = 3000
