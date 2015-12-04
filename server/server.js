@@ -25,9 +25,7 @@ const compiler = webpack(webpackConfig)
 app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: webpackConfig.output.publicPath }))
 app.use(webpackHotMiddleware(compiler))
 
-///////////////////////////////////// Server Side Rendering //////////////////////////////////////////
 
-// This is fired every time the server side receives a request
 // app.use(handleRender)
 
 // function handleRender(req, res) {
@@ -76,7 +74,13 @@ app.use(webpackHotMiddleware(compiler))
 //     `
 // }
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+app.use(Express.static(__dirname + '/../public'));
+
+app.get('/', function(req, res) {
+  res.sendFile(__dirname + '/../public/index.html');
+});
+
 
 app.listen(port, (error) => {
   if (error) {

@@ -17,10 +17,12 @@
   "dependencies": {
     "babel": "^5.8.21",
     "express": "^4.13.3",
+    "material-ui": "^0.13.4",
     "qs": "^4.0.0",
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
     "react-redux": "^4.0.0",
+    "react-tap-event-plugin": "^0.2.1",
     "redux": "^3.0.0",
     "redux-thunk": "^0.1.0",
     "serve-static": "^1.10.0"
