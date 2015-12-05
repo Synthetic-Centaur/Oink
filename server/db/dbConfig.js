@@ -40,7 +40,7 @@ db.knex.schema.hasTable('transactions').then( (exists) => {
       transaction.string('state', 255)
       transaction.string('zip', 255)
       transaction.boolean('pending')
-      transaction.string('store_name', 255)
+      transaction.uuid('store_name')
     }).then((table) => {
       console.log("Created Transactions Table")
     })
