@@ -16,6 +16,8 @@ import { Provider } from 'react-redux'
 import configureStore from '../client/store/configureStore'
 import App from '../client/containers/App'
 import { fetchCounter } from '../client/api/counter'
+import db from './config/dbConfig.js' 
+import Users from './config/dbConfig.js' 
 
 const app = new Express()
 const port = 3000
