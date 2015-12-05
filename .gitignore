@@ -3,7 +3,7 @@
 .LSOverride
 azure.err
 iisnode.yml
-
+npm-debug.log
 dist/
 .Trashes
 node_modules/
