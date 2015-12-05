@@ -1,7 +1,6 @@
-import app from '../server'
+import app from '../app'
 import User from '../db/models/user'
 import Users from '../db/collections/users'
-
 
 // app.post('/auth/login', authHandler.login)
 
@@ -15,10 +14,14 @@ import Users from '../db/collections/users'
 
 // app.post('/api/budget/category/:id', apiHandler.budget)
 
-// app.get('/test', (req, res) => {
-//   const user = new User({first_name: 'Lucilla', last_name: 'chalmer', phone_number: 7344749351, uuid: '123ABC'})
-//   Users.create(user).then(() => {
-//     console.log('user has been created!!! YAY!!!')
-//     res.send('Cool story bro')
-//   })
-// })
+app.get('/test', (req, res) => {
+    let user = new User({phone_number: 7344749351})
+    user.fetch().then((user) => {
+      console.log('user has been created!!! YAY!!!')
+      res.json(user)
+    })
+})
+
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/../public/index.html');
+});
