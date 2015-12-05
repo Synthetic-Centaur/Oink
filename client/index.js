@@ -38,7 +38,7 @@ import {createStore, combineReducers, compose, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 import {Provider} from 'react-redux';
 import {Router, Route} from 'react-router';
-import createBrowserHistory from 'history/lib/createBrowserHistory';
+import createHistory from 'history/lib/createHashHistory';
 import {syncReduxAndRouter, routeReducer} from 'redux-simple-router';
 
 import reducers from './reducers/reducers';
@@ -88,7 +88,9 @@ function configureStore(initialState) {
 
 const initialState = window.__INITIAL_STATE__
 const store = configureStore(initialState);
-const history = createBrowserHistory();
+const history = createHistory({
+  queryKey: false
+});
 
 syncReduxAndRouter(history, store);
 
