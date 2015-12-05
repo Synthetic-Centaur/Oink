@@ -22,15 +22,39 @@ function receiveError(data) {
 
 export function postLogin(data) {
   return function(dispatch) {
+    console.log(123)
     dispatch(requestData())
-    return axios.post('/auth/login', {
+    // return axios.post('/auth/login', {
+    //   email: data.email,
+    //   password: data.password
+    // })
+    // .then((response) => {
+    //   if (response.status === 200) {
+    //     dispatch(receiveData(response.data))
+    //     dispatch(updatePath('/home'))
+    //   }
+    // })
+    // .catch((response) => {
+    //   dispatch(receiveError(response.data))
+    //   console.error(response)
+    // });
+  }
+}
+
+export function postSignup(data) {
+  return function(dispatch) {
+    dispatch(requestData())
+    return axios.post('/auth/signup', {
       email: data.email,
-      password: data.password
+      password: data.password,
+      firstName: data.firstName,
+      lastName: data.lastName,
+      phone: data.phone
     })
     .then((response) => {
       if (response.status === 200) {
         dispatch(receiveData(response.data))
-        dispatch(updatePath('/home'))
+        dispatch(updatePath('/plaid'))
       }
     })
     .catch((response) => {
