@@ -2,29 +2,47 @@ import React, { Component, PropTypes } from 'react'
 import TextField from 'material-ui/lib/text-field'
 import RaisedButton from 'material-ui/lib/raised-button'
 import {Link} from 'react-router'
+import axios from 'axios'
 
 class Login extends Component {
+  handleSignup() {
+    let firstName = this.refs.firstName.getValue()
+    let lastName = this.refs.lastName.getValue()
+    let phone = this.refs.phone.getValue()
+    let password = this.refs.password.getValue()
+    // axios.post('/auth/signup', {
+    //   firstName: firstName,
+    //   lastName: lastName,
+    //   phone: phone,
+    //   password: password
+    // })
+    //   .then((response) => {
+    //     console.log(response.status);
+    //   })
+
+  }
+
   render() {
     return (
         <div className="container">
           <div className="row">
-            <TextField hintText="First Name"/>
+            <TextField ref="firstName" hintText="First Name"/>
           </div>
           <div className="row">
-            <TextField hintText="Last Name"/>
+            <TextField ref="lastName" hintText="Last Name"/>
           </div>
           <div className="row">
-            <TextField hintText="Phone"/>
+            <TextField ref="phone" hintText="Phone"/>
           </div>
           <div className="row">
-            <TextField hintText="Email"/>
+            <TextField ref="email" hintText="Email"/>
           </div>
           <div className="row">
-            <TextField hintText="Password"/>
+            <TextField ref="password" hintText="Password"/>
           </div>
           <div className="row">
             <Link to='/signup'>
-              <RaisedButton label="Signup"/>
+              <RaisedButton label="Signup" onClick={this.handleSignup.bind(this)}/>
             </Link>
           </div>
         </div>
