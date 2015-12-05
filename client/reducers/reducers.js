@@ -10,7 +10,6 @@ function loginReducer (state = {
     case 'RECV_DATA':
       return Object.assign({}, state, {isLoading: false, data: action.data, error: false})
     case 'REQ_DATA':
-      console.log('we are in loginReducer')
       return Object.assign({}, state, {isLoading: true, error: false})
     default:
       return state

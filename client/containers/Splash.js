@@ -6,24 +6,31 @@ import { postLogin } from '../actions/actions'
 
 class Splash extends Component {
   render() {
+    const { actions } = this.props
     return (
         <div>
-          <Login login={postLogin} />
+          <Login login={actions.postLogin} />
         </div>
       );
   }
 }
 
+Splash.propTypes = {
+  actions: PropTypes.object.isRequired
+}
+
 function mapStateToProps(state) {
   return {
-    
+    isLoading: state.isLoading,
+    data: state.data,
+    error: state.error
   }
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    postLogin: postLogin
-  }, dispatch)
+  return {
+    actions: bindActionCreators({ postLogin: postLogin }, dispatch)
+  }
 }
 
 

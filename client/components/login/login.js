@@ -7,12 +7,10 @@ class Login extends Component {
   handleLogin() {
     let email = this.refs.email.getValue();
     let password = this.refs.password.getValue();
-    
     this.props.login({
       email: email,
       password: password
     })
-    
   }
   render() {
     console.log('this in render: ', this);

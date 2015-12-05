@@ -31,10 +31,10 @@ injectTapEventPlugin();
 
 const finalCreateStore = compose(
   // Provides support for DevTools:
+  applyMiddleware(thunk),
   devTools(),
   // Lets you write ?debug_session=<name> in address bar to persist debug sessions
   persistState(window.location.href.match(/[?&]debug_session=([^&]+)\b/)),
-  applyMiddleware(thunk)
 )(createStore);
 
 function configureStore(initialState) {
