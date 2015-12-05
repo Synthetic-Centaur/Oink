@@ -4,14 +4,18 @@ import Budget from './budget'
 import User from './user'
 
 export default class Category extends db.Model {
-  tableName: 'categories',
+  constructor(attributes){
+    super()
+    this.tableName = 'categories'
+    this.attributes = attributes
+  }
 
   transactions(){
     return this.belongsToMany(Transaction)
-  },
+  }
   users(){
     return this.belongsToMany(User).through(Budget)
-  },
+  }
 
   initialize(obj){
 

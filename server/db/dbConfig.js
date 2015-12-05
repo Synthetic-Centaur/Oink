@@ -7,12 +7,12 @@ const config = knex({
     port: 5432,
     user: 'admin', 
     password: 'admin',
-    database: 'Oink',
+    database: 'oink',
     charset: 'UTF8_GENERAL_CI'
   }
 })
 
-export default const db = Bookshelf(config)
+const db = Bookshelf(config)
 
 db.knex.schema.hasTable('users').then( (exists) => {
   if (!exists) {
@@ -20,9 +20,9 @@ db.knex.schema.hasTable('users').then( (exists) => {
       user.increments('id').primary()
       user.string('first_name', 255)
       user.string('last_name', 255)
-      user.integer('phone_number')
+      user.bigint('phone_number')
       user.timestamps()
-      user.uuid('uuid')
+      user.string('uuid')
     }).then((table) => {
       console.log("Created Users Table")
     })
@@ -70,3 +70,4 @@ db.knex.schema.hasTable('budgets').then( (exists) => {
   }
 })
 
+export default db

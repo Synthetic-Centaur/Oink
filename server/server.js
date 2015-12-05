@@ -16,10 +16,12 @@ import { Provider } from 'react-redux'
 import configureStore from '../client/store/configureStore'
 import App from '../client/containers/App'
 import { fetchCounter } from '../client/api/counter'
-import db from './config/dbConfig.js' 
-import Users from './config/dbConfig.js' 
+import db from './db/dbConfig.js' 
+import routes from './routes/routes'
+import User from './db/models/user'
+import Users from './db/collections/users'
 
-const app = new Express()
+var app = new Express()
 const port = 3000
 
 // Use this middleware to set up hot module reloading via webpack.
@@ -76,18 +78,26 @@ app.use(webpackHotMiddleware(compiler))
 //     `
 // }
 
+app.get('/test', (req, res) => {
+    let user = new User({phone_number: 7344749351})
+    user.fetch().then((user) => {
+      console.log('user has been created!!! YAY!!!')
+      res.json(user)
+    })
+})
 
 app.use(Express.static(__dirname + '/../public'));
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/../public/index.html');
 });
+// app.use(routes)
 
 
 app.listen(port, (error) => {
   if (error) {
     console.error(error)
   } else {
-    console.info(`==> 🌎  Listening on port ${port}. Open up http://localhost:${port}/ in your browser.`)
+    console.info(`==>   Listening on port ${port}. Open up http://localhost:${port}/ in your browser.`)
   }
 })
