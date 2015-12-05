@@ -79,7 +79,7 @@ app.use(webpackHotMiddleware(compiler))
 
 app.use(Express.static(__dirname + '/../public'));
 
-app.get('/', function(req, res) {
+app.get('/', (req, res) => {
   res.sendFile(__dirname + '/../public/index.html');
 });
 
