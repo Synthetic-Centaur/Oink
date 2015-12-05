@@ -3,7 +3,7 @@ import User from './user'
 import Category from './category'
 
 
-export class Transaction extends db.Model {
+export default class Transaction extends db.Model {
   tableName: 'transactions',
 
   categories(){
