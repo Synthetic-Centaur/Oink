@@ -2,25 +2,17 @@ import React, { Component, PropTypes } from 'react'
 import TextField from 'material-ui/lib/text-field'
 import RaisedButton from 'material-ui/lib/raised-button'
 import {Link} from 'react-router'
-import axios from 'axios'
 
 class Login extends Component {
   handleLogin() {
-    // console.log(this)
     let email = this.refs.email.getValue();
     let password = this.refs.password.getValue();
-    console.log(email, password);
     
-    // axios.post('/auth/login', {
-    //   email: email,
-    //   password: password
-    // })
-    // .then((response) => {
-    //   console.log(response.status);
-    // })
-    // .catch((response) => {
-    //   console.error(response);
-    // });
+    this.props.login({
+      email: email,
+      password: password
+    })
+    
   }
   render() {
     console.log('this in render: ', this);
@@ -46,7 +38,7 @@ class Login extends Component {
 }
 
 Login.propTypes = {
-
+  login: PropTypes.func.isRequired
 }
 
 export default Login

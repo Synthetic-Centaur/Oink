@@ -2,21 +2,21 @@ import 'babel-core/polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin'
-import {createStore, combineReducers, compose, applyMiddleware} from 'redux';
+import {createStore, compose, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 import {Provider} from 'react-redux';
 import {Router, Route} from 'react-router';
 import createHistory from 'history/lib/createHashHistory';
-import {syncReduxAndRouter, routeReducer} from 'redux-simple-router';
+import { syncReduxAndRouter } from 'redux-simple-router';
 
-import reducers from './reducers/reducers';
+import rootReducer from './reducers/index'
 import getRoutes from './root';
 
 // Redux DevTools store enhancers
 import {devTools, persistState} from 'redux-devtools';
 // React components for Redux DevTools
 import {DevTools, DebugPanel, LogMonitor} from 'redux-devtools/lib/react';
-import Login from './containers/Login';
+import Splash from './containers/Splash';
 import Signup from './containers/Signup';
 import Plaid from './containers/Plaid';
 
@@ -29,10 +29,6 @@ window.React = React;
 injectTapEventPlugin();
 
 
-const reducer = combineReducers(Object.assign({}, reducers, {
-  routing: routeReducer
-}));
-
 const finalCreateStore = compose(
   // Provides support for DevTools:
   devTools(),
@@ -42,7 +38,7 @@ const finalCreateStore = compose(
 )(createStore);
 
 function configureStore(initialState) {
-  const store = finalCreateStore(reducer, initialState)
+  const store = finalCreateStore(rootReducer, initialState)
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
@@ -67,7 +63,7 @@ ReactDOM.render(
   <div>
     <Provider store={store}>
       <Router history={history}>
-        <Route path="/" component={Login}/>
+        <Route path="/" component={Splash}/>
         <Route path="/signup" component={Signup}/>
         <Route path="/plaid" component={Plaid}/>
       </Router>
