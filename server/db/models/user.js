@@ -3,7 +3,7 @@ import Transaction from './transaction'
 import Category from './category'
 import Budget from './budget'
 
-export class User extends db.Model {
+export default class User extends db.Model {
   tableName: 'users',
 
   transactions(){
@@ -11,7 +11,7 @@ export class User extends db.Model {
   },
   categories(){
     return this.hasMany(Category).through(Budget)
-  }
+  },
   initialize(obj){
 
   }

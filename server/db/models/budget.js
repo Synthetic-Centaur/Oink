@@ -3,9 +3,8 @@ import Transaction from './transaction'
 import Category from './category'
 import Budget from './budget'
 
-export class Budget extends db.Model {
+export default class Budget extends db.Model {
   tableName: 'budgets',
   initialize(obj){
-
   }
 }

@@ -3,7 +3,7 @@ import Transaction from './transaction'
 import Budget from './budget'
 import User from './user'
 
-export class Category extends db.Model {
+export default class Category extends db.Model {
   tableName: 'categories',
 
   transactions(){
@@ -11,7 +11,7 @@ export class Category extends db.Model {
   },
   users(){
     return this.belongsToMany(User).through(Budget)
-  }
+  },
 
   initialize(obj){
 

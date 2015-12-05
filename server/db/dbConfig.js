@@ -12,7 +12,7 @@ const config = knex({
   }
 })
 
-export const db = Bookshelf(config)
+export default const db = Bookshelf(config)
 
 db.knex.schema.hasTable('users').then( (exists) => {
   if (!exists) {
