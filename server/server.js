@@ -17,20 +17,16 @@ import configureStore from '../client/store/configureStore'
 import App from '../client/containers/App'
 import { fetchCounter } from '../client/api/counter'
 import db from './db/dbConfig.js' 
+import app from './app'
 import routes from './routes/routes'
-import User from './db/models/user'
-import Users from './db/collections/users'
 
-var app = new Express()
 const port = 3000
 
 // Use this middleware to set up hot module reloading via webpack.
 const compiler = webpack(webpackConfig)
 app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: webpackConfig.output.publicPath }))
 app.use(webpackHotMiddleware(compiler))
-
-
-// app.use(handleRender)
+app.use(Express.static(__dirname + '/../public'));
 
 // function handleRender(req, res) {
 //   // Query our mock API asynchronously
@@ -77,21 +73,6 @@ app.use(webpackHotMiddleware(compiler))
 //     </html>
 //     `
 // }
-
-app.get('/test', (req, res) => {
-    let user = new User({phone_number: 7344749351})
-    user.fetch().then((user) => {
-      console.log('user has been created!!! YAY!!!')
-      res.json(user)
-    })
-})
-
-app.use(Express.static(__dirname + '/../public'));
-
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/../public/index.html');
-});
-// app.use(routes)
 
 
 app.listen(port, (error) => {
