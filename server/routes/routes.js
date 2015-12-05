@@ -1,6 +1,7 @@
-import app from '../app'
+import app from '../server'
 import User from '../db/models/user'
 import Users from '../db/collections/users'
+import path from 'path'
 
 // app.post('/auth/login', authHandler.login)
 
@@ -21,7 +22,3 @@ app.get('/test', (req, res) => {
       res.json(user)
     })
 })
-
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/../public/index.html');
-});
