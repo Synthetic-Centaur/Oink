@@ -1,24 +1,25 @@
 import app from '../server'
-import User from '../db/models/user'
-import Users from '../db/collections/users'
 import path from 'path'
 
-// app.post('/auth/login', authHandler.login)
+import authHandler from '../handlers/authHandler'
+import apiHandler from '../handlers/apiHandler'
 
-// app.get('/auth/logout', authHandler.logout)
+app.post('/auth/login', authHandler.login)
 
-// app.post('/auth/signup', authHandler.signup)
+app.get('/auth/logout', authHandler.logout)
 
-// app.get('/auth/authenticate', authHandler.authenticate)
+app.post('/auth/signup', authHandler.signup)
 
-// app.get('/api/intitialState', apiHandler.intitialState)
+app.get('/auth/authenticate', authHandler.authenticate)
 
-// app.post('/api/budget/category/:id', apiHandler.budget)
+app.get('/api/intitialState', apiHandler.intitialState)
 
-app.get('/test', (req, res) => {
-    let user = new User({phone_number: 7344749351})
-    user.fetch().then((user) => {
-      console.log('user has been created!!! YAY!!!')
-      res.json(user)
-    })
-})
+app.post('/api/budget/category/:id', apiHandler.budget)
+
+// app.get('/test', (req, res) => {
+//     let user = new User({first_name: 'Lucilla', last_name: 'Chalmer', phone_number: 7344749351, uuid: 'abc123'})
+//     user.save().then((user) => {
+//       console.log('user has been created!!! YAY!!!')
+//       res.json(user)
+//     })
+// })
