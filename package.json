@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "Behavioral Finance",
   "scripts": {
-    "start": "node server/index.js"
+    "start": "node --harmony server/index.js"
   },
   "repository": {
     "type": "git",
