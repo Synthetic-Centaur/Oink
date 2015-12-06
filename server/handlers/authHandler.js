@@ -1,38 +1,12 @@
 import authController from '../controllers/authController'
+import passport from 'passport'
 
 let authHandler = {
-  login(req, res) {
-    console.log("inside login handler")
-
-    let user = req.body
-    console.log(user);
-
-    // will need passport for this to work --> for now assuming if user is in db this is successful
-    authController.findUser(user)
-    .then((result) => {
-      if (result) {
-        // user was found in db
-        res.send(user)
-      } else {
-        // user was not found
-        res.sendStatus(404)
-      }
-    })
-  },
   logout(req, res) {
-    console.log("inside logout handler")
-    let user = req.body
-    // will need passport for this to work --> for now assuming if user is in db this is successful
-    authController.findUser(user)
-    .then( (result) => {
-      if (result) {
-        // user was found in db
-        res.send(user)
-      } else {
-        // user was not found
-        res.sendStatus(404)
-      }
-    })
+    //Deserializes user and destroys session
+    req.logout();
+    //Redirects to root
+    res.redirect('/');
   },
   signup(req, res) {
     console.log("inside signup handler")
