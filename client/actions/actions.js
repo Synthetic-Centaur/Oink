@@ -1,6 +1,6 @@
 import axios from 'axios'
 // import { pushState } from 'redux-react-router'
-import { updatePath } from 'redux-simple-router'
+import { updatePath, pushPath } from 'redux-simple-router'
 
 function requestData() {
   return { type: 'REQ_DATA' }
@@ -22,7 +22,6 @@ function receiveError(data) {
 
 export function postLogin(data) {
   return function(dispatch) {
-    console.log(123)
     dispatch(requestData())
     // return axios.post('/auth/login', {
     //   email: data.email,
@@ -44,22 +43,25 @@ export function postLogin(data) {
 export function postSignup(data) {
   return function(dispatch) {
     dispatch(requestData())
-    return axios.post('/auth/signup', {
-      email: data.email,
-      password: data.password,
-      firstName: data.firstName,
-      lastName: data.lastName,
-      phone: data.phone
-    })
-    .then((response) => {
-      if (response.status === 200) {
-        dispatch(receiveData(response.data))
-        dispatch(updatePath('/plaid'))
-      }
-    })
-    .catch((response) => {
-      dispatch(receiveError(response.data))
-      console.error(response)
-    });
+    dispatch(updatePath('/plaid'))
+    
+  //   return axios.post('/auth/signup', {
+  //     email: data.email,
+  //     password: data.password,
+  //     firstName: data.firstName,
+  //     lastName: data.lastName,
+  //     phone: data.phone
+  //   })
+  //   .then((response) => {
+  //     if (response.status === 200) {
+  //       dispatch(receiveData(response.data))
+  //       dispatch(updatePath('/plaid'))
+  //     }
+  //   })
+  //   .catch((response) => {
+  //     dispatch(receiveError(response.data))
+  //     console.error(response)
+  //   });
+  
   }
 }

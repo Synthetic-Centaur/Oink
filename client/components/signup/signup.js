@@ -8,8 +8,16 @@ class Login extends Component {
   handleSignup() {
     let firstName = this.refs.firstName.getValue()
     let lastName = this.refs.lastName.getValue()
+    let email = this.refs.email.getValue()
     let phone = this.refs.phone.getValue()
     let password = this.refs.password.getValue()
+    this.props.signup({
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      phone: phone,
+      password: password
+    })
     // axios.post('/auth/signup', {
     //   firstName: firstName,
     //   lastName: lastName,
