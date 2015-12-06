@@ -7,7 +7,7 @@ class Login extends Component {
     var sandboxHandler = Plaid.create({
       env: 'tartan',
       clientName: 'Client Name',
-      key: '3bb9f8bc60ad8053085f47569c0bed',
+      key: 'test_key',
       product: 'connect',
       onSuccess: function(public_token) {
         //send this public token to the server
