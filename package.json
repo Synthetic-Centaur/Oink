@@ -15,6 +15,7 @@
   },
   "homepage": "http://rackt.github.io/redux",
   "dependencies": {
+    "axios": "^0.7.0",
     "babel": "^5.8.21",
     "bcrypt": "^0.8.5",
     "body-parser": "^1.14.1",
@@ -23,6 +24,7 @@
     "express": "^4.13.3",
     "express-session": "^1.12.1",
     "knex": "^0.8.6",
+    "history": "^1.13.1",
     "material-ui": "^0.13.4",
     "morgan": "^1.6.1",
     "passport": "^0.3.2",
@@ -32,8 +34,10 @@
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
     "react-redux": "^4.0.0",
+    "react-router": "^1.0.0",
     "react-tap-event-plugin": "^0.2.1",
     "redux": "^3.0.0",
+    "redux-simple-router": "0.0.10",
     "redux-thunk": "^0.1.0",
     "serve-static": "^1.10.0"
   },
@@ -43,6 +47,7 @@
     "babel-plugin-react-transform": "^1.1.0",
     "babel-runtime": "^5.8.20",
     "react-transform-hmr": "^1.0.0",
+    "redux-devtools": "^2.1.5",
     "webpack": "^1.11.0",
     "webpack-dev-middleware": "^1.2.0",
     "webpack-hot-middleware": "^2.2.0"
