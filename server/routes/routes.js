@@ -3,8 +3,15 @@ import path from 'path'
 
 import authHandler from '../handlers/authHandler'
 import apiHandler from '../handlers/apiHandler'
+import passport from 'passport'
 
-app.post('/auth/login', authHandler.login)
+
+
+app.post('/auth/login', passport.authenticate('local', {
+  successRedirect: '/#/home',
+  failureRedirect: '/#/login',
+  failureFlash: true 
+})                                )
 
 app.get('/auth/logout', authHandler.logout)
 
