@@ -5,6 +5,9 @@ import {Link} from 'react-router'
 import axios from 'axios'
 
 class Login extends Component {
+  constructor(props, context) {
+    super(props, context)
+  }
   handleSignup() {
     let firstName = this.refs.firstName.getValue()
     let lastName = this.refs.lastName.getValue()

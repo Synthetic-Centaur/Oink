@@ -1,6 +1,5 @@
 import axios from 'axios'
-// import { pushState } from 'redux-react-router'
-import { updatePath, pushPath } from 'redux-simple-router'
+import { updatePath } from 'redux-simple-router'
 
 function requestData() {
   return { type: 'REQ_DATA' }
@@ -44,7 +43,8 @@ export function postSignup(data) {
   return function(dispatch) {
     dispatch(requestData())
     dispatch(updatePath('/plaid'))
-    
+
+
   //   return axios.post('/auth/signup', {
   //     email: data.email,
   //     password: data.password,
