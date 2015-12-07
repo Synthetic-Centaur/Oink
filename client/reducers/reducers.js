@@ -1,5 +1,4 @@
-
-function loginReducer (state = {
+function asyncStatusReducer (state = {
   isLoading: false,
   data: [],
   error: false
@@ -17,5 +16,5 @@ function loginReducer (state = {
 }
 
 export default {
-  loginReducer
+  asyncStatusReducer
 }

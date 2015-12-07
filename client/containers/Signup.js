@@ -1,14 +1,14 @@
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import SignupForm from '../components/signup/signup'
-import { postSignup } from '../actions/actions'
+import SignupForm from '../components/signup/SignupForm'
+import { postSignup } from '../api/authHandlers'
 import React, { Component, PropTypes } from 'react'
 
 class Signup extends Component {
   render() {
     const { actions } = this.props
     return (
-        <div>
+        <div className="container">
           <SignupForm signup={actions.postSignup} />
         </div>
       );

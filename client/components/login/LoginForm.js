@@ -1,10 +1,12 @@
 import React, { Component, PropTypes } from 'react'
 import TextField from 'material-ui/lib/text-field'
 import RaisedButton from 'material-ui/lib/raised-button'
-import {Link} from 'react-router'
+import { Link } from 'react-router'
 
 class Login extends Component {
-  handleLogin() {
+  handleLogin(e) {
+    e.preventDefault()
+    
     let email = this.refs.email.getValue();
     let password = this.refs.password.getValue();
     this.props.login({
@@ -13,9 +15,8 @@ class Login extends Component {
     })
   }
   render() {
-    console.log('this in render: ', this);
     return (
-        <div className="container">
+        <form>
           <div className="row">
             <TextField ref="email" hintText="email"/>
           </div>
@@ -30,7 +31,7 @@ class Login extends Component {
               <RaisedButton label="Signup"/>
             </Link>
           </div>
-        </div>
+        </form>
     )
   }
 }
