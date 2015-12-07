@@ -10,12 +10,13 @@ import createHistory from 'history/lib/createHashHistory';
 import { syncReduxAndRouter } from 'redux-simple-router';
 
 import rootReducer from './reducers/index'
-import getRoutes from './root';
+
+import configureStore from './store/configureStore'
 
 // Redux DevTools store enhancers
-import {devTools, persistState} from 'redux-devtools';
-// React components for Redux DevTools
-import {DevTools, DebugPanel, LogMonitor} from 'redux-devtools/lib/react';
+import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools/lib/react';
+
+// Import containers for React Router
 import Splash from './containers/Splash';
 import Signup from './containers/Signup';
 import Plaid from './containers/Plaid';
@@ -24,32 +25,9 @@ import Plaid from './containers/Plaid';
 //Needed for React Developer Tools
 window.React = React;
 
-//Needed for onTouchTap
-//Can go away when react 1.0 release
+//Needed for onTouchTap with Material UI
+//Can go away when react 1.0 releases
 injectTapEventPlugin();
-
-
-const finalCreateStore = compose(
-  // Provides support for DevTools:
-  applyMiddleware(thunk),
-  devTools(),
-  // Lets you write ?debug_session=<name> in address bar to persist debug sessions
-  persistState(window.location.href.match(/[?&]debug_session=([^&]+)\b/)),
-)(createStore);
-
-function configureStore(initialState) {
-  const store = finalCreateStore(rootReducer, initialState)
-
-  if (module.hot) {
-    // Enable Webpack hot module replacement for reducers
-    module.hot.accept('./reducers', () => {
-      const nextRootReducer = require('./reducers')
-      store.replaceReducer(nextRootReducer)
-    })
-  }
-
-  return store
-}
 
 const initialState = window.__INITIAL_STATE__
 const store = configureStore(initialState);
@@ -63,13 +41,13 @@ ReactDOM.render(
   <div>
     <Provider store={store}>
       <Router history={history}>
-        <Route path="/" component={Splash}/>
-        <Route path="/signup" component={Signup}/>
-        <Route path="/plaid" component={Plaid}/>
+        <Route path="/" component={Splash} />
+        <Route path="/signup" component={Signup} />
+        <Route path="/plaid" component={Plaid} />
       </Router>
     </Provider>
     <DebugPanel top right bottom>
-      <DevTools store={store} monitor={LogMonitor} visibleOnLoad={false}/>
+      <DevTools store={store} monitor={LogMonitor} visibleOnLoad={false} />
     </DebugPanel>
   </div>,
   document.getElementById('app')
