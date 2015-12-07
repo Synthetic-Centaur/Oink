@@ -10,3 +10,4 @@ node_modules/
 bower_components/
 public/bundle.js
 npm-debug.log
+coverage/
