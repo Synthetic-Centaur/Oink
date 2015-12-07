@@ -1,15 +1,15 @@
 import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import Login from '../components/login/login'
-import { postLogin } from '../actions/actions'
+import LoginForm from '../components/login/LoginForm'
+import { postLogin } from '../api/authHandlers'
 
 class Splash extends Component {
   render() {
     const { actions } = this.props
     return (
-        <div>
-          <Login login={actions.postLogin} />
+        <div className="container">
+          <LoginForm login={actions.postLogin} />
         </div>
       );
   }
@@ -32,7 +32,5 @@ function mapDispatchToProps(dispatch) {
     actions: bindActionCreators({ postLogin: postLogin }, dispatch)
   }
 }
-
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(Splash)
