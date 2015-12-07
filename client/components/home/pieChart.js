@@ -5,7 +5,7 @@ import ReactHighCharts from 'react-highcharts/dist/bundle/highcharts'
 
 class pieChart extends Component {
   render() {
-    const config = {
+    let config = {
       chart: {
         plotBackgroundColor: null,
         plotBorderWidth: null,
@@ -62,7 +62,7 @@ class pieChart extends Component {
   }
 
   componentDidMount() {
-    //here we can access high char
+    //here we can access high charts and change data accordingly
   }
 }
 
