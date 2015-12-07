@@ -20,6 +20,7 @@ import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools/lib/react';
 import Splash from './containers/Splash';
 import Signup from './containers/Signup';
 import Plaid from './containers/Plaid';
+import Home from './containers/Home';
 
 
 //Needed for React Developer Tools
@@ -41,9 +42,10 @@ ReactDOM.render(
   <div>
     <Provider store={store}>
       <Router history={history}>
-        <Route path="/" component={Splash} />
-        <Route path="/signup" component={Signup} />
-        <Route path="/plaid" component={Plaid} />
+        <Route path="/" component={Splash}/>
+        <Route path="/signup" component={Signup}/>
+        <Route path="/plaid" component={Plaid}/>
+        <Route path="/home" component={Home}/>
       </Router>
     </Provider>
     <DebugPanel top right bottom>
