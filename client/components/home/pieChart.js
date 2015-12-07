@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import ReactDOM from 'react-dom'
 import ReactHighCharts from 'react-highcharts/dist/bundle/highcharts'
-// import $ from 'jquery'
 
 class pieChart extends Component {
   render() {
