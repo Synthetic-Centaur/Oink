@@ -1,12 +1,14 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import PieChart from '../components/home/pieChart'
+import PieChart from '../components/home/PieChart'
+import BudgetCategories from '../components/home/BudgetCategories'
 
 class Home extends Component {
   render() {
     return (
-      <div>
+      <div className="container">
+        <BudgetCategories />
         <PieChart />
       </div>
     )

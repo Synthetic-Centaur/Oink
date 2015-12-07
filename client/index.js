@@ -21,6 +21,7 @@ import Splash from './containers/Splash';
 import Signup from './containers/Signup';
 import Plaid from './containers/Plaid';
 import Home from './containers/Home';
+// import Routes from './routes'
 
 
 //Needed for React Developer Tools
