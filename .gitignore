@@ -8,5 +8,6 @@ dist/
 .Trashes
 node_modules/
 bower_components/
+client/config/authKeys.js
 public/bundle.js
 npm-debug.log

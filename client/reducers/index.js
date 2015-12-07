@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux'
 import { routeReducer } from 'redux-simple-router';
-import { loginReducer } from './reducers'
+import { asyncStatusReducer } from './reducers'
 
 const rootReducer = combineReducers({
-  loginReducer: loginReducer,
+  asyncStatus: asyncStatusReducer,
   routing: routeReducer
 });
 
