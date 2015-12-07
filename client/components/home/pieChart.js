@@ -5,10 +5,6 @@ import ReactHighCharts from 'react-highcharts/dist/bundle/highcharts'
 
 class pieChart extends Component {
   render() {
-    // const divStyle = {
-    //   width: 400,
-    //   height: 400
-    // }
     const config = {
       chart: {
         plotBackgroundColor: null,
@@ -63,6 +59,10 @@ class pieChart extends Component {
       <ReactHighCharts config={config} ref="chart"></ReactHighCharts>
     )
 
+  }
+
+  componentDidMount() {
+    //here we can access high char
   }
 }
 
