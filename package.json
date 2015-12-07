@@ -15,7 +15,6 @@
   },
   "homepage": "http://rackt.github.io/redux",
   "dependencies": {
-    "axios": "^0.7.0",
     "babel": "^5.8.21",
     "bcrypt": "^0.8.5",
     "body-parser": "^1.14.1",
