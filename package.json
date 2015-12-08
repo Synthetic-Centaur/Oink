@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "description": "Behavioral Finance",
   "scripts": {
-    "start": "node --harmony server/index.js"
+    "start": "node --harmony server/index.js",
+    "test": "karma start"
   },
   "repository": {
     "type": "git",
@@ -47,8 +48,22 @@
     "babel-loader": "^5.3.2",
     "babel-plugin-react-transform": "^1.1.0",
     "babel-runtime": "^5.8.20",
+    "chai": "^3.4.1",
+    "isparta-instrumenter-loader": "^1.0.0",
+    "karma": "^0.13.9",
+    "karma-chai": "^0.1.0",
+    "karma-coverage": "^0.5.3",
+    "karma-mocha": "^0.2.0",
+    "karma-mocha-reporter": "^1.1.1",
+    "karma-phantomjs-launcher": "^0.2.1",
+    "karma-phantomjs-shim": "^1.1.1",
+    "karma-sourcemap-loader": "^0.3.5",
+    "karma-webpack": "^1.7.0",
+    "mocha": "^2.3.4",
+    "phantomjs": "^1.9.19",
     "react-transform-hmr": "^1.0.0",
     "redux-devtools": "^2.1.5",
+    "requirejs": "^2.1.22",
     "webpack": "^1.11.0",
     "webpack-dev-middleware": "^1.2.0",
     "webpack-hot-middleware": "^2.2.0"
