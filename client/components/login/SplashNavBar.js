@@ -3,24 +3,21 @@ import FlatButton from 'material-ui/lib/flat-button'
 import { Link } from 'react-router'
 
 class SplashNavBar extends Component {
-  openLogin() {
-
-  }
   render() {
-    const { showLoginModal } = this.props
+    const { showLoginModal, showSignupModal } = this.props
     return (
       <div className="container">
-        <FlatButton
-          className="u-pull-right"
-          label="login"
-          onTouchTap={showLoginModal}/>
+        <h5 className="u-pull-left">Oink Financial.</h5>
+        <button className="u-pull-right" onClick={showLoginModal}>LOGIN</button>
+        <button className="u-pull-right" onClick={showSignupModal}>SIGNUP</button>
       </div>
     )
   }
 }
 
 SplashNavBar.propTypes = {
-  showLoginModal: PropTypes.func
+  showLoginModal: PropTypes.func.isRequired,
+  showSignupModal: PropTypes.func
 }
 
 export default SplashNavBar

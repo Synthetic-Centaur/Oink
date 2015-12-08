@@ -6,7 +6,7 @@ import Dialog from 'material-ui/lib/dialog'
 import { Link } from 'react-router'
 
 class Login extends Component {
-  componentWillUpdate() {
+  componentDidUpdate() {
     if (this.props.showLogin) {
       this.refs.modal.show()
     }
@@ -23,6 +23,7 @@ class Login extends Component {
   }
   handleCancel(e) {
     e.preventDefault()
+    this.props.hideLoginModal()
     this.refs.modal.dismiss()
   }
   render() {
@@ -42,10 +43,11 @@ class Login extends Component {
     return (
       <Dialog
         ref="modal"
-        title="Signup for an Account"
+        title="Sign into Your Account"
         actions={modalActions}
         autoDetectWindowHeight={true}
         autoScrollBodyContent={true}
+        modal={true}
       >
         <div className="signup-content">
           <form>
@@ -68,7 +70,9 @@ class Login extends Component {
 }
 
 Login.propTypes = {
-  login: PropTypes.func.isRequired
+  login: PropTypes.func.isRequired,
+  showLogin: PropTypes.bool.isRequired,
+  hideLoginModal: PropTypes.func
 }
 
 export default Login
