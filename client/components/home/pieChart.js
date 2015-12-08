@@ -1,9 +1,11 @@
 import React, { Component, PropTypes } from 'react'
 import ReactDOM from 'react-dom'
 import ReactHighCharts from 'react-highcharts/dist/bundle/highcharts'
+import chartConfig from './config/chartConfig'
 
 class pieChart extends Component {
   render() {
+    //let config = chartConfig(data)
     let config = {
       chart: {
         plotBackgroundColor: null,
