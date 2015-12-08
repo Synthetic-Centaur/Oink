@@ -5,7 +5,7 @@ import chartConfig from './config/chartConfig'
 
 class pieChart extends Component {
   render() {
-    //let config = chartConfig(data)
+    //let config = chartConfig(this.props.budgetData)
     let config = {
       chart: {
         plotBackgroundColor: null,
@@ -38,8 +38,6 @@ class pieChart extends Component {
         }, {
             name: 'Chrome',
             y: 24.03,
-            sliced: true,
-            selected: true
         }, {
             name: 'Firefox',
             y: 10.38
@@ -57,7 +55,7 @@ class pieChart extends Component {
     }
 
     return (
-      <ReactHighCharts config={config} ref="chart"></ReactHighCharts>
+      <ReactHighCharts config={config} ref="chart" />
     )
 
   }
