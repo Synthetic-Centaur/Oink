@@ -1,7 +1,19 @@
 /* Shared
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
+button {
+  border: none;
+}
+
 .button {
   border-radius: 100px;
+}
+
+.first-image {
+  background: url('http://s3.amazonaws.com/usersthink/01-large.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 /* Sections
