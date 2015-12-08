@@ -6,9 +6,9 @@ import BudgetCategories from '../components/home/BudgetCategories'
 import { getInitialState, postBudget } from '../api/apiHandlers'
 
 class Home extends Component {
-  // init() {
-  //   this.props.getInitialState();
-  // }
+  init() {
+    // this.props.actions.getInitialState();
+  }
 
   render() {
     const { actions } = this.props
@@ -20,9 +20,9 @@ class Home extends Component {
     )
   }
 
-  // componentDidMount() {
-  //   this.init();
-  // }
+  componentDidMount() {
+    this.init();
+  }
 }
 
 Home.PropTypes = {
