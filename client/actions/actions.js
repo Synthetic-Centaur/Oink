@@ -38,6 +38,7 @@ export function showLogin() {
 }
 
 // We should hide the pop-up login modal
+
 export function hideLogin() {
   /* Dispatch is the dispatch from the Redux store
    We must call dispatch so a reducer can act on this action appropriately */
@@ -62,6 +63,31 @@ export function hideSignup() {
   return (dispatch) => {
     dispatch({
       type:'HIDE_SIGNUP'
+    })
+  }
+}
+
+export function categoryValidation(boolean, category) {
+  if (!boolean) {
+    return (dispatch) => {
+      type: 'ALLOW_CAT'
+      payload: category
+    }
+  } else {
+    return (dispatch) => {
+      type: 'DISABLE_CAT'
+    }
+  }
+}
+
+export function numberValidation(boolean) {
+  if (boolean) {
+    return (dispatch) => {
+      type: 'ALLOW_NUM'
+    }
+  } else {
+    return (dispatch => {
+      type: 'DISABLE_NUM'
     })
   }
 }

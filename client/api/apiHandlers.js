@@ -23,9 +23,7 @@ export function getInitialState() {
 
 export function postBudget(data) {
   console.log('in postBudget', data);
-  const categories = {
-    //this might be populated with the corresponding id's of each category
-  }
+
   // return function(dispatch) {
   //   dispatch(ACTIONS.requestData());
   //   return fetch('/api/budget/category/' + id, {

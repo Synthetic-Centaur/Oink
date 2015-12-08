@@ -9,29 +9,36 @@ class budgetCategories extends React.Component{
     this.state = {
       numError: true,
       catError: true,
-      numErrorText: 'Please enter a number.',
-      catErrorText: 'Please choose a category.',
       category: ''
     };
   }
 
+  componentDidUpdate() {
+
+  }
+  //form-validation for input field/budget amount
   handleNumError(e) {
     var value = e.target.value;
     var isNumeric = !isNaN(parseFloat(value)) && isFinite(value);
-    this.setState({
-      numError: isNumeric ? false : true
-    })
+    // this.setState({
+    //   numError: isNumeric ? false : true
+    // })
+    this.props.numberValidation(isNumeric)
   }
 
+  //form-validation for drop-down field/budget category
   handleCatError(e) {
     var value = e.target.value;
-    this.setState({
-      catError: value !== 'Choose a category' ? false : true,
-      category: value
-    })
+    var isChosen = value !== 'Choose a category' ? false : true
+    // this.setState({
+    //   catError: value !== 'Choose a category' ? false : true,
+    //   category: value
+    // })
+    this.props.categoryValidation(isChosen, value)
 
   }
 
+  //pass budget to server and update state
   handleBudget(e) {
     e.preventDefault()
 
@@ -45,6 +52,7 @@ class budgetCategories extends React.Component{
   }
 
   render() {
+    console.log(this.props);
     let menuItems = [
       { payload: 'Choose a category', text: 'Choose a category'},
       { payload: 'Option 1', text: 'Option 1'},
@@ -56,14 +64,14 @@ class budgetCategories extends React.Component{
           <DropDownMenu 
             ref="category"
             menuItems={menuItems}
-            errorText={this.state.catErrorText}
+            errorText="Please choose a category."
             onChange={this.handleCatError.bind(this)} />
         </div>
         <div className="row">
           <TextField 
             ref="amount" 
             hintText="Enter a sum"
-            errorText={this.state.numErrorText}
+            errorText="Please enter a number."
             defaultValue="abc"
             onChange={this.handleNumError.bind(this)} />
         </div>
