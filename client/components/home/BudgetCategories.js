@@ -78,7 +78,7 @@ class budgetCategories extends React.Component{
         <div className="row">
           <RaisedButton 
             label="Add new category"
-            disabled={this.state.numError || this.state.catError}
+            disabled={this.props.numberError || this.props.categoryError}
             onClick={this.handleBudget.bind(this)} />
         </div>
       </form>
