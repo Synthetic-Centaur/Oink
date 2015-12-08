@@ -6,10 +6,13 @@ class SplashNavBar extends Component {
   render() {
     const { showLoginModal, showSignupModal } = this.props
     return (
-      <div className="container">
-        <h5 className="u-pull-left">Oink Financial.</h5>
-        <button className="u-pull-right" onClick={showLoginModal}>LOGIN</button>
-        <button className="u-pull-right" onClick={showSignupModal}>SIGNUP</button>
+      <div className="container splash-nav">
+          <h5 className="u-pull-left">ink Financial.</h5>
+          <span>
+            <img className="logo-oink" alt="Oink Financial Logo" src="/images/Logo-small.png"/>
+          </span>
+          <button className="u-pull-right" onClick={showLoginModal}>LOGIN</button>
+          <button className="u-pull-right" onClick={showSignupModal}>SIGNUP</button>
       </div>
     )
   }

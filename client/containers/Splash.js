@@ -32,7 +32,7 @@ class Splash extends Component {
                   <h4 className="hero-heading">Change your daily spending habits by creating intelligent budgets. Welcome to Oink.</h4>
                 </div>
                 <div className="one-half column logo-container">
-                  <img className="logo" alt="Oink Financial Logo" src="/images/Logo.png"/>
+                  
                 </div>
               </div>
             </div>
