@@ -7,11 +7,7 @@ import passport from 'passport'
 
 
 
-app.post('/auth/login', passport.authenticate('local', {
-  successRedirect: '/#/home',
-  failureRedirect: '/#/login',
-  failureFlash: true 
-})                                )
+app.post('/auth/login', authHandler.login)
 
 app.get('/auth/logout', authHandler.logout)
 
