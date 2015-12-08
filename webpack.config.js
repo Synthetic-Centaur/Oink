@@ -18,6 +18,7 @@ module.exports = {
     new webpack.NoErrorsPlugin()
   ],
   module: {
+    
     loaders: [
       {
         test: /\.js$/,
