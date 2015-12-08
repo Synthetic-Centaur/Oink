@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux'
 import { routeReducer } from 'redux-simple-router';
-<<<<<<< HEAD
-import { asyncStatusReducer, splashPageReducer } from './reducers'
+import { asyncStatusReducer, splashPageReducer, homePageReducer } from './reducers'
 
 /***********************************************************************************
 The route reducer will take the Redux store's state and slice it up by its keys

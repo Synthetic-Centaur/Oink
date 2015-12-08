@@ -14,7 +14,7 @@ class budgetCategories extends React.Component{
   }
 
   componentDidUpdate() {
-
+    console.log("is component updating? ", this.props)
   }
   //form-validation for input field/budget amount
   handleNumError(e) {
