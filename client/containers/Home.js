@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import PieChart from '../components/home/PieChart'
 import BudgetCategories from '../components/home/BudgetCategories'
 import { getInitialState, postBudget } from '../api/apiHandlers'
+import { numberValidation, categoryValidation } from '../actions/actions'
 
 class Home extends Component {
   init() {
@@ -11,10 +12,16 @@ class Home extends Component {
   }
 
   render() {
-    const { actions, data } = this.props
+    const { actions, formPage } = this.props
     return (
       <div className="container">
-        <BudgetCategories postBudget={ actions.postBudget } />
+        <BudgetCategories 
+          postBudget={ actions.postBudget }
+          numberValidation={ actions.numberValidation } 
+          categoryValidation={ actions.categoryValidation }
+          numberError={ formPage.numberError }
+          categoryError={ formPage.categoryError }
+          category={ formPage.category }  />
         <PieChart budgetData={ data }/>
       </div>
     )
@@ -33,13 +40,19 @@ function mapStateToProps(state) {
   return {
     isLoading: state.isLoading,
     data: state.data,
-    error: state.error
+    error: state.error,
+    formPage: state.formPage
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({ getInitialState: getInitialState, postBudget, postBudget }, dispatch)
+    actions: bindActionCreators({ 
+      getInitialState, 
+      postBudget,
+      numberValidation,
+      categoryValidation
+    }, dispatch)
   }
 }
 

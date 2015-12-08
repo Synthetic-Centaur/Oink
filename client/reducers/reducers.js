@@ -47,7 +47,25 @@ function splashPageReducer (state = {
   }
 }
 
+function homePageReducer (state = {
+  numberError: true,
+  categoryError: true,
+  category: ''
+}, action = null) {
+  switch(action.type) {
+    case 'ALLOW_NUM':
+      return Object.assign({}, state, {numberError: false})
+    case 'DISABLE_NUM':
+      return Object.assign({}, state, {numberError: true})
+    case 'ALLOW_CAT':
+      return Object.assign({}, state, {categoryError: false, category: action.category})
+    case 'DISABLE_CAT':
+      return Object.assign({}, state, {categoryError: true})
+  }
+}
+
 export default {
   asyncStatusReducer,
-  splashPageReducer
+  splashPageReducer,
+  homePageReducer
 }
