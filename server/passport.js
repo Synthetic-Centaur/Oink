@@ -33,23 +33,45 @@ passport.deserializeUser( (id, done) => {
 })
 
 // Strategy for login
-passport.use('local', new LocalStrategy({
+passport.use('local-login', new LocalStrategy({
   //configuring for our request signature
   usernameField: 'email',
   passwordField: 'password',
   passReqToCallback: true
 }, (req, email, password, done) => {
   // Finds the user with provided email
-  authController.findUser({email: email}).then( (err, user) => {
+  authController.findUser({email: email}).then( (user) => {
     if (!user) {
-      return done(null, false, req.flash('loginMessage', 'No User Found'))
+      return done(null, false)
     }
     // Checks if provided password is valid
     if (!user.validPassword(password)) {
-      return done(null, false, req.flash('loginMessage', 'Incorrect Password'))
+      return done(null, false)
     }
     // If all good, pass it as success
     return done(null, user)
+  })
+}
+))
+
+passport.use('local-signup', new LocalStrategy({
+  //configuring for our request signature
+  usernameField: 'email',
+  passwordField: 'password',
+  passReqToCallback: true
+}, (req, email, password, done) => {
+  // Finds the user with provided email
+  authController.findUser({email: req.body.email}).then( (err, user) => {
+    if (!user) {
+      //If user is not in database, create user
+      authController.addUser(req.body).then( (newUser) => {
+        return done(null, newUser)
+      })
+    }
+    // If user found, cannot signup 
+    else {
+      return done(null, false, req.flash('loginMessage', 'User already exists'))
+    }
   })
 }
 ))
