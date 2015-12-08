@@ -68,8 +68,10 @@ passport.use('local-signup', new LocalStrategy({
         return done(null, newUser)
       })
     }
-    // If user found, cannot signup
-    return done(null, false, req.flash('loginMessage', 'User already exists'))
+    // If user found, cannot signup 
+    else {
+      return done(null, false, req.flash('loginMessage', 'User already exists'))
+    }
   })
 }
 ))

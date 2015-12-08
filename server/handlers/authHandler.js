@@ -21,13 +21,12 @@ let authHandler = {
   },
   signup(req, res) {
     passport.authenticate('local-signup', (err, user, next) => {
-      console.log(user)
       if (err) {
-        res.sendStatus(500)
+        res.status(500).send('Server Error')
       } else if (user) {
-        res.sendStatus(200)
+        res.status(200).send('User Created')
       } else {
-        res.sendStatus(409) 
+        res.status(409).send('Invalid Email')
       }
     })(req, res)
   },
