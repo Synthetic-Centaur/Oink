@@ -16,14 +16,29 @@ let authController = {
     })
   },
   findUser(user) {  
-    let newUser = new User(user)
+    let newUser = new User({email: user.email})
+    console.log('new user:', newUser)
     return newUser.fetch().then((user) => {
+      console.log('USER POST FETCH: ',user)
       if (user) {
         console.log('user found')
         return user;
       } else {
         console.log('user not found')
         return null;
+      }
+    })
+  },
+  saveToken(token, userID) {
+    let newUser = new User({id: userID})
+    return newUser.fetch().then((user) => {
+      if (user) {
+        user.attributes.token = token
+        console.log('USER', user)
+        return user.save()
+      } else {
+        // user was not found
+        console.log('Error: USER not found')
       }
     })
   }

@@ -15,10 +15,10 @@ export function postLogin(data) {
       })
     })
     .then((response) => {
+      console.log('STATUS',response.status)
       if (response.status === 200) {
         console.log(response)
-        dispatch(ACTIONS.receiveData(JSON.parse(response.body)))
-        dispatch(updatePath('/home'))
+        //dispatch(updatePath('/home'))
       }
     })
     .catch((err) => {
@@ -52,7 +52,7 @@ export function postSignup(data) {
     })
     .catch((err) => {
       dispatch(ACTIONS.receiveError(err))
-      console.error(err)
+      //console.error(err)
     });
   
   }
@@ -72,7 +72,7 @@ export function postPlaid(data) {
     })
     .then((response) => {
       if (response.status === 200) {
-        dispatch(ACTIONS.receiveData(JSON.parse(response.body)))
+        //dispatch(ACTIONS.receiveData(JSON.parse(response.body)))
         dispatch(updatePath('/home'))
       }
     })
