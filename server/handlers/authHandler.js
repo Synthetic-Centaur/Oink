@@ -2,6 +2,17 @@ import authController from '../controllers/authController'
 import passport from 'passport'
 
 let authHandler = {
+  login(req, res) {
+    passport.authenticate('local-login', (err, user, next) => {
+      if (err) {
+        res.sendStatus(500)
+      } else if (!user) {
+        res.sendStatus(409)
+      } else {
+        res.sendStatus(200)
+      }
+    })(req, res)
+  },
   logout(req, res) {
     //Deserializes user and destroys session
     req.logout();
@@ -9,27 +20,15 @@ let authHandler = {
     res.redirect('/');
   },
   signup(req, res) {
-    console.log("inside signup handler")
-    // assuming user passed as obj in req.body
-    let user = req.body
-    
-    authController.findUser(user)
-    .then((result) => {
-      if (!result) {
-        // if user is not in db add the user
-        authController.addUser(user).then( (newUser) => {
-          if (newUser) {
-            // ToDo: need to log newUser in --> call login controller
-            res.json(newUser)
-          } else {
-            res.sendStatus(500)
-          }
-        })
+    passport.authenticate('local-signup', (err, user, next) => {
+      if (err) {
+        res.status(500).send('Server Error')
+      } else if (user) {
+        res.status(200).send('User Created')
       } else {
-        // user is already in database
-        res.sendStatus(409)
+        res.status(409).send('Invalid Email')
       }
-    })
+    })(req, res)
   },
   authenticate(req, res) {
     console.log("inside authenticate handler")
