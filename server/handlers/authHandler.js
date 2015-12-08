@@ -1,4 +1,5 @@
 import authController from '../controllers/authController'
+import apiController from '../controllers/apiController'
 import passport from 'passport'
 
 let authHandler = {
@@ -41,6 +42,31 @@ let authHandler = {
       } else {
         // user was not found
         res.sendStatus(404)
+      }
+    })
+  }, 
+  plaid(req, res) {
+    console.log('inside auth handler plaid')
+    let public_token = req.body.public_token
+    apiController.tradeToken(public_token)
+    .then( (response) => {
+      if (response.statusCode === 200) {
+        // request was successful --> we now have private access token as response.access_token
+        // TODO update 1 to req.user
+        console.log('saving auth token')
+        authController.saveToken(response.access_token, 1)
+        .then( (response) => {
+          // if token attribute is not null the request was successful
+          if (response.attributes.token) {
+            res.sendStatus(201)
+          } else {
+            res.sendStatus(500)
+          }
+        })
+      } else {
+        // error handle
+        console.log(response)
+        res.sendStatus(500)
       }
     })
   }

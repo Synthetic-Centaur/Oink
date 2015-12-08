@@ -23,7 +23,7 @@ db.knex.schema.hasTable('users').then( (exists) => {
       user.string('last_name', 255)
       user.bigint('phone_number')
       user.string('email', 255)
-      user.string('uuid')
+      user.string('token')
     }).then((table) => {
       console.log("Created Users Table")
     })

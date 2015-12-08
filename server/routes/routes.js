@@ -13,6 +13,8 @@ app.post('/auth/signup', authHandler.signup)
 
 app.get('/auth/authenticate', authHandler.authenticate)
 
+app.post('/auth/plaid', authHandler.plaid)
+
 app.get('/api/intitialState', apiHandler.intitialState)
 
 app.post('/api/budget/category/:id', apiHandler.budget)
