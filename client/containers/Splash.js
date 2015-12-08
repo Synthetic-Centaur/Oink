@@ -11,18 +11,22 @@ class Splash extends Component {
     const { actions, splashPage } = this.props
     return (
       <div>
-        <div className="navbar">
-          <SplashNavBar showLoginModal={actions.showLogin} />
-        </div>
-        <div className="section hero">
-          <div className="container">
-            <div className="row">
-              <div className="one-half column">
-                <h4 className="hero-heading">Change your daily spending habits by creating intelligent budgets. Welcome to Oink.</h4>
-                <LoginForm login={actions.postLogin} showLogin={splashPage.showLogin} />
-              </div>
-              <div className="one-half column logo-container">
-                <img className="logo" alt="Oink Financial Logo" src="images/Logo.png"/>
+        <div className="first-image">
+          <SplashNavBar showLoginModal={actions.showLogin} showSignupModal={actions.showSignup} />
+          <div className="section hero">
+            <div className="container">
+              <div className="row">
+                <div className="one-half column">
+                  <h4 className="hero-heading">Change your daily spending habits by creating intelligent budgets. Welcome to Oink.</h4>
+                  <LoginForm 
+                  login={actions.postLogin} 
+                  showLogin={splashPage.showLogin}
+                  hideLoginModal={actions.hideLogin}
+                  />
+                </div>
+                <div className="one-half column logo-container">
+                  <img className="logo" alt="Oink Financial Logo" src="/images/Logo.png"/>
+                </div>
               </div>
             </div>
           </div>
