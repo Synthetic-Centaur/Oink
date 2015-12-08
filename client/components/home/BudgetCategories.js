@@ -10,7 +10,8 @@ class budgetCategories extends React.Component{
       numError: true,
       catError: true,
       numErrorText: 'Please enter a number.',
-      catErrorText: 'Please choose a category.'
+      catErrorText: 'Please choose a category.',
+      category: ''
     };
   }
 
@@ -25,27 +26,29 @@ class budgetCategories extends React.Component{
   handleCatError(e) {
     var value = e.target.value;
     this.setState({
-      catError: value > 1 ? false : true
+      catError: value !== 'Choose a category' ? false : true,
+      category: value
     })
+
   }
 
   handleBudget(e) {
-    e.preventDefault
+    e.preventDefault()
 
-    let category = this.refs.category.getValue()
+    let category = this.state.category
     let budget = this.refs.amount.getValue()
 
     this.props.postBudget({
       category: category,
-      buget: budget
+      budget: budget
     });
   }
 
   render() {
     let menuItems = [
-      { payload: '1', text: 'Choose a category'},
-      { payload: '2', text: 'Option 1'},
-      { payload: '3', text: 'Option 2'}
+      { payload: 'Choose a category', text: 'Choose a category'},
+      { payload: 'Option 1', text: 'Option 1'},
+      { payload: 'Option 2', text: 'Option 2'}
     ]
     return (
       <form>
