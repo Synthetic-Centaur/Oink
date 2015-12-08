@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux'
 import { routeReducer } from 'redux-simple-router';
+<<<<<<< HEAD
 import { asyncStatusReducer, splashPageReducer } from './reducers'
 
 /***********************************************************************************
@@ -10,7 +11,8 @@ as specified by the keys of the object passed into combineReducers. Each reducer
 const rootReducer = combineReducers({
   asyncStatus: asyncStatusReducer,
   splashPage: splashPageReducer,
-  routing: routeReducer
+  routing: routeReducer,
+  homePage: homePageReducer
 });
 
 // Export the rootReducer to build our final store in configureStore.js

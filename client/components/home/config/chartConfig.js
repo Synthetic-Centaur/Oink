@@ -1,3 +1,5 @@
+//configures data for High-chart
+
 function chartConfig(data) {
   //data should be formatted as an array with objects for data points
   let config = {
