@@ -1,9 +1,16 @@
 import React, { Component, PropTypes } from 'react'
 import TextField from 'material-ui/lib/text-field'
 import RaisedButton from 'material-ui/lib/raised-button'
+import FlatButton from 'material-ui/lib/flat-button'
+import Dialog from 'material-ui/lib/dialog'
 import { Link } from 'react-router'
 
 class Login extends Component {
+  componentWillUpdate() {
+    if (this.props.showLogin) {
+      this.refs.modal.show()
+    }
+  }
   handleLogin(e) {
     e.preventDefault()
     
@@ -14,24 +21,48 @@ class Login extends Component {
       password: password
     })
   }
+  handleCancel(e) {
+    e.preventDefault()
+    this.refs.modal.dismiss()
+  }
   render() {
+    let modalActions = [
+      <FlatButton
+        key={0}
+        label="Cancel"
+        secondary={true}
+        onTouchTap={this.handleCancel.bind(this)} />,
+      <FlatButton
+        key={1}
+        label="Submit"
+        primary={true}
+        onTouchTap={this.handleLogin.bind(this)} />
+    ];
+
     return (
-        <form>
-          <div className="row">
-            <TextField ref="email" hintText="email"/>
-          </div>
-          <div className="row">
-            <TextField ref="password" hintText="password"/>
-          </div>
-          <div className="row">
-            <RaisedButton label="Login" onClick={this.handleLogin.bind(this)}/>
-          </div>
-          <div className="row">
-            <Link to='/signup'>
-              <RaisedButton label="Signup"/>
-            </Link>
-          </div>
-        </form>
+      <Dialog
+        ref="modal"
+        title="Signup for an Account"
+        actions={modalActions}
+        autoDetectWindowHeight={true}
+        autoScrollBodyContent={true}
+      >
+        <div className="signup-content">
+          <form>
+            <div className="row">
+              <TextField ref="email" hintText="email"/>
+            </div>
+            <div className="row">
+              <TextField ref="password" type="password" hintText="password"/>
+            </div>
+            <div className="row">
+              <Link to='/signup'>
+                <p>or sign up</p>
+              </Link>
+            </div>
+          </form>
+        </div>
+      </Dialog>
     )
   }
 }
