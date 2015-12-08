@@ -51,7 +51,7 @@ class budgetCategories extends React.Component{
       { payload: 'Option 2', text: 'Option 2'}
     ]
     return (
-      <form>
+      <form className="u-pull-right">
         <div className="row">
           <DropDownMenu 
             ref="category"

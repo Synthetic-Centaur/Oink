@@ -11,11 +11,11 @@ class Home extends Component {
   }
 
   render() {
-    const { actions } = this.props
+    const { actions, data } = this.props
     return (
       <div className="container">
-        <BudgetCategories postBudget={ actions.postBudget }/>
-        <PieChart />
+        <BudgetCategories postBudget={ actions.postBudget } />
+        <PieChart budgetData={ data }/>
       </div>
     )
   }
