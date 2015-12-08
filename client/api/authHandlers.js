@@ -17,9 +17,12 @@ export function postLogin(data) {
     .then((response) => {
       console.log('STATUS',response.status)
       if (response.status === 200) {
-        console.log(response)
-        //dispatch(updatePath('/home'))
-        // dispatch(ACTIONS.receiveData(JSON.parse(response.body)))
+        dispatch(updatePath('/home'))
+        dispatch(ACTIONS.receiveData(null))
+      } else if (response.status === 409) {
+        console.log('User does not exist in DB')
+      } else if (response.status === 500) {
+        throw new Error('Error on the server', response)
       }
     })
     .catch((err) => {
@@ -47,13 +50,17 @@ export function postSignup(data) {
     })
     .then((response) => {
       if (response.status === 200) {
-        // dispatch(ACTIONS.receiveData(JSON.parse(response.body)))
-        // dispatch(updatePath('/plaid'))
+        dispatch(updatePath('/plaid'))
+        dispatch(ACTIONS.receiveData(null))
+      } else if (response.status === 409) {
+        console.log('Email or password invalid')
+      } else if (response.status === 500) {
+        throw new Error('Error on the server', response)
       }
     })
     .catch((err) => {
       dispatch(ACTIONS.receiveError(err))
-      //console.error(err)
+      console.error(err)
     });
   
   }
@@ -68,13 +75,15 @@ export function postPlaid(data) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        public_token: data.public_token,
+        public_token: data,
       })
     })
     .then((response) => {
-      if (response.status === 200) {
-        // dispatch(ACTIONS.receiveData(JSON.parse(response.body)))
+      if (response.status === 201) {
         dispatch(updatePath('/home'))
+        dispatch(ACTIONS.receiveData(null))
+      } else if (response.status === 500) {
+        throw new Error('Error on the server', response)
       }
     })
     .catch((err) => {
