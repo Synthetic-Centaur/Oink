@@ -68,26 +68,36 @@ export function hideSignup() {
 }
 
 export function categoryValidation(boolean, category) {
+  console.log('in cat val')
   if (!boolean) {
     return (dispatch) => {
-      type: 'ALLOW_CAT'
-      payload: category
+      dispatch({
+        type: 'ALLOW_CAT',
+        payload: category
+      })
     }
   } else {
     return (dispatch) => {
-      type: 'DISABLE_CAT'
+      dispatch({
+        type: 'DISABLE_CAT'
+      })
     }
   }
 }
 
 export function numberValidation(boolean) {
   if (boolean) {
+    console.log('should allow num')
     return (dispatch) => {
-      type: 'ALLOW_NUM'
+      dispatch({
+        type: 'ALLOW_NUM'
+      })
     }
   } else {
-    return (dispatch => {
-      type: 'DISABLE_NUM'
-    })
+    return (dispatch) => {
+      dispatch({
+        type: 'DISABLE_NUM'
+      })
+    }
   }
 }

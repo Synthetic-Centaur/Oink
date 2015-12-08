@@ -7,29 +7,29 @@ import { getInitialState, postBudget } from '../api/apiHandlers'
 import { numberValidation, categoryValidation } from '../actions/actions'
 
 class Home extends Component {
-  init() {
-    // this.props.actions.getInitialState();
-  }
+  // init() {
+  //   // this.props.actions.getInitialState();
+  // }
 
   render() {
-    const { actions, formPage } = this.props
+    const { actions, homePage } = this.props
     return (
       <div className="container">
         <BudgetCategories 
           postBudget={ actions.postBudget }
           numberValidation={ actions.numberValidation } 
           categoryValidation={ actions.categoryValidation }
-          numberError={ formPage.numberError }
-          categoryError={ formPage.categoryError }
-          category={ formPage.category }  />
-        <PieChart budgetData={ data }/>
+          numberError={ homePage.numberError }
+          categoryError={ homePage.categoryError }
+          category={ homePage.category }  />
+        <PieChart />
       </div>
     )
   }
 
-  componentDidMount() {
-    this.init();
-  }
+  // componentDidMount() {
+  //   this.init();
+  // }
 }
 
 Home.PropTypes = {
@@ -41,7 +41,7 @@ function mapStateToProps(state) {
     isLoading: state.isLoading,
     data: state.data,
     error: state.error,
-    formPage: state.formPage
+    homePage: state.homePage
   }
 }
 
