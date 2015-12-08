@@ -4,6 +4,10 @@ import ReactHighCharts from 'react-highcharts/dist/bundle/highcharts'
 import chartConfig from './config/chartConfig'
 
 class pieChart extends Component {
+  shouldComponentUpdate() {
+    return false;
+  }
+
   render() {
     //let config = chartConfig(this.props.budgetData)
     let config = {
