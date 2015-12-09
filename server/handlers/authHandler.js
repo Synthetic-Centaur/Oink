@@ -156,9 +156,8 @@ let authHandler = {
             apiController.getTransactions(user.attributes.token_plaid)
             //////////////////////////////////////////////////////////////////////////////////////
 
-            // TODO: add back in. Commented out for testing
             // send welcome message
-            //apiController.sendMessage('Hello ' + name + '! Welcome to Oink, Lets Budget Together!!', number)
+            apiController.sendMessage('Hello ' + name + '! Welcome to Oink, Lets Budget Together!!', number)
 
             res.sendStatus(201)
           } else {

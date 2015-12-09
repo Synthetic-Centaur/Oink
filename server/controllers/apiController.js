@@ -36,6 +36,7 @@ let apiController = {
     plaidClient.getConnectUser(plaid_token,
     {
       gte: '30 days ago',
+      // TODO: update webhook
       webhook: 'http://a2ec5c23.ngrok.io'
     },
     function (err, response) {
