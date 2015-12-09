@@ -32,10 +32,28 @@ button {
 .logo-container {
   position: relative;
 }
-.logo {
-  position: relative;
-  max-width: 80%;
-  margin: 6rem auto -12rem;
+.logo-oink {
+  position: absolute;
+  transform: scale(0.1, 0.1);
+  left: -28.5%;
+  top: -259%;
+}
+.container.splash-nav {
+  max-height: 50px;
+}
+
+.container.splash-nav span {
+  display: inline-block; /* to display the menu items as blocks in same line */
+  text-align: center; /* center align the text within the block */
+  width: 80%; /* set each block a width */
+  vertical-align: middle; /* align the contents to middle vertically */
+}
+
+.container.splash-nav button {
+  display: inline-block; /* to display the menu items as blocks in same line */
+  text-align: center; /* center align the text within the block */
+  width: 10%; /* set each block a width */
+  vertical-align: middle; /* align the contents to middle vertically */
 }
 
 /* Values
