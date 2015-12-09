@@ -26,9 +26,11 @@ export function postLogin(data) {
     })
     .then((data) => {
       window.sessionStorage.accessToken = data.jwt_token
+      
+      dispatch(ACTIONS.addJWT(data.jwt_token))
+      dispatch(ACTIONS.receiveData(null))
 
       dispatch(updatePath('/home'))
-      dispatch(ACTIONS.receiveData(null))
     })
     .catch((err) => {
       dispatch(ACTIONS.receiveError(err))
@@ -65,8 +67,10 @@ export function postSignup(data) {
     .then((data) => {
       window.sessionStorage.accessToken = data.jwt_token
 
-      dispatch(updatePath('/plaid'))
+      dispatch(ACTIONS.addJWT(data.jwt_token))
       dispatch(ACTIONS.receiveData(null))
+      
+      dispatch(updatePath('/plaid'))
     })
     .catch((err) => {
       dispatch(ACTIONS.receiveError(err))
@@ -104,8 +108,8 @@ export function postPlaid(data) {
   }
 }
 
-export function addJWT(jwt_token) {
+export function authRedirect() {
   return function(dispatch) {
-    dispatch(ACTIONS.addJWT(jwt_token))
+    dispatch(updatePath('/'))
   }
 }
