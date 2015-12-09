@@ -4,11 +4,14 @@ import ReactHighCharts from 'react-highcharts/dist/bundle/highcharts'
 import chartConfig from './config/chartConfig'
 
 class pieChart extends Component {
+
+  //Making sure pie chart does not refresh whenever input form is changed
   shouldComponentUpdate() {
     return false;
   }
 
   render() {
+    //Call chartconfig to configure highchart with user budget data
     //let config = chartConfig(this.props.budgetData)
     let config = {
       chart: {
@@ -58,12 +61,14 @@ class pieChart extends Component {
       }]
     }
 
+    //render highChart
     return (
       <ReactHighCharts config={config} ref="chart" />
     )
 
   }
 
+  //Dynamically change high chart as user adds new budget categories
   componentDidMount() {
     //here we can access high charts and change data accordingly
   }
