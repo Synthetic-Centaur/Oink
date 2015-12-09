@@ -18,12 +18,13 @@ db.knex.schema.hasTable('users').then( (exists) => {
   if (!exists) {
     db.knex.schema.createTable('users', (user) => {
       user.increments('id').primary()
+      user.text('token_auth')
       user.string('password', 255)
       user.string('first_name', 255)
       user.string('last_name', 255)
       user.bigint('phone_number')
       user.string('email', 255)
-      user.string('token')
+      user.text('token_plaid')
     }).then((table) => {
       console.log("Created Users Table")
     })
