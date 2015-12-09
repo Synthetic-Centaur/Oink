@@ -1,3 +1,17 @@
+/***************************************************************************************
+These are the reducers that manage changes to the state of our application.
+
+Each reducer takes in the current piece (a key on state defined in combineReducers)
+of state that it is responsible for managing. We provide default values for each of
+these pieces of state.
+
+The signature for a reducer is (state, action) => return state
+A reducer will return a new state, using Object.assign, depending on what actions was
+dispatched as the result of user interaction. If there is no relevant action, it will
+just return the current state. See actions folder and api folder for a list of 
+these actions.
+***************************************************************************************/
+
 function asyncStatusReducer (state = {
   isLoading: false,
   data: [],
