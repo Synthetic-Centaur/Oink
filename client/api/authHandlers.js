@@ -55,13 +55,18 @@ export function postSignup(data) {
     })
     .then((response) => {
       if (response.status === 200) {
-        dispatch(updatePath('/plaid'))
-        dispatch(ACTIONS.receiveData(null))
+        return response.json()
       } else if (response.status === 409) {
         console.log('Email or password invalid')
       } else if (response.status === 500) {
         throw new Error('Error on the server', response)
       }
+    })
+    .then((data) => {
+      window.sessionStorage.accessToken = data.jwt_token
+
+      dispatch(updatePath('/plaid'))
+      dispatch(ACTIONS.receiveData(null))
     })
     .catch((err) => {
       dispatch(ACTIONS.receiveError(err))
