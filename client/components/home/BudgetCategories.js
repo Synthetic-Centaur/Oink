@@ -4,18 +4,12 @@ import TextField from 'material-ui/lib/text-field'
 import RaisedButton from 'material-ui/lib/raised-button'
 
 class budgetCategories extends React.Component{
-  constructor (props) {
-    super(props);
-    this.state = {
-      numError: true,
-      catError: true,
-      category: ''
-    };
-  }
 
+  //Refresh state to undisable form
   componentDidUpdate() {
     console.log("is component updating? ", this.props)
   }
+
   //form-validation for input field/budget amount
   handleNumError(e) {
     var value = e.target.value;
@@ -38,7 +32,7 @@ class budgetCategories extends React.Component{
 
   }
 
-  //pass budget to server and update state
+  //send budget to server and update state
   handleBudget(e) {
     e.preventDefault()
 
@@ -71,12 +65,13 @@ class budgetCategories extends React.Component{
           <TextField 
             ref="amount" 
             hintText="Enter a sum"
-            errorText="Please enter a number."
             defaultValue="abc"
             onChange={this.handleNumError.bind(this)} />
         </div>
-        <div className="row">
+        <div className="row" className="four columns">
           <RaisedButton 
+            ref="input"
+            className="two columns offset-by-two"
             label="Add new category"
             disabled={this.props.numberError || this.props.categoryError}
             onClick={this.handleBudget.bind(this)} />

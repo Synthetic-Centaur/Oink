@@ -47,6 +47,7 @@ function splashPageReducer (state = {
   }
 }
 
+//Change state to allow or disallow form input
 function homePageReducer (state = {
   numberError: true,
   categoryError: true,
