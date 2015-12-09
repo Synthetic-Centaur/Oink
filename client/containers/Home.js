@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { authRedirect } from '../api/authHandlers'
+import { authRedirect, authLogout } from '../api/authHandlers'
 import PieChart from '../components/home/PieChart'
 import BudgetCategories from '../components/home/BudgetCategories'
 import NavBar from '../components/home/homeNavBar'
@@ -28,9 +28,10 @@ class Home extends Component {
     }
   }
   renderContent() {
+    const { actions, homePage } = this.props
     return (
       <div className="container">
-        <NavBar />
+        <NavBar logout={ actions.authLogout } />
         <BudgetCategories
           postBudget={ actions.postBudget }
           numberValidation={ actions.numberValidation } 
@@ -43,10 +44,10 @@ class Home extends Component {
       )
   }
   render() {
-    const { actions, homePage, isAuthenticated } = this.props
+    const { isAuthenticated } = this.props
     return (
       <div>
-        {isAuthenticated ? this.renderContent() : null }
+        { isAuthenticated ? this.renderContent() : null }
       </div>
     )
   }
@@ -80,7 +81,8 @@ function mapDispatchToProps(dispatch) {
       postBudget,
       numberValidation,
       categoryValidation,
-      authRedirect
+      authRedirect,
+      authLogout
     }, dispatch)
   }
 }
