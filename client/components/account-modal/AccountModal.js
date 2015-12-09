@@ -71,14 +71,12 @@ class AccountModal extends Component {
         key={0}
         label="Cancel"
         secondary={true}
-        onTouchTap={this.handleCancel.bind(this)}
-      />,
+        onTouchTap={this.handleCancel.bind(this)} />,
       <FlatButton
         key={1}
         label="Submit"
         primary={true}
-        onTouchTap={this.handleSubmit.bind(this)}
-      />
+        onTouchTap={this.handleSubmit.bind(this)} />
     ];
 
     return (
@@ -88,7 +86,7 @@ class AccountModal extends Component {
         actions={modalActions}
         autoDetectWindowHeight={true}
         autoScrollBodyContent={true}
-        modal={true}
+        modal={true} 
       >
         <div className="modal-content">
 

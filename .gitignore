@@ -13,3 +13,4 @@ public/bundle.js
 npm-debug.log
 coverage/
 env/private.js
+server/env/envConfig.js
