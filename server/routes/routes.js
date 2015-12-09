@@ -3,13 +3,27 @@ import path from 'path'
 
 import authHandler from '../handlers/authHandler'
 import apiHandler from '../handlers/apiHandler'
-import passport from 'passport'
+
+//Model dependencies for search
+import authController from '../controllers/authController' 
+
 
 app.post('/auth/login', authHandler.login)
 
-app.get('/auth/logout', authHandler.logout)
+app.get('/auth/logout', function(req, res) {
+
+})
 
 app.post('/auth/signup', authHandler.signup)
+
+// authHandler.isLoggedIn middleware will verify if JWT is valid
+app.get('/test', authHandler.isLoggedIn, function(req, res) {
+  // Get the token from the req's headers
+  // Can verify in postman by send GET req to localhost:3000/test
+  // with headers of key: authorization and value: 'Bearer ' + token
+  var token = req.headers.authorization.split(' ')[1]
+  res.send('yay it worked! here is your token: ' + token)
+})
 
 app.get('/auth/authenticate', authHandler.authenticate)
 

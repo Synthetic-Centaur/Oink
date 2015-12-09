@@ -17,13 +17,18 @@ export function postLogin(data) {
     .then((response) => {
       console.log('STATUS',response.status)
       if (response.status === 200) {
-        dispatch(updatePath('/home'))
-        dispatch(ACTIONS.receiveData(null))
+        return response.json()
       } else if (response.status === 409) {
         console.log('User does not exist in DB')
       } else if (response.status === 500) {
         throw new Error('Error on the server', response)
       }
+    })
+    .then((data) => {
+      window.sessionStorage.accessToken = data.jwt_token
+
+      dispatch(updatePath('/home'))
+      dispatch(ACTIONS.receiveData(null))
     })
     .catch((err) => {
       dispatch(ACTIONS.receiveError(err))
@@ -50,13 +55,18 @@ export function postSignup(data) {
     })
     .then((response) => {
       if (response.status === 200) {
-        dispatch(updatePath('/plaid'))
-        dispatch(ACTIONS.receiveData(null))
+        return response.json()
       } else if (response.status === 409) {
         console.log('Email or password invalid')
       } else if (response.status === 500) {
         throw new Error('Error on the server', response)
       }
+    })
+    .then((data) => {
+      window.sessionStorage.accessToken = data.jwt_token
+
+      dispatch(updatePath('/plaid'))
+      dispatch(ACTIONS.receiveData(null))
     })
     .catch((err) => {
       dispatch(ACTIONS.receiveError(err))
@@ -72,7 +82,8 @@ export function postPlaid(data) {
     return fetch('/auth/plaid', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'authorization': 'Bearer ' + window.sessionStorage.accessToken
       },
       body: JSON.stringify({
         public_token: data,
