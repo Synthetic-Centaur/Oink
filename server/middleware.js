@@ -64,34 +64,33 @@ import apiHandler from './handlers/apiHandler'
 import authController from './controllers/authController'
 
 
-app.post('/auth/login', function(req, res) {
-  // console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^', req.body)
-  // Finds the user with provided email
-  authController.findUser({email: req.body.email}).then( (user) => {
-    if (!user) {
-      res.json({ success: false, message: 'Authentication failed. User not found.' })
-    }
-    // Checks if provided password is valid
-    if (!user.validPassword(req.body.password)) {
-      res.json({ success: false, message: 'Authentication failed. Wrong password.' })
-    }
-    // if user is found and password is right
-    // create a token
-    var token = jwt.sign(user, 'kittyCat', {
-      expiresIn: 604800 // expires in 24 hours
-    });
+// app.post('/auth/login', function(req, res) {
+//   // Finds the user with provided email
+//   authController.findUser({email: req.body.email}).then( (user) => {
+//     if (!user) {
+//       res.json({ success: false, message: 'Authentication failed. User not found.' })
+//     }
+//     // Checks if provided password is valid
+//     if (!user.validPassword(req.body.password)) {
+//       res.json({ success: false, message: 'Authentication failed. Wrong password.' })
+//     }
+//     // if user is found and password is right
+//     // create a token
+//     var token = jwt.sign(user, 'kittyCat', {
+//       expiresIn: 604800 // expires in 24 hours
+//     });
 
-    // Save token in database with the user
+//     // Save token in database with the user
 
-    // return the information including token as JSON
-    res.json({
-      success: true,
-      message: 'Enjoy your token!',
-      jwt_token: token
-    });
+//     // return the information including token as JSON
+//     res.json({
+//       success: true,
+//       message: 'Enjoy your token!',
+//       jwt_token: token
+//     });
     
-  })
-})
+//   })
+// })
 
 // let isLoggedIn = function(req, res, next) {
 
@@ -123,43 +122,45 @@ app.post('/auth/login', function(req, res) {
   
 // }
 
-app.get('/test', function(req, res, next) {
-  console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$ req body', req.body)
-  console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$ req headers', req.headers)
-  console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$ req query', req.query)
-  console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$ req session', req.session)
+// app.get('/test', function(req, res, next) {
+//   console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$ req body', req.body)
+//   console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$ req headers', req.headers)
+//   console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$ req query', req.query)
+//   console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$ req session', req.session)
 
-// check header or url parameters or post parameters for token
-// var token = req.body.accessToken || req.query.token || req.headers['jwt-token'];
-var token = req.headers.authorization.split(' ')[1];
+// // check header or url parameters or post parameters for token
+// // var token = req.body.accessToken || req.query.token || req.headers['jwt-token'];
+// var token = req.headers.authorization.split(' ')[1];
 
-// decode token
-if (token) {
+// // decode token
+// if (token) {
 
-  // verifies secret and checks exp
-  jwt.verify(token, 'kittyCat', function(err, decoded) {      
-    if (err) {
-      return res.json({ success: false, message: 'Failed to authenticate token.' });   
-    } else {
-      // if everything is good, save to request for use in other routes
-      req.decoded = decoded;    
-      next()
-    }
-  })
+//   // verifies secret and checks exp
+//   jwt.verify(token, 'kittyCat', function(err, decoded) {      
+//     if (err) {
+//       return res.json({ success: false, message: 'Failed to authenticate token.' });   
+//     } else {
+//       // if everything is good, save to request for use in other routes
+//       req.decoded = decoded;    
+//       next()
+//     }
+//   })
 
-} else {
+// } else {
 
-  // if there is no token
-  // return an error
-  return res.status(403).send({ 
-      success: false, 
-      message: 'No token provided.' 
-  })
+//   // if there is no token
+//   // return an error
+//   return res.status(403).send({ 
+//       success: false, 
+//       message: 'No token provided.' 
+//   })
   
-}
-}, function(req, res) {
-  res.send('yay it worked!')
-})
+// }
+// }, function(req, res) {
+//   var token = req.headers.authorization.split(' ')[1];
+//   console.log('&&&&&&&&&&&&&&&&&&&&&&&&& TOKEN', token)
+//   res.send('yay it worked!')
+// })
 
 
 

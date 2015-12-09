@@ -1,20 +1,85 @@
 import authController from '../controllers/authController'
 import apiController from '../controllers/apiController'
-import passport from '../middleware'
+import jwt from 'jsonwebtoken'
 
 let authHandler = {
+  isLoggedIn(req, res, next) {
+    console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$ req headers', req.headers)
+
+    // check header or url parameters or post parameters for token
+    // var token = req.body.accessToken || req.query.token || req.headers['jwt-token'];
+    var token = req.headers.authorization.split(' ')[1];
+
+    // decode token
+    if (token) {
+
+      // verifies secret and checks exp
+      jwt.verify(token, 'kittyCat', function(err, decoded) {      
+        if (err) {
+          return res.json({ success: false, message: 'Failed to authenticate token.' });   
+        } else {
+          // if everything is good, save to request for use in other routes
+          req.decoded = decoded;    
+          next()
+        }
+      })
+
+    } else {
+
+      // if there is no token
+      // return an error
+      return res.status(403).send({ 
+          success: false, 
+          message: 'No token provided.' 
+      })
+      
+    }
+  },
   login(req, res, next) {
-    passport.authenticate('local-login', (err, user, info) => {
-      if (err) {
-        res.sendStatus(500)
-      } else if (!user) {
-        res.sendStatus(409)
-      } else {
-        console.log(req.user)
-        if (err) { return next(err); }
-        return res.sendStatus(200)
+    // Finds the user with provided email
+    authController.findUser({email: req.body.email}).then( (user) => {
+      if (!user) {
+        res.json({ success: false, message: 'Authentication failed. User not found.' })
       }
-    })(req, res)
+      // Checks if provided password is valid
+      if (!user.validPassword(req.body.password)) {
+        res.json({ success: false, message: 'Authentication failed. Wrong password.' })
+      }
+      // if user is found and password is right
+      // create a token
+      var token = jwt.sign(user, 'kittyCat', {
+        expiresIn: 604800 // expires in 24 hours
+      });
+
+
+
+
+      /****************************************
+          TODO: OVERWRITE TOKEN IN DB WITH USER
+      /******************************************/
+
+
+
+
+      // return the information including token as JSON
+      res.json({
+        success: true,
+        message: 'Enjoy your token!',
+        jwt_token: token
+      });
+      
+    })
+    // passport.authenticate('local-login', (err, user, info) => {
+    //   if (err) {
+    //     res.sendStatus(500)
+    //   } else if (!user) {
+    //     res.sendStatus(409)
+    //   } else {
+    //     console.log(req.user)
+    //     if (err) { return next(err); }
+    //     return res.sendStatus(200)
+    //   }
+    // })(req, res)
   },
   logout(req, res) {
     //Deserializes user and destroys session
@@ -23,17 +88,40 @@ let authHandler = {
     res.redirect('/');
   },
   signup(req, res, next) {
-    passport.authenticate('local-signup', (err, user, info) => {
-      if (err) {
-        res.status(500).send('Server Error')
-      } else if (user) {
-        console.log(req.user)
-        if (err) { return next(err); }
-        return res.sendStatus(200)
-      } else {
-        res.status(409).send('Invalid Email')
+    // Finds the user with provided email
+    authController.findUser({email: req.body.email}).then( (user) => {
+      if (!user) {
+
+        //If user is not in database, create user
+        authController.addUser(req.body).then( (newUser) => {
+
+          var token = jwt.sign(newUser, 'kittyCat', {
+            expiresIn: 604800 // expires in 24 hours
+          });
+          console.log('%%%%%%%%%%%%%', token)
+
+
+
+          /****************************************
+              TODO: SAVE TOKEN IN DB WITH USER
+          /******************************************/
+          
+
+
+
+          // send the token back to the user
+          res.json({
+            success: true,
+            message: 'Enjoy your token!',
+            jwt_token: token
+          });
+        })
       }
-    })(req, res)
+      // If user found, cannot signup 
+      else {
+        res.json({ success: false, message: 'Failed, user already exists.' })
+      }
+    })
   },
   authenticate(req, res) {
     console.log("inside authenticate handler")
