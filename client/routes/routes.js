@@ -1,6 +1,6 @@
-/**************
-TODO: Refactor from index
-****************/
+/******************************************************
+TODO: Refactor from index to be a modular routes file
+*******************************************************/
 // import React from 'react';
 // import { Route } from 'react-router';
 
