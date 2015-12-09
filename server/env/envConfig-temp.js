@@ -21,9 +21,15 @@ const plaid_private = {
   publicKey: 'PLAID_PUBLIC_KEY'
 }
 
+// jwt secret
+const jwt_private = {
+  secret: 'JWT_SECRET'
+}
+
 const config = {
   twilio_private: twilio_private,
-  plaid_private: plaid_private
+  plaid_private: plaid_private,
+  jwt_private: jwt_private
 }
 
 export default config
