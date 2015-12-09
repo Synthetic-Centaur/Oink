@@ -22,7 +22,8 @@ import plaid from 'plaid'
 import bluebird from 'bluebird'
 bluebird.promisifyAll(plaid)
 
-let plaidClient = new plaid.Client(clientId, secret, plaid.environments.tartan);
+let plaidClient = new plaid.Client(clientId, secret, plaid.environments.tartan)
+//let plaidClient = new plaid.Client('test_id', 'test_secret', plaid.environments.tartan)
 
 
 
@@ -30,6 +31,22 @@ let apiController = {
 
   tradeToken(public_token) {
     return plaidClient.exchangeTokenAsync(public_token)
+  },
+  getTransactions(plaid_token) {
+    plaidClient.getConnectUser(plaid_token,
+    {
+      gte: '30 days ago',
+      webhook: 'http://a2ec5c23.ngrok.io'
+    },
+    function (err, response) {
+      if (err) {
+        console.log('ERROR', err);
+      } else {
+        console.log('You have ' + response.transactions.length +' transactions from the last thirty days.');
+        // TODO: need to make async and move this logic to controller to send back
+        //res.send(response.transactions);
+      }
+    })
   },
   sendMessage(text, phone) {
     // send twilio message

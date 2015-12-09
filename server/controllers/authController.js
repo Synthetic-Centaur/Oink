@@ -29,13 +29,30 @@ let authController = {
       }
     })
   },
-  saveToken(token, userID) {
+  savePlaidToken(tokenPlaid, tokenAuth) {
+    let newUser = new User({token_auth: tokenAuth})
+    return newUser.fetch().then((user) => {
+      if (user) {
+        user.attributes.token_plaid = tokenPlaid
+        console.log('USER', user)
+        return user.save().then((user) => {
+          return user
+        })
+      } else {
+        // user was not found
+        console.log('Error: USER not found')
+      }
+    })
+  },
+  saveAuthToken(token, userID) {
     let newUser = new User({id: userID})
     return newUser.fetch().then((user) => {
       if (user) {
-        user.attributes.token = token
-        console.log('USER', user)
-        return user.save()
+        user.attributes.token_auth = token
+        console.log('USER ---------> INSIDE saveAuthToken | authController', user)
+        return user.save().then((user) => {
+          return user
+        })
       } else {
         // user was not found
         console.log('Error: USER not found')
