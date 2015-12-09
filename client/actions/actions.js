@@ -12,7 +12,7 @@ export function requestData() {
 export function receiveData(data) {
   return {
     type: 'RECV_DATA',
-    payload: data
+    data: data
   }
 }
 
@@ -20,7 +20,7 @@ export function receiveData(data) {
 export function receiveError(data) {
   return {
     type: 'RECV_ERROR',
-    payload: data
+    data: data
   }
 }
 
@@ -71,21 +71,21 @@ export function hideSignup() {
               AUTHENTICATION REDUX ACTIONS
 *********************************************************/
 // We should show the pop-up signup modal
-export function addJWT(jwt_token) {
+export function addJWT(data) {
   return (dispatch) => {
     dispatch({
-      type: 'ADD_TOKEN',
-      payload: jwt_token
+      type: 'ADD_JWT',
+      jwt: data.jwt_token,
+      expiryDate: Date.now() + data.expiresIn
     })
   }
 }
 
 // We should hide the pop-up signup modal
-export function removeJWT(jwt_token) {
+export function removeJWT() {
   return (dispatch) => {
     dispatch({
       type: 'REMOVE_JWT',
-      payload: jwt_token
     })
   }
 }

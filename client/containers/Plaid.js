@@ -9,7 +9,7 @@ export class Plaid extends React.Component {
     const { actions } = this.props
     return (
       <div className="container">
-        <PlaidButton authenticate={actions.postPlaid}/>
+        <PlaidButton authenticate={actions.postPlaid} />
       </div>
     );
   }

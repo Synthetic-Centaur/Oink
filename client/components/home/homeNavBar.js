@@ -9,22 +9,32 @@ import MoreVertIcon from 'material-ui/lib/svg-icons/navigation/more-vert'
 import { Link } from 'react-router'
 
 class HomeNavBar extends Component {
+  handleLogout(e) {
+    e.preventDefault()
+    
+    this.props.logout()
+  }
   render() {
     return (
       <div>
-        <AppBar 
+        <AppBar
           title="Dashboard" 
+          onItemTouchTap={this.handleLogout.bind(this)}
           iconElementRight={
             <IconMenu iconButtonElement={
               <IconButton><MoreVertIcon /></IconButton>
             }>
               <MenuItem primaryText="Settings" />
-              <MenuItem primaryText="Sign out" />
+              <MenuItem primaryText="Sign out" onTouchTap={this.handleLogout.bind(this)}/>
             </IconMenu>
           } />
       </div>
     )
   }
+}
+
+HomeNavBar.propTypes = {
+  logout: PropTypes.func.isRequired
 }
 
 export default HomeNavBar

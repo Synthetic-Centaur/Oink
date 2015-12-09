@@ -64,7 +64,8 @@ let authHandler = {
         res.json({
           success: true,
           message: 'Enjoy your token!',
-          jwt_token: token
+          jwt_token: token,
+          expiresIn: 604800
         })
       })
     })
@@ -112,7 +113,8 @@ let authHandler = {
             res.json({
               success: true,
               message: 'Enjoy your token!',
-              jwt_token: token
+              jwt_token: token,
+              expiresIn: 604800
             });
           })
         })

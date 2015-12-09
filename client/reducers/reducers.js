@@ -70,13 +70,14 @@ function homePageReducer (state = {
 
 function authReducer (state = {
   isAuthenticated: false,
-  token: ''
+  token: '',
+  expiryDate: null
 }, action = null) {
   switch(action.type) {
-    case 'ADD_TOKEN':
-      return Object.assign({}, state, {isAuthenticated: true, token: data.jwt})
-    case 'REMOVE_TOKEN':
-      return Object.assign({}, state, {isAuthenticated: false, token: ''})
+    case 'ADD_JWT':
+      return Object.assign({}, state, {isAuthenticated: true, token: action.jwt, expiryDate: action.expiryDate})
+    case 'REMOVE_JWT':
+      return Object.assign({}, state, {isAuthenticated: false, token: '', expiryDate: null})
     default:
       return state
   }
