@@ -42,6 +42,20 @@ button {
   max-height: 50px;
 }
 
+.container.splash-nav span {
+  display: inline-block; /* to display the menu items as blocks in same line */
+  text-align: center; /* center align the text within the block */
+  width: 80%; /* set each block a width */
+  vertical-align: middle; /* align the contents to middle vertically */
+}
+
+.container.splash-nav button {
+  display: inline-block; /* to display the menu items as blocks in same line */
+  text-align: center; /* center align the text within the block */
+  width: 10%; /* set each block a width */
+  vertical-align: middle; /* align the contents to middle vertically */
+}
+
 /* Values
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .values {
