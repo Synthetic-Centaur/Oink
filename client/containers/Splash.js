@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import AccountModal from '../components/account-modal/AccountModal'
 import SplashNavBar from '../components/navbar/SplashNavBar'
 import { postLogin, postSignup } from '../api/authHandlers'
-import { showLogin, hideLogin, showSignup, hideSignup } from '../actions/actions'
+import { showLogin, hideLogin, showSignup, hideSignup, getJWT } from '../actions/actions'
 
 class Splash extends Component {
   render() {
@@ -20,7 +20,8 @@ class Splash extends Component {
           showLoginModal={actions.showLogin}
           showSignupModal={actions.showSignup}
           hideLoginModal={actions.hideLogin}
-          hideSignupModal={actions.hideSignup} />
+          hideSignupModal={actions.hideSignup}
+        />
 
         <div className="first-image">
           <SplashNavBar showLoginModal={actions.showLogin} showSignupModal={actions.showSignup} />
@@ -52,7 +53,9 @@ function mapStateToProps(state) {
     isLoading: state.isLoading,
     data: state.data,
     error: state.error,
-    splashPage: state.splashPage
+    splashPage: state.splashPage,
+    isAuthenticated: state.auth.isAuthenticated,
+    token: state.auth.token
   }
 }
 

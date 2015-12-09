@@ -47,6 +47,7 @@ function splashPageReducer (state = {
   }
 }
 
+
 //Change state to allow or disallow form input
 function homePageReducer (state = {
   numberError: true,
@@ -67,8 +68,25 @@ function homePageReducer (state = {
   }
 }
 
+function authReducer (state = {
+  isAuthenticated: false,
+  token: '',
+  expiryDate: null
+}, action = null) {
+  switch(action.type) {
+    case 'ADD_JWT':
+      return Object.assign({}, state, {isAuthenticated: true, token: action.jwt, expiryDate: action.expiryDate})
+    case 'REMOVE_JWT':
+      return Object.assign({}, state, {isAuthenticated: false, token: '', expiryDate: null})
+    default:
+      return state
+  }
+}
+
 export default {
   asyncStatusReducer,
   splashPageReducer,
-  homePageReducer
+  homePageReducer,
+  authReducer,
+  splashPageReducer
 }

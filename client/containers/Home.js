@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { authRedirect, authLogout } from '../api/authHandlers'
 import PieChart from '../components/home/PieChart'
 import BudgetCategories from '../components/home/BudgetCategories'
 import NavBar from '../components/home/homeNavBar'
@@ -14,19 +15,39 @@ class Home extends Component {
   // }
 
   //Render home container with chart, budget input, and navbar
-  render() {
+  componentWillMount() {
+    this.checkAuth()
+  }
+  componentWillReceiveProps(nextProps) {
+    this.checkAuth()
+  }
+  checkAuth() {
+    const { actions, isAuthenticated } = this.props
+    if (!isAuthenticated) {
+      actions.authRedirect()
+    }
+  }
+  renderContent() {
     const { actions, homePage } = this.props
     return (
       <div className="container">
-        <NavBar />
-        <BudgetCategories 
+        <NavBar logout={ actions.authLogout } />
+        <BudgetCategories
           postBudget={ actions.postBudget }
           numberValidation={ actions.numberValidation } 
           categoryValidation={ actions.categoryValidation }
           numberError={ homePage.numberError }
           categoryError={ homePage.categoryError }
-          category={ homePage.category }  />
+          category={ homePage.category } />
         <PieChart />
+      </div>
+      )
+  }
+  render() {
+    const { isAuthenticated } = this.props
+    return (
+      <div>
+        { isAuthenticated ? this.renderContent() : null }
       </div>
     )
   }
@@ -47,7 +68,8 @@ function mapStateToProps(state) {
     isLoading: state.isLoading,
     data: state.data,
     error: state.error,
-    homePage: state.homePage
+    homePage: state.homePage,
+    isAuthenticated: state.auth.isAuthenticated
   }
 }
 
@@ -55,10 +77,12 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({ 
-      getInitialState, 
+      getInitialState,
       postBudget,
       numberValidation,
-      categoryValidation
+      categoryValidation,
+      authRedirect,
+      authLogout
     }, dispatch)
   }
 }

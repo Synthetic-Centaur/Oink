@@ -1,15 +1,17 @@
 import { createStore, applyMiddleware, compose } from 'redux'
-import { devTools, persistState } from 'redux-devtools';
+import { devTools, persistState as persistStateDev } from 'redux-devtools';
+import persistState from 'redux-localstorage'
 import thunk from 'redux-thunk'
 import rootReducer from '../reducers'
 
 const finalCreateStore = compose(
   // Apply async middleware
   applyMiddleware(thunk),
+  persistState('auth'),
   // Provides support for DevTools:
   devTools(),
   // Lets you write ?debug_session=<name> in address bar to persist debug sessions
-  persistState(window.location.href.match(/[?&]debug_session=([^&]+)\b/)),
+  persistStateDev(window.location.href.match(/[?&]debug_session=([^&]+)\b/)),
 )(createStore);
 
 export default function configureStore(initialState) {
