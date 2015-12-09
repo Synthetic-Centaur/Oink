@@ -25,26 +25,24 @@ export function getInitialState() {
 //Post user budget data
 export function postBudget(data) {
   console.log('in postBudget', data);
-
-  // return function(dispatch) {
-  //   dispatch(ACTIONS.requestData());
-  //   return fetch('/api/budget/category/' + id, {
-  //     method: 'POST',
-  //     header: {
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify({
-  //       budget: data.budget,
-  //       category: data.category
-  //     })
-  //   })
-  //   .then((response) => {
-  //     if (response.statue === 200) {
-  //       dispatch(ACTIONS.receiveData(JSON.parse(response.body)))
-  //     }
-  //   })
-  //   .catch((error) => {
-  //     dispatch(ACTIONS.receiveError(error));
-  //   })
-  // }
+  return function(dispatch) {
+    dispatch(ACTIONS.requestData());
+    return fetch('/api/budget/category/' + data.category, {
+      method: 'POST',
+      header: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        budget: data.budget,
+      })
+    })
+    .then((response) => {
+      if (response.statue === 200) {
+        dispatch(ACTIONS.receiveData(JSON.parse(response.body)))
+      }
+    })
+    .catch((error) => {
+      dispatch(ACTIONS.receiveError(error));
+    })
+  }
 }
