@@ -1,9 +1,18 @@
 import React, { Component, PropTypes } from 'react'
 import ReactDOM from 'react-dom'
 import ReactHighCharts from 'react-highcharts/dist/bundle/highcharts'
+import chartConfig from './config/chartConfig'
 
 class pieChart extends Component {
+
+  //Making sure pie chart does not refresh whenever input form is changed
+  shouldComponentUpdate() {
+    return false;
+  }
+
   render() {
+    //Call chartconfig to configure highchart with user budget data
+    //let config = chartConfig(this.props.budgetData)
     let config = {
       chart: {
         plotBackgroundColor: null,
@@ -36,8 +45,6 @@ class pieChart extends Component {
         }, {
             name: 'Chrome',
             y: 24.03,
-            sliced: true,
-            selected: true
         }, {
             name: 'Firefox',
             y: 10.38
@@ -54,12 +61,14 @@ class pieChart extends Component {
       }]
     }
 
+    //render highChart
     return (
-      <ReactHighCharts config={config} ref="chart"></ReactHighCharts>
+      <ReactHighCharts config={config} ref="chart" />
     )
 
   }
 
+  //Dynamically change high chart as user adds new budget categories
   componentDidMount() {
     //here we can access high charts and change data accordingly
   }

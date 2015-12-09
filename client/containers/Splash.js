@@ -20,8 +20,7 @@ class Splash extends Component {
           showLoginModal={actions.showLogin}
           showSignupModal={actions.showSignup}
           hideLoginModal={actions.hideLogin}
-          hideSignupModal={actions.hideSignup}
-        />
+          hideSignupModal={actions.hideSignup} />
 
         <div className="first-image">
           <SplashNavBar showLoginModal={actions.showLogin} showSignupModal={actions.showSignup} />
