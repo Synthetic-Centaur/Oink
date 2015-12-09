@@ -29,6 +29,19 @@ let authController = {
       }
     })
   },
+  findUserByToken(req) {
+    let token = req.headers.authorization.split(' ')[1]
+    let searchUser = new User({token_auth: token})
+    return searchUser.fetch().then((user) => {
+      if (user) {
+        console.log('Found user')
+        return user
+      } else {
+        console.log('User not found')
+        return null
+      }
+    })
+  },
   savePlaidToken(tokenPlaid, tokenAuth) {
     let newUser = new User({token_auth: tokenAuth})
     return newUser.fetch().then((user) => {
