@@ -2,6 +2,10 @@ import authController from '../controllers/authController'
 import apiController from '../controllers/apiController'
 import jwt from 'jsonwebtoken'
 
+// shhhhh secrets
+import config from '../env/envConfig'
+const jwt_secret = config.jwt_private.secret.secret
+
 let authHandler = {
   isLoggedIn(req, res, next) {
     console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$ req headers', req.headers)
@@ -16,7 +20,7 @@ let authHandler = {
     if (token) {
 
       // verifies secret and checks exp
-      jwt.verify(token, 'kittyCat', function(err, decoded) {      
+      jwt.verify(token, 'jwt_secret', function(err, decoded) {      
         if (err) {
           return res.json({ success: false, message: 'Failed to authenticate token.' });   
         } else {
@@ -50,7 +54,7 @@ let authHandler = {
       }
       // if user is found and password is right
       // create a token
-      let token = jwt.sign(user, 'kittyCat', {
+      let token = jwt.sign(user, 'jwt_secret', {
         expiresIn: 604800 // expires in 24 hours
       })
 
@@ -92,7 +96,7 @@ let authHandler = {
 
           console.log('NEW USER', newUser);
 
-          let token = jwt.sign(newUser, 'kittyCat', {
+          let token = jwt.sign(newUser, 'jwt_secret', {
             expiresIn: 604800 // expires in 24 hours
           });
           console.log('%%%%%%%%%%%%%', token)
