@@ -63,6 +63,8 @@ function homePageReducer (state = {
       return Object.assign({}, state, {categoryError: false, category: action.category})
     case 'DISABLE_CAT':
       return Object.assign({}, state, {categoryError: true})
+    default:
+      return state
   }
 }
 
@@ -83,7 +85,7 @@ function authReducer (state = {
 export default {
   asyncStatusReducer,
   splashPageReducer,
-  homePageReducer
+  homePageReducer,
   authReducer,
   splashPageReducer
 }

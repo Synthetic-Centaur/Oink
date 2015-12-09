@@ -58,7 +58,7 @@ let authHandler = {
         expiresIn: 604800 // expires in 24 hours
       })
 
-      authController.saveAuthToken(token, newUser.attributes.id).then( (user) => {    
+      authController.saveAuthToken(token, user.attributes.id).then( (user) => {    
         // return the information including token as JSON
         res.status(200)
         res.json({
