@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { postSignup } from '../api/authHandlers'
 import PieChart from '../components/home/PieChart'
 import BudgetCategories from '../components/home/BudgetCategories'
 import NavBar from '../components/home/homeNavBar'
@@ -14,6 +15,17 @@ class Home extends Component {
   // }
 
   //Render home container with chart, budget input, and navbar
+  componentWillMount() {
+    this.checkAuth()
+  }
+  componentWillReceiveProps(nextProps) {
+    this.checkAuth()
+  }
+  checkAuth() {
+    if (!this.props.isAuthenticated) {
+      // redirect to home
+    }
+  }
   render() {
     const { actions, homePage } = this.props
     return (
@@ -47,7 +59,8 @@ function mapStateToProps(state) {
     isLoading: state.isLoading,
     data: state.data,
     error: state.error,
-    homePage: state.homePage
+    homePage: state.homePage,
+    auth: state.auth
   }
 }
 

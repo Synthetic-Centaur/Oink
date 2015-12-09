@@ -103,3 +103,9 @@ export function postPlaid(data) {
     });
   }
 }
+
+export function addJWT(jwt_token) {
+  return function(dispatch) {
+    dispatch(ACTIONS.addJWT(jwt_token))
+  }
+}
