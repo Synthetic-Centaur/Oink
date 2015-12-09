@@ -1,5 +1,8 @@
 import User from '../db/models/user'
 import Users from '../db/collections/users'
+import Category from '../db/models/category'
+import Categories from '../db/collections/categories'
+
 
 // private environmental variables
 import config from '../env/envConfig'
@@ -18,6 +21,8 @@ const client = require('twilio')(accountSid, authToken)
 const clientId = config.plaid_private.clientId
 const secret = config.plaid_private.secret
 
+import request from 'request'
+import _ from 'underscore'
 import plaid from 'plaid'
 import bluebird from 'bluebird'
 bluebird.promisifyAll(plaid)
@@ -64,6 +69,31 @@ let apiController = {
         return message.sid
       }
     });
+  },
+  getCategories(){
+    request('https://tartan.plaid.com/categories', (error, response, body) => {
+      if( !error && response.statusCode === 200 ) {
+        let arr = JSON.parse(body)
+        arr = arr.reduce( (acc, item) => {
+          if(acc.indexOf(item.hierarchy[0]) === -1) {
+            acc.push(item.hierarchy[0])
+          }
+          return acc
+        }, [])
+        bluebird.map(arr, (item) => {
+          let searchCat = new Category({ description: item })
+          return searchCat.fetch().then( (cat) => {
+            if ( !cat ) {
+              return searchCat.save().then( (newCat) => {
+                return newCat
+              })
+            } else {
+              return
+            }
+          })
+        })
+      }
+    })
   }
 } 
 

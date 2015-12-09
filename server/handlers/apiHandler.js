@@ -2,6 +2,7 @@ import apiController from '../controllers/apiController'
 import budgetController from '../controllers/budgetController'
 import authController from '../controllers/authController'
 
+apiController.getCategories()
 let apiHandler = {
   intitialState(req, res) {
     console.log("inside intitialState handler");
