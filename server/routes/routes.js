@@ -21,7 +21,7 @@ app.get('/test', authHandler.isLoggedIn, function(req, res) {
   // Get the token from the req's headers
   // Can verify in postman by send GET req to localhost:3000/test
   // with headers of key: authorization and value: 'Bearer ' + token
-  var token = req.headers.authorization.split(' ')[1];
+  var token = req.headers.authorization.split(' ')[1]
   res.send('yay it worked! here is your token: ' + token)
 })
 

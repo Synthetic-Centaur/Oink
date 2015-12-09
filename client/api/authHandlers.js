@@ -82,7 +82,8 @@ export function postPlaid(data) {
     return fetch('/auth/plaid', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'authorization': 'Bearer ' + window.sessionStorage.accessToken
       },
       body: JSON.stringify({
         public_token: data,
