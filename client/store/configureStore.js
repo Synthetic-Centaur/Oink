@@ -4,8 +4,9 @@ import thunk from 'redux-thunk'
 import rootReducer from '../reducers'
 
 const finalCreateStore = compose(
-  // Provides support for DevTools:
+  // Apply async middleware
   applyMiddleware(thunk),
+  // Provides support for DevTools:
   devTools(),
   // Lets you write ?debug_session=<name> in address bar to persist debug sessions
   persistState(window.location.href.match(/[?&]debug_session=([^&]+)\b/)),
@@ -21,6 +22,7 @@ export default function configureStore(initialState) {
       store.replaceReducer(nextRootReducer)
     })
   }
-
+  
+  // Our redux store for our application
   return store
 }
