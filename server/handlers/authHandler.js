@@ -1,16 +1,18 @@
 import authController from '../controllers/authController'
 import apiController from '../controllers/apiController'
-import passport from 'passport'
+import passport from '../middleware'
 
 let authHandler = {
-  login(req, res) {
-    passport.authenticate('local-login', (err, user, next) => {
+  login(req, res, next) {
+    passport.authenticate('local-login', (err, user, info) => {
       if (err) {
         res.sendStatus(500)
       } else if (!user) {
         res.sendStatus(409)
       } else {
-        res.sendStatus(200)
+        console.log(req.user)
+        if (err) { return next(err); }
+        return res.sendStatus(200)
       }
     })(req, res)
   },
@@ -20,12 +22,14 @@ let authHandler = {
     //Redirects to root
     res.redirect('/');
   },
-  signup(req, res) {
-    passport.authenticate('local-signup', (err, user, next) => {
+  signup(req, res, next) {
+    passport.authenticate('local-signup', (err, user, info) => {
       if (err) {
         res.status(500).send('Server Error')
       } else if (user) {
-        res.status(200).send('User Created')
+        console.log(req.user)
+        if (err) { return next(err); }
+        return res.sendStatus(200)
       } else {
         res.status(409).send('Invalid Email')
       }
@@ -47,6 +51,7 @@ let authHandler = {
   }, 
   plaid(req, res) {
     console.log('inside auth handler plaid')
+    console.log('$$$$$$$$$$$$$$$$$', req.user)
     let public_token = req.body.public_token
     apiController.tradeToken(public_token)
     .then( (response) => {

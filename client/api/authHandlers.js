@@ -17,13 +17,18 @@ export function postLogin(data) {
     .then((response) => {
       console.log('STATUS',response.status)
       if (response.status === 200) {
-        dispatch(updatePath('/home'))
-        dispatch(ACTIONS.receiveData(null))
+        return response.json()
       } else if (response.status === 409) {
         console.log('User does not exist in DB')
       } else if (response.status === 500) {
         throw new Error('Error on the server', response)
       }
+    })
+    .then((data) => {
+      window.sessionStorage.accessToken = data.jwt_token
+
+      dispatch(updatePath('/home'))
+      dispatch(ACTIONS.receiveData(null))
     })
     .catch((err) => {
       dispatch(ACTIONS.receiveError(err))
