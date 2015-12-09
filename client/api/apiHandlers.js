@@ -1,26 +1,28 @@
 import * as ACTIONS from '../actions/actions'
 
+//Get initial state data for user
 export function getInitialState() {
   console.log('In getInitialState');
-  // return function(dispatch) {
-  //   dispatch(ACTIONS.requestData());
-  //   return fetch('/api/intitialState', {
-  //     method: 'GET',
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     }
-  //   })
-  //   .then((response) => {
-  //     if (response.state === 200) {
-  //       dispatch(ACTIONS.receiveData(JSON.parse(response.body)))
-  //     }
-  //   })
-  //   .catch((err) => {
-  //     dispatch(ACTIONS.receiveError(err))
-  //   });
-  // }
+  return function(dispatch) {
+    dispatch(ACTIONS.requestData());
+    return fetch('/api/intitialState', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then((response) => {
+      if (response.state === 200) {
+        dispatch(ACTIONS.receiveData(JSON.parse(response.body)))
+      }
+    })
+    .catch((err) => {
+      dispatch(ACTIONS.receiveError(err))
+    });
+  }
 }
 
+//Post user budget data
 export function postBudget(data) {
   console.log('in postBudget', data);
 
