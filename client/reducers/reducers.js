@@ -47,6 +47,7 @@ function splashPageReducer (state = {
   }
 }
 
+
 //Change state to allow or disallow form input
 function homePageReducer (state = {
   numberError: true,
@@ -62,6 +63,18 @@ function homePageReducer (state = {
       return Object.assign({}, state, {categoryError: false, category: action.category})
     case 'DISABLE_CAT':
       return Object.assign({}, state, {categoryError: true})
+  }
+}
+
+function authReducer (state = {
+  isAuthenticated: false,
+  token: ''
+}, action = null) {
+  switch(action.type) {
+    case 'ADD_TOKEN':
+      return Object.assign({}, state, {isAuthenticated: true, token: data.jwt})
+    case 'REMOVE_TOKEN':
+      return Object.assign({}, state, {isAuthenticated: false, token: ''})
     default:
       return state
   }
@@ -71,4 +84,6 @@ export default {
   asyncStatusReducer,
   splashPageReducer,
   homePageReducer
+  authReducer,
+  splashPageReducer
 }

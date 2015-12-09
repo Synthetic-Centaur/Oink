@@ -32,7 +32,7 @@ export function receiveError(data) {
 export function showLogin() {
   return (dispatch) => {
     dispatch({
-      type:'SHOW_LOGIN'
+      type: 'SHOW_LOGIN'
     })
   }
 }
@@ -44,7 +44,7 @@ export function hideLogin() {
    We must call dispatch so a reducer can act on this action appropriately */
   return (dispatch) => {
     dispatch({
-      type:'HIDE_LOGIN'
+      type: 'HIDE_LOGIN'
     })
   }
 }
@@ -53,7 +53,7 @@ export function hideLogin() {
 export function showSignup() {
   return (dispatch) => {
     dispatch({
-      type:'SHOW_SIGNUP'
+      type: 'SHOW_SIGNUP'
     })
   }
 }
@@ -62,7 +62,30 @@ export function showSignup() {
 export function hideSignup() {
   return (dispatch) => {
     dispatch({
-      type:'HIDE_SIGNUP'
+      type: 'HIDE_SIGNUP'
+    })
+  }
+}
+
+/********************************************************
+              AUTHENTICATION REDUX ACTIONS
+*********************************************************/
+// We should show the pop-up signup modal
+export function addJWT(jwt_token) {
+  return (dispatch) => {
+    dispatch({
+      type: 'ADD_TOKEN',
+      payload: jwt_token
+    })
+  }
+}
+
+// We should hide the pop-up signup modal
+export function removeJWT(jwt_token) {
+  return (dispatch) => {
+    dispatch({
+      type: 'REMOVE_JWT',
+      payload: jwt_token
     })
   }
 }
