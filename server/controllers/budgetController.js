@@ -53,7 +53,7 @@ let budgetController = {
   saveTransactions(transactions, user_id) {
     console.log('in budget controller', transactions, user_id)
     // loop over transactions array
-    Promise.map(transactions, (item) => {
+    return Promise.map(transactions, (item) => {
       
       const category = item.category[0]
       let newCat = new Category ({description: category})
@@ -88,12 +88,16 @@ function saveTransaction(transaction, user_id, category_id) {
   let newTransaction = new Transaction({
     user_id: user_id,
     category_id: category_id,
-    amount: transaction.amount
+    amount: transaction.amount,
+    date: transaction.date,
+    pending: transaction.pending,
+    store_name: transaction.name
   });
   return newTransaction.save().then((transaction) => {
     console.log('transaction has been created')
     return transaction
   })
+
 }
 
 export default budgetController
