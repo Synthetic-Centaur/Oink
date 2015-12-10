@@ -8,7 +8,7 @@ Note: authKeys.js will always be git ignored
 ******************************************************/
 let authKeys = {
   plaid: {
-    public_key: 'PLAID_PUBLIC_KEY'
+    public_key: '6495117a9cdcf1a32296c340eaf447'
   }
 }
 
