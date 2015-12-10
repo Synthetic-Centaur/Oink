@@ -38,6 +38,7 @@ let apiController = {
   },
   getTransactions(plaid_token, userid) {
     console.log('palid_token: ', plaid_token)
+    
 ///////////////Testing purposes, plaid test data///////////////////////////////
 
     let postData = {
@@ -59,9 +60,9 @@ let apiController = {
       budgetController.saveTransactions(body.transactions, userid)
     })
 
-//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////
 
-/////////////////////Comment this out for real data////////////////////////////
+/////////////////////Comment this out for real data//////////////////////////////
     // return plaidClient.getConnectUser('test_wells',
     // {
     //   gte: '360 days ago',
@@ -78,7 +79,7 @@ let apiController = {
         // budgetController.saveTransactions(response.transactios, userid)
     //   }
     // })
-///////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////
   },
   sendMessage(text, phone) {
     // send twilio message

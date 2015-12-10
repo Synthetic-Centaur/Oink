@@ -10,13 +10,13 @@ export default class Transaction extends db.Model {
     this.attributes = attributes
   }
 
-  // categories(){
-  //   return this.hasMany(Category, 'id_Category')
-  // }
+  categories(){
+    return this.hasMany(Category, 'id_Category')
+  }
   
-  // user(){
-  //   return this.belongsTo(User, 'id_User')
-  // }
+  user(){
+    return this.belongsTo(User, 'id_User')
+  }
 
   initialize(obj){
 
