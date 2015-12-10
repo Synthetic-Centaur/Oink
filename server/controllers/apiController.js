@@ -1,7 +1,4 @@
-import User from '../db/models/user'
-import Users from '../db/collections/users'
 import Category from '../db/models/category'
-import Categories from '../db/collections/categories'
 import budgetController from './budgetController'
 // private environmental variables
 import config from '../env/envConfig'
@@ -33,7 +30,6 @@ let apiController = {
     return plaidClient.exchangeTokenAsync(public_token)
   },
   getTransactions(plaid_token, userid) {
-    console.log('palid_token: ', plaid_token)
     
 ///////////////Testing purposes, plaid test data///////////////////////////////
 
@@ -52,7 +48,6 @@ let apiController = {
       url: 'https://tartan.plaid.com/connect'
     }
     request(options, (err, response, body) => {
-      // console.log(body.transactions)
       budgetController.saveTransactions(body.transactions, userid)
     })
 
