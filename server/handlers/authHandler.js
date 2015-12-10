@@ -133,6 +133,9 @@ let authHandler = {
         res.sendStatus(500)
       }
     })
+  },
+  getPlaid(req, res) {
+    res.json(config.plaid_private.publicKey)
   }
 }
 
