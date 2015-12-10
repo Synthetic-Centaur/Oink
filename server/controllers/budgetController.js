@@ -51,7 +51,7 @@ let budgetController = {
     })
   },
   saveTransactions(transactions, user_id) {
-    console.log('in budget controller', transactions, user_id)
+    console.log('in budget controller')
     // loop over transactions array
     return Promise.map(transactions, (item) => {
       

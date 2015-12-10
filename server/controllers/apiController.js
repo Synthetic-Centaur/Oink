@@ -38,83 +38,47 @@ let apiController = {
   },
   getTransactions(plaid_token, userid) {
     console.log('palid_token: ', plaid_token)
-    return plaidClient.getConnectUser('test_wells',
-    {
-      gte: '360 days ago',
-      // TODO: update webhook
-      webhook: 'http://a2ec5c23.ngrok.io'
-    },
-    function (err, response) {
-      if (err) {
-        console.log('ERROR', err);
-      } else {
-        /////////////////////For testing purposes, please remove///////////////////
+///////////////Testing purposes, plaid test data///////////////////////////////
 
-        const transactions = [{
-          "_account": "XARE85EJqKsjxLp6XR8ocg8VakrkXpTXmRdOo",
-          "_id": "0AZ0De04KqsreDgVwM1RSRYjyd8yXxSDQ8Zxn",
-          "amount": 200,
-          "date": "2014-07-21",
-          "name": "ATM Withdrawal",
-          "meta": {
-            "location": {
-              "city": "San Francisco",
-              "state": "CA"
-            }
-          },
-          "pending": false,
-          "type": {
-            "primary": "special"
-          },
-          "category": [
-            "Transfer",
-            "Withdrawal",
-            "ATM"
-          ],
-          "category_id": "21012002",
-          "score": {
-            "location": {
-              "city": 1,
-              "state": 1
-            },
-            "name": 1
-          }
-        },
-        {
-          "_account": "XARE85EJqKsjxLp6XR8ocg8VakrkXpTXmRdOo",
-          "_id": "3mg4qV4JZycjewvKEzrLTYMzdr1MmvcO4Z3zX",
-          "amount": 240,
-          "date": "2014-07-24",
-          "name": "Online Transfer from External Sav ...3092",
-          "meta": {
-            "location": {}
-          },
-          "pending": false,
-          "type": {
-            "primary": "special"
-          },
-          "category": [
-            "Transfer",
-            "Account Transfer"
-          ],
-          "category_id": "21001000",
-          "score": {
-            "location": {},
-            "name": 1
-          }
-        }]
+    let postData = {
+      client_id: 'test_id',
+      secret: 'test_secret',
+      username: 'plaid_test',
+      password: 'plaid_good',
+      type: 'wells'
+    }
 
+    let options = {
+      method: 'post',
+      body: postData,
+      json: true,
+      url: 'https://tartan.plaid.com/connect'
+    }
+    request(options, (err, response, body) => {
+      // console.log(body.transactions)
+      budgetController.saveTransactions(body.transactions, userid)
+    })
 
-        ///////////////////////////////////////////////
-        console.log("transactions: ", transactions)
+//////////////////////////////////////////////////////////////////////////////
+    // return plaidClient.getConnectUser('test_wells',
+    // {
+    //   gte: '360 days ago',
+    //   // TODO: update webhook
+    //   webhook: 'http://a2ec5c23.ngrok.io'
+    // },
+    // function (err, response) {
+    //   if (err) {
+    //     console.log('ERROR', err);
+    //   } else {
+        // console.log("transactions: ", transactions)
         // console.log('Transactions: ', response.transactions);
         // console.log('You have ' + response.transactions.length +' transactions from the last 400 days.');
         // TODO: need to make async and move this logic to controller to send back
-        budgetController.saveTransactions(transactions, userid)
+        // budgetController.saveTransactions(transactions, userid)
         //res.send(response.transactions);
         //call saveTransactions controller to save transactions into database: budgetController.saveTransactions(transactions)
-      }
-    })
+    //   }
+    // })
   },
   sendMessage(text, phone) {
     // send twilio message
