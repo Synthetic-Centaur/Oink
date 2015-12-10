@@ -2,8 +2,7 @@ import User from '../db/models/user'
 import Users from '../db/collections/users'
 import Category from '../db/models/category'
 import Categories from '../db/collections/categories'
-
-
+import budgetController from './budgetController'
 // private environmental variables
 import config from '../env/envConfig'
 
@@ -28,7 +27,7 @@ import bluebird from 'bluebird'
 bluebird.promisifyAll(plaid)
 
 let plaidClient = new plaid.Client(clientId, secret, plaid.environments.tartan)
-//let plaidClient = new plaid.Client('test_id', 'test_secret', plaid.environments.tartan)
+// let plaidClient = new plaid.Client('test_id', 'test_secret', plaid.environments.tartan)
 
 
 
@@ -37,22 +36,50 @@ let apiController = {
   tradeToken(public_token) {
     return plaidClient.exchangeTokenAsync(public_token)
   },
-  getTransactions(plaid_token) {
-    plaidClient.getConnectUser(plaid_token,
-    {
-      gte: '30 days ago',
-      // TODO: update webhook
-      webhook: 'http://a2ec5c23.ngrok.io'
-    },
-    function (err, response) {
-      if (err) {
-        console.log('ERROR', err);
-      } else {
-        console.log('You have ' + response.transactions.length +' transactions from the last thirty days.');
-        // TODO: need to make async and move this logic to controller to send back
-        //res.send(response.transactions);
-      }
+  getTransactions(plaid_token, userid) {
+    console.log('palid_token: ', plaid_token)
+    
+///////////////Testing purposes, plaid test data///////////////////////////////
+
+    let postData = {
+      client_id: 'test_id',
+      secret: 'test_secret',
+      username: 'plaid_test',
+      password: 'plaid_good',
+      type: 'wells'
+    }
+
+    let options = {
+      method: 'post',
+      body: postData,
+      json: true,
+      url: 'https://tartan.plaid.com/connect'
+    }
+    request(options, (err, response, body) => {
+      // console.log(body.transactions)
+      budgetController.saveTransactions(body.transactions, userid)
     })
+
+//////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////Comment this out for real data//////////////////////////////
+    // return plaidClient.getConnectUser('test_wells',
+    // {
+    //   gte: '360 days ago',
+    //   // TODO: update webhook
+    //   webhook: 'http://a2ec5c23.ngrok.io'
+    // },
+    // function (err, response) {
+    //   if (err) {
+    //     console.log('ERROR', err);
+    //   } else {
+        // console.log('Transactions: ', response.transactions);
+        // console.log('You have ' + response.transactions.length +' transactions from the last 400 days.');
+        // TODO: need to make async and move this logic to controller to send back
+        // budgetController.saveTransactions(response.transactios, userid)
+    //   }
+    // })
+//////////////////////////////////////////////////////////////////////////////////
   },
   sendMessage(text, phone) {
     // send twilio message

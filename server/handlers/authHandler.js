@@ -1,5 +1,6 @@
 import authController from '../controllers/authController'
 import apiController from '../controllers/apiController'
+import budgetController from '../controllers/budgetController'
 import jwt from 'jsonwebtoken'
 
 // shhhhh secrets
@@ -141,6 +142,7 @@ let authHandler = {
   }, 
   plaid(req, res) {
     console.log('inside auth handler plaid')
+    console.log("authorization------------>",req.headers.authorization)
     let token_auth = req.headers.authorization.split(' ')[1]
     console.log('AUTH TOKEN:', token_auth)
     let public_token = req.body.public_token
@@ -159,7 +161,13 @@ let authHandler = {
             let number = user.attributes.phone_number
             ///// TODO move this logic to getInitialState route once that is set up front end /////
             // get transactions from plaid
-            apiController.getTransactions(user.attributes.token_plaid)
+            apiController.getTransactions(user.attributes.token_plaid, user.id)
+              // .then( (transactions) => {
+              //   budgetController.saveTransactions(transactions, userid)
+              // })
+
+              
+
             //////////////////////////////////////////////////////////////////////////////////////
 
             // send welcome message

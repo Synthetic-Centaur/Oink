@@ -2,6 +2,8 @@ import Budget from '../db/models/budget'
 import Category from '../db/models/category'
 import Budgets from '../db/collections/budgets'
 import db from '../db/dbConfig.js'
+import Transaction from '../db/models/transaction'
+import Promise from 'bluebird'
 
 let budgetController = {
   createBudget(category, userId, amount){
@@ -47,7 +49,55 @@ let budgetController = {
         return null
       }
     })
+  },
+  saveTransactions(transactions, user_id) {
+    console.log('in budget controller')
+    // loop over transactions array
+    return Promise.map(transactions, (item) => {
+      
+      const category = item.category[0]
+      let newCat = new Category ({description: category})
+      return newCat.fetch().then((category) => {
+        if (category) {
+          //if category already exists, save in database setting all of transaction data plus user_id and category id
+          const category_id = category.id
+          console.log('catid: ', category_id);
+          // console.log(index, 'Transaction: ', item, "userid: ", user_id, "cat_id", category_id)
+          return saveTransaction(item, user_id, category_id)
+        } else {
+          //create a new category
+          return newCat.save().then((category) => {
+            return saveTransaction(item, user_id, category.id)
+          })
+        }
+      })
+    })
+    // for (var index = 0; index < transactions.length; index++) {
+    //   //plaid auth-handler already finds user, so user_id is passed in
+    //   //find category id
+    // }
   }
+}
+
+function saveTransaction(transaction, user_id, category_id) {
+  console.log('inputs:',
+    user_id,
+    transaction.amount,
+    category_id);
+  
+  let newTransaction = new Transaction({
+    user_id: user_id,
+    category_id: category_id,
+    amount: transaction.amount,
+    date: transaction.date,
+    pending: transaction.pending,
+    store_name: transaction.name
+  });
+  return newTransaction.save().then((transaction) => {
+    console.log('transaction has been created')
+    return transaction
+  })
+
 }
 
 export default budgetController

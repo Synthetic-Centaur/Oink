@@ -90,13 +90,13 @@ export function removeJWT() {
   }
 }
 
-export function categoryValidation(boolean, category) {
-  console.log('in cat val')
-  if (!boolean) {
+export function categoryValidation(allow, category) {
+  console.log('in cat val', allow, category)
+  if (!allow) {
     return (dispatch) => {
       dispatch({
         type: 'ALLOW_CAT',
-        payload: category
+        data: category
       })
     }
   } else {
@@ -108,8 +108,8 @@ export function categoryValidation(boolean, category) {
   }
 }
 
-export function numberValidation(boolean) {
-  if (boolean) {
+export function numberValidation(allow) {
+  if (allow) {
     console.log('should allow num')
     return (dispatch) => {
       dispatch({
