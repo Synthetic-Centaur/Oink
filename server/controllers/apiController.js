@@ -1,5 +1,8 @@
 import User from '../db/models/user'
 import Users from '../db/collections/users'
+import Category from '../db/models/category'
+import Categories from '../db/collections/categories'
+
 
 // private environmental variables
 import config from '../env/envConfig'
@@ -18,6 +21,8 @@ const client = require('twilio')(accountSid, authToken)
 const clientId = config.plaid_private.clientId
 const secret = config.plaid_private.secret
 
+import request from 'request'
+import _ from 'underscore'
 import plaid from 'plaid'
 import bluebird from 'bluebird'
 bluebird.promisifyAll(plaid)
@@ -64,6 +69,43 @@ let apiController = {
         return message.sid
       }
     });
+  },
+  getCategories(){
+    // Get request for all plaid categories
+    request('https://tartan.plaid.com/categories', (error, response, body) => {
+      // If successful call
+      if( !error && response.statusCode === 200 ) {
+        // Parse body object
+        let arr = JSON.parse(body)
+        // Remove duplicates
+        arr = arr.reduce( (acc, item) => {
+          if(acc.indexOf(item.hierarchy[0]) === -1) {
+            acc.push(item.hierarchy[0])
+          }
+          return acc
+        }, [])
+        // Iterate over array
+        bluebird.map(arr, (item) => {
+          // Establish search criteria
+          let searchCat = new Category({ description: item })
+          // Query category table
+          return searchCat.fetch().then( (cat) => {
+            // If category is not on list
+            if ( !cat ) {
+              // Add category to db
+              return searchCat.save().then( (newCat) => {
+                // Return new category
+                return newCat
+              })
+            // If category is in table
+            } else {
+              //Do nothing
+              return
+            }
+          })
+        })
+      }
+    })
   }
 } 
 

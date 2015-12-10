@@ -87,7 +87,7 @@ export function postPlaid(data) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'authorization': 'Bearer ' + window.sessionStorage.accessToken
+        'authorization': 'Bearer ' + JSON.parse(window.localStorage.redux).auth.token
       },
       body: JSON.stringify({
         public_token: data,
