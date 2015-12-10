@@ -28,6 +28,7 @@ class budgetCategories extends React.Component{
     //   catError: value !== 'Choose a category' ? false : true,
     //   category: value
     // })
+    // console.log(value);
     this.props.categoryValidation(isChosen, value)
 
   }
@@ -36,7 +37,7 @@ class budgetCategories extends React.Component{
   handleBudget(e) {
     e.preventDefault()
 
-    let category = this.state.category
+    let category = this.props.category
     let budget = this.refs.amount.getValue()
 
     this.props.postBudget({
