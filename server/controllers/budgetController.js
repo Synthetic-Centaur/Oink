@@ -1,5 +1,7 @@
 import Budget from '../db/models/budget'
 import Category from '../db/models/category'
+import Budgets from '../db/collections/budgets'
+import db from '../db/dbConfig.js'
 
 let budgetController = {
   createBudget(category, userId, amount){
@@ -32,8 +34,19 @@ let budgetController = {
   deleteBudget(){
 
   },
-  sendBudget(){
+  getBudgets(userId){
 
+    return db.knex('budgets').from('budgets')
+    .innerJoin('categories', 'budgets.category_id', 'categories.id')
+    .innerJoin('users', 'budgets.user_id', 'users.id')
+    .select('first_name', 'last_name', 'description', 'target', 'actual', 'phone_number', 'email')
+    .where('user_id', userId).then( (budgets) => {
+      if ( budgets ) {
+        return budgets
+      } else {
+        return null
+      }
+    })
   }
 }
 
