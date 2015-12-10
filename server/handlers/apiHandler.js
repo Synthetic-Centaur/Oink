@@ -4,12 +4,18 @@ import authController from '../controllers/authController'
 
 apiController.getCategories()
 let apiHandler = {
-  intitialState(req, res) {
+  initialState(req, res) {
     authController.findUserByToken(req).then((user) => {
       if(user) {
         budgetController.getBudgets(user.attributes.id).then( (budgets) => {
           if(budgets){
-            res.json(budgets)
+            budgetController.getAllCategories().then( (categories) => {
+              let state = {
+                budgets,
+                categories
+              }
+              res.json(state)
+            })
           } else {
             res.sendStatus(500)
           }

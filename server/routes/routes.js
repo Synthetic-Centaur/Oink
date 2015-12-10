@@ -28,7 +28,7 @@ app.get('/auth/authenticate', authHandler.authenticate)
 
 app.post('/auth/plaid', authHandler.plaid)
 
-app.get('/api/intitialState', apiHandler.intitialState)
+app.get('/api/initialState', apiHandler.initialState)
 
 app.post('/api/budget/category/:id', apiHandler.budget)
 
