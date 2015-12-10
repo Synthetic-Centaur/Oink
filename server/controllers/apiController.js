@@ -60,6 +60,8 @@ let apiController = {
     })
 
 //////////////////////////////////////////////////////////////////////////////
+
+/////////////////////Comment this out for real data////////////////////////////
     // return plaidClient.getConnectUser('test_wells',
     // {
     //   gte: '360 days ago',
@@ -70,15 +72,13 @@ let apiController = {
     //   if (err) {
     //     console.log('ERROR', err);
     //   } else {
-        // console.log("transactions: ", transactions)
         // console.log('Transactions: ', response.transactions);
         // console.log('You have ' + response.transactions.length +' transactions from the last 400 days.');
         // TODO: need to make async and move this logic to controller to send back
-        // budgetController.saveTransactions(transactions, userid)
-        //res.send(response.transactions);
-        //call saveTransactions controller to save transactions into database: budgetController.saveTransactions(transactions)
+        // budgetController.saveTransactions(response.transactios, userid)
     //   }
     // })
+///////////////////////////////////////////////////
   },
   sendMessage(text, phone) {
     // send twilio message
