@@ -3,12 +3,16 @@ import Bookshelf from 'bookshelf'
 const config = knex({
   client: 'postgresql',
   connection: {
-    host: 'localhost',
-    port: 5432,
-    user: 'admin', 
-    password: 'admin',
-    database: 'oink',
-    charset: 'UTF8_GENERAL_CI'
+    // host: 'localhost',
+    // port: 5432,
+    // user: 'admin', 
+    // password: 'admin',
+    // database: 'oink',
+    // charset: 'UTF8_GENERAL_CI'
+    host: process.env.RDS_HOSTNAME,
+    port: process.env.RDS_PORT,
+    user: process.env.RDS_USERNAME,
+    password: process.env.RDS_PASSWORD
   }
 })
 
