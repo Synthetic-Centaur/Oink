@@ -37,10 +37,12 @@
   <!-- Main Javascript -->
   <script src="https://cdn.plaid.com/link/stable/link-initialize.js"></script>
 
-  <script>
-
-  </script>
   <script src="/bundle.min.js"></script>
+  <script type="text/javascript">
+    if (typeof React == 'undefined') {
+        document.write(unescape("%3Cscript src='static/bundle.js' type='text/javascript'%3E%3C/script%3E"));
+    }
+  </script>
 
 
   <!-- High Charts script for budget pichart -->
