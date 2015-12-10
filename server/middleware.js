@@ -7,22 +7,28 @@ import bodyParser from 'body-parser'
 import jwt from 'jsonwebtoken'
 import session from 'express-session'
 
-//Webpack dependencies
-// import webpack from 'webpack'
-// import webpackDevMiddleware from 'webpack-dev-middleware'
-// import webpackHotMiddleware from 'webpack-hot-middleware'
-// import webpackConfig from '../webpack.config'
+// Webpack dependencies
+if (process.env.NODE_ENV === 'dev') {
+  import webpack from 'webpack'
+  import webpackDevMiddleware from 'webpack-dev-middleware'
+  import webpackHotMiddleware from 'webpack-hot-middleware'
+  import webpackConfig from '../webpack.config'
+}
 
-import db from './db/dbConfig.js' 
+import db from './db/dbConfig.js'
 import app from './server'
 
 
 // ToDo need to configure load order other than using index.js
 //import routes from './routes/routes' --> moved to index.js
 
-
-// Use this middleware to set up hot module reloading via webpack.
-// const compiler = webpack(webpackConfig)
+if (process.env.NODE_ENV === 'dev') {
+  // Use this middleware to set up hot module reloading via webpack.
+  const compiler = webpack(webpackConfig)
+  // Webpack compiling for hot reloads
+  app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: webpackConfig.output.publicPath }))
+  app.use(webpackHotMiddleware(compiler))
+}
 
 //Dev logging
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -44,9 +50,6 @@ app.use(morgan('dev'))
 // app.use(passport.session()) 
 // app.use(flash())
 
-//Webpack compiling for hot reloads
-// app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: webpackConfig.output.publicPath }))
-// app.use(webpackHotMiddleware(compiler))
 
 //Static serving of client files
 app.use(Express.static(__dirname + '/../public'))

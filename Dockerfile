@@ -6,5 +6,3 @@ EXPOSE 3000
 
 # Install dependencies from package.json
 RUN npm install
-
-# Run the server
