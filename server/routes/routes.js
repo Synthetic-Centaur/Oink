@@ -7,6 +7,10 @@ import apiHandler from '../handlers/apiHandler'
 //Model dependencies for search
 import authController from '../controllers/authController' 
 
+app.get('/auth/logout', function(req, res) {
+  res.render()
+})
+
 app.post('/auth/login', authHandler.login)
 
 app.get('/auth/logout', function(req, res) {

@@ -1,7 +1,7 @@
 import knex from 'knex'
 import Bookshelf from 'bookshelf'
 
-const connectionSettings;
+let connectionSettings
 
 if (process.env.NODE_ENV === 'dev') {
   connectionSettings = {

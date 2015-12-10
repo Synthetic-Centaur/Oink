@@ -2,16 +2,20 @@ var path = require('path')
 var webpack = require('webpack')
 
 module.exports = {
-  devtool: 'inline-source-map',
+  // devtool: 'inline-source-map',
   entry: [
     // 'webpack-hot-middleware/client',
     './client/index.js'
   ],
   output: {
     path: path.join(__dirname, 'public'),
-    filename: 'bundle.js',
+    filename: 'bundle.min.js',
     publicPath: '/dist/',
   },
+  plugins: [
+    // new webpack.optimize.UglifyJsPlugin({minimize: true}),
+    // new webpack.optimize.OccurenceOrderPlugin(),
+  ],
   module: {
     
     loaders: [
@@ -20,28 +24,28 @@ module.exports = {
         loader: 'babel',
         exclude: /node_modules/,
         include: __dirname,
-        query: {
-          optional: [ 'runtime' ],
-          stage: 2,
-          env: {
-            development: {
-              plugins: [
-                'react-transform'
-              ],
-              extra: {
-                'react-transform': {
-                  transforms: [
-                    {
-                      transform:  'react-transform-hmr',
-                      imports: [ 'react' ],
-                      locals:  [ 'module' ]
-                    }
-                  ]
-                }
-              }
-            }
-          }
-        }
+        // query: {
+        //   optional: [ 'runtime' ],
+        //   stage: 2,
+        //   env: {
+        //     development: {
+        //       plugins: [
+        //         'react-transform'
+        //       ],
+        //       extra: {
+        //         'react-transform': {
+        //           transforms: [
+        //             {
+        //               transform:  'react-transform-hmr',
+        //               imports: [ 'react' ],
+        //               locals:  [ 'module' ]
+        //             }
+        //           ]
+        //         }
+        //       }
+        //     }
+        //   }
+        // }
       }
     ]
   }

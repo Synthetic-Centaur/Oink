@@ -5,7 +5,7 @@
   "scripts": {
     "start": "NODE_ENV=production node --harmony server/index.js",
     "dev": "NODE_ENV=dev node --harmony server/index.js",
-    "deploy": "NODE_ENV=production webpack -p --config webpack.production.config.js",
+    "build": "NODE_ENV=production webpack -p --config webpack.production.config.js",
     "test": "karma start"
   },
   "repository": {
@@ -38,8 +38,8 @@
     "pg": "4.4.3",
     "plaid": "1.0.7",
     "qs": "4.0.0",
-    "react": "0.14.0",
-    "react-dom": "0.14.0",
+    "react": "^0.14.3",
+    "react-dom": "^0.14.3",
     "react-highcharts": "5.0.6",
     "react-redux": "4.0.0",
     "react-router": "1.0.0",
@@ -47,13 +47,11 @@
     "redux": "3.0.0",
     "redux-localstorage": "0.4.0",
     "redux-simple-router": "0.0.10",
-    "request": "^2.67.0",
-    "serve-static": "^1.10.0",
-    "twilio": "^2.6.0",
-    "underscore": "^1.8.3",
     "redux-thunk": "0.1.0",
+    "request": "^2.67.0",
     "serve-static": "1.10.0",
-    "twilio": "2.6.0"
+    "twilio": "2.6.0",
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
     "babel-core": "^5.8.22",

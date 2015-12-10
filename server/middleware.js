@@ -8,12 +8,11 @@ import jwt from 'jsonwebtoken'
 import session from 'express-session'
 
 // Webpack dependencies
-if (process.env.NODE_ENV === 'dev') {
-  import webpack from 'webpack'
-  import webpackDevMiddleware from 'webpack-dev-middleware'
-  import webpackHotMiddleware from 'webpack-hot-middleware'
-  import webpackConfig from '../webpack.config'
-}
+import webpack from 'webpack'
+import webpackDevMiddleware from 'webpack-dev-middleware'
+import webpackHotMiddleware from 'webpack-hot-middleware'
+import webpackConfig from '../webpack.config'
+
 
 import db from './db/dbConfig.js'
 import app from './server'
