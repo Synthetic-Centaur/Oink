@@ -4,7 +4,7 @@ import Express from 'express'
 
 var app = new Express()
 
-const port = 80
+const port = 3000
 
 app.listen(port, (error) => {
   if (error) {
