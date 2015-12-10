@@ -26,8 +26,8 @@ import plaid from 'plaid'
 import bluebird from 'bluebird'
 bluebird.promisifyAll(plaid)
 
-// let plaidClient = new plaid.Client(clientId, secret, plaid.environments.tartan)
-let plaidClient = new plaid.Client('test_id', 'test_secret', plaid.environments.tartan)
+let plaidClient = new plaid.Client(clientId, secret, plaid.environments.tartan)
+// let plaidClient = new plaid.Client('test_id', 'test_secret', plaid.environments.tartan)
 
 
 

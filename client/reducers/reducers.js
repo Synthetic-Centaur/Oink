@@ -60,7 +60,7 @@ function homePageReducer (state = {
     case 'DISABLE_NUM':
       return Object.assign({}, state, {numberError: true})
     case 'ALLOW_CAT':
-      return Object.assign({}, state, {categoryError: false, category: action.category})
+      return Object.assign({}, state, {categoryError: false, category: action.data})
     case 'DISABLE_CAT':
       return Object.assign({}, state, {categoryError: true})
     default:

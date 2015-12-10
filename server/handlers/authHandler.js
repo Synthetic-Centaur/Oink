@@ -142,6 +142,7 @@ let authHandler = {
   }, 
   plaid(req, res) {
     console.log('inside auth handler plaid')
+    console.log("authorization------------>",req.headers.authorization)
     let token_auth = req.headers.authorization.split(' ')[1]
     console.log('AUTH TOKEN:', token_auth)
     let public_token = req.body.public_token
