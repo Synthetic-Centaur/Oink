@@ -35,17 +35,13 @@ db.knex.schema.hasTable('transactions').then( (exists) => {
   if (!exists) {
     db.knex.schema.createTable('transactions', (transaction) => {
       transaction.increments('id').primary()
-      //user and category foreign keys
       transaction.integer('user_id')
-
       transaction.integer('category_id')
-
       transaction.string('date')
-      transaction.decimal('amount', 2)
+      transaction.integer('amount', 2)
       transaction.string('address', 255)
       transaction.string('city', 255)
       transaction.string('state', 255)
-      // transaction.string('zip', 255)
       transaction.boolean('pending')
       transaction.string('store_name')
     }).then((table) => {
