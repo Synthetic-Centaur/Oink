@@ -1,30 +1,11 @@
 import knex from 'knex'
 import Bookshelf from 'bookshelf'
+import { db_connection } from '../env/envConfig'
 
-let connectionSettings
-
-if (process.env.NODE_ENV === 'dev') {
-  connectionSettings = {
-    host: 'localhost',
-    port: 5432,
-    user: 'admin',
-    password: 'admin',
-    database: 'oink',
-    charset: 'UTF8_GENERAL_CI'
-  }
-} else {
-  connectionSettings = {
-    host: process.env.RDS_HOSTNAME,
-    port: process.env.RDS_PORT,
-    user: process.env.RDS_USERNAME,
-    password: process.env.RDS_PASSWORD,
-    database: process.env.RDS_DB_NAME
-  }
-}
 
 const config = knex({
   client: 'postgresql',
-  connection: connectionSettings
+  connection: db_connection
 })
 
 const db = Bookshelf(config)

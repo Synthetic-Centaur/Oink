@@ -11,9 +11,6 @@ const accountSid = config.twilio_private.accountSid
 const authToken = config.twilio_private.authToken
 const twilioPhone = config.twilio_private.twilioPhone
 
-console.log('SID', accountSid)
-console.log('authToken', authToken)
-
 const client = require('twilio')(accountSid, authToken)
 
 // plaid
