@@ -16,25 +16,42 @@ let budgetController = {
         user_id: userId
       }
       //sum all transactions, set to variable actual
-      let actual = 0
-      newBudget.actual = actual
-      //save to table
-      newBudget = new Budget(newBudget)
-      return newBudget.save().then((budget) => {
-        if(budget){
-          return budget
-        } else {
-          return null
-        }
+      return budgetController.sumTransactionByCategory(cat.id).then((sum)=>{
+        newBudget.actual = sum
+        //save to table
+        newBudget = new Budget(newBudget)
+        return newBudget.save().then((budget) => {
+          if(budget){
+            return budget
+          } else {
+            return null
+          }
+        })
       })
     })
-    //return budget
   },
   updateBudget(){
 
   },
-  deleteBudget(){
-
+  getAllCategories(){
+    return db.knex('categories').select('description').then((categories) => {
+      if(categories) {
+        return categories.map( (category) => {
+          return category.description
+        })
+      } else {
+        return null
+      }
+    })
+  },
+  sumTransactionByCategory(categoryId){
+    return db.knex('transactions').sum('amount').where('category_id', categoryId).then((sum)=> {
+      if(sum){
+        return +sum[0].sum
+      } else {
+        return 0
+      }
+    })
   },
   getBudgets(userId){
 

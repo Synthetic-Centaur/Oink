@@ -29,11 +29,12 @@ export function postBudget(data) {
     dispatch(ACTIONS.requestData());
     return fetch('/api/budget/category/' + data.category, {
       method: 'POST',
-      header: {
-        'Content-Type': 'application/json'
+      headers: {
+        'Content-Type': 'application/json',
+        'authorization': 'Bearer ' + JSON.parse(window.localStorage.redux).auth.token
       },
       body: JSON.stringify({
-        budget: data.budget,
+        amount: data.budget,
       })
     })
     .then((response) => {
