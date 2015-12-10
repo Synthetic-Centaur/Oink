@@ -8,10 +8,10 @@ import jwt from 'jsonwebtoken'
 import session from 'express-session'
 
 //Webpack dependencies
-import webpack from 'webpack'
-import webpackDevMiddleware from 'webpack-dev-middleware'
-import webpackHotMiddleware from 'webpack-hot-middleware'
-import webpackConfig from '../webpack.config'
+// import webpack from 'webpack'
+// import webpackDevMiddleware from 'webpack-dev-middleware'
+// import webpackHotMiddleware from 'webpack-hot-middleware'
+// import webpackConfig from '../webpack.config'
 
 import db from './db/dbConfig.js' 
 import app from './server'
@@ -22,7 +22,7 @@ import app from './server'
 
 
 // Use this middleware to set up hot module reloading via webpack.
-const compiler = webpack(webpackConfig)
+// const compiler = webpack(webpackConfig)
 
 //Dev logging
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -45,8 +45,8 @@ app.use(morgan('dev'))
 // app.use(flash())
 
 //Webpack compiling for hot reloads
-app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: webpackConfig.output.publicPath }))
-app.use(webpackHotMiddleware(compiler))
+// app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: webpackConfig.output.publicPath }))
+// app.use(webpackHotMiddleware(compiler))
 
 //Static serving of client files
 app.use(Express.static(__dirname + '/../public'))
