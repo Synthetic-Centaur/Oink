@@ -6,3 +6,6 @@ EXPOSE 3000
 
 # Install dependencies from package.json
 RUN npm install
+
+# Build build bundle.min.js
+RUN npm run build
