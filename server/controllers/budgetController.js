@@ -10,12 +10,13 @@ let budgetController = {
     // Search for category and retrieve category id
     let searchCat = new Category({ description: category })
     return searchCat.fetch().then( (cat) => {
+      // Create response object
       let newBudget = {
         target: amount,
         category_id: cat.id,
         user_id: userId
       }
-      //sum all transactions, set to variable actual
+      //sum all transactions, set to response as actual
       return budgetController.sumTransactionByCategory(cat.id).then((sum)=>{
         newBudget.actual = sum
         //save to table
@@ -30,12 +31,11 @@ let budgetController = {
       })
     })
   },
-  updateBudget(){
-
-  },
   getAllCategories(){
+    // Return all categories in table
     return db.knex('categories').select('description').then((categories) => {
       if(categories) {
+        // Convert to an array of descriptions
         return categories.map( (category) => {
           return category.description
         })
@@ -45,8 +45,10 @@ let budgetController = {
     })
   },
   sumTransactionByCategory(categoryId){
+    // Return the sum of all transactions in a provided category
     return db.knex('transactions').sum('amount').where('category_id', categoryId).then((sum)=> {
       if(sum){
+        // Type conversion to number
         return +sum[0].sum
       } else {
         return 0
@@ -54,11 +56,15 @@ let budgetController = {
     })
   },
   getBudgets(userId){
-
+    // Query budgets table
     return db.knex('budgets').from('budgets')
+    // Joins to get category descriptions
     .innerJoin('categories', 'budgets.category_id', 'categories.id')
+    // Joins to get user data
     .innerJoin('users', 'budgets.user_id', 'users.id')
+    // Only returns certain columns
     .select('first_name', 'last_name', 'description', 'target', 'actual', 'phone_number', 'email')
+    // Only gets budgets from specified user
     .where('user_id', userId).then( (budgets) => {
       if ( budgets ) {
         return budgets
@@ -68,18 +74,16 @@ let budgetController = {
     })
   },
   saveTransactions(transactions, user_id) {
-    console.log('in budget controller')
     // loop over transactions array
     return Promise.map(transactions, (item) => {
-      
+      // We are only concerned with first category
       const category = item.category[0]
+
       let newCat = new Category ({description: category})
       return newCat.fetch().then((category) => {
         if (category) {
           //if category already exists, save in database setting all of transaction data plus user_id and category id
           const category_id = category.id
-          console.log('catid: ', category_id);
-          // console.log(index, 'Transaction: ', item, "userid: ", user_id, "cat_id", category_id)
           return saveTransaction(item, user_id, category_id)
         } else {
           //create a new category
@@ -89,19 +93,11 @@ let budgetController = {
         }
       })
     })
-    // for (var index = 0; index < transactions.length; index++) {
-    //   //plaid auth-handler already finds user, so user_id is passed in
-    //   //find category id
-    // }
   }
 }
 
 function saveTransaction(transaction, user_id, category_id) {
-  console.log('inputs:',
-    user_id,
-    transaction.amount,
-    category_id);
-  
+  // Creates new transaction object
   let newTransaction = new Transaction({
     user_id: user_id,
     category_id: category_id,
@@ -109,9 +105,9 @@ function saveTransaction(transaction, user_id, category_id) {
     date: transaction.date,
     pending: transaction.pending,
     store_name: transaction.name
-  });
+  })
+  // Saves to db
   return newTransaction.save().then((transaction) => {
-    console.log('transaction has been created')
     return transaction
   })
 

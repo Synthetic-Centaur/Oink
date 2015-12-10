@@ -4,27 +4,23 @@ import Users from '../db/collections/users'
 let authController = {
 
   addUser(user) {
-    // add user to database
     // user should be object of the following format: 
-    // {"first_name": "Lucilla", "email": "ScrumLord@gmail.com", "last_name": "Chalmer", "phone_number": 7344749351, "uuid": "abc123", "password": "KittyKat"}
+    // {"first_name": "John", "last_name": "Smith", "email": "JohnSmith@example.com", , "phone_number": 8085551234, "password": "ExamplePass"}
     let newUser = new User(user)
     // hashes user's password prior to saving 
     newUser.hashPassword(user.password)
+    // saves user to db
     return newUser.save().then((user) => {
-      console.log('user has been created')
       return user
     })
   },
-  findUser(user) {  
+  findUser(user) {
     let newUser = new User({email: user.email})
     console.log('new user:', newUser)
     return newUser.fetch().then((user) => {
-      console.log('USER POST FETCH: ',user)
       if (user) {
-        console.log('user found')
         return user;
       } else {
-        console.log('user not found')
         return null;
       }
     })
@@ -37,11 +33,9 @@ let authController = {
     return searchUser.fetch().then((user) => {
       //If user is found, return user
       if (user) {
-        console.log('Found user')
         return user
       } else {
       //Else return null
-        console.log('User not found')
         return null
       }
     })
@@ -66,7 +60,6 @@ let authController = {
     return newUser.fetch().then((user) => {
       if (user) {
         user.attributes.token_auth = token
-        console.log('USER ---------> INSIDE saveAuthToken | authController', user)
         return user.save().then((user) => {
           return user
         })

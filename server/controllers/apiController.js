@@ -18,7 +18,6 @@ const clientId = config.plaid_private.clientId
 const secret = config.plaid_private.secret
 
 import request from 'request'
-import _ from 'underscore'
 import plaid from 'plaid'
 import bluebird from 'bluebird'
 bluebird.promisifyAll(plaid)
