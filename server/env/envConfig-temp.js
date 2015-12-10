@@ -8,28 +8,79 @@ Note: envConfig.js will always be git ignored
 ******************************************************/
 
 // Twilio Account information
-const twilio_private = {
-  accountSid: 'PRIVATE_KEY',
-  authToken: 'AUTH_TOKEN',
-  twilioPhone: 'PHONE_NUMBER'
-}
+let twilio_private
 
 // plaid account information
-const plaid_private = {
-  clientId: 'CLIENT_ID',
-  secret: 'PRIVATE_SECRET',
-  publicKey: 'PUBLIC_KEY'
-}
+let plaid_private
 
 // jwt secret
-const jwt_private = {
-  secret: 'JWT_SECRET'
+let jwt_private
+
+//Database connection settings
+let db_connection
+
+// Dev enviroment
+if (process.env.NODE_ENV === 'dev') {
+
+  twilio_private = {
+    accountSid: 'PRIVATE_KEY',
+    authToken: 'AUTH_TOKEN',
+    twilioPhone: 'PHONE_NUMBER'
+  }
+
+  plaid_private = {
+    clientId: 'test_id',
+    secret: 'test_secret',
+    publicKey: 'test_key'
+  }
+
+  jwt_private = {
+    secret: 'JWT_SECRET'
+  }
+
+  db_connection = {
+    host: 'localhost',
+    port: 5432,
+    user: 'admin',
+    password: 'admin',
+    database: 'oink',
+    charset: 'UTF8_GENERAL_CI'
+  }
+
+// Production enviroment
+} else {
+
+  twilio_private = {
+    accountSid: process.env.twilio_accountSID,
+    authToken: process.env.twilio_authToken,
+    twilioPhone: process.env.twilio_phone
+  }
+
+  plaid_private = {
+    clientId: process.env.plaid_clientID,
+    secret: process.env.plaid_secret,
+    publicKey: process.env.plaid_publicKey
+  }
+
+  jwt_private = {
+    secret: process.env.jwt_secret
+  }
+
+  db_connection = {
+    host: process.env.RDS_HOSTNAME,
+    port: process.env.RDS_PORT,
+    user: process.env.RDS_USERNAME,
+    password: process.env.RDS_PASSWORD,
+    database: process.env.RDS_DB_NAME
+  }
+
 }
 
 const config = {
   twilio_private: twilio_private,
   plaid_private: plaid_private,
-  jwt_private: jwt_private
+  jwt_private: jwt_private,
+  db_connection: db_connection
 }
 
 export default config

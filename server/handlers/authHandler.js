@@ -2,9 +2,9 @@ import authController from '../controllers/authController'
 import apiController from '../controllers/apiController'
 import budgetController from '../controllers/budgetController'
 import jwt from 'jsonwebtoken'
-
 // shhhhh secrets
 import config from '../env/envConfig'
+
 const jwt_secret = config.jwt_private.secret.secret
 
 let authHandler = {
