@@ -71,23 +71,35 @@ let apiController = {
     });
   },
   getCategories(){
+    // Get request for all plaid categories
     request('https://tartan.plaid.com/categories', (error, response, body) => {
+      // If successful call
       if( !error && response.statusCode === 200 ) {
+        // Parse body object
         let arr = JSON.parse(body)
+        // Remove duplicates
         arr = arr.reduce( (acc, item) => {
           if(acc.indexOf(item.hierarchy[0]) === -1) {
             acc.push(item.hierarchy[0])
           }
           return acc
         }, [])
+        // Iterate over array
         bluebird.map(arr, (item) => {
+          // Establish search criteria
           let searchCat = new Category({ description: item })
+          // Query category table
           return searchCat.fetch().then( (cat) => {
+            // If category is not on list
             if ( !cat ) {
+              // Add category to db
               return searchCat.save().then( (newCat) => {
+                // Return new category
                 return newCat
               })
+            // If category is in table
             } else {
+              //Do nothing
               return
             }
           })

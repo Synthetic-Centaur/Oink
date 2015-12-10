@@ -30,13 +30,17 @@ let authController = {
     })
   },
   findUserByToken(req) {
+    // Retrieve token from auth headers
     let token = req.headers.authorization.split(' ')[1]
+    // Generate search querey
     let searchUser = new User({token_auth: token})
     return searchUser.fetch().then((user) => {
+      //If user is found, return user
       if (user) {
         console.log('Found user')
         return user
       } else {
+      //Else return null
         console.log('User not found')
         return null
       }

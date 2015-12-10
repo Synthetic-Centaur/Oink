@@ -3,6 +3,7 @@ import Category from '../db/models/category'
 
 let budgetController = {
   createBudget(category, userId, amount){
+    // Search for category and retrieve category id
     let searchCat = new Category({ description: category })
     return searchCat.fetch().then( (cat) => {
       let newBudget = {
