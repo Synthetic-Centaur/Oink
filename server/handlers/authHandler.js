@@ -9,6 +9,12 @@ const jwt_secret = config.jwt_private.secret.secret
 
 let authHandler = {
   isLoggedIn(req, res, next) {
+    if( !req.headers.authorization) {
+      return res.status(403).send({ 
+          success: false, 
+          message: 'No token provided.' 
+      })
+    }
     // check header or url parameters or post parameters for token
     var token = req.headers.authorization.split(' ')[1]
 

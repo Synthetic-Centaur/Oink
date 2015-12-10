@@ -26,6 +26,9 @@ let authController = {
     })
   },
   findUserByToken(req) {
+    if( !req.headers.authorization) {
+      return null
+    }
     // Retrieve token from auth headers
     let token = req.headers.authorization.split(' ')[1]
     // Generate search querey
