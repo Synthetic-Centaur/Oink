@@ -5,8 +5,19 @@ import authController from '../controllers/authController'
 apiController.getCategories()
 let apiHandler = {
   intitialState(req, res) {
-    console.log("inside intitialState handler");
-    res.send(req);
+    authController.findUserByToken(req).then((user) => {
+      if(user) {
+        budgetController.getBudgets(user.attributes.id).then( (budgets) => {
+          if(budgets){
+            res.json(budgets)
+          } else {
+            res.sendStatus(500)
+          }
+        })
+      } else {
+        res.sendStatus(500)
+      }
+    })
   },
   budget(req, res) {
     console.log("inside budget handler");
