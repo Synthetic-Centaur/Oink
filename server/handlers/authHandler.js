@@ -48,28 +48,31 @@ let authHandler = {
     // Finds the user with provided email
     authController.findUser({email: req.body.email}).then( (user) => {
       if (!user) {
+        res.status(403)
         res.json({ success: false, message: 'Authentication failed. User not found.' })
-      }
-      // Checks if provided password is valid
-      if (!user.validPassword(req.body.password)) {
-        res.json({ success: false, message: 'Authentication failed. Wrong password.' })
-      }
-      // if user is found and password is right
-      // create a token
-      let token = jwt.sign(user, 'jwt_secret', {
-        expiresIn: 604800 // expires in 24 hours
-      })
-
-      authController.saveAuthToken(token, user.attributes.id).then( (user) => {    
-        // return the information including token as JSON
-        res.status(200)
-        res.json({
-          success: true,
-          message: 'Enjoy your token!',
-          jwt_token: token,
-          expiresIn: 604800
+      } else {
+        // Checks if provided password is valid
+        if (!user.validPassword(req.body.password)) {
+          res.status(403)
+          res.json({ success: false, message: 'Authentication failed. Wrong password.' })
+        }
+        // if user is found and password is right
+        // create a token
+        let token = jwt.sign(user, 'jwt_secret', {
+          expiresIn: 604800 // expires in 24 hours
         })
-      })
+
+        authController.saveAuthToken(token, user.attributes.id).then( (user) => {    
+          // return the information including token as JSON
+          res.status(200)
+          res.json({
+            success: true,
+            message: 'Enjoy your token!',
+            jwt_token: token,
+            expiresIn: 604800
+          })
+        })
+      }
     })
   },
   signup(req, res, next) {
