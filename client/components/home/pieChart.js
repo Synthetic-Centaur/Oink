@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import ReactHighCharts from 'react-highcharts/dist/bundle/highcharts'
 import chartConfig from './config/chartConfig'
 
-class pieChart extends Component {
+class PieChart extends Component {
 
   // Making sure pie chart does not refresh whenever input form is changed
   shouldComponentUpdate(nextProps) {
@@ -38,4 +38,4 @@ class pieChart extends Component {
 
 }
 
-export default pieChart
+export default PieChart

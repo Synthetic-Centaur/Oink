@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { authRedirect, authLogout } from '../api/authHandlers'
 import PieChart from '../components/home/PieChart'
 import BudgetCategories from '../components/home/BudgetCategories'
-import NavBar from '../components/home/homeNavBar'
+import NavBar from '../components/home/HomeNavBar'
 import { getInitialState, postBudget } from '../api/apiHandlers'
 import { numberValidation, categoryValidation } from '../actions/actions'
 
