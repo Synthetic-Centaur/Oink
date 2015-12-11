@@ -1,6 +1,7 @@
 import * as ACTIONS from '../actions/actions'
 
 //Get initial state data for user
+
 export function getInitialState() {
   return function(dispatch) {
     dispatch(ACTIONS.requestData());
