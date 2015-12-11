@@ -1,28 +1,25 @@
 let expect = require('chai').expect
-import Promise from 'bluebird'
-import db from '../../server/db/dbConfig'
-import {populateTables} from '../../server/db/dbConfig'
-
-Promise.promisify(populateTables)
+import db from '../../../server/db/dbConfig'
+import util from '../util'
 
 describe('User Table', () => {
-  beforeEach( (done) => {
-    db.knex.schema.dropTable('users').then(()=> {
-      populateTables( () => {
+  before( (done) => {
+    util.clearDB().then(() => {
+      util.populateDB( () => {
         done()
       })
-    })
-  })
-  it('should have a User\'s table', (done) => {
-    db.knex.schema.hasTable('users').then( (exists) => {
-      expect(exists).to.equal(true)
-      done()
     })
   })
   
   it('should have a token_auth column which is a string', (done) => {
     db.knex('users').columnInfo('token_auth').then((info) => {
       expect(info.type).to.equal('text')
+      done()
+    })
+  })
+  it('should have a User\'s table', (done) => {
+    db.knex.schema.hasTable('users').then( (exists) => {
+      expect(exists).to.equal(true)
       done()
     })
   })

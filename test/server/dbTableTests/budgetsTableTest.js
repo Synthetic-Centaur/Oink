@@ -1,31 +1,31 @@
   let expect = require('chai').expect
-import db from '../../server/db/dbConfig'
-import {populateTables} from '../../server/db/dbConfig'
+import db from '../../../server/db/dbConfig'
+import util from '../util'
+
 
 describe('Budget Table', () => {
-  beforeEach( (done) => {
-    db.knex.schema.dropTableIfExists('budgets').then(()=> {
-      populateTables(() => {
+  before( (done) => {
+    util.clearDB().then(() => {
+      util.populateDB( () => {
         done()
       })
     })
   })
   after( (done) => {
-    populateTables(() => {
-      done()
-    })
-  })
-  it('should have a Budget\'s table', (done) => {
-    db.knex.schema.hasTable('budgets').then( (exists) => {
-      console.log("IN HERE")
-      expect(exists).to.equal(true)
-      done()
+    util.populateDB( () => {
+        done()
     })
   })
   
   it('should have a user_id column which is an integer', (done) => {
     db.knex('budgets').columnInfo('user_id').then((info) => {
       expect(info.type).to.equal('integer')
+      done()
+    })
+  })
+  it('should have a Budget\'s table', (done) => {
+    db.knex.schema.hasTable('budgets').then( (exists) => {
+      expect(exists).to.equal(true)
       done()
     })
   })
