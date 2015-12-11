@@ -6,7 +6,7 @@ var app = new Express()
 
 const port = 3000
 
-app.listen(port, (error) => {
+export var server = app.listen(port, (error) => {
   if (error) {
     console.error(error)
   } else {
