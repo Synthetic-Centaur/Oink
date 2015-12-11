@@ -1,4 +1,3 @@
-import request from 'supertest'
 let expect = require('chai').expect
 var server = require('../../server/server').server
 var request = require('supertest')(server)
@@ -44,3 +43,4 @@ describe('APIRoutes', () => {
       .post('/api/budget/category/Transfer')
       .expect(403, done)
   })
+})
