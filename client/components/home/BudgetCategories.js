@@ -7,7 +7,6 @@ class budgetCategories extends React.Component{
 
   //Refresh state to undisable form
   componentDidUpdate() {
-    console.log("is component updating? ", this.props)
   }
 
   //form-validation for input field/budget amount
@@ -29,6 +28,8 @@ class budgetCategories extends React.Component{
     //   category: value
     // })
     // console.log(value);
+    // console.log(this.refs.category._setSelectedIndex(0))
+
     this.props.categoryValidation(isChosen, value)
 
   }
@@ -44,6 +45,9 @@ class budgetCategories extends React.Component{
       category: category,
       budget: budget
     });
+
+    this.refs.amount.setValue('Enter a sum')
+    this.refs.category._setSelectedIndex(0)
   }
 
   render() {
@@ -68,13 +72,12 @@ class budgetCategories extends React.Component{
           <TextField 
             ref="amount" 
             hintText="Enter a sum"
-            defaultValue="abc"
+            defaultValue="Enter a sum"
             onChange={this.handleNumError.bind(this)} />
         </div>
-        <div className="row" className="four columns">
+        <div className="row">
           <RaisedButton 
             ref="input"
-            className="two columns offset-by-two"
             label="Add new category"
             disabled={this.props.numberError || this.props.categoryError}
             onClick={this.handleBudget.bind(this)} />

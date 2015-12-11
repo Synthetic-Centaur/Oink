@@ -77,21 +77,23 @@ let budgetController = {
     // loop over transactions array
     return Promise.map(transactions, (item) => {
       // We are only concerned with first category
-      const category = item.category[0]
 
-      let newCat = new Category ({description: category})
-      return newCat.fetch().then((category) => {
-        if (category) {
-          //if category already exists, save in database setting all of transaction data plus user_id and category id
-          const category_id = category.id
-          return saveTransaction(item, user_id, category_id)
-        } else {
-          //create a new category
-          return newCat.save().then((category) => {
-            return saveTransaction(item, user_id, category.id)
-          })
-        }
-      })
+      if (item.category) {
+        const category = item.category[0]
+        let newCat = new Category ({description: category})
+        return newCat.fetch().then((category) => {
+          if (category) {
+            //if category already exists, save in database setting all of transaction data plus user_id and category id
+            const category_id = category.id
+            return saveTransaction(item, user_id, category_id)
+          } else {
+            //create a new category
+            return newCat.save().then((category) => {
+              return saveTransaction(item, user_id, category.id)
+            })
+          }
+        })
+      }
     })
   }
 }

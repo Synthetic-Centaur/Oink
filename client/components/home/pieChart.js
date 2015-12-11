@@ -7,7 +7,6 @@ class pieChart extends Component {
 
   // Making sure pie chart does not refresh whenever input form is changed
   shouldComponentUpdate(nextProps) {
-    console.log('NEXT PROPS:', nextProps)
     if (this.props.data && nextProps.data) {
       return this.props.data.length !== nextProps.data.length
     } else {
