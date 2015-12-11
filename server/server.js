@@ -4,7 +4,7 @@ import Express from 'express'
 
 var app = new Express()
 
-const port = 3000
+const port = process.env.PORT || 3000
 
 app.listen(port, (error) => {
   if (error) {
