@@ -41,7 +41,7 @@ class budgetCategories extends React.Component{
     let budget = parseInt(this.refs.amount.getValue())
 
     console.log(budget, typeof(budget));
-    
+
     this.props.postBudget({
       category: category,
       budget: budget
@@ -73,10 +73,9 @@ class budgetCategories extends React.Component{
             defaultValue="abc"
             onChange={this.handleNumError.bind(this)} />
         </div>
-        <div className="row" className="four columns">
+        <div className="row">
           <RaisedButton 
             ref="input"
-            className="two columns offset-by-two"
             label="Add new category"
             disabled={this.props.numberError || this.props.categoryError}
             onClick={this.handleBudget.bind(this)} />
