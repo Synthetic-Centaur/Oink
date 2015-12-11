@@ -3,7 +3,6 @@ let expect = require('chai').expect
 process.env.NODE_ENV = 'dev'
 var app = require('../../server/index')
 var server = require('../../server/server').server
-import db from ('../../server/db/dbConfig')
 
 describe('Static routing', () => {
   it('should allow root requests to /', (done) => {
@@ -18,5 +17,26 @@ describe('Static routing', () => {
   })
 })
 describe('AuthRoutes', () => {
-  it('should ')
+  it('should respond with a 403 forbidden with unauthorized request to auth/plaid', (done) => {
+    request(server)
+      .get('/auth/plaid')
+      .expect(403, done)
+  })
+  it('should respond with a 403 forbidden with unauthorized request to auth/login', (done) => {
+    request(server)
+      .post('/auth/login')
+      .expect(403, done)
+  })
+})
+describe('APIRoutes', () => {
+  it('should respond with a 403 forbidden with unauthorized request to /api/initialState', (done) => {
+    request(server)
+      .get('/api/initialState')
+      .expect(403, done)
+  })
+  it('should respond with a 403 forbidden with unauthorized request to /api/budget/category/:id', (done) => {
+    request(server)
+      .post('/api/budget/category/Transfer')
+      .expect(403, done)
+  })
 })

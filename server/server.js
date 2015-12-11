@@ -7,7 +7,7 @@ var app = new Express()
 const port = process.env.PORT || 3000
 
 if (process.env.NODE_ENV === 'dev') {
-  export var server = app.listen(port, (error) => {
+  var server = app.listen(port, (error) => {
     if (error) {
       console.error(error)
     } else {
@@ -23,5 +23,5 @@ if (process.env.NODE_ENV === 'dev') {
     }
   })
 }
-
+export var server
 export default app

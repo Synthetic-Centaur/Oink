@@ -48,10 +48,12 @@ let authHandler = {
     // Finds the user with provided email
     authController.findUser({email: req.body.email}).then( (user) => {
       if (!user) {
+        res.status(403)
         res.json({ success: false, message: 'Authentication failed. User not found.' })
       }
       // Checks if provided password is valid
       if (!user.validPassword(req.body.password)) {
+        res.status(403)
         res.json({ success: false, message: 'Authentication failed. Wrong password.' })
       }
       // if user is found and password is right
