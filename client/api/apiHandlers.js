@@ -15,7 +15,8 @@ export function getInitialState() {
       if (response.status === 200) {
         return response.json()
       }
-    }).then((response) => {
+    })
+    .then((response) => {
       dispatch(ACTIONS.receiveData(response))
     })
     .catch((err) => {
@@ -26,7 +27,6 @@ export function getInitialState() {
 
 //Post user budget data
 export function postBudget(data) {
-  console.log('in postBudget', data);
   return function(dispatch) {
     dispatch(ACTIONS.requestData());
     return fetch('/api/budget/category/' + data.category, {

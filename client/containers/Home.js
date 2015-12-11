@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { authRedirect, authLogout } from '../api/authHandlers'
 import PieChart from '../components/home/PieChart'
 import BudgetCategories from '../components/home/BudgetCategories'
-import NavBar from '../components/home/homeNavBar'
+import NavBar from '../components/home/HomeNavBar'
 import { getInitialState, postBudget } from '../api/apiHandlers'
 import { numberValidation, categoryValidation } from '../actions/actions'
 
@@ -30,18 +30,19 @@ class Home extends Component {
       <div className = "container">
         <NavBar logout = { actions.authLogout } />
         <BudgetCategories
-          data = { data.categories }
+          data = { data }
           postBudget={ actions.postBudget }
           numberValidation={ actions.numberValidation } 
           categoryValidation={ actions.categoryValidation }
           numberError={ homePage.numberError }
           categoryError={ homePage.categoryError }
-          category={ homePage.category } />
-        <PieChart 
-          data = { data.budgets } />
+          category={ homePage.category }
+        />
+        <PieChart data = { data } />
       </div>
       )
   }
+  // <PieChart data = { data } />
   render() {
     const { isAuthenticated, data } = this.props
     return (

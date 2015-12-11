@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react'
 import RaisedButton from 'material-ui/lib/raised-button'
-import authKeys from '../../config/authKeys'
 
 class PlaidButton extends Component {
   handlePlaid(e) {
@@ -11,7 +10,7 @@ class PlaidButton extends Component {
     let sandboxHandler = Plaid.create({
       env: 'tartan',
       clientName: 'Oink',
-      key: authKeys.plaid.public_key,
+      key: "test_key",
       product: 'connect',
       onSuccess(public_token) {
         authenticate(public_token)

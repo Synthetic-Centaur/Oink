@@ -1,7 +1,6 @@
 //configures data for High-chart
 
 function chartConfig(data) {
-  console.log('DATA inside chartConfig:', data)
   //data should be formatted as an array with objects for data points
   let total = 0
   let budget = []

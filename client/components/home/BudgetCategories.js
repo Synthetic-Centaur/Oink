@@ -3,7 +3,7 @@ import DropDownMenu from 'material-ui/lib/drop-down-menu'
 import TextField from 'material-ui/lib/text-field'
 import RaisedButton from 'material-ui/lib/raised-button'
 
-class budgetCategories extends React.Component{
+class BudgetCategories extends React.Component{
 
   //Refresh state to undisable form
   componentDidUpdate() {
@@ -11,11 +11,9 @@ class budgetCategories extends React.Component{
 
   //form-validation for input field/budget amount
   handleNumError(e) {
-    var value = e.target.value;
-    var isNumeric = !isNaN(parseFloat(value)) && isFinite(value);
-    // this.setState({
-    //   numError: isNumeric ? false : true
-    // })
+    var value = e.target.value
+    var isNumeric = !isNaN(parseFloat(value)) && isFinite(value)
+    
     this.props.numberValidation(isNumeric)
   }
 
@@ -23,15 +21,8 @@ class budgetCategories extends React.Component{
   handleCatError(e) {
     var value = e.target.value;
     var isChosen = value !== 'Choose a category' ? false : true
-    // this.setState({
-    //   catError: value !== 'Choose a category' ? false : true,
-    //   category: value
-    // })
-    // console.log(value);
-    // console.log(this.refs.category._setSelectedIndex(0))
 
     this.props.categoryValidation(isChosen, value)
-
   }
 
   //send budget to server and update state
@@ -46,19 +37,21 @@ class budgetCategories extends React.Component{
       budget: budget
     });
 
-    this.refs.amount.setValue('Enter a sum')
+    this.refs.amount.setValue('')
     this.refs.category._setSelectedIndex(0)
   }
 
   render() {
-    let menuItems = [
-      { payload: 'Choose a category', text: 'Choose a category'}
-    ]
-    if (this.props.data) { 
-      for (var i=0; i<this.props.data.length; i++) {
-        menuItems.push({payload: this.props.data[i], text: this.props.data[i]})
-      }
+    const { data } = this.props
+    let menuItems = [ { payload: 'Choose a category', text: 'Choose a category'} ]
+
+    if (data.categories !== undefined) {
+      let categories = data.categories.map((category) => {
+        return {payload: category, text: category}
+      })
+      menuItems = menuItems.concat(categories)
     }
+
     return (
       <form className="u-pull-right">
         <div className="row">
@@ -72,7 +65,6 @@ class budgetCategories extends React.Component{
           <TextField 
             ref="amount" 
             hintText="Enter a sum"
-            defaultValue="Enter a sum"
             onChange={this.handleNumError.bind(this)} />
         </div>
         <div className="row">
@@ -88,4 +80,4 @@ class budgetCategories extends React.Component{
 
 }
 
-export default budgetCategories
+export default BudgetCategories

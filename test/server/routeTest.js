@@ -1,6 +1,5 @@
+import request from 'supertest'
 let expect = require('chai').expect
-process.env.NODE_ENV = 'dev'
-var app = require('../../server/index')
 var server = require('../../server/server').server
 var request = require('supertest')(server)
 
@@ -45,4 +44,3 @@ describe('APIRoutes', () => {
       .post('/api/budget/category/Transfer')
       .expect(403, done)
   })
-})
