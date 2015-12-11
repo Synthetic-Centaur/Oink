@@ -34,7 +34,7 @@ db.knex.schema.hasTable('transactions').then( (exists) => {
       transaction.integer('user_id')
       transaction.integer('category_id')
       transaction.string('date')
-      transaction.integer('amount', 2)
+      transaction.decimal('amount', 20)
       transaction.string('address', 255)
       transaction.string('city', 255)
       transaction.string('state', 255)

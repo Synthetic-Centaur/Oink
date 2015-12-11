@@ -70,7 +70,7 @@ Home.PropTypes = {
 //Unpack state onto container props
 function mapStateToProps(state) {
   return {
-    isLoading: state.isLoading,
+    isLoading: state.asyncStatus.isLoading,
     data: state.asyncStatus.data,
     error: state.asyncStatus.error,
     homePage: state.homePage,

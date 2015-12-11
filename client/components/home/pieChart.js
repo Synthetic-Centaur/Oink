@@ -18,9 +18,11 @@ class pieChart extends Component {
   componentDidUpdate() {
 
   }
+  
   render() {
     //Call chartconfig to configure highchart with user budget data
     if (this.props.data) {
+      console.log('is pie chart comp getting',this.props.data)
       let config = chartConfig(this.props.data)
       //render highChart
       return (
