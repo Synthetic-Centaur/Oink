@@ -61,6 +61,7 @@ describe('async actions', () => {
 
     const store = mockStore({ showLogin: false, showSignup: false }, expectedActions, done)
     store.dispatch(ACTIONS.showLogin())
+    // expect(store.getState()).toEqual({showLogin: true, showSignup: false})
   })
 
   it('should dispatch HIDE_LOGIN action', (done) => {
@@ -79,15 +80,47 @@ describe('async actions', () => {
 
     const store = mockStore({ showLogin: false, showSignup: false }, expectedActions, done)
     store.dispatch(ACTIONS.hideSignup())
+    // expect(store.getState()).toEqual()
   })
 
   it('should dispatch ADD_JWT action', (done) => {
+    let jwt = 'testJWT'
+    let expiryDate = Date.now()
     const expectedActions = [
-      { type: 'ADD_JWT' }
+      { type: 'ADD_JWT', jwt: jwt, expiryDate: expiryDate }
     ]
 
     const store = mockStore({ isAuthenticated: false, token: '', expiryDate: null }, expectedActions, done)
-    store.dispatch(ACTIONS.addJWT())
+    store.dispatch(ACTIONS.addJWT({jwt_token: jwt, expiresIn: 0}))
+    // expect(store.getState()).toEqual()
+  })
+
+  it('should dispatch REMOVE_JWT action', (done) => {
+    const expectedActions = [
+      { type: 'REMOVE_JWT' }
+    ]
+
+    const store = mockStore({ isAuthenticated: false, token: '', expiryDate: null }, expectedActions, done)
+    store.dispatch(ACTIONS.removeJWT())
+    expect(store.getState()).toEqual({ isAuthenticated: false, token: '', expiryDate: null })
+  })
+
+  it('should dispatch ALLOW_CAT action', (done) => {
+    const expectedActions = [
+      { type: 'ALLOW_CAT', data: 'testCat' }
+    ]
+
+    const store = mockStore({numberError: true, categoryError: true, category: '' }, expectedActions, done)
+    store.dispatch(ACTIONS.categoryValidation(false, 'testCat'))
+  })
+
+  it('should dispatch ALLOW_NUM action', (done) => {
+    const expectedActions = [
+      { type: 'ALLOW_NUM' }
+    ]
+
+    const store = mockStore({numberError: true, categoryError: true, category: '' }, expectedActions, done)
+    store.dispatch(ACTIONS.numberValidation(true))
   })
 
   // it('creates RECV_DATA action when fetching intial state has been completed', (done) => {
