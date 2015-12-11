@@ -8,8 +8,8 @@
     "copyEnv": "cp ./server/env/envConfig-temp.js ./server/env/envConfig.js",
     "build": "NODE_ENV=production webpack -p --config webpack.production.config.js",
     "clean": "rm -r ./public/bundle.min.js",
-    "test": "karma start",
     "lint": "jscs ./client"
+    "test": "mocha --compilers js:babel/register test/server"
   },
   "pre-commit": [
     
@@ -52,7 +52,6 @@
     "request": "^2.67.0",
     "serve-static": "1.10.0",
     "twilio": "2.6.0"
-
   },
   "devDependencies": {
     "babel-core": "^5.8.22",
@@ -73,8 +72,10 @@
     "mocha": "^2.3.4",
     "phantomjs": "^1.9.19",
     "react-transform-hmr": "^1.0.0",
+    "really-need": "^1.7.2",
     "redux-devtools": "^2.1.5",
     "requirejs": "^2.1.22",
+    "supertest": "^1.1.0",
     "webpack": "^1.11.0",
     "webpack-dev-middleware": "^1.2.0",
     "webpack-hot-middleware": "^2.2.0"
