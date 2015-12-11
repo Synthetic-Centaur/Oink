@@ -13,6 +13,11 @@ import webpackConfig from '../webpack.config'
 
 
 import db from './db/dbConfig.js'
+import {populateTables} from './db/dbConfig'
+populateTables(() => {
+  console.log('Tables Created')
+})
+
 import app from './server'
 
 

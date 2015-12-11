@@ -1,15 +1,18 @@
 let expect = require('chai').expect
+import Promise from 'bluebird'
 import db from '../../server/db/dbConfig'
 import {populateTables} from '../../server/db/dbConfig'
 
+Promise.promisify(populateTables)
+
 describe('User Table', () => {
-  before( (done) => {
+  beforeEach( (done) => {
     db.knex.schema.dropTable('users').then(()=> {
-      populateTables().then( () => {
+      populateTables( () => {
         done()
       })
     })
-  })  
+  })
   it('should have a User\'s table', (done) => {
     db.knex.schema.hasTable('users').then( (exists) => {
       expect(exists).to.equal(true)
@@ -63,9 +66,6 @@ describe('User Table', () => {
       done()
     })
   })
-
-
-
 
 })
 
