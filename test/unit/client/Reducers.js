@@ -3,7 +3,7 @@ import * as reducers from '../client/reducers/reducers'
 import * as actions from '../client/actions/actions'
 
 describe('asyncStatus reducer', () => {
-  
+
   it('should return the initial state', () => {
     expect(
       reducers.asyncStatusReducer(undefined, {})
@@ -25,4 +25,16 @@ describe('asyncStatus reducer', () => {
     }])
   })
 
+})
+
+describe('splashPageReducer', () => {
+
+})
+
+describe('homePageReducer', () => {
+
+})
+
+describe('authReducer', () => {
+  
 })

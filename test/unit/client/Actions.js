@@ -2,6 +2,7 @@ import expect from 'expect'
 import { applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import * as actions from '../client/actions'
+import * as asyncActions from '../client/api/apiHandlers'
 import nock from 'nock'
 
 const middleware = [ thunk ]
@@ -53,7 +54,7 @@ describe('async actions', () => {
     nock.cleanAll()
   })
 
-  it('create RECV_DATA when fetching intial state has been completed', (done) => {
+  it('creates RECV_DATA action when fetching intial state has been completed', (done) => {
     nock('localhost:3000')
       .get('/api/initialState')
       .reply(200, { budget: ['some budget'], categories: ['some categories'] })
@@ -62,5 +63,20 @@ describe('async actions', () => {
       { type: 'REQ_DATA' },
       { type: 'RECV_DATA', data: { budget: ['some budget'], categories: ['some categories'] }}
     ]
+
+    const store = mockStore({ data: [] }, expectedActions, done)
+    store.dispatch(asyncActions.getInitialState())
   })
+
+  // it('create RECV_DATA action when posting budget category has been completed', (done) => {
+  //   nock('localhost:3000')
+  //     //how do we add /:categoryid ???
+  //     .post('/api/budget/category/')
+  //     .reply(200, {})
+  // })
+
+})
+
+describe('actions', () => {
+  
 })
