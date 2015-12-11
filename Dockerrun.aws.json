@@ -1,7 +1,7 @@
 {
   "AWSEBDockerrunVersion": "1",
   "Image": {
-    "Name": "oink/oink-financial:<TAG>",
+    "Name": "oink/oink-financial:%BUILD_NUM%",
     "Update": "true"
   },
   "Ports": [
