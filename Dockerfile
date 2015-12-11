@@ -9,3 +9,6 @@ RUN npm install
 
 # Build build bundle.min.js
 RUN npm run build
+
+# Run server
+CMD ["npm", "start"]
