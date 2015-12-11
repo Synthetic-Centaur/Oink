@@ -6,6 +6,12 @@ machine:
 dependencies:
   pre:
     - pip install awsebcli
+test:
+  override:
+    - docker build -t oink/oink-financial:$CIRCLE_SHA1 .
+  post:
+    - docker run -d -p 3000:3000 -e "SECRET_KEY_BASE=abcd1234" oink/oink-financial:$CIRCLE_SHA1; sleep 10
+    - curl --retry 10 --retry-delay 5 -v http://localhost:3000
 deployment:
   production:
     branch: master
