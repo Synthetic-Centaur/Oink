@@ -14,7 +14,7 @@ these actions.
 
 function asyncStatusReducer (state = {
   isLoading: false,
-  data: [],
+  data: {},
   error: false
 }, action = null) {
   switch(action.type) {

@@ -91,7 +91,6 @@ export function removeJWT() {
 }
 
 export function categoryValidation(allow, category) {
-  console.log('in cat val', allow, category)
   if (!allow) {
     return (dispatch) => {
       dispatch({
@@ -110,7 +109,6 @@ export function categoryValidation(allow, category) {
 
 export function numberValidation(allow) {
   if (allow) {
-    console.log('should allow num')
     return (dispatch) => {
       dispatch({
         type: 'ALLOW_NUM'

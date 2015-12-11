@@ -15,7 +15,6 @@ export function postLogin(data) {
       })
     })
     .then((response) => {
-      console.log('STATUS',response.status)
       if (response.status === 200) {
         return response.json()
       } else if (response.status === 409) {
@@ -25,10 +24,8 @@ export function postLogin(data) {
       }
     })
     .then((data) => {
-      // window.sessionStorage.accessToken = data.jwt_token
-      
       dispatch(ACTIONS.addJWT(data))
-      dispatch(ACTIONS.receiveData(null))
+      dispatch(ACTIONS.receiveData({}))
 
       dispatch(updatePath('/home'))
     })
@@ -65,10 +62,8 @@ export function postSignup(data) {
       }
     })
     .then((data) => {
-      // window.sessionStorage.accessToken = data.jwt_token
-
       dispatch(ACTIONS.addJWT(data))
-      dispatch(ACTIONS.receiveData(null))
+      dispatch(ACTIONS.receiveData({}))
       
       dispatch(updatePath('/plaid'))
     })
@@ -96,7 +91,7 @@ export function postPlaid(data) {
     .then((response) => {
       if (response.status === 201) {
         dispatch(updatePath('/home'))
-        dispatch(ACTIONS.receiveData(null))
+        dispatch(ACTIONS.receiveData({}))
       } else if (response.status === 500) {
         throw new Error('Error on the server', response)
       }
