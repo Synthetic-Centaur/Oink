@@ -7,7 +7,6 @@ class pieChart extends Component {
 
   // Making sure pie chart does not refresh whenever input form is changed
   shouldComponentUpdate(nextProps) {
-    console.log('NEXT PROPS:', nextProps)
     if (this.props.data && nextProps.data) {
       return this.props.data.length !== nextProps.data.length
     } else {
@@ -18,12 +17,11 @@ class pieChart extends Component {
   componentDidUpdate() {
 
   }
-  
   render() {
     //Call chartconfig to configure highchart with user budget data
     if (this.props.data) {
-      console.log('is pie chart comp getting',this.props.data)
       let config = chartConfig(this.props.data)
+
       //render highChart
       return (
         <ReactHighCharts config={config} ref="chart" />

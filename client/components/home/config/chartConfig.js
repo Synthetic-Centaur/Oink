@@ -11,7 +11,6 @@ function chartConfig(data) {
   for(var j=0; j<data.length; j++) {
     budget.push({name: data[j].description, y: data[j].target/total})
   }
-
   let config = {
     chart: {
       plotBackgroundColor: null,
