@@ -14,9 +14,15 @@ class Home extends Component {
      this.props.actions.getInitialState();
   }
 
+  //Get initial state of app, including all of user's transactions
+  init() {
+    this.props.actions.getInitialState();
+  }
+
   //Render home container with chart, budget input, and navbar
   componentWillMount() {
     this.checkAuth()
+    // th÷s.checkAuth()
   }
   checkAuth() {
     const { actions, isAuthenticated } = this.props

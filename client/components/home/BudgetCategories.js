@@ -40,6 +40,8 @@ class budgetCategories extends React.Component{
     let category = this.props.category
     let budget = parseInt(this.refs.amount.getValue())
 
+    console.log(budget, typeof(budget));
+    
     this.props.postBudget({
       category: category,
       budget: budget

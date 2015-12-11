@@ -22,7 +22,6 @@ class pieChart extends Component {
     //Call chartconfig to configure highchart with user budget data
     if (this.props.data) {
       let config = chartConfig(this.props.data)
-
       //render highChart
       return (
         <ReactHighCharts config={config} ref="chart" />

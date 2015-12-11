@@ -14,13 +14,17 @@ export function getInitialState() {
       }
     })
     .then((response) => {
-      console.log('YAY got response back from getInitialState')
       if (response.status === 200) {
         return response.json()
       }
     }).then((response) => {
       console.log('intitial state ---------->', response)
       dispatch(ACTIONS.receiveData(response))
+    })
+    .then((response) => {
+        console.log('response in getInitialState: ', response)
+        // console.log('body ', response.body)
+        dispatch(ACTIONS.receiveData(response))
     })
     .catch((err) => {
       dispatch(ACTIONS.receiveError(err))
@@ -48,6 +52,9 @@ export function postBudget(data) {
         getInitialState()(dispatch)
       }
     })
+    // .then((response) => {
+    //   dispatch(ACTIONS.receiveData(response))
+    // })
     .catch((error) => {
       dispatch(ACTIONS.receiveError(error));
     })
