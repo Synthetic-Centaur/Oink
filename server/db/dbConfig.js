@@ -34,7 +34,7 @@ db.knex.schema.hasTable('transactions').then( (exists) => {
       transaction.integer('user_id')
       transaction.integer('category_id')
       transaction.string('date')
-      transaction.integer('amount', 2)
+      transaction.decimal('amount', 20)
       transaction.string('address', 255)
       transaction.string('city', 255)
       transaction.string('state', 255)
@@ -64,7 +64,7 @@ db.knex.schema.hasTable('budgets').then( (exists) => {
       budget.integer('user_id')
       budget.integer('category_id')
       budget.integer('target')
-      budget.integer('actual')
+      budget.decimal('actual', 20)
     }).then((table) => {
       console.log("Created Budgets Table")
     })

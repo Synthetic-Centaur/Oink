@@ -2,9 +2,7 @@ import * as ACTIONS from '../actions/actions'
 
 //Get initial state data for user
 export function getInitialState() {
-  console.log('In getInitialState');
   return function(dispatch) {
-    console.log('got one line down')
     dispatch(ACTIONS.requestData());
     return fetch('/api/initialState', {
       method: 'GET',
@@ -14,12 +12,10 @@ export function getInitialState() {
       }
     })
     .then((response) => {
-      console.log('YAY got response back from getInitialState')
       if (response.status === 200) {
         return response.json()
       }
     }).then((response) => {
-      console.log('intitial state ---------->', response)
       dispatch(ACTIONS.receiveData(response))
     })
     .catch((err) => {
@@ -48,6 +44,9 @@ export function postBudget(data) {
         getInitialState()(dispatch)
       }
     })
+    // .then((response) => {
+    //   dispatch(ACTIONS.receiveData(response))
+    // })
     .catch((error) => {
       dispatch(ACTIONS.receiveError(error));
     })

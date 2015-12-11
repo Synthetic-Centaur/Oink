@@ -24,8 +24,7 @@ class PlaidButton extends Component {
     return (
       <RaisedButton
         label="Link your Bank Account"
-        onClick={this.handlePlaid.bind(this)}
-      />
+        onClick={this.handlePlaid.bind(this)} />
     )
   }
 }
