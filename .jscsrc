@@ -1,0 +1,8 @@
+{
+  "preset": "airbnb",
+  "requireCurlyBraces": null,
+  "esprima": "esprima-fb",
+  "requireSemicolons": null,
+  "requireTrailingComma": null,
+  "maxErrors": null
+}
