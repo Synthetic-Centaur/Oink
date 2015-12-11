@@ -5,67 +5,32 @@ import chartConfig from './config/chartConfig'
 
 class pieChart extends Component {
 
-  //Making sure pie chart does not refresh whenever input form is changed
-  shouldComponentUpdate() {
-    return false;
+  // Making sure pie chart does not refresh whenever input form is changed
+  shouldComponentUpdate(nextProps) {
+    console.log('NEXT PROPS:', nextProps)
+    if (this.props.data && nextProps.data) {
+      return this.props.data.length !== nextProps.data.length
+    } else {
+      return true
+    }
   }
 
+  componentDidUpdate() {
+
+  }
   render() {
     //Call chartconfig to configure highchart with user budget data
-    //let config = chartConfig(this.props.budgetData)
-    let config = {
-      chart: {
-        plotBackgroundColor: null,
-        plotBorderWidth: null,
-        plotShadow: false,
-        type: 'pie'
-      },
-      title: {
-        text: 'Budget'
-      },
-      tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-      },
-      plotOptions: {
-        pie: {
-            allowPointSelect: true,
-            cursor: 'pointer',
-            dataLabels: {
-                enabled: false
-            },
-            showInLegend: true
-        }
-      },
-      series: [{
-        name: 'Brands',
-        colorByPoint: true,
-        data: [{
-            name: 'Microsoft Internet Explorer',
-            y: 56.33
-        }, {
-            name: 'Chrome',
-            y: 24.03,
-        }, {
-            name: 'Firefox',
-            y: 10.38
-        }, {
-            name: 'Safari',
-            y: 4.77
-        }, {
-            name: 'Opera',
-            y: 0.91
-        }, {
-            name: 'Proprietary or Undetectable',
-            y: 0.2
-        }]
-      }]
+    if (this.props.data) {
+      let config = chartConfig(this.props.data)
+
+      //render highChart
+      return (
+        <ReactHighCharts config={config} ref="chart" />
+      )
+
+    } else {
+      return (<div/>)
     }
-
-    //render highChart
-    return (
-      <ReactHighCharts config={config} ref="chart" />
-    )
-
   }
 
   //Dynamically change high chart as user adds new budget categories

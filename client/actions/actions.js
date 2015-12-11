@@ -10,6 +10,7 @@ export function requestData() {
 
 // We have received data from the result of an async operation
 export function receiveData(data) {
+  console.log('INSIDE receiveData')
   return {
     type: 'RECV_DATA',
     data: data

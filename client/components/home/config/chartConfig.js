@@ -1,7 +1,16 @@
 //configures data for High-chart
 
 function chartConfig(data) {
+  console.log('DATA inside chartConfig:', data)
   //data should be formatted as an array with objects for data points
+  let total = 0
+  let budget = []
+  for(var i=0; i<data.length; i++) {
+    total += data[i].target
+  }
+  for(var j=0; j<data.length; j++) {
+    budget.push({name: data[j].description, y: data[j].target/total})
+  }
   let config = {
     chart: {
       plotBackgroundColor: null,
@@ -26,9 +35,9 @@ function chartConfig(data) {
       }
     },
     series: [{
-      name: 'Brands',
+      name: 'Budget',
       colorByPoint: true,
-      data: data
+      data: budget
     }]
   }
 

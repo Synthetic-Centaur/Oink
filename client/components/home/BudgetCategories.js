@@ -38,7 +38,7 @@ class budgetCategories extends React.Component{
     e.preventDefault()
 
     let category = this.props.category
-    let budget = this.refs.amount.getValue()
+    let budget = parseInt(this.refs.amount.getValue())
 
     this.props.postBudget({
       category: category,
@@ -47,12 +47,14 @@ class budgetCategories extends React.Component{
   }
 
   render() {
-    console.log(this.props);
     let menuItems = [
-      { payload: 'Choose a category', text: 'Choose a category'},
-      { payload: 'Option 1', text: 'Option 1'},
-      { payload: 'Option 2', text: 'Option 2'}
+      { payload: 'Choose a category', text: 'Choose a category'}
     ]
+    if (this.props.data) { 
+      for (var i=0; i<this.props.data.length; i++) {
+        menuItems.push({payload: this.props.data[i], text: this.props.data[i]})
+      }
+    }
     return (
       <form className="u-pull-right">
         <div className="row">
