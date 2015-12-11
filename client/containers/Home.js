@@ -10,15 +10,12 @@ import { numberValidation, categoryValidation } from '../actions/actions'
 
 class Home extends Component {
   //Get initial state of app, including all of user's transactions
-  // init() {
-  //   // this.props.actions.getInitialState();
-  // }
+  init() {
+     this.props.actions.getInitialState();
+  }
 
   //Render home container with chart, budget input, and navbar
   componentWillMount() {
-    this.checkAuth()
-  }
-  componentWillReceiveProps(nextProps) {
     this.checkAuth()
   }
   checkAuth() {
@@ -28,23 +25,25 @@ class Home extends Component {
     }
   }
   renderContent() {
-    const { actions, homePage } = this.props
+    const { actions, homePage, data } = this.props
     return (
-      <div className="container">
-        <NavBar logout={ actions.authLogout } />
+      <div className = "container">
+        <NavBar logout = { actions.authLogout } />
         <BudgetCategories
+          data = { data.categories }
           postBudget={ actions.postBudget }
           numberValidation={ actions.numberValidation } 
           categoryValidation={ actions.categoryValidation }
           numberError={ homePage.numberError }
           categoryError={ homePage.categoryError }
           category={ homePage.category } />
-        <PieChart />
+        <PieChart 
+          data = { data.budgets } />
       </div>
       )
   }
   render() {
-    const { isAuthenticated } = this.props
+    const { isAuthenticated, data } = this.props
     return (
       <div>
         { isAuthenticated ? this.renderContent() : null }
@@ -53,9 +52,9 @@ class Home extends Component {
   }
 
   //Call init when component is mounted
-  // componentDidMount() {
-  //   this.init();
-  // }
+  componentDidMount() {
+    this.init()
+  }
 }
 
 Home.PropTypes = {
@@ -66,8 +65,8 @@ Home.PropTypes = {
 function mapStateToProps(state) {
   return {
     isLoading: state.isLoading,
-    data: state.data,
-    error: state.error,
+    data: state.asyncStatus.data,
+    error: state.asyncStatus.error,
     homePage: state.homePage,
     isAuthenticated: state.auth.isAuthenticated
   }

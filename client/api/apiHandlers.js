@@ -4,17 +4,23 @@ import * as ACTIONS from '../actions/actions'
 export function getInitialState() {
   console.log('In getInitialState');
   return function(dispatch) {
+    console.log('got one line down')
     dispatch(ACTIONS.requestData());
-    return fetch('/api/intitialState', {
+    return fetch('/api/initialState', {
       method: 'GET',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'authorization': 'Bearer ' + JSON.parse(window.localStorage.redux).auth.token
       }
     })
     .then((response) => {
-      if (response.state === 200) {
-        dispatch(ACTIONS.receiveData(JSON.parse(response.body)))
+      console.log('YAY got response back from getInitialState')
+      if (response.status === 200) {
+        return response.json()
       }
+    }).then((response) => {
+      console.log('intitial state ---------->', response)
+      dispatch(ACTIONS.receiveData(response))
     })
     .catch((err) => {
       dispatch(ACTIONS.receiveError(err))
@@ -38,8 +44,8 @@ export function postBudget(data) {
       })
     })
     .then((response) => {
-      if (response.statue === 200) {
-        dispatch(ACTIONS.receiveData(JSON.parse(response.body)))
+      if (response.status === 200) {
+        getInitialState()(dispatch)
       }
     })
     .catch((error) => {

@@ -63,8 +63,8 @@ db.knex.schema.hasTable('budgets').then( (exists) => {
       budget.increments('id').primary()
       budget.integer('user_id')
       budget.integer('category_id')
-      budget.string('target', 255)
-      budget.string('actual', 255)
+      budget.integer('target')
+      budget.integer('actual')
     }).then((table) => {
       console.log("Created Budgets Table")
     })
