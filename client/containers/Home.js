@@ -30,18 +30,19 @@ class Home extends Component {
       <div className = "container">
         <NavBar logout = { actions.authLogout } />
         <BudgetCategories
-          data = { data.categories }
+          data = { data }
           postBudget={ actions.postBudget }
           numberValidation={ actions.numberValidation } 
           categoryValidation={ actions.categoryValidation }
           numberError={ homePage.numberError }
           categoryError={ homePage.categoryError }
-          category={ homePage.category } />
-        <PieChart 
-          data = { data.budgets } />
+          category={ homePage.category }
+        />
+        <PieChart data = { data } />
       </div>
       )
   }
+  // <PieChart data = { data } />
   render() {
     const { isAuthenticated, data } = this.props
     return (
