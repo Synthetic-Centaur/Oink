@@ -11,8 +11,7 @@ deployment:
     branch: master
     commands:
       - docker login -e "$DOCKER_EMAIL" -u "$DOCKER_USER" -p "$DOCKER_PASS"
-      - docker build -t oink/oink-financial:$CIRCLE_BUILD_NUM .
-      - docker push oink/oink-financial:$CIRCLE_BUILD_NUM
-      - sed -i'' -e "s;%BUILD_NUM%;$CIRCLE_BUILD_NUM;g" ./Dockerrun.aws.json
+      - docker build -t oink/oink-financial:latest .
+      - docker push oink/oink-financial:latest
       - chmod u+x deploy.sh
-      - ./deploy.sh $CIRCLE_BUILD_NUM oink
+      - ./deploy.sh oink
