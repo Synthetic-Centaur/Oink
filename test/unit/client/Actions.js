@@ -45,3 +45,22 @@ function mockStore(getState, expectedActions, done) {
     return mockStoreWithMiddleware()
   }
 }
+
+////////////////////////////////////////////////////////////////////////////////////////
+
+describe('async actions', () => {
+  afterEach(() => {
+    nock.cleanAll()
+  })
+
+  it('create RECV_DATA when fetching intial state has been completed', (done) => {
+    nock('localhost:3000')
+      .get('/api/initialState')
+      .reply(200, { budget: ['some budget'], categories: ['some categories'] })
+
+    const expectedActions = [
+      { type: 'REQ_DATA' },
+      { type: 'RECV_DATA', data: { budget: ['some budget'], categories: ['some categories'] }}
+    ]
+  })
+})
