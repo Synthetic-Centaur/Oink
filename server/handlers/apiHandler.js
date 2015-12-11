@@ -1,10 +1,11 @@
 import apiController from '../controllers/apiController'
 import budgetController from '../controllers/budgetController'
 import authController from '../controllers/authController'
-
+import {populateTables} from '../db/dbConfig'
 // Poplulate categories after server initializes
-apiController.getCategories()
-
+populateTables().then( () => {
+  apiController.getCategories()
+})
 let apiHandler = {
   initialState(req, res) {
     // Find the user based on auth token
