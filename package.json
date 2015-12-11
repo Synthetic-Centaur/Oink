@@ -6,7 +6,7 @@
     "start": "NODE_ENV=production node --harmony server/index.js",
     "dev": "NODE_ENV=dev node --harmony server/index.js",
     "copyEnv": "cp ./server/env/envConfig-temp.js ./server/env/envConfig.js",
-    "build": "NODE_ENV=production webpack -p --config webpack.production.config.js",
+    "build": "NODE_ENV=production webpack --config webpack.production.config.js",
     "clean": "rm -r ./public/bundle.min.js",
     "test": "mocha --compilers js:babel/register test/loadTests.js"
     "lint": "jscs ./client"
