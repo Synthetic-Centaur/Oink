@@ -38,6 +38,7 @@ let apiHandler = {
     authController.findUserByToken(req).then((user) => {
       if(user) {
         // Create budget with category, amount, and userId
+        console.log('inserted into the budget table: --------->', req.params.id, user.attributes.id, req.body.amount)
         budgetController.createBudget(req.params.id, user.attributes.id, req.body.amount).then( (budget) => {
           if(budget){
             // Send back the budget created
