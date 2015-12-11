@@ -3,7 +3,7 @@ import DropDownMenu from 'material-ui/lib/drop-down-menu'
 import TextField from 'material-ui/lib/text-field'
 import RaisedButton from 'material-ui/lib/raised-button'
 
-class budgetCategories extends React.Component{
+class BudgetCategories extends React.Component{
 
   //Refresh state to undisable form
   componentDidUpdate() {
@@ -80,4 +80,4 @@ class budgetCategories extends React.Component{
 
 }
 
-export default budgetCategories
+export default BudgetCategories

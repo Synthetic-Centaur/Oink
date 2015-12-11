@@ -1,6 +1,6 @@
 {
   "preset": "airbnb",
-  "requireCurlyBraces": null,
+  "disallowSemicolons": true,
   "esprima": "esprima-fb",
   "requireSemicolons": null,
   "requireTrailingComma": null,
