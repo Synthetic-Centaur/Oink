@@ -22,9 +22,9 @@ describe('Goals Table', () => {
       done()
     })
   })
-  it('should have a amount which is an integer', (done) => {
+  it('should have a amount which is a decimal', (done) => {
     db.knex('goals').columnInfo('amount').then((info) => {
-      expect(info.type).to.equal('integer')
+      expect(info.type).to.equal('numeric')
       done()
     })
   })

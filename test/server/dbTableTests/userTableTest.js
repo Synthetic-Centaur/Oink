@@ -6,7 +6,7 @@ describe('User Table', () => {
   before( (done) => {
     util.clearDB().then(() => {
       util.populateDB( () => {
-        setTimeout(done, 250)
+        setTimeout(done, 500)
       })
     })
   })
