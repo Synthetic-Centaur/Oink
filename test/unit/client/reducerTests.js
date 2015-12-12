@@ -9,7 +9,7 @@ describe('asyncStatus reducer', () => {
       reducers.asyncStatusReducer(undefined, {})
     ).toEqual({
       isLoading: false,
-      data: [],
+      data: {},
       error: false
     })
   })
@@ -42,7 +42,7 @@ describe('asyncStatus reducer', () => {
     })).toEqual({
       isLoading: true,
       error: false,
-      data: []
+      data: {}
     })
   })
 

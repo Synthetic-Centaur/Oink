@@ -8,6 +8,7 @@ function setup() {
     postBudget: expect.createSpy(),
     numberValidation: expect.createSpy(),
     categoryValidation: expect.createSpy(),
+    data: {categories: []}
   }
 
   let renderer = TestUtils.createRenderer()
