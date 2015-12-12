@@ -1,22 +1,8 @@
   let expect = require('chai').expect
 import db from '../../../server/db/dbConfig'
-import util from '../util'
 
 
 describe('Budget Table', () => {
-  beforeEach( (done) => {
-    util.clearDB().then(() => {
-      util.populateDB( () => {
-        setTimeout(done, 250)
-      })
-    })
-  })
-  after( (done) => {
-    util.populateDB( () => {
-        done()
-    })
-  })
-  
   it('should have a user_id column which is an integer', (done) => {
     db.knex('budgets').columnInfo('user_id').then((info) => {
       expect(info.type).to.equal('integer')
