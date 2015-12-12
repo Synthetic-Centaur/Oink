@@ -8,7 +8,8 @@ apiController.getCategories()
 
 let apiHandler = {
   getTransactions(req, res) {
-    apiController.getTransactions('fd1490b523950d093684941d6bf1a7ad1c497f8ffe6035bbea7326528a5b263b02beb2ad7a019e508755c96d50d0222e6b5fa58d3174a4b9b5d1bfeca48c7c6c7cf1b3cf514df3e7e318b14aef638c2c', 3)
+    // TODO: Add Token Plaid logic
+    apiController.getTransactions(token_plaid, 3)
   },
   setWebhook(req, res) {
     // get user from database using token
