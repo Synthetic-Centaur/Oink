@@ -18,14 +18,14 @@ populateTables(() => {})
 
 import app from './server'
 
+const compiler = webpack(webpackConfig)
 
 if (process.env.NODE_ENV === 'dev') {
-  // Use this middleware to set up hot module reloading via webpack.
-  const compiler = webpack(webpackConfig)
   // Webpack compiling for hot reloads
   app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: webpackConfig.output.publicPath }))
-  app.use(webpackHotMiddleware(compiler))
 }
+
+app.use(webpackHotMiddleware(compiler))
 
 // Body Parser middleware for handling requests
 app.use(bodyParser.urlencoded({ extended: false }))
