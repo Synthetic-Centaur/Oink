@@ -4,18 +4,6 @@ import util from '../util'
 
 
 describe('Transaction Table', () => {
-  beforeEach( (done) => {
-    util.clearDB().then(() => {
-      util.populateDB( () => {
-        setTimeout(done, 250)
-      })
-    })
-  })
-  after( (done) => {
-    util.populateDB( () => {
-        done()
-    })
-  })
   
   it('should have a user_id column which is an integer', (done) => {
     db.knex('transactions').columnInfo('user_id').then((info) => {
