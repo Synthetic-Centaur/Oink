@@ -36,8 +36,7 @@ class Home extends Component {
           categoryValidation={ actions.categoryValidation }
           numberError={ homePage.numberError }
           categoryError={ homePage.categoryError }
-          category={ homePage.category }
-        />
+          category={ homePage.category } />
         <PieChart data = { data } />
       </div>
       )
