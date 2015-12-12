@@ -1,8 +1,16 @@
 {
   "preset": "airbnb",
-  "disallowSemicolons": true,
   "esprima": "esprima-fb",
+  "maxErrors": null,
+  "disallowSemicolons": true,
   "requireSemicolons": null,
   "requireTrailingComma": null,
-  "maxErrors": null
+  "requireCamelCaseOrUpperCaseIdentifiers": null,
+  "requireSpacesInFunction": {
+      "beforeOpeningRoundBrace": true,
+      "beforeOpeningCurlyBrace": true
+  },
+  "requireArrowFunctions": true,
+  "requireParenthesesAroundArrowParam": true,
+  "requireLineFeedAtFileEnd": null
 }
