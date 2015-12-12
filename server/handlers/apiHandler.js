@@ -7,6 +7,21 @@ import {populateTables} from '../db/dbConfig'
 apiController.getCategories()
 
 let apiHandler = {
+  getTransactions(req, res) {
+    apiController.getTransactions('fd1490b523950d093684941d6bf1a7ad1c497f8ffe6035bbea7326528a5b263b02beb2ad7a019e508755c96d50d0222e6b5fa58d3174a4b9b5d1bfeca48c7c6c7cf1b3cf514df3e7e318b14aef638c2c', 3)
+  },
+  setWebhook(req, res) {
+    // get user from database using token
+    authController.findUserByToken(req).then((user) => {    
+      console.log("inside WEBHOOK SETUP handler. User is :", user)
+      if (user.attributes.token_plaid) {      
+        apiController.setWebhook(user.attributes.token_plaid)
+        res.sendStatus(200)
+      } else {
+        res.sendStatus(500)
+      }
+    })
+  },
   initialState(req, res) {
     // Find the user based on auth token
     if (!req.headers.authorization) {

@@ -5,7 +5,20 @@ import db from '../db/dbConfig.js'
 import Transaction from '../db/models/transaction'
 import Promise from 'bluebird'
 
+// import apiController for message sending on budget update
+import apiController from './apiController'
+
 let budgetController = {
+  findUserByID(userId) {
+    return db.knex('users').where({id: userId}).select().then((user) => {
+      return user
+    })
+  },
+  getCategoryName(categoryId) {
+    return db.knex('categories').where({id: categoryId}).select('description').then((description) => {
+      return description
+    })
+  },
   createBudget(category, userId, amount){
     // Search for category and retrieve category id
     let searchCat = new Category({ description: category })
@@ -55,6 +68,20 @@ let budgetController = {
       }
     })
   },
+  sumTransactionByCategoryMonthly(categoryId){
+    // Return the sum of all transactions in a provided category
+    //return db.knex('transactions').sum('amount').where({'category_id': categoryId}).whereBetween('date', [new Date().getMonth()-1, new Date()]).then((sum)=> {
+    return db.knex('transactions').where({'category_id': categoryId}).select().then((transactions)=> {
+      let sum = 0
+      return Promise.map(transactions, (transaction) => {
+        if (transaction.date >= (new Date().getMonth()-1)) {
+          sum += transaction.amount
+        }
+      }).then(() => {
+        return sum
+      })
+    })
+  },
   getBudgets(userId){
     // Query budgets table
     return db.knex('budgets').from('budgets')
@@ -73,13 +100,46 @@ let budgetController = {
       }
     })
   },
+  updateBudget(userId) {
+    // get budget for text
+    // for <user_ID>
+    return db.knex('budgets').where({user_id: userId}).select().then((budget) => {
+      // loop through categories in budget
+      return Promise.map(budget, (item) => {
+        // sum transactions for user in each category
+        budgetController.sumTransactionByCategoryMonthly(item.category_id).then((sum) => {
+          // if sum of transactions in a given category does not match actual
+          // TODO: May want to add in if statement so only updating if actual has changed but need to add in logic to whipe actual each month first
+          //if (sum !== item.actual) {
+            // update actual
+            db.knex('budgets').where({user_id: userId, category_id: item.category_id}).update({actual: sum}).then((response) => {
+              // if actual is over target in any category
+              if (item.actual > item.target) {
+                // send text letting user know that they have exceeded their budget for that category
+                // get user for text
+                budgetController.findUserByID(userId).then((user) => {
+                  // get category name for text
+                  console.log('USER', user)
+                  budgetController.getCategoryName(item.category_id).then((description) => {
+                    apiController.sendMessage('Oink Oink!! \n\nHey ' + user[0].first_name + ' looks like you have gone over your ' 
+                    + description[0].description + ' budget for this month! \n \n Budget: $' + item.target +' \n Actual: $' + item.actual, user[0].phone_number)
+                  })
+                })
+              }
+            })
+          //}
+        })
+      })
+    })
+  },
   saveTransactions(transactions, user_id) {
     // loop over transactions array
     return Promise.map(transactions, (item) => {
-      // We are only concerned with first category
-
-      if (item.category) {
+      // this breaks if transaction doesn't have a category so check if category is definied first
+      if (item.category) {      
+        // We are only concerned with first category
         const category = item.category[0]
+
         let newCat = new Category ({description: category})
         return newCat.fetch().then((category) => {
           if (category) {
@@ -95,6 +155,46 @@ let budgetController = {
         })
       }
     })
+  }, 
+  updateTransactions(transactions, user_id) {
+    // TODO: Fix promise
+    // pull previous transactions for user out of database
+    return db.knex('transactions').where({user_id: user_id}).select('transaction_id').then((oldTransactions) => {
+      // transform OldTransactions into an array of their transaction_Ids
+      oldTransactions = oldTransactions.map((trans) => {
+        return trans.transaction_id
+      })
+      // Find positon where new transactions start given that incoming transactions are in the same order each time
+      let pos = 0
+      while (transactions[pos] && !oldTransactions.includes(transactions[pos]._id)) {
+        pos++
+      }
+      // update transaction array to only keep the transactions that have not already been added to database
+      transactions = transactions.slice(0,pos)
+
+      return Promise.map(transactions, (transaction) => {
+        // If transaction is not assigned categories --> assign 'Other' to category
+        if (!transaction.category) {
+          transaction.category = ['Other']
+        }
+        // We are only concerned with the first category listed
+        let category = transaction.category[0]
+
+        console.log('CATEGORY', category)
+
+        db.knex('categories').where({description: category}).select().then((result) => {
+          console.log('result', result)
+          if (result.length > 0) {
+            let category_id = result[0].id
+            console.log('TRANSACTION', transaction.date)
+            return saveTransaction(transaction, user_id, category_id)
+          } else {
+            console.log('TRANSACTION', transaction.date)
+            return db.knex('categories').insert({description: category})
+          }
+        })
+      })
+    })
   }
 }
 
@@ -103,8 +203,10 @@ function saveTransaction(transaction, user_id, category_id) {
   let newTransaction = new Transaction({
     user_id: user_id,
     category_id: category_id,
+    transaction_id: transaction._id,
+    // this was erroring out so added a check
     amount: transaction.amount,
-    date: transaction.date,
+    date: new Date(transaction.date),
     pending: transaction.pending,
     store_name: transaction.name
   })
