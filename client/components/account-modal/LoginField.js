@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react'
 import TextField from 'material-ui/lib/text-field'
 import { Link } from 'react-router'
 
-
 export class LoginField extends Component {
   render() {
     return (
@@ -16,9 +15,8 @@ export class LoginField extends Component {
         <div className="row">
         </div>
       </form>
-    );
+    )
   }
 }
-
 
 export default LoginField

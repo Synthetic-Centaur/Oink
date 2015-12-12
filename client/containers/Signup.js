@@ -11,7 +11,7 @@ class Signup extends Component {
         <div className="container">
           <SignupForm signup={actions.postSignup} />
         </div>
-      );
+      )
   }
 }
 

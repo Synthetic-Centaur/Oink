@@ -23,24 +23,53 @@ class Splash extends Component {
           hideSignupModal={actions.hideSignup}
         />
 
-        <div className="first-image">
-          <SplashNavBar showLoginModal={actions.showLogin} showSignupModal={actions.showSignup} />
-          <div className="section hero">
-            <div className="container">
-              <div className="row">
-                <div className="one-half column">
-                  <h4 className="hero-heading">Change your daily spending habits by creating intelligent budgets. Welcome to Oink.</h4>
-                </div>
-                <div className="one-half column logo-container">
-                  
-                </div>
+        <div className="navbar container">
+          <div className="row">
+            <SplashNavBar showLoginModal={actions.showLogin} />
+          </div>
+        </div>
+
+        <div className="hero">
+          <div className="container">
+            <div className="row">
+
+              <div className="row heading u-full-width">
+                <h1>PLAN FOR THE FUTURE.</h1>
               </div>
+              <div className="row subheading u-full-width">
+                <h2>Make intelligent budgets and be notified when you go over them.</h2>
+              </div>
+              <div className="row signup u-full-width">
+                <button onClick={actions.showSignup}>Get started</button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div className="info">
+          <div className="container">
+            <div className="row">
+
+              <div className="one-third column">
+                <h3>Text Updates</h3>
+                <h4>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."</h4>
+              </div>
+              <div className="one-third column">
+                <h3>Security</h3>
+                <h4>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."</h4>
+              </div>
+              <div className="one-third column">
+                <h3>Personalization</h3>
+                <h4>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."</h4>
+              </div>
+
             </div>
           </div>
         </div>
 
       </div>
-    );
+    )
   }
 }
 

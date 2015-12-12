@@ -5,12 +5,12 @@ import fetch from 'isomorphic-fetch'
 
 export function getInitialState() {
   return function(dispatch) {
-    dispatch(ACTIONS.requestData());
+    dispatch(ACTIONS.requestData())
     return fetch('/api/initialState', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'authorization': 'Bearer ' + JSON.parse(window.localStorage.redux).auth.token
+        authorization: 'Bearer ' + JSON.parse(window.localStorage.redux).auth.token
       }
     })
     .then((response) => {
@@ -23,19 +23,19 @@ export function getInitialState() {
     })
     .catch((err) => {
       dispatch(ACTIONS.receiveError(err))
-    });
+    })
   }
 }
 
 //Post user budget data
 export function postBudget(data) {
   return function(dispatch) {
-    dispatch(ACTIONS.requestData());
+    dispatch(ACTIONS.requestData())
     return fetch('/api/budget/category/' + data.category, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'authorization': 'Bearer ' + JSON.parse(window.localStorage.redux).auth.token
+        authorization: 'Bearer ' + JSON.parse(window.localStorage.redux).auth.token
       },
       body: JSON.stringify({
         amount: data.budget,
@@ -46,11 +46,12 @@ export function postBudget(data) {
         getInitialState()(dispatch)
       }
     })
+    
     // .then((response) => {
     //   dispatch(ACTIONS.receiveData(response))
     // })
     .catch((error) => {
-      dispatch(ACTIONS.receiveError(error));
+      dispatch(ACTIONS.receiveError(error))
     })
   }
 }

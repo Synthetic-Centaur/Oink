@@ -21,7 +21,7 @@ export class SignupField extends React.Component {
           <TextField ref="password" type="password" hintText="Password"/>
         </div>
       </form>
-    );
+    )
   }
 }
 

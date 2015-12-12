@@ -6,16 +6,15 @@ class SplashNavBar extends Component {
   render() {
     const { showLoginModal, showSignupModal } = this.props
     return (
-      <div className="container splash-nav">
+      <div className="splashnav">
           <span>
-            <img className="logo-oink" alt="Oink Financial Logo" src="/images/Logo-small.png"/>
-            <h5 className="u-pull-left">ink Financial.</h5>
+            <h5 className="u-pull-left">Oink Financial</h5>
           </span>
           <button className="u-pull-right" onClick={showLoginModal}>LOGIN</button>
-          <button className="u-pull-right" onClick={showSignupModal}>SIGNUP</button>
       </div>
     )
   }
+
 }
 
 SplashNavBar.propTypes = {

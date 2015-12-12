@@ -30,7 +30,7 @@ class PieChart extends Component {
             ?
             <ReactHighCharts config={config} ref="chart" />
             :
-            null 
+            null
           }
         </div>
       )
