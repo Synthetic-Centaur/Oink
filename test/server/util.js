@@ -8,7 +8,9 @@ let util = {
       return db.knex.schema.dropTableIfExists('users').then( () => {
         return db.knex.schema.dropTableIfExists('transactions').then( () => {
           return db.knex.schema.dropTableIfExists('categories').then( () => {
-            return "Done" 
+            return db.knex.schema.dropTableIfExists('goals').then( () => {
+              return "Done" 
+            })
           })
         })
       })
