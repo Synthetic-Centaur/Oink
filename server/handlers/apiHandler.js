@@ -61,6 +61,9 @@ let apiHandler = {
         }
       })
     }
+  },
+  goals(req, res) {
+    res.sendStatus(403)
   }
 }
 

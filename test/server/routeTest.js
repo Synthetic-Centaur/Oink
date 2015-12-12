@@ -33,6 +33,9 @@ describe('AuthRoutes', () => {
   })
 })
 describe('APIRoutes', () => {
+  after((done) => {
+    setTimeout(done, 250)
+  })
   it('should respond with a 403 forbidden with unauthorized request to /api/initialState', (done) => {
     request
       .get('/api/initialState')
