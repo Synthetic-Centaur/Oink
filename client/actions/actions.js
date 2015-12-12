@@ -3,13 +3,13 @@
 *********************************************************/
 
 // An async operation has been made and we are waiting for a response
-export function requestData() {
+function requestData() {
   // Dispatch will be called in api/authHandlers.js for these
   return { type: 'REQ_DATA' }
 }
 
 // We have received data from the result of an async operation
-export function receiveData(data) {
+function receiveData(data) {
   return {
     type: 'RECV_DATA',
     data: data
@@ -17,7 +17,7 @@ export function receiveData(data) {
 }
 
 // We have received an error as the result of an async operation
-export function receiveError(data) {
+function receiveError(data) {
   return {
     type: 'RECV_ERROR',
     data: data
@@ -29,7 +29,7 @@ export function receiveError(data) {
 *********************************************************/
 
 // We should show the pop-up login modal
-export function showLogin() {
+function showLogin() {
   return (dispatch) => {
     dispatch({
       type: 'SHOW_LOGIN'
@@ -39,7 +39,7 @@ export function showLogin() {
 
 // We should hide the pop-up login modal
 
-export function hideLogin() {
+function hideLogin() {
   /* Dispatch is the dispatch from the Redux store
    We must call dispatch so a reducer can act on this action appropriately */
   return (dispatch) => {
@@ -50,7 +50,7 @@ export function hideLogin() {
 }
 
 // We should show the pop-up signup modal
-export function showSignup() {
+function showSignup() {
   return (dispatch) => {
     dispatch({
       type: 'SHOW_SIGNUP'
@@ -59,7 +59,7 @@ export function showSignup() {
 }
 
 // We should hide the pop-up signup modal
-export function hideSignup() {
+function hideSignup() {
   return (dispatch) => {
     dispatch({
       type: 'HIDE_SIGNUP'
@@ -71,7 +71,7 @@ export function hideSignup() {
               AUTHENTICATION REDUX ACTIONS
 *********************************************************/
 // We should show the pop-up signup modal
-export function addJWT(data) {
+function addJWT(data) {
   return (dispatch) => {
     dispatch({
       type: 'ADD_JWT',
@@ -82,7 +82,7 @@ export function addJWT(data) {
 }
 
 // We should hide the pop-up signup modal
-export function removeJWT() {
+function removeJWT() {
   return (dispatch) => {
     dispatch({
       type: 'REMOVE_JWT',
@@ -90,7 +90,7 @@ export function removeJWT() {
   }
 }
 
-export function categoryValidation(allow, category) {
+function categoryValidation(allow, category) {
   if (!allow) {
     return (dispatch) => {
       dispatch({
@@ -107,7 +107,7 @@ export function categoryValidation(allow, category) {
   }
 }
 
-export function numberValidation(allow) {
+function numberValidation(allow) {
   if (allow) {
     return (dispatch) => {
       dispatch({
@@ -121,4 +121,18 @@ export function numberValidation(allow) {
       })
     }
   }
+}
+
+export default {
+  requestData,
+  receiveData,
+  receiveError,
+  showLogin,
+  hideLogin,
+  showSignup,
+  hideSignup,
+  addJWT,
+  removeJWT,
+  categoryValidation,
+  numberValidation
 }

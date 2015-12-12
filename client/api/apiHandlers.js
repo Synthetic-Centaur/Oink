@@ -1,4 +1,5 @@
 import * as ACTIONS from '../actions/actions'
+import fetch from 'isomorphic-fetch'
 
 //Get initial state data for user
 
