@@ -13,3 +13,4 @@ npm-debug.log
 server/env/envConfig.js
 coverage/
 public/bundle.min.js
+client/config/authKeys.js
