@@ -17,9 +17,9 @@ import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools/lib/react'
 
 // Import containers for React Router
 import Splash from './containers/Splash'
+import Dashboard from './containers/Dashboard'
 import Signup from './containers/Signup'
 import Plaid from './containers/Plaid'
-import Home from './containers/Home'
 
 // Required by Material UI
 import injectTapEventPlugin from 'react-tap-event-plugin'
@@ -52,7 +52,7 @@ ReactDOM.render(
         <Route path="/" component={Splash} />
         <Route path="/signup" component={Signup} />
         <Route path="/plaid" component={Plaid} />
-        <Route path="/home" component={Home} />
+        <Route path="/dashboard" component={Dashboard} />
       </Router>
     </Provider>
     <DebugPanel top right bottom>
