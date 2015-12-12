@@ -63,7 +63,12 @@ let apiHandler = {
     }
   },
   goals(req, res) {
-    res.sendStatus(403)
+    if (!req.headers.authorization) {
+      res.status(403)
+      res.json({ success: false, message: 'Failed, user is not authenticated'})
+    } else {
+      res.sendStatus(201)
+    }
   }
 }
 
