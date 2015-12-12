@@ -8,7 +8,7 @@ class SplashNavBar extends Component {
     return (
       <div className="container splash-nav">
           <span>
-            <img className="logo-oink" alt="Oink Financial Logo" src="/images/Logo-small.png"/>
+            <img className="logo-oink u-pull-left" alt="Oink Financial Logo" src="/images/Logo-nav.png"/>
             <h5 className="u-pull-left">ink Financial.</h5>
           </span>
           <button className="u-pull-right" onClick={showLoginModal}>LOGIN</button>
