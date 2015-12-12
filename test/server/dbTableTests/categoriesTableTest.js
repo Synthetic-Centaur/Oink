@@ -4,10 +4,10 @@ import util from '../util'
 
 
 describe('Category Table', () => {
-  before( (done) => {
+  beforeEach( (done) => {
     util.clearDB().then(() => {
       util.populateDB( () => {
-        done()
+        setTimeout(done, 250)
       })
     })
   })
