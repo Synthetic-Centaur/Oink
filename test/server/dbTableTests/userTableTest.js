@@ -3,10 +3,10 @@ import db from '../../../server/db/dbConfig'
 import util from '../util'
 
 describe('User Table', () => {
-  before( (done) => {
+  beforeEach( (done) => {
     util.clearDB().then(() => {
       util.populateDB( () => {
-        done()
+        setTimeout(done, 250)
       })
     })
   })
