@@ -26,6 +26,7 @@ let authController = {
     })
   },
   findUserByToken(req) {
+    console.log('AUTH',req.headers.authorization)
     if( !req.headers.authorization) {
       return null
     }

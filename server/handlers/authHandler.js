@@ -123,14 +123,15 @@ let authHandler = {
             let name = user.attributes.first_name
             let number = user.attributes.phone_number
             // get transactions from plaid
-            apiController.getTransactions(user.attributes.token_plaid, user.id)
+            //apiController.getTransactions(user.attributes.token_plaid, user.id)
               // .then( (transactions) => {
               //   budgetController.saveTransactions(transactions, userid)
               // })
 
-
+            // set webhook for new user
+            apiController.setWebhook(user.attributes.token_plaid)
             // send welcome message
-            apiController.sendMessage('Hello ' + name + '! Welcome to Oink, Lets Budget Together!!', number)
+            //apiController.sendMessage('Hello ' + name + '! Welcome to Oink, Lets Budget Together!!', number)
 
             res.sendStatus(201)
           } else {
