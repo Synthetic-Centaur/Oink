@@ -32,7 +32,7 @@ export function postLogin(data) {
     .catch((err) => {
       dispatch(ACTIONS.receiveError(err))
       console.error(err)
-    });
+    })
   }
 }
 
@@ -70,7 +70,7 @@ export function postSignup(data) {
     .catch((err) => {
       dispatch(ACTIONS.receiveError(err))
       console.error(err)
-    });
+    })
   
   }
 }
@@ -82,7 +82,7 @@ export function postPlaid(data) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'authorization': 'Bearer ' + JSON.parse(window.localStorage.redux).auth.token
+        authorization: 'Bearer ' + JSON.parse(window.localStorage.redux).auth.token
       },
       body: JSON.stringify({
         public_token: data,
@@ -99,7 +99,7 @@ export function postPlaid(data) {
     .catch((err) => {
       dispatch(ACTIONS.receiveError(err))
       console.error(err)
-    });
+    })
   }
 }
 

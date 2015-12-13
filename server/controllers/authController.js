@@ -4,34 +4,40 @@ import Users from '../db/collections/users'
 let authController = {
 
   addUser(user) {
-    // user should be object of the following format: 
+    // user should be object of the following format:
     // {"first_name": "John", "last_name": "Smith", "email": "JohnSmith@example.com", , "phone_number": 8085551234, "password": "ExamplePass"}
     let newUser = new User(user)
-    // hashes user's password prior to saving 
+
+    // hashes user's password prior to saving
     newUser.hashPassword(user.password)
+
     // saves user to db
     return newUser.save().then((user) => {
       return user
     })
   },
+
   findUser(user) {
     let newUser = new User({email: user.email})
     console.log('new user:', newUser)
     return newUser.fetch().then((user) => {
       if (user) {
-        return user;
+        return user
       } else {
-        return null;
+        return null
       }
     })
   },
+
   findUserByToken(req) {
-    console.log('AUTH',req.headers.authorization)
-    if( !req.headers.authorization) {
+    console.log('AUTH', req.headers.authorization)
+    if (!req.headers.authorization) {
       return null
     }
+
     // Retrieve token from auth headers
     let token = req.headers.authorization.split(' ')[1]
+
     // Generate search querey
     let searchUser = new User({token_auth: token})
     return searchUser.fetch().then((user) => {
@@ -39,11 +45,12 @@ let authController = {
       if (user) {
         return user
       } else {
-      //Else return null
+        //Else return null
         return null
       }
     })
   },
+
   savePlaidToken(tokenPlaid, tokenAuth) {
     let newUser = new User({token_auth: tokenAuth})
     return newUser.fetch().then((user) => {
@@ -59,6 +66,7 @@ let authController = {
       }
     })
   },
+
   saveAuthToken(token, userID) {
     let newUser = new User({id: userID})
     return newUser.fetch().then((user) => {
@@ -73,6 +81,6 @@ let authController = {
       }
     })
   }
-} 
+}
 
 export default authController

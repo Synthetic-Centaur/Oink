@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { authRedirect, authLogout } from '../api/authHandlers'
@@ -11,19 +11,21 @@ import { numberValidation, categoryValidation } from '../actions/actions'
 class Home extends Component {
   //Get initial state of app, including all of user's transactions
   init() {
-     this.props.actions.getInitialState();
+    this.props.actions.getInitialState()
   }
 
   //Render home container with chart, budget input, and navbar
   componentWillMount() {
     this.checkAuth()
   }
+
   checkAuth() {
     const { actions, isAuthenticated } = this.props
     if (!isAuthenticated) {
       actions.authRedirect()
     }
   }
+
   renderContent() {
     const { actions, homePage, data } = this.props
     return (
@@ -32,7 +34,7 @@ class Home extends Component {
         <BudgetCategories
           data = { data }
           postBudget={ actions.postBudget }
-          numberValidation={ actions.numberValidation } 
+          numberValidation={ actions.numberValidation }
           categoryValidation={ actions.categoryValidation }
           numberError={ homePage.numberError }
           categoryError={ homePage.categoryError }
@@ -41,7 +43,7 @@ class Home extends Component {
       </div>
       )
   }
-  // <PieChart data = { data } />
+
   render() {
     const { isAuthenticated, data } = this.props
     return (
@@ -75,7 +77,7 @@ function mapStateToProps(state) {
 //Bind container actions to dispatch
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({ 
+    actions: bindActionCreators({
       getInitialState,
       postBudget,
       numberValidation,

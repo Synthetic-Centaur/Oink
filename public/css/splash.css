@@ -4,173 +4,77 @@ button {
   border: none;
 }
 
-.button {
-  border-radius: 100px;
-}
-
-.first-image {
-  background: url('http://s3.amazonaws.com/usersthink/01-large.jpg') no-repeat center center fixed;
+.hero {
+  background: url('/../images/desk.jpg') no-repeat center center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  padding: 2em 2em 7em 2em;
 }
 
-/* Sections
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
-.section {
-  padding: 8rem 0 7rem;
+.hero .container {
+  color: #999;
+}
+
+
+.hero .heading h1 {
   text-align: center;
-}
-.section-heading,
-.section-description {
-  margin-bottom: 1.2rem;
+  margin-bottom: 0rem;
 }
 
-/* Hero
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
-.logo-container {
-  position: relative;
-}
-.logo-oink {
-  position: relative;
-  margin-right: -5px;
-}
-.container.splash-nav {
-  max-height: 50px;
+
+.hero .subheading h2 {
+  text-align: center;
+  font-size: 20px;
 }
 
-.container.splash-nav span {
-  display: inline-block; /* to display the menu items as blocks in same line */
-  text-align: center; /* center align the text within the block */
-  width: 80%; /* set each block a width */
-  vertical-align: middle; /* align the contents to middle vertically */
+.hero .signup {
+  margin-bottom: 20em;
 }
 
-.container.splash-nav button {
-  display: inline-block; /* to display the menu items as blocks in same line */
-  text-align: center; /* center align the text within the block */
-  width: 10%; /* set each block a width */
-  vertical-align: middle; /* align the contents to middle vertically */
+.hero .signup button {
+  border: 2px solid;
+  background-color: #fff;
+  border-color: #c4c4c4;
+  position:relative;
+  opacity: 1;
+  top:50%; 
+  left:50%;
+  transform: translate(-50%, 50%);
+  text-align: vertical;
 }
 
-/* Values
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
-.values {
-  background-image: url('../images/values-bg.jpg');
-  background-size: cover;
-  color: #fff;
-  padding-bottom: 5rem;
-}
-.value-multiplier {
-  margin-bottom: .5rem;
-  color: #11DFC7;
-}
-.value-heading {
-  margin-bottom: .3rem;
-}
-.value-description {
-  opacity: .8;
-  font-weight: 300;
+.hero .signup button:hover {
+  border: 2px solid black;
+  background-color: #fff;
+  border-color: #c4c4c4;
+  opacity: 0.8;
 }
 
-/* Help
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
-.get-help {
-  border-bottom: 1px solid #ddd;
+.navbar.container {
+  margin-bottom: -1em;
 }
 
-/* Categories
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
-.categories {
-  background-image: url('../images/values-bg.jpg');
-  background-size: cover;
-  color: #fff;
-}
-.categories .section-description { 
-  margin-bottom: 4rem;
+.navbar.container button:hover {
+  color: #ddd;
 }
 
-/* Bigger than 550 */
-@media (min-width: 550px) {
-  .section {
-    padding: 12rem 0 11rem;
-  }
-  .hero {
-    padding-bottom: 12rem;
-    text-align: left;
-    height: 165px;
-  }
-  .logo {
-    position: absolute;
-    top: -7rem;
-    right: 3rem;
-    max-height: 362px;
-    z-index: 3;
-  }
-  .logo + .logo {
-    top: -6rem;
-    display: block;
-    max-width: 73.8%;
-    right: 0;
-    z-index: 2;
-    max-height: 338px;
-  }
-  .hero-heading {
-    font-size: 2.4rem;
-  }
+.splashnav {
+  text-align: vertical;
 }
 
-/* Bigger than 750 */
-@media (min-width: 750px) {
-  .hero {
-    height: 190px;
-  }
-  .hero-heading {
-    font-size: 2.6rem;
-  }
-  .section {
-    padding: 14rem 0 15rem;
-  }
-  .hero {
-    padding: 16rem 0 14rem;
-  }
-  .section-description {
-    max-width: 60%;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .logo {
-    top: -14rem;
-    right: 5rem;
-    max-height: 510px;
-  }
-  .logo + .logo {
-    top: -12rem;
-    max-height: 472px;
-  }
-  .categories {
-    padding: 15rem 0 8rem;
-  }
+
+.info .container {
+  margin-top: 5em;
 }
 
-/* Bigger than 1000 */
-@media (min-width: 1000px) {
-  .section {
-    padding: 20rem 0 19rem;
-  }
-  .hero {
-    padding: 22rem 0;
-  }
-  .hero-heading {
-    font-size: 3.0rem;
-  }
-  .logo {
-    top: -16rem;
-    max-height: 615px;
-  }
-  .logo + .logo {
-    top: -14rem;
-    max-height: 570px;
-  }
+.info .container h3 {
+  text-align: center;
+  font-size: 26px;
+}
+
+.info .container h4 {
+  text-align: center;
+  font-size: 15px;
 }

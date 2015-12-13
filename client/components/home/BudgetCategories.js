@@ -19,7 +19,7 @@ class BudgetCategories extends React.Component{
 
   //form-validation for drop-down field/budget category
   handleCatError(e) {
-    var value = e.target.value;
+    var value = e.target.value
     var isChosen = value !== 'Choose a category' ? false : true
 
     this.props.categoryValidation(isChosen, value)
@@ -35,7 +35,7 @@ class BudgetCategories extends React.Component{
     this.props.postBudget({
       category: category,
       budget: budget
-    });
+    })
 
     this.refs.amount.setValue('')
     this.refs.category._setSelectedIndex(0)
@@ -43,7 +43,7 @@ class BudgetCategories extends React.Component{
 
   render() {
     const { data } = this.props
-    let menuItems = [ { payload: 'Choose a category', text: 'Choose a category'} ]
+    let menuItems = [{ payload: 'Choose a category', text: 'Choose a category'}]
 
     if (data.categories !== undefined) {
       let categories = data.categories.map((category) => {
@@ -55,20 +55,20 @@ class BudgetCategories extends React.Component{
     return (
       <form className="u-pull-right">
         <div className="row">
-          <DropDownMenu 
+          <DropDownMenu
             ref="category"
             menuItems={menuItems}
             errorText="Please choose a category."
             onChange={this.handleCatError.bind(this)} />
         </div>
         <div className="row">
-          <TextField 
-            ref="amount" 
+          <TextField
+            ref="amount"
             hintText="Enter a sum"
             onChange={this.handleNumError.bind(this)} />
         </div>
         <div className="row">
-          <RaisedButton 
+          <RaisedButton
             ref="input"
             label="Add new category"
             disabled={this.props.numberError || this.props.categoryError}

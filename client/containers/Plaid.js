@@ -11,7 +11,7 @@ export class Plaid extends React.Component {
       <div className="container">
         <PlaidButton authenticate={actions.postPlaid} />
       </div>
-    );
+    )
   }
 }
 
@@ -28,6 +28,5 @@ function mapDispatchToProps(dispatch) {
     actions: bindActionCreators({ postPlaid: postPlaid }, dispatch)
   }
 }
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(Plaid)
