@@ -14,11 +14,12 @@ class HomeNavBar extends Component {
     
     this.props.logout()
   }
+  
   render() {
     return (
       <div>
         <AppBar
-          title="Dashboard" 
+          title="Dashboard"
           onItemTouchTap={this.handleLogout.bind(this)}
           iconElementRight={
             <IconMenu iconButtonElement={

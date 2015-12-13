@@ -14,7 +14,7 @@ class AccountModal extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    const { showLogin, showSignup } = this.props    
+    const { showLogin, showSignup } = this.props
     showLogin ? this.handleLogin() : showSignup ? this.handleSignup() : null
   }
 
@@ -77,7 +77,7 @@ class AccountModal extends Component {
         label="Submit"
         primary={true}
         onTouchTap={this.handleSubmit.bind(this)} />
-    ];
+    ]
 
     return (
       <Dialog
@@ -86,7 +86,7 @@ class AccountModal extends Component {
         actions={modalActions}
         autoDetectWindowHeight={true}
         autoScrollBodyContent={true}
-        modal={true} 
+        modal={true}
       >
         <div className="modal-content">
 

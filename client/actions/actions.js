@@ -70,6 +70,7 @@ function hideSignup() {
 /********************************************************
               AUTHENTICATION REDUX ACTIONS
 *********************************************************/
+
 // We should show the pop-up signup modal
 function addJWT(data) {
   return (dispatch) => {

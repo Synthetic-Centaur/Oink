@@ -21,6 +21,7 @@ class SignupForm extends Component {
       password: password
     })
   }
+  
   render() {
     return (
         <form>

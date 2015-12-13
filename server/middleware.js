@@ -11,7 +11,6 @@ import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
 import webpackConfig from '../webpack.config'
 
-
 import db from './db/dbConfig.js'
 import {populateTables} from './db/dbConfig'
 populateTables(() => {})
