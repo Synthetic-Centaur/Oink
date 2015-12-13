@@ -1,6 +1,7 @@
 import apiController from '../controllers/apiController'
 import budgetController from '../controllers/budgetController'
 import authController from '../controllers/authController'
+import goalController from '../controllers/goalController'
 import {populateTables} from '../db/dbConfig'
 
 // Poplulate categories after server initializes
@@ -67,7 +68,12 @@ let apiHandler = {
       res.status(403)
       res.json({ success: false, message: 'Failed, user is not authenticated'})
     } else {
-      res.sendStatus(201)
+      authController.findUserByToken(req).then((user) => {
+        goalController.createGoal(user.attributes.id, req.body).then((goal) => {
+          res.status(201)
+          res.json(goal)
+        })
+      })
     }
   }
 }
