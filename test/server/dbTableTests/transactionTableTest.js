@@ -37,7 +37,7 @@ describe('Transaction Table', () => {
   })
   it('should have a date column which is varchar', (done) => {
     db.knex('transactions').columnInfo('date').then((info) => {
-      expect(info.type).to.equal('character varying')
+      expect(info.type).to.equal('date')
       done()
     })
   })
@@ -73,7 +73,7 @@ describe('Transaction Table', () => {
   })
   it('should have a amount column which is a decimal', (done) => {
     db.knex('transactions').columnInfo('amount').then((info) => {
-      expect(info.type).to.equal('numeric')
+      expect(info.type).to.equal('real')
       done()
     })
   })
