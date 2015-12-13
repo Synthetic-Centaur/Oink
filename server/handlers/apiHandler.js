@@ -8,6 +8,22 @@ import {populateTables} from '../db/dbConfig'
 apiController.getCategories()
 
 let apiHandler = {
+  getTransactions(req, res) {
+    // TODO: Add Token Plaid logic
+    apiController.getTransactions(token_plaid, 3)
+  },
+  setWebhook(req, res) {
+    // get user from database using token
+    authController.findUserByToken(req).then((user) => {    
+      console.log("inside WEBHOOK SETUP handler. User is :", user)
+      if (user.attributes.token_plaid) {      
+        apiController.setWebhook(user.attributes.token_plaid)
+        res.sendStatus(200)
+      } else {
+        res.sendStatus(500)
+      }
+    })
+  },
   initialState(req, res) {
     // Find the user based on auth token
     if (!req.headers.authorization) {

@@ -10,7 +10,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'public'),
     filename: 'bundle.min.js',
-    publicPath: '/public/',
+    publicPath: '/dist/',
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
@@ -48,8 +48,5 @@ module.exports = {
         }
       }
     ]
-  },
-  resolve: {
-    root: __dirname
   }
 }

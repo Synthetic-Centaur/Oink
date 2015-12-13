@@ -29,48 +29,90 @@ let apiController = {
   tradeToken(public_token) {
     return plaidClient.exchangeTokenAsync(public_token)
   },
-  getTransactions(plaid_token, userid) {
+  setWebhook(plaid_token) {
+    plaidClient.patchConnectUser(plaid_token,
+    {},
+    {
+      webhook: 'http://bef76d96.ngrok.io/webhook'
+    }, 
+    (err, mfaResponse, response) => {
+      // The webhook URI should receive a code 4 "webhook acknowledged" webhook
+        console.log('ERROR', err);  
+        console.log('MFA', mfaResponse);
+        // this will get initial state. All accounts and transactions
+        //console.log('RESPONSE', response);
+        console.log('User has been patched, webhook should receive a code 4 "webhook acknowledged" webhook');
+    })
+  },
+  _getTransactions(plaid_token, userid) {
     
 ///////////////Testing purposes, plaid test data///////////////////////////////
 
-    let postData = {
-      client_id: 'test_id',
-      secret: 'test_secret',
-      username: 'plaid_test',
-      password: 'plaid_good',
-      type: 'wells'
-    }
+    // let postData = {
+    //   client_id: 'test_id',
+    //   secret: 'test_secret',
+    //   username: 'plaid_test',
+    //   password: 'plaid_good',
+    //   type: 'wells'
+    // }
 
-    let options = {
-      method: 'post',
-      body: postData,
-      json: true,
-      url: 'https://tartan.plaid.com/connect'
-    }
-    request(options, (err, response, body) => {
-      budgetController.saveTransactions(body.transactions, userid)
-    })
+    // let options = {
+    //   method: 'post',
+    //   body: postData,
+    //   json: true,
+    //   url: 'https://tartan.plaid.com/connect'
+    // }
+    // request(options, (err, response, body) => {
+    //   budgetController.saveTransactions(body.transactions, userid)
+    // })
 
 //////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////Comment this out for real data//////////////////////////////
-    // return plaidClient.getConnectUser('test_wells',
-    // {
-    //   gte: '360 days ago',
-    //   // TODO: update webhook
-    //   webhook: 'http://a2ec5c23.ngrok.io'
-    // },
-    // function (err, response) {
-    //   if (err) {
-    //     console.log('ERROR', err);
-    //   } else {
-        // console.log('Transactions: ', response.transactions);
-        // console.log('You have ' + response.transactions.length +' transactions from the last 400 days.');
-        // TODO: need to make async and move this logic to controller to send back
-        // budgetController.saveTransactions(response.transactios, userid)
-    //   }
-    // })
+    return plaidClient.getConnectUser(plaid_token,
+    {
+      gte: '30 days ago',
+      // TODO: update webhook
+      webhook: 'http://bef76d96.ngrok.io/webhook'
+    },
+    function (err, response) {
+      if (err) {
+        console.log('ERROR', err);
+      } else {
+        console.log('Transactions (first 4): ', response.transactions.slice(0,4));
+        //console.log('You have ' + response.transactions.length +' transactions from the last 400 days.');
+        //TODO: need to make async and move this logic to controller to send back
+        budgetController.saveTransactions(response.transactions, userid)
+      }
+    })
 //////////////////////////////////////////////////////////////////////////////////
+  },
+  getTransactions(plaid_token, userid) {
+    // TODO: this logic should be reorganized -- > need to add update budget method on budget controller to simplify
+    return plaidClient.getConnectUser(plaid_token,
+    {
+      gte: '30 days ago',
+      // TODO: update webhook
+      webhook: 'http://bef76d96.ngrok.io/webhook'
+    },
+    function (err, response) {
+      if (err) {
+        console.log('ERROR', err);
+      } else {
+        console.log('Transactions (first 4): ', response.transactions.slice(0,4));
+        //console.log('You have ' + response.transactions.length +' transactions from the last 400 days.');
+        //TODO: need to make async and move this logic to controller to send back
+        budgetController.updateTransactions(response.transactions, userid).then((response) => {
+          // check to see if new transactions were updated
+          // TODO: FIX THIS!!!! response always coming back populated so check doesn't work
+          //if (response.length > 0) {
+            // TODO: this inner logic should be modularized
+            // sum user's budget
+            budgetController.updateBudget(userid)
+          //}
+        })
+      }
+    })
   },
   sendMessage(text, phone) {
     // send twilio message
