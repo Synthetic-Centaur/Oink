@@ -21,9 +21,9 @@ describe('Budget Table', () => {
       done()
     })
   })
-  it('should have a target column which is an integer', (done) => {
+  it('should have a target column which is number', (done) => {
     db.knex('budgets').columnInfo('target').then((info) => {
-      expect(info.type).to.equal('integer')
+      expect(info.type).to.equal('real')
       done()
     })
   })
