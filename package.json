@@ -9,7 +9,7 @@
     "build": "NODE_ENV=production webpack --config webpack.production.config.js",
     "clean": "rm -r ./public/bundle.min.js",
     "testall": "mocha --compilers js:babel/register test/loadTests.js",
-    "lint": "jscs ./"
+    "lint": "jscs ./ "
   },
   "pre-commit": [
     "lint"
@@ -38,7 +38,7 @@
     "fs": "0.0.2",
     "highcharts-release": "4.1.10",
     "history": "1.13.1",
-    "isomorphic-fetch": "^2.2.0",
+    "isomorphic-fetch": "^2.2.0"
     "jsonwebtoken": "5.4.1",
     "knex": "0.8.6",
     "material-ui": "0.13.4",
