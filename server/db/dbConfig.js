@@ -58,7 +58,7 @@ var populateTables = (cb) => {
     }
   })
   
-  db.knex.schema.hasTable('goals').then( (exists) => {
+  db.knex.schema.hasTable('goals').then((exists) => {
     if (!exists) {
       db.knex.schema.createTable('goals', (goal) => {
         goal.increments('id').primary()
@@ -68,7 +68,7 @@ var populateTables = (cb) => {
         goal.date('goalBy')
         goal.date('goalStarted')
       }).then((table) => {
-        console.log("Created Goals Table") 
+        console.log('Created Goals Table')
       })
     }
   })
@@ -85,6 +85,7 @@ var populateTables = (cb) => {
         console.log('Created Budgets Table')
       })
     }
+
     cb()
 
   })

@@ -83,6 +83,7 @@ let apiHandler = {
       })
     }
   },
+
   goals(req, res) {
     if (!req.headers.authorization) {
       res.status(403)

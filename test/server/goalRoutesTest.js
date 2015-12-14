@@ -29,18 +29,6 @@ describe('Goal routing', () => {
       .send(goal)
       .expect(201, done)
   })
-  it('should respond with goal for authorized post to /api/goals', (done) => {
-    let goal = {
-      description: "Tahiti",
-      amount: 200,
-      goalBy: "2015-12-13T00:05:35.333Z"
-    }
-    request
-      .post('/api/goals')
-      .set('Authorization', 'Bearer testingAuth')
-      .send(goal)
-      .expect(201, goal, done)
-  })
   it('should have an entry in db after successful post to /api/goals', (done) => {
     let goal = {
       description: "Tahiti",
