@@ -7,7 +7,14 @@ class Goals extends Component {
     const { actions, homePage, data } = this.props
     return (
       <div>
-        <h5>Hello World</h5>
+        <div className = "container">
+          <MessageCenter data = { data } />
+          <GoalConfigurer
+            data = { data }
+            postGoal = { actions.postGoal }
+            updateGoal = { actions.updateGoal } />
+          <GoalChart data = { data } />
+        </div>
       </div>
      )
   }
