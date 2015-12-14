@@ -1,0 +1,46 @@
+.sidenav {
+  did-flip:true;
+  background-color:#ffffff;
+  transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+  box-sizing:border-box;
+  font-family:Roboto, sans-serif;
+  -webkit-tap-highlight-color:rgba(0,0,0,0);
+  box-shadow:0 3px 10px rgba(0, 0, 0, 0.16), 0 3px 10px rgba(0, 0, 0, 0.23);
+  border-radius:0px;
+  height:100%;
+  width:256px;
+  position:fixed;
+  z-index:10;
+  left:0;
+  top:0;
+  transform:translate3d(-200px, 0, 0);
+  overflow:hidden;  
+}
+
+.sidenav:hover {
+  transform: translate3d(0px, 0, 0)
+}
+
+.sidenav i {
+  float: right;
+  margin-top: 6%;
+}
+
+.sidenav .header {
+  border-bottom: 2px solid #eee;
+  padding: 13px 0px 10px 0;
+}
+
+.sidenav .logo {
+  display: inline-block;
+  height: 50px;
+  width: 50px;
+  margin-left: 5px;
+}
+
+.sidenav h4 {
+  float: right;
+  position: relative;
+  left: -165px;
+  top: 15px;
+}

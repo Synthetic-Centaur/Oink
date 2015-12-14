@@ -11,4 +11,5 @@
   "requireParenthesesAroundArrowParam": true,
   "requireLineFeedAtFileEnd": null,
   "disallowTrailingWhitespace": "ignoreEmptyLines",
+  "disallowMultipleLineStrings": false
 }
