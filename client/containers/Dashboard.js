@@ -39,7 +39,7 @@ class Dashboard extends React.Component {
   }
 
   render() {
-    const { actions, currentView, data, homePage } = this.props
+    const { actions, currentComponent, data, homePage } = this.props
     return (
       <div>
       
@@ -58,20 +58,19 @@ class Dashboard extends React.Component {
             <div className="container">
               <div className="row">
 
-                <h1>{ homePage.currentComponent.text }</h1>
+                <h1>{ currentComponent.text }</h1>
 
               </div>
             </div>
           </div>
 
-
           <div className="view-container container">
             <ComponentPlayground 
-              data= { data }
-              homePage = { homePage }
-              actions= { actions }
-              currentComponent = { homePage.currentComponent } />
-          
+              currentComponent = { currentComponent } 
+              // data = { data }
+              // homePage = { homePage }
+              // actions = { actions }
+             />
           </div>
 
         </div>
@@ -80,6 +79,10 @@ class Dashboard extends React.Component {
     )
   }
 }
+              // data = { data }
+              // homePage = { homePage }
+              // actions = { actions }
+              // currentComponent = { currentComponent } />
 
 function mapStateToProps(state) {
   return {
@@ -87,8 +90,8 @@ function mapStateToProps(state) {
     data: state.asyncStatus.data,
     error: state.asyncStatus.error,
     homePage: state.homePage,
-    isAuthenticated: state.auth.isAuthenticated
-    // currentView: state.dashboard.currentView
+    isAuthenticated: state.auth.isAuthenticated,
+    currentComponent: state.dashboard.currentComponent
   }
 }
 

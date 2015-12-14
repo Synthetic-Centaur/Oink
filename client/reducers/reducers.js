@@ -14,17 +14,16 @@ these actions.
 import { DROPDOWN_ACTIONS } from '../constants/componentActions'
 
 
-// function dashboardReducer(state = {
-//   currentView: 'Budget'
-// }, action = null) {
-//   switch (action.type) {
-
-//     case 'CHANGE_VIEW':
-//       return Object.assign({}, state, {currentView: action.view})
-//     default:
-//       return state
-//   }
-// }
+function dashboardReducer(state = {
+  currentComponent: DROPDOWN_ACTIONS[0]
+}, action = null) {
+  switch (action.type) {
+    case 'SWITCH_COMPONENT':
+     return Object.assign({}, state, {currentComponent: action.data})
+    default:
+      return state
+  }
+}
 
 function asyncStatusReducer(state = {
   isLoading: false,
@@ -67,8 +66,7 @@ function splashPageReducer(state = {
 function homePageReducer(state = {
   numberError: true,
   categoryError: true,
-  category: '',
-  currentComponent: DROPDOWN_ACTIONS[0]
+  category: ''
 }, action = null) {
   switch (action.type) {
     case 'SWITCH_COMPONENT':
@@ -107,6 +105,6 @@ export default {
   splashPageReducer,
   homePageReducer,
   authReducer,
-  splashPageReducer
-  // dashboardReducer
+  splashPageReducer,
+  dashboardReducer
 }

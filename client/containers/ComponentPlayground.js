@@ -9,13 +9,14 @@ class ComponentPlayground extends Component {
 
     return (
       <Component 
-        data = { props.data }
-        postBudget={ props.actions.postBudget }
-        numberValidation={ props.actions.numberValidation } 
-        categoryValidation={ props.actions.categoryValidation }
-        numberError={ props.homePage.numberError }
-        categoryError={ props.homePage.categoryError }
-        category={ props.homePage.category } />
+        // data = { props.data }
+        // postBudget={ props.actions.postBudget }
+        // numberValidation={ props.actions.numberValidation } 
+        // categoryValidation={ props.actions.categoryValidation }
+        // numberError={ props.homePage.numberError }
+        // categoryError={ props.homePage.categoryError }
+        // category={ props.homePage.category } 
+      />
     )
 
   }
