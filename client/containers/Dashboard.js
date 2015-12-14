@@ -66,11 +66,7 @@ class Dashboard extends React.Component {
 
           <div className="view-container container">
             <ComponentPlayground 
-              currentComponent = { currentComponent } 
-              // data = { data }
-              // homePage = { homePage }
-              // actions = { actions }
-             />
+              currentComponent = { currentComponent } />
           </div>
 
         </div>
@@ -79,10 +75,6 @@ class Dashboard extends React.Component {
     )
   }
 }
-              // data = { data }
-              // homePage = { homePage }
-              // actions = { actions }
-              // currentComponent = { currentComponent } />
 
 function mapStateToProps(state) {
   return {

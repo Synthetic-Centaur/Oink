@@ -11,6 +11,12 @@ function switchComponent(component) {
   }
 }
 
+function hello (hello) {
+
+  var i = 0;
+  var hello = [ 'aaron' ]
+}
+
 /********************************************************
                     ASYNC REDUX ACTIONS
 *********************************************************/

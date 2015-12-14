@@ -8,15 +8,7 @@ class ComponentPlayground extends Component {
       Component = props.currentComponent.component
 
     return (
-      <Component 
-        // data = { props.data }
-        // postBudget={ props.actions.postBudget }
-        // numberValidation={ props.actions.numberValidation } 
-        // categoryValidation={ props.actions.categoryValidation }
-        // numberError={ props.homePage.numberError }
-        // categoryError={ props.homePage.categoryError }
-        // category={ props.homePage.category } 
-      />
+      <Component  />
     )
 
   }
