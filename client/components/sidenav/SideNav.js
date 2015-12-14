@@ -5,7 +5,7 @@ import MenuDivider from 'material-ui/lib/menus/menu-divider'
 
 const views = [
   { text: 'Budget', icon: 'shopping_cart'},
-  { text: 'Plan', icon: 'account_balance'},
+  { text: 'Plan Goals', icon: 'account_balance'},
   { text: 'Heatmap', icon: 'add_location'},
   { text: 'Recommendations', icon: 'lightbulb_outline'},
   { text: 'Forecast', icon: 'trending_up'}

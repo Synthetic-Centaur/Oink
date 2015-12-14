@@ -7,6 +7,7 @@ import { changeView } from '../actions/actions'
 import SideNav from '../components/sidenav/sidenav'
 import Budget from './Budget'
 import Settings from '../components/dashboard/Settings'
+import Goals from './Goals'
 
 class Dashboard extends React.Component {
   //Render home container with chart, budget input, and navbar
@@ -37,6 +38,8 @@ class Dashboard extends React.Component {
     switch (currentView) {
       case 'Budget':
         return <Budget />
+      case 'Plan Goals':
+        return <Goals />
       default:
         return <Budget />
     }
