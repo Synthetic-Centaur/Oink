@@ -2,7 +2,6 @@ import apiController from '../controllers/apiController'
 import budgetController from '../controllers/budgetController'
 import authController from '../controllers/authController'
 import goalController from '../controllers/goalController'
-import {populateTables} from '../db/dbConfig'
 
 // Poplulate categories after server initializes
 apiController.getCategories()
@@ -10,7 +9,9 @@ apiController.getCategories()
 let apiHandler = {
   getTransactions(req, res) {
     // TODO: Add Token Plaid logic
-    apiController.getTransactions(token_plaid, 3)
+    authController.findUserByToken(req).then((user) => {
+      apiController.getTransactions(user.attributes.token_plaid, user.attributes.id)
+    })
   },
 
   setWebhook(req, res) {
@@ -27,27 +28,42 @@ let apiHandler = {
   },
 
   initialState(req, res) {
+
     // Find the user based on auth token
     if (!req.headers.authorization) {
       res.status(403)
       res.json({ success: false, message: 'Failed, user is not authenticated'})
     } else {
       authController.findUserByToken(req).then((user) => {
+
         // Check if user is in db
         if (user) {
+
           // Search for all budgets from user
           budgetController.getBudgets(user.attributes.id).then((budgets) => {
             if (budgets) {
+
               // Retrieve all categories from db
               budgetController.getAllCategories().then((categories) => {
-                // Build response object
-                let state = {
-                  budgets,
-                  categories
-                }
+                if (categories) {
 
-                // Send state
-                res.json(state)
+                  // Retrieve all goals from user
+                  goalController.getGoalsById(user.attributes.id).then((goals) => {
+                    goals = goals || {}
+
+                    // Build response object
+                    let state = {
+                      budgets,
+                      categories,
+                      goals
+                    }
+
+                    // Send state
+                    res.json(state)
+                  })
+                } else {
+                  res.json({ success: false, message: 'Failed, error reading cateogries'})
+                }
               })
             } else {
               res.json({ success: false, message: 'Failed, error reading budgets.' })

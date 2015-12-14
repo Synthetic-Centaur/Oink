@@ -10,24 +10,27 @@ let goalController = {
       goalBy: goal.goalBy,
       goalStarted: new Date().toISOString()
     }
+
     //insert goal into goals table
     return db.knex('goals').insert(newGoal).then(() => {
+
       //strip user_id from goal
       delete newGoal.user_id
+
       //return goal as created
       return newGoal
     }).catch((err) => {
       console.error(err)
-    }
+    })
   },
 
-  getGoalById(userId) {
+  getGoalsById(userId) {
 
     // Search goals table
     return db.knex('goals')
 
     // Only returns certain columns
-    .select('description', 'goalBy', 'GoalStarted', 'amount')
+    .select('description', 'goalBy', 'goalStarted', 'amount')
 
     // Only gets goals from specified user
     .where('user_id', userId).then((goals) => {
