@@ -20,9 +20,9 @@ import plaid from 'plaid'
 import bluebird from 'bluebird'
 bluebird.promisifyAll(plaid)
 
-let plaidClient = new plaid.Client(clientId, secret, plaid.environments.tartan)
+//let plaidClient = new plaid.Client(clientId, secret, plaid.environments.tartan)
 
-// let plaidClient = new plaid.Client('test_id', 'test_secret', plaid.environments.tartan)
+let plaidClient = new plaid.Client('test_id', 'test_secret', plaid.environments.tartan)
 
 let apiController = {
 
@@ -47,61 +47,47 @@ let apiController = {
     })
   },
 
-  _getTransactions(plaid_token, userid) {
-    
-    ///////////////Testing purposes, plaid test data///////////////////////////////
-
-    // let postData = {
-    //   client_id: 'test_id',
-    //   secret: 'test_secret',
-    //   username: 'plaid_test',
-    //   password: 'plaid_good',
-    //   type: 'wells'
-    // }
-
-    // let options = {
-    //   method: 'post',
-    //   body: postData,
-    //   json: true,
-    //   url: 'https://tartan.plaid.com/connect'
-    // }
-    // request(options, (err, response, body) => {
-    //   budgetController.saveTransactions(body.transactions, userid)
-    // })
-
-    //////////////////////////////////////////////////////////////////////////////////
-
-    /////////////////////Comment this out for real data//////////////////////////////
+  getTransactions(plaid_token, userid) {
+    // TODO: this logic should be reorganized -- > need to add update budget method on budget controller to simplify
     return plaidClient.getConnectUser(plaid_token,
     {
-      gte: '30 days ago',
-
       // TODO: update webhook
-      webhook: 'http://bef76d96.ngrok.io/webhook'
+      //webhook: 'http://bef76d96.ngrok.io/webhook'
     },
     (err, response) => {
       if (err) {
         console.log('ERROR', err)
       } else {
+        console.log('You have ' + response.transactions.length + ' transactions')
         console.log('Transactions (first 4): ', response.transactions.slice(0, 4))
 
-        //console.log('You have ' + response.transactions.length +' transactions from the last 400 days.')
         //TODO: need to make async and move this logic to controller to send back
-        budgetController.saveTransactions(response.transactions, userid)
+        budgetController.updateTransactions(response.transactions, userid).then((response) => {
+
+          console.log('response from update transactions -- inside api controller', response)
+
+          // check to see if new transactions were updated
+          if (response.length > 0) {
+            
+            // sum user's budget
+            budgetController.updateBudget(userid)
+          }
+        })
       }
     })
-
-    //////////////////////////////////////////////////////////////////////////////////
   },
 
-  getTransactions(plaid_token, userid) {
+  updateTransactions(plaid_token, userid) {
+
+    // TODO: update transactions and get transactions are basically the same call -- the only dif is that update transactions
+    // only is pulling trans from the last month to keep pulls smaller -- should reorganize this for more code reuse
     // TODO: this logic should be reorganized -- > need to add update budget method on budget controller to simplify
     return plaidClient.getConnectUser(plaid_token,
     {
       gte: '30 days ago',
 
       // TODO: update webhook
-      webhook: 'http://bef76d96.ngrok.io/webhook'
+      //webhook: 'http://bef76d96.ngrok.io/webhook'
     },
     (err, response) => {
       if (err) {
@@ -109,9 +95,12 @@ let apiController = {
       } else {
         console.log('Transactions (first 4): ', response.transactions.slice(0, 4))
 
-        //console.log('You have ' + response.transactions.length +' transactions from the last 400 days.')
+        console.log('You have ' + response.transactions.length + ' transactions')
+
         //TODO: need to make async and move this logic to controller to send back
         budgetController.updateTransactions(response.transactions, userid).then((response) => {
+
+          console.log('response from update transactions -- inside api controller', response)
 
           // check to see if new transactions were updated
           // TODO: FIX THIS!!!! response always coming back populated so check doesn't work
