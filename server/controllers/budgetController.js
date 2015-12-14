@@ -146,6 +146,7 @@ let budgetController = {
     })
   },
 
+  // TODO: Update Transactions is currently being used for both update and save. May be possible to remove save transactions
   saveTransactions(transactions, user_id) {
     // loop over transactions array
     return Promise.map(transactions, (item) => {
@@ -173,6 +174,8 @@ let budgetController = {
   },
 
   updateTransactions(transactions, user_id) {
+    console.log('NOW INSIDE BUDGET CONTROLLER UPDATE TRANSACTIONS')
+    
     // TODO: Fix promise
     // pull previous transactions for user out of database
     return db.knex('transactions').where({user_id: user_id}).select('transaction_id').then((oldTransactions) => {
@@ -201,15 +204,17 @@ let budgetController = {
 
         console.log('CATEGORY', category)
 
-        db.knex('categories').where({description: category}).select().then((result) => {
+        return db.knex('categories').where({description: category}).select().then((result) => {
           console.log('result', result)
+          console.log('USER ID', user_id)
           if (result.length > 0) {
             let category_id = result[0].id
-            console.log('TRANSACTION', transaction.date)
             return saveTransaction(transaction, user_id, category_id)
           } else {
-            console.log('TRANSACTION', transaction.date)
-            return db.knex('categories').insert({description: category})
+            return db.knex('categories').insert({description: category}).then((result) => {
+              let category_id = result[0].id
+              return saveTransaction(transaction, user_id, category_id)
+            })
           }
         })
       })
