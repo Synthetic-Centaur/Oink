@@ -9,7 +9,7 @@
     "build": "NODE_ENV=production webpack --config webpack.production.config.js",
     "clean": "rm -r ./public/bundle.min.js",
     "testall": "mocha --compilers js:babel/register test/loadTests.js",
-    "lint": "jscs ./server"
+    "lint": "jscs ./"
   },
   "pre-commit": [
     "lint"
