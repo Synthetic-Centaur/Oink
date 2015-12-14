@@ -61,4 +61,22 @@ describe('Goal routing', () => {
         })
       })
   })
+  it('should have goals included in a get request to /api/initialState', (done) => {
+    let goal = {
+      description: "Tahiti",
+      amount: 200,
+      goalBy: "2015-12-13T00:05:35.333Z",
+      user_id: 1
+    }
+    request
+      .get('/api/initialState')
+      .set('Authorization', 'Bearer testingAuth')
+      .expect(200)
+      .expect((res) => {
+        expect(res.body.state.goals.description).to.equal('Tahiti')
+        expect(res.body.state.goals.amount).to.equal(200)
+        done() 
+      })
+
+  })
 })

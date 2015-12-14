@@ -66,6 +66,7 @@ var populateTables = (cb) => {
         goal.integer('user_id')
         goal.decimal('amount', 20)
         goal.date('goalBy')
+        goal.date('goalStarted')
       }).then((table) => {
         console.log("Created Goals Table") 
       })
