@@ -3,10 +3,12 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { authRedirect, authLogout } from '../api/authHandlers'
 import { getInitialState } from '../api/apiHandlers'
-import { changeView } from '../actions/actions'
+import { changeView, switchComponent } from '../actions/actions'
 import SideNav from '../components/sidenav/sidenav'
 import Budget from './Budget'
 import Settings from '../components/dashboard/Settings'
+import ComponentPlayground from './ComponentPlayground'
+import { DROPDOWN_ACTIONS } from '../constants/componentActions'
 
 class Dashboard extends React.Component {
   //Render home container with chart, budget input, and navbar
@@ -31,23 +33,20 @@ class Dashboard extends React.Component {
     }
   }
 
-  renderView() {
-    const { currentView } = this.props
-    
-    switch (currentView) {
-      case 'Budget':
-        return <Budget />
-      default:
-        return <Budget />
-    }
+  handleNavigation(component) {
+    const { actions } = this.props
+    actions.switchComponent(component)
   }
 
   render() {
-    const { actions, currentView } = this.props
+    const { actions, currentView, data, homePage } = this.props
     return (
       <div>
       
-      <SideNav changeView={ actions.changeView }/>
+        <SideNav 
+          changeView={ actions.changeView }
+          handleNavigation = {this.handleNavigation.bind(this)}
+          dropDownComponents = { DROPDOWN_ACTIONS } />
 
         <div className="dashboard">
       
@@ -59,7 +58,7 @@ class Dashboard extends React.Component {
             <div className="container">
               <div className="row">
 
-                <h1>{ currentView }</h1>
+                <h1>{ homePage.currentComponent.text }</h1>
 
               </div>
             </div>
@@ -67,8 +66,11 @@ class Dashboard extends React.Component {
 
 
           <div className="view-container container">
-
-            { this.renderView() }
+            <ComponentPlayground 
+              data= { data }
+              homePage = { homePage }
+              actions= { actions }
+              currentComponent = { homePage.currentComponent } />
           
           </div>
 
@@ -85,8 +87,8 @@ function mapStateToProps(state) {
     data: state.asyncStatus.data,
     error: state.asyncStatus.error,
     homePage: state.homePage,
-    isAuthenticated: state.auth.isAuthenticated,
-    currentView: state.dashboard.currentView
+    isAuthenticated: state.auth.isAuthenticated
+    // currentView: state.dashboard.currentView
   }
 }
 
@@ -96,7 +98,8 @@ function mapDispatchToProps(dispatch) {
       getInitialState,
       authRedirect,
       authLogout,
-      changeView
+      changeView,
+      switchComponent
     }, dispatch)
   }
 }

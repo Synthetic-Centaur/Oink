@@ -11,18 +11,20 @@ dispatched as the result of user interaction. If there is no relevant action, it
 just return the current state. See actions folder and api folder for a list of
 these actions.
 ***************************************************************************************/
+import { DROPDOWN_ACTIONS } from '../constants/componentActions'
 
-function dashboardReducer(state = {
-  currentView: 'Budget'
-}, action = null) {
-  switch (action.type) {
 
-    case 'CHANGE_VIEW':
-      return Object.assign({}, state, {currentView: action.view})
-    default:
-      return state
-  }
-}
+// function dashboardReducer(state = {
+//   currentView: 'Budget'
+// }, action = null) {
+//   switch (action.type) {
+
+//     case 'CHANGE_VIEW':
+//       return Object.assign({}, state, {currentView: action.view})
+//     default:
+//       return state
+//   }
+// }
 
 function asyncStatusReducer(state = {
   isLoading: false,
@@ -65,10 +67,12 @@ function splashPageReducer(state = {
 function homePageReducer(state = {
   numberError: true,
   categoryError: true,
-  category: ''
+  category: '',
+  currentComponent: DROPDOWN_ACTIONS[0]
 }, action = null) {
   switch (action.type) {
-
+    case 'SWITCH_COMPONENT':
+     return Object.assign({}, state, {currentComponent: action.data})
     case 'ALLOW_NUM':
       return Object.assign({}, state, {numberError: false})
     case 'DISABLE_NUM':
@@ -103,6 +107,6 @@ export default {
   splashPageReducer,
   homePageReducer,
   authReducer,
-  splashPageReducer,
-  dashboardReducer
+  splashPageReducer
+  // dashboardReducer
 }
