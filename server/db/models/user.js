@@ -5,28 +5,32 @@ import Budget from './budget'
 import bcrypt from 'bcrypt'
 
 export default class User extends db.Model {
-  constructor(attributes){
+  constructor(attributes) {
     super()
     this.tableName = 'users'
     this.attributes = attributes
   }
 
-  transactions(){
+  transactions() {
     return this.hasMany(Transaction)
   }
-  categories(){
+
+  categories() {
     return this.hasMany(Category).through(Budget)
   }
-  validPassword(userPassword){
+
+  validPassword(userPassword) {
     //compare provide password with stored, returns boolean
-    return bcrypt.compareSync( userPassword, this.attributes.password )
+    return bcrypt.compareSync(userPassword, this.attributes.password)
   }
-  hashPassword(password){
+
+  hashPassword(password) {
     //generates a hash with provided cleartext password, assigns it to model
     this.attributes.password = bcrypt.hashSync(password, bcrypt.genSaltSync(8), null)
     return this.attributes.password
   }
-  initialize(obj){
+
+  initialize(obj) {
     
   }
 }

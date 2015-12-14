@@ -8,16 +8,29 @@ these pieces of state.
 The signature for a reducer is (state, action) => return state
 A reducer will return a new state, using Object.assign, depending on what actions was
 dispatched as the result of user interaction. If there is no relevant action, it will
-just return the current state. See actions folder and api folder for a list of 
+just return the current state. See actions folder and api folder for a list of
 these actions.
 ***************************************************************************************/
 
-function asyncStatusReducer (state = {
+function dashboardReducer(state = {
+  currentView: 'Budget'
+}, action = null) {
+  switch (action.type) {
+
+    case 'CHANGE_VIEW':
+      return Object.assign({}, state, {currentView: action.view})
+    default:
+      return state
+  }
+}
+
+function asyncStatusReducer(state = {
   isLoading: false,
   data: {},
   error: false
 }, action = null) {
-  switch(action.type) {
+  switch (action.type) {
+
     case 'RECV_ERROR':
       return Object.assign({}, state, {isLoading: false, data: action.data, error: true})
     case 'RECV_DATA':
@@ -29,11 +42,12 @@ function asyncStatusReducer (state = {
   }
 }
 
-function splashPageReducer (state = {
+function splashPageReducer(state = {
   showLogin: false,
   showSignup: false
 }, action = null) {
-  switch(action.type) {
+  switch (action.type) {
+
     case 'SHOW_LOGIN':
       return Object.assign({}, state, {showLogin: true})
     case 'HIDE_LOGIN':
@@ -47,14 +61,14 @@ function splashPageReducer (state = {
   }
 }
 
-
 //Change state to allow or disallow form input
-function homePageReducer (state = {
+function homePageReducer(state = {
   numberError: true,
   categoryError: true,
   category: ''
 }, action = null) {
-  switch(action.type) {
+  switch (action.type) {
+
     case 'ALLOW_NUM':
       return Object.assign({}, state, {numberError: false})
     case 'DISABLE_NUM':
@@ -68,12 +82,13 @@ function homePageReducer (state = {
   }
 }
 
-function authReducer (state = {
+function authReducer(state = {
   isAuthenticated: false,
   token: '',
   expiryDate: null
 }, action = null) {
-  switch(action.type) {
+  switch (action.type) {
+
     case 'ADD_JWT':
       return Object.assign({}, state, {isAuthenticated: true, token: action.jwt, expiryDate: action.expiryDate})
     case 'REMOVE_JWT':
@@ -88,5 +103,6 @@ export default {
   splashPageReducer,
   homePageReducer,
   authReducer,
-  splashPageReducer
+  splashPageReducer,
+  dashboardReducer
 }

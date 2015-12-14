@@ -1,4 +1,18 @@
 /********************************************************
+                DASHBOARD VIEW REDUX ACTIONS
+*********************************************************/
+
+  // Change the view of our dashboard
+  function changeView(view) {
+    return (dispatch) => {
+      dispatch({
+        type: 'CHANGE_VIEW',
+        view: view
+      })
+    }
+  }
+
+/********************************************************
                     ASYNC REDUX ACTIONS
 *********************************************************/
 
@@ -70,6 +84,7 @@ function hideSignup() {
 /********************************************************
               AUTHENTICATION REDUX ACTIONS
 *********************************************************/
+
 // We should show the pop-up signup modal
 function addJWT(data) {
   return (dispatch) => {
@@ -134,5 +149,6 @@ export default {
   addJWT,
   removeJWT,
   categoryValidation,
-  numberValidation
+  numberValidation,
+  changeView
 }

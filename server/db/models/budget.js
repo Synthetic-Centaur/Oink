@@ -3,11 +3,12 @@ import Transaction from './transaction'
 import Category from './category'
 
 export default class Budget extends db.Model {
-  constructor(attributes){
+  constructor(attributes) {
     super()
     this.tableName = 'budgets'
     this.attributes = attributes
   }
-  initialize(obj){
+
+  initialize(obj) {
   }
 }

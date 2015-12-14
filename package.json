@@ -12,8 +12,11 @@
     "lint": "jscs ./server"
   },
   "pre-commit": [
+    "lint"
   ],
   "pre-push": [
+    "lint",
+    "testall"
   ],
   "repository": {
     "type": "git",

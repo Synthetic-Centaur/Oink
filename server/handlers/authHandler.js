@@ -2,6 +2,7 @@ import authController from '../controllers/authController'
 import apiController from '../controllers/apiController'
 import budgetController from '../controllers/budgetController'
 import jwt from 'jsonwebtoken'
+
 // shhhhh secrets
 import config from '../env/envConfig'
 
@@ -9,12 +10,13 @@ const jwt_secret = config.jwt_private.secret.secret
 
 let authHandler = {
   isLoggedIn(req, res, next) {
-    if( !req.headers.authorization) {
-      return res.status(403).send({ 
-          success: false, 
-          message: 'No token provided.' 
+    if (!req.headers.authorization) {
+      return res.status(403).send({
+        success: false,
+        message: 'No token provided.'
       })
     }
+
     // check header or url parameters or post parameters for token
     var token = req.headers.authorization.split(' ')[1]
 
@@ -22,12 +24,12 @@ let authHandler = {
     if (token) {
 
       // verifies secret and checks exp
-      jwt.verify(token, 'jwt_secret', (err, decoded) => {      
+      jwt.verify(token, 'jwt_secret', (err, decoded) => {
         if (err) {
-          return res.json({ success: false, message: 'Failed to authenticate token.' })  
+          return res.json({ success: false, message: 'Failed to authenticate token.' })
         } else {
           // if everything is good, save to request for use in other routes
-          req.decoded = decoded;    
+          req.decoded = decoded
           next()
         }
       })
@@ -36,17 +38,18 @@ let authHandler = {
 
       // if there is no token
       // return an error
-      return res.status(403).send({ 
-          success: false, 
-          message: 'No token provided.' 
+      return res.status(403).send({
+        success: false,
+        message: 'No token provided.'
       })
       
     }
   },
+
   login(req, res, next) {
 
     // Finds the user with provided email
-    authController.findUser({email: req.body.email}).then( (user) => {
+    authController.findUser({email: req.body.email}).then((user) => {
       if (!user) {
         res.status(403)
         res.json({ success: false, message: 'Authentication failed. User not found.' })
@@ -56,13 +59,14 @@ let authHandler = {
           res.status(403)
           res.json({ success: false, message: 'Authentication failed. Wrong password.' })
         }
+
         // if user is found and password is right
         // create a token
         let token = jwt.sign(user, 'jwt_secret', {
           expiresIn: 604800 // expires in 24 hours
         })
 
-        authController.saveAuthToken(token, user.attributes.id).then( (user) => {    
+        authController.saveAuthToken(token, user.attributes.id).then((user) => {
           // return the information including token as JSON
           res.status(200)
           res.json({
@@ -75,19 +79,20 @@ let authHandler = {
       }
     })
   },
+
   signup(req, res, next) {
     // Finds the user with provided email
-    authController.findUser({email: req.body.email}).then( (user) => {
+    authController.findUser({email: req.body.email}).then((user) => {
       if (!user) {
 
         //If user is not in database, create user
-        authController.addUser(req.body).then( (newUser) => {
+        authController.addUser(req.body).then((newUser) => {
           let token = jwt.sign(newUser, 'jwt_secret', {
             expiresIn: 604800 // expires in 24 hours
-          });
+          })
 
           // save auth token to DB
-          authController.saveAuthToken(token, newUser.attributes.id).then( (user) => {
+          authController.saveAuthToken(token, newUser.attributes.id).then((user) => {
 
             // send the token back to the user
             res.json({
@@ -100,12 +105,13 @@ let authHandler = {
         })
       }
 
-      // If user found, cannot signup 
+      // If user found, cannot signup
       else {
         res.json({ success: false, message: 'Failed, user already exists.' })
       }
     })
   },
+
   plaid(req, res) {
     // Get user token from header
     let token_auth = req.headers.authorization.split(' ')[1]
@@ -113,23 +119,27 @@ let authHandler = {
 
     // Swap public token for private token
     apiController.tradeToken(public_token)
-    .then( (response) => {
+    .then((response) => {
       if (response.statusCode === 200) {
+
         // request was successful --> we now have private access token as response.access_token
         authController.savePlaidToken(response.access_token, token_auth)
-        .then( (user) => {
+        .then((user) => {
+
           // if token attribute is not null the request was successful
           if (user.attributes.token_plaid) {
             let name = user.attributes.first_name
             let number = user.attributes.phone_number
+
             // get transactions from plaid
             //apiController.getTransactions(user.attributes.token_plaid, user.id)
-              // .then( (transactions) => {
-              //   budgetController.saveTransactions(transactions, userid)
-              // })
+            // .then( (transactions) => {
+            //   budgetController.saveTransactions(transactions, userid)
+            // })
 
             // set webhook for new user
             apiController.setWebhook(user.attributes.token_plaid)
+
             // send welcome message
             //apiController.sendMessage('Hello ' + name + '! Welcome to Oink, Lets Budget Together!!', number)
 
@@ -144,6 +154,7 @@ let authHandler = {
       }
     })
   },
+
   getPlaid(req, res) {
     res.json(config.plaid_private.publicKey)
   }

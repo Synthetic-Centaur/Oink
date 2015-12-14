@@ -10,15 +10,16 @@ class PlaidButton extends Component {
     let sandboxHandler = Plaid.create({
       env: 'tartan',
       clientName: 'Oink',
-      key: "test_key",
+      key: 'test_key',
       product: 'connect',
       onSuccess(public_token) {
         authenticate(public_token)
       },
-    });
+    })
 
     sandboxHandler.open()
   }
+
   render() {
     return (
       <RaisedButton
