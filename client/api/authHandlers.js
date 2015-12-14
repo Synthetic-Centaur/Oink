@@ -27,7 +27,7 @@ export function postLogin(data) {
       dispatch(ACTIONS.addJWT(data))
       dispatch(ACTIONS.receiveData({}))
 
-      dispatch(updatePath('/home'))
+      dispatch(updatePath('/dashboard'))
     })
     .catch((err) => {
       dispatch(ACTIONS.receiveError(err))
@@ -90,7 +90,7 @@ export function postPlaid(data) {
     })
     .then((response) => {
       if (response.status === 201) {
-        dispatch(updatePath('/home'))
+        dispatch(updatePath('/dashboard'))
         dispatch(ACTIONS.receiveData({}))
       } else if (response.status === 500) {
         throw new Error('Error on the server', response)

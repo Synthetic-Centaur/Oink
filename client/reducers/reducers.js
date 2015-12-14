@@ -12,6 +12,18 @@ just return the current state. See actions folder and api folder for a list of
 these actions.
 ***************************************************************************************/
 
+function dashboardReducer(state = {
+  currentView: 'Budget'
+}, action = null) {
+  switch (action.type) {
+
+    case 'CHANGE_VIEW':
+      return Object.assign({}, state, {currentView: action.view})
+    default:
+      return state
+  }
+}
+
 function asyncStatusReducer(state = {
   isLoading: false,
   data: {},
@@ -91,5 +103,6 @@ export default {
   splashPageReducer,
   homePageReducer,
   authReducer,
-  splashPageReducer
+  splashPageReducer,
+  dashboardReducer
 }

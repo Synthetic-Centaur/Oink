@@ -1,5 +1,9 @@
 /* Shared
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
+/** {
+  border: 1px solid red;
+}*/
+
 button {
   border: none;
 }
@@ -49,15 +53,24 @@ button {
   border: 2px solid black;
   background-color: #fff;
   border-color: #c4c4c4;
-  opacity: 0.8;
+  opacity: 0.6;
 }
 
-.navbar.container {
+.navbar {
+  background-color: #666;
+  color: #eee;
+}
+
+.navbar .container {
   margin-bottom: -1em;
 }
 
-.navbar.container button:hover {
-  color: #ddd;
+.navbar .container button {
+  color: #bbb;
+}
+
+.navbar .container button:hover {
+  color: #fff;
 }
 
 .splashnav {
@@ -66,7 +79,13 @@ button {
 
 
 .info .container {
-  margin-top: 5em;
+  margin-top: 6em;
+  margin-bottom: 6em;
+}
+
+.info .container img {
+  display: block;
+  margin: 0 auto 20px auto;
 }
 
 .info .container h3 {
@@ -77,4 +96,55 @@ button {
 .info .container h4 {
   text-align: center;
   font-size: 15px;
+}
+
+.about {
+  background-color: #333;
+}
+
+.about .container {
+  padding: 30px 0 30px 0;
+}
+
+
+.about .container h3 {
+  text-align: center;
+  font-size: 26px;
+}
+
+.about .container h4 {
+  text-align: center;
+  font-size: 15px;
+}
+
+.card .header .avatar {
+  display: block !important;
+  position:relative;
+  left:50%;
+  transform: translate(-50%, 0%);
+}
+
+.card .header {
+  margin-bottom: 80px;
+  text-align: center;
+}
+
+.card .about-text {
+  font-size: 12px !important;
+}
+
+.card .icon-container.container {
+  margin: -25px 0 -46px 0;
+}
+
+.card .icon-container .github-icon img {
+  transform: scale(0.7, 0.7);
+}
+
+.card .icon-container .linkedin-icon img {
+  transform: scale(0.8, 0.8);
+}
+
+.card .icon-container .email-icon img {
+  transform: scale(0.6, 0.6);
 }

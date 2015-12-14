@@ -1,4 +1,18 @@
 /********************************************************
+                DASHBOARD VIEW REDUX ACTIONS
+*********************************************************/
+
+  // Change the view of our dashboard
+  function changeView(view) {
+    return (dispatch) => {
+      dispatch({
+        type: 'CHANGE_VIEW',
+        view: view
+      })
+    }
+  }
+
+/********************************************************
                     ASYNC REDUX ACTIONS
 *********************************************************/
 
@@ -135,5 +149,6 @@ export default {
   addJWT,
   removeJWT,
   categoryValidation,
-  numberValidation
+  numberValidation,
+  changeView
 }
