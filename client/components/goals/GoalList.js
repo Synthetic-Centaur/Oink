@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { List, ListDivider, ListItem } from 'material-ui'
+import { List, ListDivider, ListItem, IconMenu, MenuItem } from 'material-ui'
 
 class MessageCenter extends Component {
   render() {

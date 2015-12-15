@@ -31,14 +31,16 @@ export function getInitialState() {
 export function postBudget(data) {
   return function(dispatch) {
     dispatch(ACTIONS.requestData())
-    return fetch('/api/budget/category/' + data.category, {
+    return fetch('/api/goals', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         authorization: 'Bearer ' + JSON.parse(window.localStorage.redux).auth.token
       },
       body: JSON.stringify({
-        amount: data.budget,
+        description: data.description,
+        amount: data.amount,
+        goalBy: data.goalBy
       })
     })
     .then((response) => {
@@ -53,5 +55,11 @@ export function postBudget(data) {
     .catch((error) => {
       dispatch(ACTIONS.receiveError(error))
     })
+  }
+}
+
+export function postGoal(data) {
+  return function(dispatch) {
+    dispatch(ACTIONS.requestData())
   }
 }

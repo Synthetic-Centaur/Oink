@@ -5,7 +5,7 @@ class GoalChart extends Component {
   render() {
     
     return (
-      <div className="u-pull-left">
+      <div>
         <ReactHighcharts config = {config}></ReactHighcharts>
       </div>
     )
