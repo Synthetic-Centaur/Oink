@@ -1,6 +1,8 @@
 import Budget from '../containers/Budget'
 import HeatMap from '../components/home/GoogleHeatMap'
 
+//Please add your component in here, plus it's text and icon for the side navbar
+
 export const DROPDOWN_ACTIONS = [
   {
     text: "Budget",
