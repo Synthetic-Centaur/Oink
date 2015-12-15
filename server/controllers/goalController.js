@@ -1,4 +1,6 @@
 import db from '../db/dbConfig'
+import moment from 'moment'
+import Promise from 'bluebird'
 
 let goalController = {
   createGoal(userId, goal) {
@@ -34,12 +36,69 @@ let goalController = {
 
     // Only gets goals from specified user
     .where('user_id', userId).then((goals) => {
-      if (goals) {
-        return goals
-      } else {
-        return null
-      }
+      return goals
     })
+  },
+
+  getMonthlySavings(userId, start, end) {
+    let sum = 0
+    start = moment().subtract(start, 'days').startOf('month')
+    end =  moment().subtract(end, 'days').startOf('month')
+    return db.knex('transactions')
+    .where('user_id', userId)
+    .then((transactions) => {
+      transactions.forEach((transaction) => {
+        if (transaction.date > start && transaction.date < end) {
+          sum += transaction.amount
+        }
+      })
+      return sum
+    })
+  },
+
+  generateReport(userId) {
+    var lastYear = [30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330, 360]
+    let end = 0
+    let result = Promise.map(lastYear, (start, index) => {
+      if (lastYear[index - 1] === undefined) {
+        end = 0
+      } else {
+        end = lastYear[index - 1]
+      }
+
+      return goalController.getMonthlySavings(userId, start, end)
+    })
+    var resultObj = {
+      lastMonth: result[0],
+      lastThree: null,
+      lastSix: null,
+      lastYear: null
+    }
+    return result
+    .reduce((acc, item, index) => {
+      if (index === 0) {
+        acc.lastMonth = item
+        acc.lastThree += item
+        acc.lastSix += item
+        acc.lastYear += item
+      } else if (index < 3) {
+        acc.lastThree += item
+        acc.lastSix += item
+        acc.lastYear += item
+      } else if (index < 6) {
+        acc.lastSix += item
+        acc.lastYear += item
+      } else if (index < 11) {
+        acc.lastYear += item
+      } else if (index === 11) {
+        acc.lastYear += item
+        acc.lastYear /= 12
+        acc.lastSix /= 6
+        acc.lastThree /= 3
+      }
+
+      return acc
+    }, resultObj)
   }
 }
 

@@ -44,7 +44,7 @@ class Dashboard extends React.Component {
     return (
       <div>
       
-        <SideNav 
+        <SideNav
           changeView={ actions.changeView }
           handleNavigation = {this.handleNavigation.bind(this)}
           dropDownComponents = { DROPDOWN_ACTIONS } />
@@ -66,7 +66,7 @@ class Dashboard extends React.Component {
           </div>
 
           <div className="view-container container">
-            <ComponentPlayground 
+            <ComponentPlayground
               currentComponent = { currentComponent } />
           </div>
 

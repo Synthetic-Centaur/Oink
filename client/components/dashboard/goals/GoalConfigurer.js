@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { DatePicker, DatePickerDialog, TextField, RaisedButton } from 'material-ui'
 
-
 class GoalConfigurer extends Component {
 
   handleGoal(e) {

@@ -17,7 +17,7 @@ class Goals extends Component {
         <div className = "container">
           <div className = "row">
             <div className="eight columns">
-                <MessageCenter data = { data } 
+                <MessageCenter data = { data }
                 selectedGoal = { goalPage.selectedGoal }/>
                 <GoalChart data = { data }
                 selectedGoal = { goalPage.selectedGoal } />

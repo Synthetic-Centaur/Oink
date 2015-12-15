@@ -40,7 +40,7 @@ let apiHandler = {
         if (user) {
 
           // Search for all budgets from user
-          budgetController.getBudgets(user.attributes.id).then((budgets) => {
+          budgetController.getBudgets(user.id).then((budgets) => {
             if (budgets) {
 
               // Retrieve all categories from db
@@ -48,18 +48,19 @@ let apiHandler = {
                 if (categories) {
 
                   // Retrieve all goals from user
-                  goalController.getGoalsById(user.attributes.id).then((goals) => {
-                    goals = goals || {}
+                  goalController.getGoalsById(user.id).then((goals) => {
+                    goalController.generateReport(user.id).then((avgNet) => {
 
-                    // Build response object
-                    let state = {
-                      budgets,
-                      categories,
-                      goals
-                    }
-
-                    // Send state
-                    res.json(state)
+                      // Build response object
+                      let state = {
+                        user,
+                        budgets,
+                        categories,
+                        goals,
+                        avgNet
+                      }
+                      res.json(state)
+                    })
                   })
                 } else {
                   res.json({ success: false, message: 'Failed, error reading cateogries'})

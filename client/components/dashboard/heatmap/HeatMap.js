@@ -1,19 +1,19 @@
-import React, { Component } from 'react';
-import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
+import React, { Component } from 'react'
+import { Map, TileLayer, Marker, Popup } from 'react-leaflet'
 
 export default class HeatMap extends Component {
   
   constructor() {
-    super();
+    super()
     this.state = {
       lat: 51.505,
       lng: -0.09,
       zoom: 13,
-    };
+    }
   }
 
   render() {
-    const position = [this.state.lat, this.state.lng];
+    const position = [this.state.lat, this.state.lng]
     return (
       <Map center={position} zoom={this.state.zoom}>
         <TileLayer
@@ -25,6 +25,6 @@ export default class HeatMap extends Component {
           </Popup>
         </Marker>
       </Map>
-    );
+    )
   }
 }

@@ -5,15 +5,17 @@ var SelectableList = SelectableContainerEnhance(List)
 
 class GoalList extends Component {
   selectGoal(e, index) {
-    this.props.switchGoal(index) 
+    this.props.switchGoal(index)
   }
 
   render() {
     let selectedGoal = this.props.selectedGoal
     const { data } = this.props
     let index = 0
+    let styling = {}
     let goalList = data.goals.map((goal) => {
-      return <ListItem primaryText = {goal.description} value = { index++ }/>
+      index++
+      return <ListItem primaryText = {goal.description} value = { index }/>
     })
     return (
       <SelectableList valueLink = {{value: this.props.selectedGoal, requestChange: this.selectGoal.bind(this)}}

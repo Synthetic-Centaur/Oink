@@ -1,6 +1,7 @@
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import SettingsForm from '../components/settings/SettingsForm'
+
 // TODO: create post settings route and update line below
 import { postSignup } from '../api/authHandlers'
 import React, { Component, PropTypes } from 'react'
@@ -26,6 +27,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
+
     // TODO: update this
     actions: bindActionCreators({ postSignup: postSignup }, dispatch)
   }
