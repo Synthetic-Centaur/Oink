@@ -2,15 +2,14 @@
                 DASHBOARD VIEW REDUX ACTIONS
 *********************************************************/
 
-  // Change the view of our dashboard
-  function changeView(view) {
-    return (dispatch) => {
-      dispatch({
-        type: 'CHANGE_VIEW',
-        view: view
-      })
-    }
+function switchComponent(component) {
+  return (dispatch) => {
+    dispatch({
+      type: 'SWITCH_COMPONENT',
+      data: component
+    })
   }
+}
 
 /********************************************************
                     ASYNC REDUX ACTIONS
@@ -150,5 +149,6 @@ export default {
   removeJWT,
   categoryValidation,
   numberValidation,
-  changeView
+  // changeView,
+  switchComponent
 }

@@ -7,6 +7,7 @@ import { getInitialState, postBudget } from '../api/apiHandlers'
 import { numberValidation, categoryValidation } from '../actions/actions'
 
 class Budget extends Component {
+  
   render() {
     const { actions, homePage, data } = this.props
     return (
