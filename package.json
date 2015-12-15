@@ -55,6 +55,7 @@
     "react-dom": "^0.14.3",
     "react-google-maps": "^4.7.0",
     "react-highcharts": "5.0.6",
+    "react-map-gl-heatmap-overlay": "^1.0.0",
     "react-redux": "4.0.0",
     "react-router": "1.0.0",
     "react-tap-event-plugin": "0.2.1",

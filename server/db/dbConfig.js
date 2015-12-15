@@ -49,6 +49,8 @@ var populateTables = (cb) => {
         transaction.string('address', 255)
         transaction.string('city', 255)
         transaction.string('state', 255)
+        transaction.decimal('latitude', 20)
+        transaction.decimal('longitude', 20)
         transaction.boolean('pending')
         transaction.string('store_name')
       }).then((table) => {

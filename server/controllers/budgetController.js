@@ -205,6 +205,7 @@ let budgetController = {
         let category = transaction.category[0]
 
         return db.knex('categories').where({description: category}).select().then((result) => {
+
           if (result.length > 0) {
             let category_id = result[0].id
             return saveTransaction(transaction, user_id, category_id)
@@ -222,6 +223,7 @@ let budgetController = {
 }
 
 function saveTransaction(transaction, user_id, category_id) {
+  console.log("lat, long: ------->", transaction.meta.location)
   // Creates new transaction object
   let newTransaction = new Transaction({
     user_id: user_id,
