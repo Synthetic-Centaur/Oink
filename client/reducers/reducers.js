@@ -25,6 +25,17 @@ function dashboardReducer(state = {
   }
 }
 
+function plaidReducer(state = {
+  publicKey: ""
+}, action=null) {
+  switch (action.type) {
+    case 'ADD_PLAID_KEY':
+      return Object.assign({}, state, {publicKey: action.data})
+    default:
+      return state
+  }
+}
+
 function asyncStatusReducer(state = {
   isLoading: false,
   data: {},
@@ -106,5 +117,6 @@ export default {
   homePageReducer,
   authReducer,
   splashPageReducer,
-  dashboardReducer
+  dashboardReducer,
+  plaidReducer
 }
