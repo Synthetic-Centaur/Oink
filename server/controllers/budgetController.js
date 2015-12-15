@@ -208,7 +208,8 @@ let budgetController = {
             let category_id = result[0].id
             return saveTransaction(transaction, user_id, category_id)
           } else {
-            return db.knex('categories').insert({description: category}).then((result) => {
+            return db.knex('categories').insert({description: category}).returning('id').then((result) => {
+
               let category_id = result[0].id
               return saveTransaction(transaction, user_id, category_id)
             })
