@@ -5,7 +5,7 @@ class MessageCenter extends Component {
     const { data } = this.props
     return (
       <div>
-        <h5> This is my Message Center </h5>
+        <h5> This is my Goal List </h5>
       </div>
     )
   }

@@ -1,6 +1,11 @@
 import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import MessageCenter from '../components/goals/MessageCenter'
+import GoalChart from '../components/goals/GoalChart'
+import GoalConfigurer from '../components/goals/GoalConfigurer'
+import GoalList from '../components/goals/GoalList'
+import { Paper } from 'material-ui'
 
 class Goals extends Component {
   render() {
@@ -8,13 +13,17 @@ class Goals extends Component {
     return (
       <div>
         <div className = "container">
-          <MessageCenter data = { data } />
+            <MessageCenter data = { data } />
+            <GoalChart data = { data } />
+        </div>
+        <Paper zDepth={1} rounded={false} className="u-pull-right">
+          <GoalList data = { data } />
+          <hr/>
           <GoalConfigurer
             data = { data }
             postGoal = { actions.postGoal }
             updateGoal = { actions.updateGoal } />
-          <GoalChart data = { data } />
-        </div>
+        </Paper>
       </div>
      )
   }
