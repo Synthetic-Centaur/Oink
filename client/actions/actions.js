@@ -142,6 +142,10 @@ function switchGoal(goal) {
     dispatch({
       type: 'SWITCH_GOAL',
       data: goal
+    })
+  }
+}
+
 /********************************************************
                     SETTINGS REDUX ACTIONS
 *********************************************************/
@@ -178,7 +182,7 @@ export default {
   numberValidation,
   // changeView,
   switchComponent,
-  switchGoal
+  switchGoal,
   showSettings,
   hideSettings
 }

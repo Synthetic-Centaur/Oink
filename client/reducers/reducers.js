@@ -135,6 +135,6 @@ export default {
   authReducer,
   splashPageReducer,
   dashboardReducer,
-  goalPageReducer
+  goalPageReducer,
   plaidReducer
 }

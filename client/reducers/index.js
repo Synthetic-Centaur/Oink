@@ -19,7 +19,7 @@ const rootReducer = combineReducers({
   routing: routeReducer,
   homePage: homePageReducer,
   dashboard: dashboardReducer,
-  goalPage: goalPageReducer
+  goalPage: goalPageReducer,
   plaid: plaidReducer
 })
 

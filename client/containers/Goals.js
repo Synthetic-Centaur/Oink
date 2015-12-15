@@ -1,12 +1,12 @@
 import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import MessageCenter from '../components/goals/MessageCenter'
-import GoalChart from '../components/goals/GoalChart'
-import GoalConfigurer from '../components/goals/GoalConfigurer'
-import GoalList from '../components/goals/GoalList'
+import MessageCenter from '../components/dashboard/goals/MessageCenter'
+import GoalChart from '../components/dashboard/goals/GoalChart'
+import GoalConfigurer from '../components/dashboard/goals/GoalConfigurer'
+import GoalList from '../components/dashboard/goals/GoalList'
 import { Paper } from 'material-ui'
-import { postGoal } from '../api/apiHandlers'
+import { postGoal } from '../actions/api/apiActions'
 import { switchGoal } from '../actions/actions'
 
 class Goals extends Component {

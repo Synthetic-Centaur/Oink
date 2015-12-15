@@ -13,7 +13,6 @@ class GoalList extends Component {
     const { data } = this.props
     let index = 0
     let goalList = data.goals.map((goal) => {
-      console.log(index)
       return <ListItem primaryText = {goal.description} value = { index++ }/>
     })
     return (
