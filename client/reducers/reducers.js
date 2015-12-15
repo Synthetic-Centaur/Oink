@@ -25,6 +25,17 @@ function dashboardReducer(state = {
   }
 }
 
+function plaidReducer(state = {
+  publicKey: ""
+}, action=null) {
+  switch (action.type) {
+    case 'ADD_PLAID_KEY':
+      return Object.assign({}, state, {publicKey: action.data})
+    default:
+      return state
+  }
+}
+
 function asyncStatusReducer(state = {
   isLoading: false,
   data: {},
@@ -66,6 +77,7 @@ function splashPageReducer(state = {
 function homePageReducer(state = {
   numberError: true,
   categoryError: true,
+  showSettings: false,
   category: ''
 }, action = null) {
   switch (action.type) {
@@ -79,6 +91,10 @@ function homePageReducer(state = {
       return Object.assign({}, state, {categoryError: false, category: action.data})
     case 'DISABLE_CAT':
       return Object.assign({}, state, {categoryError: true})
+    case 'SHOW_SETTINGS':
+      return Object.assign({}, state, {showSettings: true})
+    case 'HIDE_SETTINGS':
+      return Object.assign({}, state, {showSettings: false})
     default:
       return state
   }
@@ -120,4 +136,5 @@ export default {
   splashPageReducer,
   dashboardReducer,
   goalPageReducer
+  plaidReducer
 }

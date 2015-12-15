@@ -142,6 +142,24 @@ function switchGoal(goal) {
     dispatch({
       type: 'SWITCH_GOAL',
       data: goal
+/********************************************************
+                    SETTINGS REDUX ACTIONS
+*********************************************************/
+
+// We should show the pop-up settings modal
+function showSettings() {
+  return (dispatch) => {
+    dispatch({
+      type: 'SHOW_SETTINGS'
+    })
+  }
+}
+
+// We should hide the pop-up settings modal
+function hideSettings() {
+  return (dispatch) => {
+    dispatch({
+      type: 'HIDE_SETTINGS'
     })
   }
 }
@@ -161,4 +179,6 @@ export default {
   // changeView,
   switchComponent,
   switchGoal
+  showSettings,
+  hideSettings
 }

@@ -1,6 +1,7 @@
 import Budget from '../containers/Budget'
-import HeatMap from '../components/home/GoogleHeatMap'
 import Goals from '../containers/Goals'
+// TODO: Update below once there is a heatmap container
+// import HeatMap from '../components/dashboard/GoogleHeatMap'
 
 //Please add your component in here, plus it's text and icon for the side navbar
 
@@ -12,7 +13,7 @@ export const DROPDOWN_ACTIONS = [
   },
   {
     text: "Heat Map",
-    component: HeatMap,
+    //component: HeatMap,
     icon: "add_location"
   },
   {

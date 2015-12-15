@@ -133,7 +133,7 @@ let budgetController = {
               // get user for text
               budgetController.findUserByID(userId).then((user) => {
                 // get category name for text
-                console.log('USER', user)
+                //console.log('USER', user)
                 budgetController.getCategoryName(item.category_id).then((description) => {
                   apiController.sendMessage('Oink Oink!! \n\nHey ' + user[0].first_name + ' looks like you have gone over your '
                   + description[0].description + ' budget for this month! \n \n Budget: $' + item.target + ' \n Actual: $' + item.actual, user[0].phone_number)
@@ -174,7 +174,7 @@ let budgetController = {
   },
 
   updateTransactions(transactions, user_id) {
-    console.log('NOW INSIDE BUDGET CONTROLLER UPDATE TRANSACTIONS')
+    //console.log('NOW INSIDE BUDGET CONTROLLER UPDATE TRANSACTIONS')
     
     // TODO: Fix promise
     // pull previous transactions for user out of database
@@ -202,11 +202,11 @@ let budgetController = {
         // We are only concerned with the first category listed
         let category = transaction.category[0]
 
-        console.log('CATEGORY', category)
+        //console.log('CATEGORY', category)
 
         return db.knex('categories').where({description: category}).select().then((result) => {
-          console.log('result', result)
-          console.log('USER ID', user_id)
+          //console.log('result', result)
+          //console.log('USER ID', user_id)
           if (result.length > 0) {
             let category_id = result[0].id
             return saveTransaction(transaction, user_id, category_id)

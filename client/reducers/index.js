@@ -3,7 +3,7 @@ import { routeReducer } from 'redux-simple-router'
 import {
   asyncStatusReducer, splashPageReducer,
   homePageReducer, authReducer, dashboardReducer,
-  goalPageReducer
+  goalPageReducer, plaidReducer
 } from './reducers'
 
 /***********************************************************************************
@@ -20,6 +20,7 @@ const rootReducer = combineReducers({
   homePage: homePageReducer,
   dashboard: dashboardReducer,
   goalPage: goalPageReducer
+  plaid: plaidReducer
 })
 
 // Export the rootReducer to build our final store in configureStore.js

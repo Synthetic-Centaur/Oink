@@ -3,6 +3,7 @@ let expect = require('chai').expect
 
 
 describe('Goals Table', () => {
+
   it('should have a Goal\'s table', (done) => {
     db.knex.schema.hasTable('goals').then( (exists) => {
       expect(exists).to.equal(true)

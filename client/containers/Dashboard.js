@@ -1,13 +1,13 @@
 import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { authRedirect, authLogout } from '../api/authHandlers'
-import { getInitialState } from '../api/apiHandlers'
-import { changeView, switchComponent } from '../actions/actions'
-import SideNav from '../components/sidenav/sidenav'
+import { authRedirect, authLogout } from '../actions/api/authActions'
+import { getInitialState } from '../actions/api/apiActions'
+import { changeView, switchComponent, showSettings } from '../actions/actions'
+import SideNav from '../components/dashboard/sidenav/SideNav'
 import Budget from './Budget'
-import Settings from '../components/dashboard/Settings'
 import Goals from './Goals'
+import Options from '../components/dashboard/Options'
 import ComponentPlayground from './ComponentPlayground'
 import { DROPDOWN_ACTIONS } from '../constants/componentActions'
 
@@ -51,8 +51,8 @@ class Dashboard extends React.Component {
 
         <div className="dashboard">
       
-          <div className="settings u-pull-right">
-            <Settings logout={ actions.authLogout }/>
+          <div className="options u-pull-right">
+            <Options logout={ actions.authLogout } showSettings={ actions.showSettings }/>
           </div>
 
           <div className="header">
@@ -94,6 +94,7 @@ function mapDispatchToProps(dispatch) {
       getInitialState,
       authRedirect,
       authLogout,
+      showSettings,
       changeView,
       switchComponent
     }, dispatch)
