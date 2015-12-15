@@ -8,16 +8,16 @@ class GoalConfigurer extends Component {
 
     let description = this.refs.description.getValue()
     let amount = parseInt(this.refs.amount.getValue())
-    let goalBy = this.refs.goalBy.getValue()
-
-    this.props.postGoal({
+    let goalBy = JSON.stringify(this.refs.goalBy.state.date)
+    let goal = {
       description,
       amount,
       goalBy
-    })
+    }
+    console.log('POSTING THIS: ', goal)
+    this.props.postGoal(goal)
 
     this.refs.amount.setValue('')
-    this.refs.category._setSelectedIndex(0)
   }
 
   render() {
