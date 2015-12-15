@@ -17,8 +17,10 @@ class Goals extends Component {
         <div className = "container">
           <div className = "row">
             <div className="eight columns">
-                <MessageCenter data = { data } />
-                <GoalChart data = { data } />
+                <MessageCenter data = { data } 
+                selectedGoal = { goalPage.selectedGoal }/>
+                <GoalChart data = { data }
+                selectedGoal = { goalPage.selectedGoal } />
             </div>
             <Paper zDepth={1} rounded={false} className="four columns">
               <GoalList
