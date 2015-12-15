@@ -7,10 +7,11 @@ import GoalConfigurer from '../components/goals/GoalConfigurer'
 import GoalList from '../components/goals/GoalList'
 import { Paper } from 'material-ui'
 import { postGoal } from '../api/apiHandlers'
+import { switchGoal } from '../actions/actions'
 
 class Goals extends Component {
   render() {
-    const { actions, homePage, data } = this.props
+    const { actions, goalPage, data } = this.props
     return (
       <div>
         <div className = "container">
@@ -20,7 +21,11 @@ class Goals extends Component {
                 <GoalChart data = { data } />
             </div>
             <Paper zDepth={1} rounded={false} className="four columns">
-              <GoalList data = { data } />
+              <GoalList
+                data = { data }
+                selectedGoal = { goalPage.selectedGoal }
+                switchGoal = { actions.switchGoal }
+               />
               <hr/>
               <GoalConfigurer
                 data = { data }
@@ -44,7 +49,7 @@ function mapStateToProps(state) {
     isLoading: state.asyncStatus.isLoading,
     data: state.asyncStatus.data,
     error: state.asyncStatus.error,
-    homePage: state.homePage,
+    goalPage: state.goalPage,
   }
 }
 
@@ -52,7 +57,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
-      postGoal: postGoal
+      postGoal,
+      switchGoal
     }, dispatch)
   }
 }

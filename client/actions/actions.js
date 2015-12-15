@@ -137,6 +137,15 @@ function numberValidation(allow) {
   }
 }
 
+function switchGoal(goal) {
+  return (dispatch) => {
+    dispatch({
+      type: 'SWITCH_GOAL',
+      data: goal
+    })
+  }
+}
+
 export default {
   requestData,
   receiveData,
@@ -150,5 +159,6 @@ export default {
   categoryValidation,
   numberValidation,
   // changeView,
-  switchComponent
+  switchComponent,
+  switchGoal
 }

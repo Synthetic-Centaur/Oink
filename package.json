@@ -41,7 +41,7 @@
     "isomorphic-fetch": "^2.2.0",
     "jsonwebtoken": "5.4.1",
     "knex": "0.8.6",
-    "material-ui": "0.13.4",
+    "material-ui": "^0.13.4",
     "mocha": "^2.3.4",
     "morgan": "1.6.1",
     "nock": "^3.4.0",

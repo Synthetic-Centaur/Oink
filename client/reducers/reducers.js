@@ -84,6 +84,18 @@ function homePageReducer(state = {
   }
 }
 
+function goalPageReducer(state = {
+  selectedGoal: 0
+}, action = null) {
+  switch (action.type) {
+    case 'SWITCH_GOAL':
+      return Object.assign({}, state, {selectedGoal: action.data})
+    default:
+      return state
+  }
+}
+
+
 function authReducer(state = {
   isAuthenticated: false,
   token: '',
@@ -106,5 +118,6 @@ export default {
   homePageReducer,
   authReducer,
   splashPageReducer,
-  dashboardReducer
+  dashboardReducer,
+  goalPageReducer
 }

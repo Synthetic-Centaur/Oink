@@ -18,7 +18,7 @@ export const DROPDOWN_ACTIONS = [
   {
     text: "Goal Planning",
     component: Goals,
-    icon: "account_balance"
+    icon: "card_travel"
   },
   // {
   //   text: "Recommendations",
