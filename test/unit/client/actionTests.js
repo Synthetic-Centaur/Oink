@@ -2,7 +2,7 @@ import expect from 'expect'
 import { applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import * as ACTIONS from '../../../client/actions/actions'
-import * as asyncActions from '../../../client/api/apiHandlers'
+import * as asyncActions from '../../../client/actions/api/apiActions'
 import nock from 'nock'
 
 const middleware = [ thunk ]
