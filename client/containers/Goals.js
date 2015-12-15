@@ -6,7 +6,7 @@ import GoalChart from '../components/goals/GoalChart'
 import GoalConfigurer from '../components/goals/GoalConfigurer'
 import GoalList from '../components/goals/GoalList'
 import { Paper } from 'material-ui'
-import { postGoal } from '../actions/actions'
+import { postGoal } from '../api/apiHandlers'
 
 class Goals extends Component {
   render() {
@@ -52,7 +52,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
-      postGoal
+      postGoal: postGoal
     }, dispatch)
   }
 }

@@ -55,7 +55,8 @@ export function postBudget(data) {
     })
   }
 }
-  export function postGoal(data) {
+
+export function postGoal(data) {
   return function(dispatch) {
     dispatch(ACTIONS.requestData())
     return fetch('/api/goals', {
@@ -65,7 +66,9 @@ export function postBudget(data) {
         authorization: 'Bearer ' + JSON.parse(window.localStorage.redux).auth.token
       },
       body: JSON.stringify({
-        amount: data.budget,
+        amount: data.amount,
+        description: data.description,
+        goalBy: data.goalBy
       })
     })
     .then((response) => {

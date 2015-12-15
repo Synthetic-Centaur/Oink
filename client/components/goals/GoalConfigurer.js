@@ -18,6 +18,7 @@ class GoalConfigurer extends Component {
     this.props.postGoal(goal)
 
     this.refs.amount.setValue('')
+    this.refs.description.setValue('')
   }
 
   render() {
