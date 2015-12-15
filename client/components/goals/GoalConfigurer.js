@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from 'react'
-import { DatePicker, TextField } from 'material-ui'
+import { DatePicker, DatePickerDialog, TextField } from 'material-ui'
 
 class GoalConfigurer extends Component {
   render() {
     return (
-      <div>
+      <form>
         <div className = "row">
           <h5> Create a goal </h5>
         </div>
@@ -21,7 +21,11 @@ class GoalConfigurer extends Component {
             hintText="When do you want your goal by?"
             mode="portrait"/>
         </div>
-      </div>
+        <div className = "row">
+          
+        </div>
+
+      </form>
     )
   }
 }

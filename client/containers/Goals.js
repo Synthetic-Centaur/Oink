@@ -13,17 +13,20 @@ class Goals extends Component {
     return (
       <div>
         <div className = "container">
-            <MessageCenter data = { data } />
-            <GoalChart data = { data } />
+          <div className = "row">
+            <div className="eight columns">
+                <MessageCenter data = { data } />
+                <GoalChart data = { data } />
+            </div>
+            <Paper zDepth={1} rounded={false} className="four columns">
+              <GoalList data = { data } />
+              <hr/>
+              <GoalConfigurer
+                data = { data }
+                />
+            </Paper>
+          </div>
         </div>
-        <Paper zDepth={1} rounded={false} className="u-pull-right">
-          <GoalList data = { data } />
-          <hr/>
-          <GoalConfigurer
-            data = { data }
-            postGoal = { actions.postGoal }
-            updateGoal = { actions.updateGoal } />
-        </Paper>
       </div>
      )
   }

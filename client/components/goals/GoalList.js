@@ -1,12 +1,15 @@
 import React, { Component, PropTypes } from 'react'
+import { List, ListDivider, ListItem } from 'material-ui'
 
 class MessageCenter extends Component {
   render() {
     const { data } = this.props
     return (
-      <div>
-        <h5> This is my Goal List </h5>
-      </div>
+      <List subheader="Select from your goals">
+        <ListItem primaryText="Tahiti" />
+        <ListItem primaryText="Maui" />
+        <ListItem primaryText="New Car" />
+      </List>
     )
   }
 }
