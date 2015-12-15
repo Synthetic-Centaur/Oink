@@ -15,7 +15,6 @@ function setup() {
   renderer.render(<BudgetCategories {...props} />)
   let output = renderer.getRenderOutput()
 
-  console.log('is this working??', output)
   return {
     props,
     output,
