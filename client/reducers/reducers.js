@@ -77,6 +77,7 @@ function splashPageReducer(state = {
 function homePageReducer(state = {
   numberError: true,
   categoryError: true,
+  showSettings: false,
   category: ''
 }, action = null) {
   switch (action.type) {
@@ -90,6 +91,10 @@ function homePageReducer(state = {
       return Object.assign({}, state, {categoryError: false, category: action.data})
     case 'DISABLE_CAT':
       return Object.assign({}, state, {categoryError: true})
+    case 'SHOW_SETTINGS':
+      return Object.assign({}, state, {showSettings: true})
+    case 'HIDE_SETTINGS':
+      return Object.assign({}, state, {showSettings: false})
     default:
       return state
   }

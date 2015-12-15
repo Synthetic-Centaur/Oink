@@ -1,5 +1,5 @@
 import { updatePath } from 'redux-simple-router'
-import * as ACTIONS from '../actions/actions'
+import * as ACTIONS from '../actions'
 
 export function postLogin(data) {
   return function(dispatch) {

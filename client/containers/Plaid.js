@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import PlaidButton from '../components/plaid/PlaidButton'
-import { postPlaid, getPlaid } from '../api/authHandlers'
+import { postPlaid, getPlaid } from '../actions/api/authActions'
 
 export class Plaid extends React.Component {
   render() {

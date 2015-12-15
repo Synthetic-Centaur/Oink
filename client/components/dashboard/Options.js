@@ -4,11 +4,19 @@ import IconMenu from 'material-ui/lib/menus/icon-menu'
 import MenuItem from 'material-ui/lib/menus/menu-item'
 import MoreVertIcon from 'material-ui/lib/svg-icons/navigation/more-vert'
 
-class Settings extends Component {
+class Options extends Component {
   handleLogout(e) {
     e.preventDefault()
     
     this.props.logout()
+  }
+
+  showSettings(e) {
+    e.preventDefault()
+
+    console.log('inside showSettings', this.props)
+
+    this.props.showSettings()
   }
   
   render() {
@@ -18,15 +26,15 @@ class Settings extends Component {
           <MoreVertIcon className="settings-icon" />
         </IconButton>
       }>
-        <MenuItem primaryText="Settings" />
+        <MenuItem primaryText="Settings" onTouchTap={this.showSettings.bind(this)}/>
         <MenuItem primaryText="Sign out" onTouchTap={this.handleLogout.bind(this)}/>
       </IconMenu>
     )
   }
 }
 
-Settings.propTypes = {
+Options.propTypes = {
   logout: PropTypes.func.isRequired
 }
 
-export default Settings
+export default Options
