@@ -8,7 +8,8 @@ class ComponentPlayground extends Component {
     let Component = props.currentComponent.component
 
     return (
-      <Component  />
+      <Component  
+        data = { props.data }/>
     )
 
   }
