@@ -20,9 +20,9 @@ import plaid from 'plaid'
 import bluebird from 'bluebird'
 bluebird.promisifyAll(plaid)
 
-//let plaidClient = new plaid.Client(clientId, secret, plaid.environments.tartan)
+let plaidClient = new plaid.Client(clientId, secret, plaid.environments.tartan)
 
-let plaidClient = new plaid.Client('test_id', 'test_secret', plaid.environments.tartan)
+//let plaidClient = new plaid.Client('test_id', 'test_secret', plaid.environments.tartan)
 
 let apiController = {
 
@@ -34,7 +34,7 @@ let apiController = {
     plaidClient.patchConnectUser(plaid_token,
     {},
     {
-      webhook: 'http://bef76d96.ngrok.io/webhook'
+      webhook: 'http://28b2127e.ngrok.io/webhook'
     },
     (err, mfaResponse, response) => {
       // The webhook URI should receive a code 4 "webhook acknowledged" webhook
@@ -52,7 +52,7 @@ let apiController = {
     return plaidClient.getConnectUser(plaid_token,
     {
       // TODO: update webhook
-      //webhook: 'http://bef76d96.ngrok.io/webhook'
+      webhook: 'http://28b2127e.ngrok.io/webhook'
     },
     (err, response) => {
       if (err) {
@@ -87,7 +87,7 @@ let apiController = {
       gte: '30 days ago',
 
       // TODO: update webhook
-      //webhook: 'http://bef76d96.ngrok.io/webhook'
+      webhook: 'http://28b2127e.ngrok.io/webhook'
     },
     (err, response) => {
       if (err) {

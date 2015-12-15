@@ -1,11 +1,11 @@
 import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import AccountModal from '../components/account-modal/AccountModal'
-import SplashNavBar from '../components/navbar/SplashNavBar'
-import { postLogin, postSignup } from '../api/authHandlers'
+import AccountModal from '../components/splash/account-modal/AccountModal'
+import SplashNavBar from '../components/splash/navbar/SplashNavBar'
+import { postLogin, postSignup } from '../actions/api/authActions'
 import { showLogin, hideLogin, showSignup, hideSignup, getJWT } from '../actions/actions'
-import ProfileCard from '../components/signup/ProfileCard'
+import ProfileCard from '../components/splash/ProfileCard'
 
 class Splash extends Component {
   render() {
@@ -126,10 +126,6 @@ class Splash extends Component {
                   description=" Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                                 Donec mattis pretium massa. Aliquam erat volutpat."
                 />
-              </div>
-              <div className="three columns">
-                <h3>Personalization</h3>
-                <h4>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."</h4>
               </div>
 
             </div>

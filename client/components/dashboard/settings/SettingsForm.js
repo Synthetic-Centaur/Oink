@@ -1,10 +1,11 @@
 import React, { Component, PropTypes } from 'react'
 import TextField from 'material-ui/lib/text-field'
 import RaisedButton from 'material-ui/lib/raised-button'
-import { Link } from 'react-router'
+// dont think we're using react-router yet
+// import { Link } from 'react-router'
 
-class SignupForm extends Component {
-  handleSignup(e) {
+class SettingsForm extends Component {
+  handleSettings(e) {
     e.preventDefault()
 
     let firstName = this.refs.firstName.getValue()
@@ -41,15 +42,16 @@ class SignupForm extends Component {
             <TextField ref="password" type="password" hintText="Password"/>
           </div>
           <div className="row">
-            <RaisedButton label="Signup" onClick={this.handleSignup.bind(this)}/>
+            <RaisedButton label="Save" onClick={this.handleSettings.bind(this)}/>
           </div>
         </form>
     )
   }
 }
 
-SignupForm.propTypes = {
-  signup: PropTypes.func.isRequired
+// code below may be useful for form validation
+SettingsForm.propTypes = {
+  settings: PropTypes.func.isRequired
 }
 
-export default SignupForm
+export default SettingsForm

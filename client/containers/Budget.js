@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import PieChart from '../components/home/PieChart'
-import BudgetCategories from '../components/home/BudgetCategories'
-import { getInitialState, postBudget } from '../api/apiHandlers'
+import PieChart from '../components/dashboard/budget/PieChart'
+import BudgetCategories from '../components/dashboard/budget/BudgetCategories'
+import { getInitialState, postBudget } from '../actions/api/apiActions'
 import { numberValidation, categoryValidation } from '../actions/actions'
 
 class Budget extends Component {

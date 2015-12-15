@@ -1,5 +1,5 @@
 import { updatePath } from 'redux-simple-router'
-import * as ACTIONS from '../actions/actions'
+import * as ACTIONS from '../actions'
 
 export function postLogin(data) {
   return function(dispatch) {
@@ -95,6 +95,40 @@ export function postPlaid(data) {
       } else if (response.status === 500) {
         throw new Error('Error on the server', response)
       }
+    })
+    .catch((err) => {
+      dispatch(ACTIONS.receiveError(err))
+      console.error(err)
+    })
+  }
+}
+
+export function getPlaid() {
+  return function(dispatch) {
+    dispatch(ACTIONS.requestData())
+    return fetch('/auth/plaid', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: 'Bearer ' + JSON.parse(window.localStorage.redux).auth.token
+      }
+    })
+    .then((response) => {
+      if (response.status === 200) {
+        return response.json()
+      } else if (response.status === 409) {
+        console.log('User does not exist in DB')
+      } else if (response.status === 500) {
+        throw new Error('Error on the server', response)
+      }
+    })
+    .then((response) => {
+      console.log('RESP:', response)
+      dispatch(ACTIONS.receiveData({}))
+      dispatch({
+        type: 'ADD_PLAID_KEY',
+        data: response
+      })
     })
     .catch((err) => {
       dispatch(ACTIONS.receiveError(err))

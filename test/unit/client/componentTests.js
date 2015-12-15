@@ -1,7 +1,7 @@
 import expect from 'expect'
 import React from 'react'
 import TestUtils from 'react-addons-test-utils'
-import BudgetCategories from '../../../client/components/home/BudgetCategories'
+import BudgetCategories from '../../../client/components/dashboard/budget/BudgetCategories'
 
 function setup() {
   let props = {

@@ -18,7 +18,6 @@ import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools/lib/react'
 // Import containers for React Router
 import Splash from './containers/Splash'
 import Dashboard from './containers/Dashboard'
-import Signup from './containers/Signup'
 import Plaid from './containers/Plaid'
 
 // Required by Material UI
@@ -50,7 +49,6 @@ ReactDOM.render(
     <Provider store={store}>
       <Router history={history}>
         <Route path="/" component={Splash} />
-        <Route path="/signup" component={Signup} />
         <Route path="/plaid" component={Plaid} />
         <Route path="/dashboard" component={Dashboard} />
       </Router>
