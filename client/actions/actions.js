@@ -228,6 +228,60 @@ function hideSettings() {
   }
 }
 
+// We should know when a user is editing their first name
+function editStart(item) {
+  return (dispatch) => {
+    dispatch({
+      type: 'EDIT_START',
+      data: item
+    })
+  }
+}
+
+// We should know when a user is editing their first name
+function editFinish(item) {
+  return (dispatch) => {
+    dispatch({
+      type: 'EDIT_FINISH',
+      data: item
+    })
+  }
+}
+
+// We should know when a user is editing their first name
+function editFirstName() {
+  return (dispatch) => {
+    dispatch({
+      type: 'EDIT_FIRST_NAME'
+    })
+  }
+}
+// We should know when a user is editing their last name
+function editLastName() {
+  return (dispatch) => {
+    dispatch({
+      type: 'EDIT_LAST_NAME'
+    })
+  }
+}
+// We should know when a user is editing their phone number
+function editPhoneNumber() {
+  return (dispatch) => {
+    dispatch({
+      type: 'EDIT_PHONE_NUMBER'
+    })
+  }
+}
+// We should know when a user is editing their email
+function editEmail() {
+  return (dispatch) => {
+    dispatch({
+      type: 'EDIT_EMAIL'
+    })
+  }
+}
+
+
 export default {
   requestData,
   receiveData,
@@ -247,6 +301,14 @@ export default {
   showSettings,
   hideSettings,
   changeSettingsView,
+<<<<<<< HEAD
   changeCurrentBudget,
   changeGoalView
+=======
+  changeCurrentBudget
+  editFirstName,
+  editLastName,
+  editPhoneNumber,
+  editEmail
+>>>>>>> Added settings, refactoring to use only a single editing action for all fields
 }

@@ -117,6 +117,26 @@ export function homePageReducer(state = {
 export function spendingPageReducer(state = {
 }, action = null) {
   switch (action.type) {
+export function settingsReducer(state = {
+  editingFirstName: false,
+  editingLastName: false,
+  editingPhoneNumber: false,
+  editingEmail: false,
+  editing: false
+}, action = null) {
+  switch (action.type) {
+    case 'EDIT_START':
+      return Object.assign({}, state, {editing: true})
+    case 'EDIT_FINISH':
+      return Object.assign({}, state, {editing: false})  
+    case 'EDIT_FIRST_NAME':
+      return Object.assign({}, state, {editingFirstName: true})
+    case 'EDIT_LAST_NAME':
+      return Object.assign({}, state, {editingLastName: !editingLastName})
+    case 'EDIT_PHONE_NUMBER':
+      return Object.assign({}, state, {editingPhoneNumber: !editingPhoneNumber})
+    case 'EDIT_EMAIL':
+      return Object.assign({}, state, {editingEmail: !editingEmail})
     default:
       return state
   }

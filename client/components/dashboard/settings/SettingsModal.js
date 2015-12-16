@@ -47,10 +47,12 @@ class SettingsModal extends Component {
 
   render() {
     let user = {
-      firstName: this.props.data.budgets[0].first_name ? this.props.data.budgets[0].first_name : '',
-      lastName: this.props.data.budgets[0].last_name ? this.props.data.budgets[0].last_name : '',
-      phoneNumber: this.props.data.budgets[0].phone_number ? this.props.data.budgets[0].phone_number : ''
+      firstName: this.props.data.user ? this.props.data.user.first_name : '',
+      lastName: this.props.data.user ? this.props.data.user.last_name : '',
+      phoneNumber: this.props.data.user ? this.props.data.user.phone_number : ''
     }
+
+    let userData = [user.firstName, user.lastName, user.phoneNumber]
 
     let modalActions = [
       <FlatButton
@@ -79,8 +81,13 @@ class SettingsModal extends Component {
             <div className="modal-content">
 
               <AccountSettingsField
+                userData={userData}
                 firstName={user.firstName}
+                editFirstName={this.props.editFirstName}
+                editingFirstName={this.props.editingFirstName}
                 lastName={user.lastName}
+                editLastName={this.props.editLastName}
+                editingLastName={this.props.editingLastName}
               />
               
             </div>

@@ -5,7 +5,8 @@ import ThemeManager from 'material-ui/lib/styles/theme-manager'
 import Theme from '../material-theme.js'
 import { authRedirect, authLogout } from '../actions/api/authActions'
 import { getInitialState } from '../actions/api/apiActions'
-import { changeView, switchComponent, showSettings, hideSettings } from '../actions/actions'
+import { changeView, switchComponent, showSettings, hideSettings, editFirstName,
+         editLastName, editPhoneNumber, editEmail } from '../actions/actions'
 import SideNav from '../components/dashboard/sidenav/SideNav'
 // TODO: either move settings modal onto settings and link to settings or delete settings container
 import Settings from './Settings'
@@ -51,7 +52,7 @@ class Dashboard extends React.Component {
   }
 
   render() {
-    const { actions, currentComponent, data, homePage } = this.props
+    const { actions, currentComponent, data, homePage, editingFirstName, editingLastName, editingPhoneNumber, editingEmail } = this.props
     return (
       <div className="dashboard-el">
       
@@ -71,7 +72,15 @@ class Dashboard extends React.Component {
             showSettings={homePage.showSettings}
             showSettingsModal={actions.showSettings}
             hideSettingsModal={actions.hideSettings}
+            editFirstName={actions.editFirstName}
+            editLastName={actions.editLastName}
+            editPhoneNumber={actions.editPhoneNumber}
+            editEmail={actions.editEmail}
             data={data}
+            editingFirstName={editingFirstName}
+            editLastName={editingLastName}
+            editingPhoneNumber={editingPhoneNumber}
+            editingEmail={editingEmail}
           />
 
           <div className="header">
@@ -107,7 +116,11 @@ function mapStateToProps(state) {
     error: state.asyncStatus.error,
     homePage: state.homePage,
     isAuthenticated: state.auth.isAuthenticated,
-    currentComponent: state.dashboard.currentComponent
+    currentComponent: state.dashboard.currentComponent,
+    editingFirstName: state.settings.editingFirstName,
+    editingLastName: state.settings.editingLastName,
+    editingPhoneNumber: state.settings.editingPhoneNumber,
+    editingEmail: state.settings.editingEmail
   }
 }
 
@@ -120,7 +133,11 @@ function mapDispatchToProps(dispatch) {
       showSettings,
       hideSettings,
       changeView,
-      switchComponent
+      switchComponent,
+      editFirstName,
+      editLastName,
+      editPhoneNumber,
+      editEmail
     }, dispatch)
   }
 }
