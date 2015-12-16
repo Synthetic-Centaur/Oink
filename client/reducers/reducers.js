@@ -14,7 +14,7 @@ these actions.
 
 import { DROPDOWN_ACTIONS } from '../constants/componentActions'
 
-function dashboardReducer(state = {
+export function dashboardReducer(state = {
   currentComponent: DROPDOWN_ACTIONS[0]
 }, action = null) {
   switch (action.type) {
@@ -25,7 +25,7 @@ function dashboardReducer(state = {
   }
 }
 
-function budgetReducer(state = {
+export function budgetReducer(state = {
   settingsView: 'ADD',
   currentBudget: { index: null }
 }, action = null) {
@@ -39,7 +39,7 @@ function budgetReducer(state = {
   }
 }
 
-function plaidReducer(state = {
+export function plaidReducer(state = {
   publicKey: ''
 }, action=null) {
   switch (action.type) {
@@ -50,7 +50,7 @@ function plaidReducer(state = {
   }
 }
 
-function asyncStatusReducer(state = {
+export function asyncStatusReducer(state = {
   isLoading: false,
   data: {},
   error: false
@@ -68,7 +68,7 @@ function asyncStatusReducer(state = {
   }
 }
 
-function splashPageReducer(state = {
+export function splashPageReducer(state = {
   showLogin: false,
   showSignup: false
 }, action = null) {
@@ -88,7 +88,7 @@ function splashPageReducer(state = {
 }
 
 //Change state to allow or disallow form input
-function homePageReducer(state = {
+export function homePageReducer(state = {
   numberError: true,
   categoryError: true,
   showSettings: false,
@@ -114,7 +114,7 @@ function homePageReducer(state = {
   }
 }
 
-function goalPageReducer(state = {
+export function goalPageReducer(state = {
   selectedGoal: 1
 }, action = null) {
   switch (action.type) {
@@ -125,7 +125,7 @@ function goalPageReducer(state = {
   }
 }
 
-function authReducer(state = {
+export function authReducer(state = {
   isAuthenticated: false,
   token: '',
   expiryDate: null
@@ -139,17 +139,4 @@ function authReducer(state = {
     default:
       return state
   }
-}
-
-export default {
-  asyncStatusReducer,
-  splashPageReducer,
-  homePageReducer,
-  authReducer,
-  splashPageReducer,
-  dashboardReducer,
-  goalPageReducer,
-  plaidReducer
-  plaidReducer,
-  budgetReducer
 }

@@ -45,6 +45,17 @@ let budgetController = {
     })
   },
 
+  deleteBudget(category, userId) {
+    // Search for category and retrieve category id
+    return db.knex('categories').where({description: category}).select().then((category) => {
+      let categoryId = category[0].id
+      return db.knex('budgets').where({category_id: categoryId, user_id: userId}).del().then((result) => {
+        console.log('DEL RESULT', result)
+        return result
+      })
+    })
+  },
+
   getAllCategories() {
     // Return all categories in table
     return db.knex('categories').select('description').then((categories) => {
