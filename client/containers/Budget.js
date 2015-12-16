@@ -5,7 +5,7 @@ import OptionsBar from '../components/dashboard/budget/OptionsBar'
 import PieChart from '../components/dashboard/budget/PieChart'
 import BarChart from '../components/dashboard/budget/BarChart'
 import BudgetCategories from '../components/dashboard/budget/BudgetCategories'
-import { getInitialState, postBudget } from '../actions/api/apiActions'
+import { getInitialState, postBudget, deleteBudget } from '../actions/api/apiActions'
 import { numberValidation, categoryValidation, changeSettingsView, changeCurrentBudget } from '../actions/actions'
 import Paper from 'material-ui/lib/paper'
 
@@ -74,6 +74,7 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
       postBudget,
+      deleteBudget,
       numberValidation,
       categoryValidation,
       changeSettingsView,

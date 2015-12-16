@@ -24,8 +24,18 @@ export class UpdateField extends React.Component {
     changeSettingsView('ADD')
   }
 
-  handleDelete() {
+  handleDelete(e) {
+    e.preventDefault()
 
+    const { currentBudget, data, deleteBudget, changeSettingsView } = this.props
+
+    let category = data.budgets[currentBudget.index].description
+
+    deleteBudget({
+      category: category,
+    })
+
+    changeSettingsView('ADD')
   }
 
   render() {
@@ -53,7 +63,7 @@ export class UpdateField extends React.Component {
           </div>
 
           <div className="u-pull-right">
-            <RaisedButton label="DELETE" primary={true} />
+            <RaisedButton label="DELETE" primary={true} onTouchTap={ this.handleDelete.bind(this) } />
           </div>
 
         </div>

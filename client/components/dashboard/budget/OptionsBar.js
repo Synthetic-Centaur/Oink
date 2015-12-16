@@ -33,6 +33,7 @@ export class OptionsBar extends React.Component {
             <UpdateField
               changeSettingsView = { actions.changeSettingsView }
               postBudget = { actions.postBudget }
+              deleteBudget = { actions.deleteBudget }
               data = { data }
               currentBudget = { budgetPage.currentBudget }
               showBudget={ actions.changeCurrentBudget }
