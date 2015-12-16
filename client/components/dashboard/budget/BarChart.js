@@ -4,9 +4,23 @@ import ReactHighCharts from 'react-highcharts/dist/bundle/highcharts'
 import chartConfig from './config/barChartConfig'
 
 class BarChart extends Component {
+
+  // Check if our charts should re-render
   shouldComponentUpdate(nextProps) {
+
+    // If the user has any budgets in state
     if (this.props.data.budgets && nextProps.data.budgets) {
-      return this.props.data.budgets.length !== nextProps.data.budgets.length
+      let oldBudget = this.props.data.budgets
+      let newBudget = nextProps.data.budgets
+      
+      // If there are more budgets than previously, update the chart
+      if (oldBudget.length !== newBudget.length) { return true }
+
+      // If the value of the target or actual has changed, update the chart
+      return oldBudget.reduce((bool, budget, i) => {
+        return budget.target !== newBudget[i].target || budget.actual !== newBudget[i].actual ? true : bool
+      }, false)
+
     } else {
       return true
     }

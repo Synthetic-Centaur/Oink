@@ -8,8 +8,20 @@ export class UpdateField extends React.Component {
     showBudget(null)
   }
 
-  handleSave() {
+  handleSave(e) {
+    e.preventDefault()
 
+    const { currentBudget, data, postBudget, changeSettingsView } = this.props
+
+    let category = data.budgets[currentBudget.index].description
+    let budget = parseInt(this.refs.amount.getValue())
+
+    postBudget({
+      category: category,
+      budget: budget
+    })
+
+    changeSettingsView('ADD')
   }
 
   handleDelete() {
@@ -28,6 +40,7 @@ export class UpdateField extends React.Component {
 
         <div className="row">
           <TextField
+            ref="amount"
             hintText="Amount"
             defaultValue={ amount }
           />
@@ -36,7 +49,7 @@ export class UpdateField extends React.Component {
         <div className="row">
 
           <div className="u-pull-left">
-            <RaisedButton label="SAVE" />
+            <RaisedButton label="SAVE" onTouchTap={ this.handleSave.bind(this) }/>
           </div>
 
           <div className="u-pull-right">

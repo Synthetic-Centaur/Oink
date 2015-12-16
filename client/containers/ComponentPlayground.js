@@ -3,7 +3,9 @@ import React, { Component, PropTypes } from 'react'
 class ComponentPlayground extends Component {
 
   render() {
-    Component = this.props.currentComponent.component
+
+    const { props, state } = this
+    let Component = props.currentComponent.component
 
     return (
       <Component  />

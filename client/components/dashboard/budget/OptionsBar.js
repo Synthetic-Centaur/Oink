@@ -31,6 +31,8 @@ export class OptionsBar extends React.Component {
       case 'UPDATE':
         return (
             <UpdateField
+              changeSettingsView = { actions.changeSettingsView }
+              postBudget = { actions.postBudget }
               data = { data }
               currentBudget = { budgetPage.currentBudget }
               showBudget={ actions.changeCurrentBudget }
