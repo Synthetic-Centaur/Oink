@@ -9,42 +9,27 @@ const twilioPhone = config.twilio_private.twilioPhone
 //twilio client with credential input
 const client = require('twilio')(accountSid, authToken)
 
+import db from '../db/dbConfig.js'
+
 import authController from './authController'
 
 let cronController = {
-  addText(user, callback) {
-
-    let phone = user.phone_number
-    let id = user.id
-    let email = user.email
-
-    let job = schedule.scheduleJob('job_sms_1', '*/1 * * * *', function () {
-      //trigger twillio text
-      client.messages.create({
-        to: '5152919699',
-        from: twilioPhone,
-        body: "your cron job says hello!!"
-      }, (err, message) => {
-        if (err) {
-          console.log(err)
-          return err
+  findUsersByMail() {
+    console.log("in find users by mail")
+    return db.knex.select().table('users').where({receive_mail: true})
+      .then((users) => {
+        if (users) {
+          return users
         } else {
-          console.log(message.sid)
-          return message.sid
+          return null
         }
       })
-
-    })
-
-    console.log("Here's your new job-------->", job)
-
-    callback(null, "it worked")
-
   },
-  cancelText(user, callback) {
+
+  cancelEmail(user, callback) {
 
     let id = user.id
-    
+
     let allJobs = schedule.scheduledJobs
     let job = allJobs['job_sms_1']
 

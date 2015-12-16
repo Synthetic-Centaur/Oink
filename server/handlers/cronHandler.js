@@ -1,19 +1,46 @@
-import schedule from 'node-schedule'
+import cronController from '../controllers/cronController'
+import authController from '../controllers/authController'
+import Promise from 'bluebird'
+import nodemailer from 'nodemailer'
 
-let scheduler = {
-  addText(reminder) {
+var transporter = nodemailer.createTransport();
 
-    let job = schedule.scheduleJob('job_call_' + reminder._id, new Date(parseInt(reminder.shdlCall)), function () {
-      //trigger twillio text
-    })
+let cronHandler = {
 
-    job.remId = reminder._id
-    //return saving job in database
+  sendMail: function() {
+    //get all users by mailBoolean
+    cronController.findUsersByMail()
+      .then((users) => {
+        if (users) {
+          Promise.each(users, (user) => {
+            //get users transactions by week
+            //get users budget for week
+            //get users actual for week
+            //send email
+            let mailOptions = {
+              from: 'aaronbackerman@gmail.com',
+              to: user.email,
+              subject: 'Your weekend summary',
+              text: 'Hello from Oink Financial!!',
+              html: '<b>Hello World</b>'
+            }
 
+            transporter.sendMail(mailOptions, (error, info) => {
+              if (error) {
+                return console.log(error)
+              }
+            })
+
+          })
+
+        } 
+
+      })
   },
-  cancelText(req, res) {
+  removeUser: function(req, res) {
 
   }
+
 }
 
 export default cronHandler
