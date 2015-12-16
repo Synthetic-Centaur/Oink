@@ -3,9 +3,9 @@ import { connect } from 'react-redux'
 import ThemeManager from 'material-ui/lib/styles/theme-manager'
 import Theme from '../material-theme.js'
 import SettingsForm from '../components/settings/SettingsForm'
-
+import SettingsModal from '../components/dashboard/settings/SettingsModal'
 // TODO: create post settings route and update line below
-import { postSignup } from '../api/authHandlers'
+import { postSignup } from '../actions/api/authActions'
 import React, { Component, PropTypes } from 'react'
 
 class Settings extends Component {
@@ -19,7 +19,7 @@ class Settings extends Component {
     const { actions } = this.props
     return (
         <div className="container">
-          <SignupForm signup={actions.postSignup} />
+          <SettingsModal showSettings={actions.showSettings} saveSettings={actions.postSignup} />
         </div>
       )
   }
@@ -45,4 +45,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Signup)
+export default connect(mapStateToProps, mapDispatchToProps)(Settings)

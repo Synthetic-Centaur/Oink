@@ -5,8 +5,11 @@ import ThemeManager from 'material-ui/lib/styles/theme-manager'
 import Theme from '../material-theme.js'
 import { authRedirect, authLogout } from '../actions/api/authActions'
 import { getInitialState } from '../actions/api/apiActions'
-import { changeView, switchComponent, showSettings } from '../actions/actions'
+import { changeView, switchComponent, showSettings, hideSettings } from '../actions/actions'
 import SideNav from '../components/dashboard/sidenav/SideNav'
+// TODO: either move settings modal onto settings and link to settings or delete settings container
+import Settings from './Settings'
+import SettingsModal from '../components/dashboard/settings/SettingsModal'
 import Budget from './Budget'
 import Goals from './Goals'
 import Options from '../components/dashboard/Options'
@@ -63,6 +66,14 @@ class Dashboard extends React.Component {
             <Options logout={ actions.authLogout } showSettings={ actions.showSettings }/>
           </div>
 
+          <SettingsModal
+            settings={actions.postSignup}
+            showSettings={homePage.showSettings}
+            showSettingsModal={actions.showSettings}
+            hideSettingsModal={actions.hideSettings}
+            data={data}
+          />
+
           <div className="header">
             <div className="container">
               <div className="row">
@@ -107,6 +118,7 @@ function mapDispatchToProps(dispatch) {
       authRedirect,
       authLogout,
       showSettings,
+      hideSettings,
       changeView,
       switchComponent
     }, dispatch)
