@@ -86,7 +86,7 @@ let apiHandler = {
       authController.findUserByToken(req).then((user) => {
         if (user) {
           // Create budget with category, amount, and userId
-          budgetController.createBudget(req.params.id, user.attributes.id, req.body.amount).then((budget) => {
+          budgetController.createBudget(req.params.id, user.id, req.body.amount).then((budget) => {
             if (budget) {
               // Send back the budget created
               res.json(budget)
@@ -107,7 +107,7 @@ let apiHandler = {
       res.json({ success: false, message: 'Failed, user is not authenticated'})
     } else {
       authController.findUserByToken(req).then((user) => {
-        goalController.createGoal(user.attributes.id, req.body).then((goal) => {
+        goalController.createGoal(user.id, req.body).then((goal) => {
           res.status(201)
           res.json(goal)
         })

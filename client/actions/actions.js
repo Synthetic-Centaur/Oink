@@ -137,11 +137,40 @@ function numberValidation(allow) {
   }
 }
 
+/********************************************************
+                    GOAL PAGE REDUX ACTIONS
+*********************************************************/
+
 function switchGoal(goal) {
   return (dispatch) => {
     dispatch({
       type: 'SWITCH_GOAL',
       data: goal
+    })
+  }
+}
+
+function validateGoal(allow) {
+  if (allow) {
+    return (dispatch) => {
+      dispatch({
+        type: 'ALLOW_SUBMISSION'
+      })
+    }
+  } else {
+    return (dispatch) => {
+      dispatch({
+        type: 'DISALLOW_SUBMISSION'
+      })
+    }
+  }
+}
+
+function selectAvg(avg) {
+  return (dispatch) => {
+    dispatch({
+      type: 'ENTER_AVG',
+      data: avg
     })
   }
 }
@@ -182,6 +211,8 @@ export default {
   numberValidation,
   switchComponent,
   switchGoal,
+  selectAvg,
+  validateGoal,
   showSettings,
   hideSettings
 }

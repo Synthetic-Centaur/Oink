@@ -7,7 +7,7 @@ import GoalConfigurer from '../components/dashboard/goals/GoalConfigurer'
 import GoalList from '../components/dashboard/goals/GoalList'
 import { Paper } from 'material-ui'
 import { postGoal } from '../actions/api/apiActions'
-import { switchGoal } from '../actions/actions'
+import { switchGoal, validateGoal, selectAvg } from '../actions/actions'
 
 class Goals extends Component {
   render() {
@@ -18,9 +18,13 @@ class Goals extends Component {
           <div className = "row">
             <div className="eight columns">
                 <MessageCenter data = { data }
-                selectedGoal = { goalPage.selectedGoal }/>
-                <GoalChart data = { data }
-                selectedGoal = { goalPage.selectedGoal } />
+                selectedGoal = { goalPage.selectedGoal }
+                selectAvg = { actions.selectAvg }
+                goalPage = { goalPage }
+                selectedAvg = { goalPage.selectedAvg }/>
+                { data.goals.length > 0 ? <GoalChart data = { data }
+                goalPage = { goalPage }
+                selectedAvg = { goalPage.selectedAvg }/> : <div/> }
             </div>
             <Paper zDepth={1} rounded={false} className="four columns">
               <GoalList
@@ -31,6 +35,8 @@ class Goals extends Component {
               <hr/>
               <GoalConfigurer
                 data = { data }
+                isValid = { goalPage.isValid }
+                validateGoal={ actions.validateGoal }
                 postGoal={ actions.postGoal }
                 />
             </Paper>
@@ -60,7 +66,9 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
       postGoal,
-      switchGoal
+      switchGoal,
+      validateGoal,
+      selectAvg
     }, dispatch)
   }
 }
