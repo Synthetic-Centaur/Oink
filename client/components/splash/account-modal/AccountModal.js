@@ -13,7 +13,7 @@ class AccountModal extends Component {
 
   handleSubmit() {
     const { showLogin, showSignup } = this.props
-    showLogin ? this.handleLogin(e) : showSignup ? this.handleSignup(e) : null
+    showLogin ? this.handleLogin() : showSignup ? this.handleSignup() : null
   }
 
   handleLogin() {
