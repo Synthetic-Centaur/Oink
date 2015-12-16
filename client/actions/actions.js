@@ -12,6 +12,28 @@ function switchComponent(component) {
 }
 
 /********************************************************
+                BUDGET VIEW REDUX ACTIONS
+*********************************************************/
+
+function changeSettingsView(view) {
+  return (dispatch) => {
+    dispatch({
+      type: 'CHANGE_SETTINGS_VIEW',
+      view: view
+    })
+  }
+}
+
+function changeCurrentBudget(budgetIndex) {
+  return (dispatch) => {
+    dispatch({
+      type: 'CHANGE_CURRENT_BUDGET',
+      budgetIndex: budgetIndex
+    })
+  }
+}
+
+/********************************************************
                     ASYNC REDUX ACTIONS
 *********************************************************/
 
@@ -183,5 +205,7 @@ export default {
   switchComponent,
   switchGoal,
   showSettings,
-  hideSettings
+  hideSettings,
+  changeSettingsView,
+  changeCurrentBudget
 }

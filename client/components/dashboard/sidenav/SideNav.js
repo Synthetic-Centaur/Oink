@@ -7,7 +7,6 @@ class SideNav extends Component {
 
   handleComponentChange(item) {
     const { handleNavigation } = this.props
-    console.log('in handle comp change: ------->', item.component)
     handleNavigation(item)
   }
 
@@ -16,7 +15,6 @@ class SideNav extends Component {
     const { handleNavigation, dropDownComponents } = this.props
 
     let menuItems = dropDownComponents.map((item, index) => {
-      console.log('in menu map, item is: ', item.component)
       return (
         <MenuItem
           className="menu-item"

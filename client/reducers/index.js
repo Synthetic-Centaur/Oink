@@ -1,10 +1,6 @@
 import { combineReducers } from 'redux'
 import { routeReducer } from 'redux-simple-router'
-import {
-  asyncStatusReducer, splashPageReducer,
-  homePageReducer, authReducer, dashboardReducer,
-  goalPageReducer, plaidReducer
-} from './reducers'
+import * as REDUCERS from './reducers'
 
 /***********************************************************************************
 The route reducer will take the Redux store's state and slice it up by its keys
@@ -13,14 +9,15 @@ as specified by the keys of the object passed into combineReducers. Each reducer
 ************************************************************************************/
 
 const rootReducer = combineReducers({
-  asyncStatus: asyncStatusReducer,
-  auth: authReducer,
-  splashPage: splashPageReducer,
   routing: routeReducer,
-  homePage: homePageReducer,
-  dashboard: dashboardReducer,
-  goalPage: goalPageReducer,
-  plaid: plaidReducer
+  asyncStatus: REDUCERS.asyncStatusReducer,
+  auth: REDUCERS.authReducer,
+  splashPage: REDUCERS.splashPageReducer,
+  homePage: REDUCERS.homePageReducer,
+  dashboard: REDUCERS.dashboardReducer,
+  goalPage: REDUCERS.goalPageReducer,
+  plaid: REDUCERS.plaidReducer,
+  budgetPage: REDUCERS.budgetReducer
 })
 
 // Export the rootReducer to build our final store in configureStore.js

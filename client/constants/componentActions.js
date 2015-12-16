@@ -12,18 +12,22 @@ export const DROPDOWN_ACTIONS = [
     component: Budget,
     icon: 'shopping_cart'
   },
-  {
-    text: 'Heat Map',
-
-    //component: HeatMap,
-    icon: 'add_location'
-  },
+  
+  // {
+  //   text: 'Heat Map',
+  //   component: HeatMap,
+  //   icon: 'add_location'
+  // },
   {
     text: 'Goal Planning',
     component: Goals,
     icon: 'card_travel'
   },
 
+  // {
+  //   text: "Plan",
+  //   icon: "account_balance"
+  // },
   // {
   //   text: "Recommendations",
   //   icon: "lightbulb_outline"

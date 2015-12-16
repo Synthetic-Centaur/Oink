@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react'
 import ReactDOM from 'react-dom'
 import ReactHighCharts from 'react-highcharts/dist/bundle/highcharts'
-import chartConfig from './config/chartConfig'
+import chartConfig from './config/barChartConfig'
 
-class PieChart extends Component {
+class BarChart extends Component {
 
   // Check if our charts should re-render
   shouldComponentUpdate(nextProps) {
@@ -15,7 +15,7 @@ class PieChart extends Component {
       
       // If there are more budgets than previously, update the chart
       if (oldBudget.length !== newBudget.length) { return true }
-
+        
       // If the value of the target or actual has changed, update the chart
       return oldBudget.reduce((bool, budget, i) => {
         return budget.target !== newBudget[i].target || budget.actual !== newBudget[i].actual ? true : bool
@@ -29,7 +29,6 @@ class PieChart extends Component {
   render() {
     const { data } = this.props
     let config = data.budgets !== undefined ? chartConfig(data.budgets) : null
-
     return (
         <div>
           {
@@ -45,4 +44,4 @@ class PieChart extends Component {
 
 }
 
-export default PieChart
+export default BarChart

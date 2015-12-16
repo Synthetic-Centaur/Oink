@@ -2,7 +2,6 @@ import * as ACTIONS from '../actions'
 import fetch from 'isomorphic-fetch'
 
 //Get initial state data for user
-
 export function getInitialState() {
   return function(dispatch) {
     dispatch(ACTIONS.requestData())
@@ -82,6 +81,28 @@ export function postGoal(data) {
     // })
     .catch((error) => {
       dispatch(ACTIONS.receiveError(error))
+    })
+  }
+}
+
+export function deleteBudget(data) {
+  return (dispatch) => {
+    dispatch(ACTIONS.requestData())
+    return fetch('/api/budget/category/' + data.category, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: 'Bearer ' + JSON.parse(window.localStorage.redux).auth.token
+      }
+    })
+    .then((response) => {
+      if (response.status === 200) {
+        getInitialState()(dispatch)
+        dispatch(ACTIONS.receiveData(response))
+      }
+    })
+    .catch((err) => {
+      dispatch(ACTIONS.receiveError(err))
     })
   }
 }
