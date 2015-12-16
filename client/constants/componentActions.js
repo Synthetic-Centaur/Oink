@@ -1,4 +1,6 @@
 import Budget from '../containers/Budget'
+import Goals from '../containers/Goals'
+
 // TODO: Update below once there is a heatmap container
 // import HeatMap from '../components/dashboard/GoogleHeatMap'
 
@@ -6,19 +8,22 @@ import Budget from '../containers/Budget'
 
 export const DROPDOWN_ACTIONS = [
   {
-    text: "Budget",
+    text: 'Budget',
     component: Budget,
-    icon: "shopping_cart"
+    icon: 'shopping_cart'
   },
   {
-    text: "Heat Map",
+    text: 'Heat Map',
+
     //component: HeatMap,
-    icon: "add_location"
-  }
-  // {
-  //   text: "Plan",
-  //   icon: "account_balance"
-  // },
+    icon: 'add_location'
+  },
+  {
+    text: 'Goal Planning',
+    component: Goals,
+    icon: 'card_travel'
+  },
+
   // {
   //   text: "Recommendations",
   //   icon: "lightbulb_outline"

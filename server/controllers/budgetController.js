@@ -98,11 +98,8 @@ let budgetController = {
     // Joins to get category descriptions
     .innerJoin('categories', 'budgets.category_id', 'categories.id')
 
-    // Joins to get user data
-    .innerJoin('users', 'budgets.user_id', 'users.id')
-
     // Only returns certain columns
-    .select('first_name', 'last_name', 'description', 'target', 'actual', 'phone_number', 'email')
+    .select('description', 'target', 'actual')
 
     // Only gets budgets from specified user
     .where('user_id', userId).then((budgets) => {

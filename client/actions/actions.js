@@ -51,8 +51,8 @@ function showLogin() {
 }
 
 // We should hide the pop-up login modal
-
 function hideLogin() {
+  
   /* Dispatch is the dispatch from the Redux store
    We must call dispatch so a reducer can act on this action appropriately */
   return (dispatch) => {
@@ -137,6 +137,15 @@ function numberValidation(allow) {
   }
 }
 
+function switchGoal(goal) {
+  return (dispatch) => {
+    dispatch({
+      type: 'SWITCH_GOAL',
+      data: goal
+    })
+  }
+}
+
 /********************************************************
                     SETTINGS REDUX ACTIONS
 *********************************************************/
@@ -171,8 +180,8 @@ export default {
   removeJWT,
   categoryValidation,
   numberValidation,
-  // changeView,
   switchComponent,
+  switchGoal,
   showSettings,
   hideSettings
 }

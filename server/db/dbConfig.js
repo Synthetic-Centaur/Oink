@@ -57,6 +57,21 @@ var populateTables = (cb) => {
       })
     }
   })
+  
+  db.knex.schema.hasTable('goals').then((exists) => {
+    if (!exists) {
+      db.knex.schema.createTable('goals', (goal) => {
+        goal.increments('id').primary()
+        goal.string('description', 255)
+        goal.integer('user_id')
+        goal.decimal('amount', 20)
+        goal.date('goalBy')
+        goal.date('goalStarted')
+      }).then((table) => {
+        console.log('Created Goals Table')
+      })
+    }
+  })
 
   db.knex.schema.hasTable('budgets').then((exists) => {
     if (!exists) {

@@ -6,6 +6,7 @@ import { getInitialState } from '../actions/api/apiActions'
 import { changeView, switchComponent, showSettings } from '../actions/actions'
 import SideNav from '../components/dashboard/sidenav/SideNav'
 import Budget from './Budget'
+import Goals from './Goals'
 import Options from '../components/dashboard/Options'
 import ComponentPlayground from './ComponentPlayground'
 import { DROPDOWN_ACTIONS } from '../constants/componentActions'
@@ -43,7 +44,7 @@ class Dashboard extends React.Component {
     return (
       <div>
       
-        <SideNav 
+        <SideNav
           changeView={ actions.changeView }
           handleNavigation = {this.handleNavigation.bind(this)}
           dropDownComponents = { DROPDOWN_ACTIONS } />
@@ -65,7 +66,7 @@ class Dashboard extends React.Component {
           </div>
 
           <div className="view-container container">
-            <ComponentPlayground 
+            <ComponentPlayground
               currentComponent = { currentComponent } />
           </div>
 

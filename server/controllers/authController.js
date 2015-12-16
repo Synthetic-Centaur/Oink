@@ -1,5 +1,6 @@
 import User from '../db/models/user'
 import Users from '../db/collections/users'
+import db from '../db/dbConfig'
 
 let authController = {
 
@@ -39,11 +40,13 @@ let authController = {
     let token = req.headers.authorization.split(' ')[1]
 
     // Generate search querey
-    let searchUser = new User({token_auth: token})
-    return searchUser.fetch().then((user) => {
+    return db.knex('users')
+    .where('token_auth', token)
+    .select('first_name', 'last_name', 'email', 'phone_number', 'id')
+    .then((user) => {
       //If user is found, return user
       if (user) {
-        return user
+        return user[0]
       } else {
         //Else return null
         return null

@@ -1,8 +1,14 @@
 let expect = require('chai').expect
 var server = require('../../server/server').server
 var request = require('supertest')(server)
+import db from '../../server/db/dbConfig'
 
 describe('Static routing', () => {
+  before((done)=>{
+    db.knex('users').insert({first_name: 'John', last_name: 'Smith', token_auth: 'testingAuth', email: 'johnsmith@example.com', phone_number: '8085551234', token_plaid: 'testingPlaid', password: 'AwesomeTest'}).then(() => {
+      done()
+    })
+  })
   it('should allow root requests to /', (done) => {
     request
       .get('/')
@@ -33,6 +39,9 @@ describe('AuthRoutes', () => {
   })
 })
 describe('APIRoutes', () => {
+  after((done) => {
+    setTimeout(done, 250)
+  })
   it('should respond with a 403 forbidden with unauthorized request to /api/initialState', (done) => {
     request
       .get('/api/initialState')

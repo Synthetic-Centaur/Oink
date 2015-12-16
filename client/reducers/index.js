@@ -2,7 +2,8 @@ import { combineReducers } from 'redux'
 import { routeReducer } from 'redux-simple-router'
 import {
   asyncStatusReducer, splashPageReducer,
-  homePageReducer, authReducer, dashboardReducer, plaidReducer
+  homePageReducer, authReducer, dashboardReducer,
+  goalPageReducer, plaidReducer
 } from './reducers'
 
 /***********************************************************************************
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   routing: routeReducer,
   homePage: homePageReducer,
   dashboard: dashboardReducer,
+  goalPage: goalPageReducer,
   plaid: plaidReducer
 })
 

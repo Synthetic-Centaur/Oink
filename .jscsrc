@@ -1,5 +1,5 @@
 {
-  "excludeFiles": ["index.js", "webpack.config.js", "webpack.production.config.js", "node_modules/**", "public/**", "coverage/**", "test/**"],
+  "excludeFiles": ["index.js", "webpack.config.js", "webpack.production.config.js", "node_modules/**", "public/**", "coverage/**", "test/**", server/env/**],
   "preset": "airbnb",
   "esprima": "esprima-fb",
   "maxErrors": null,

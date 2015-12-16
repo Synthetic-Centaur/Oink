@@ -6,9 +6,9 @@ import MenuDivider from 'material-ui/lib/menus/menu-divider'
 class SideNav extends Component {
 
   handleComponentChange(item) {
-    const { handleNavigation } = this.props;
+    const { handleNavigation } = this.props
     console.log('in handle comp change: ------->', item.component)
-    handleNavigation(item);
+    handleNavigation(item)
   }
 
   render() {
@@ -28,8 +28,7 @@ class SideNav extends Component {
           <i className="material-icons">{ item.icon }</i>
         </MenuItem>
       )
-    });
-
+    })
 
     return (
       <div className="sidenav">

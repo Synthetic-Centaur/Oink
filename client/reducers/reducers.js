@@ -13,20 +13,19 @@ these actions.
 ***************************************************************************************/
 import { DROPDOWN_ACTIONS } from '../constants/componentActions'
 
-
 function dashboardReducer(state = {
   currentComponent: DROPDOWN_ACTIONS[0]
 }, action = null) {
   switch (action.type) {
     case 'SWITCH_COMPONENT':
-     return Object.assign({}, state, {currentComponent: action.data})
+      return Object.assign({}, state, {currentComponent: action.data})
     default:
       return state
   }
 }
 
 function plaidReducer(state = {
-  publicKey: ""
+  publicKey: ''
 }, action=null) {
   switch (action.type) {
     case 'ADD_PLAID_KEY':
@@ -82,7 +81,7 @@ function homePageReducer(state = {
 }, action = null) {
   switch (action.type) {
     case 'SWITCH_COMPONENT':
-     return Object.assign({}, state, {currentComponent: action.data})
+      return Object.assign({}, state, {currentComponent: action.data})
     case 'ALLOW_NUM':
       return Object.assign({}, state, {numberError: false})
     case 'DISABLE_NUM':
@@ -95,6 +94,17 @@ function homePageReducer(state = {
       return Object.assign({}, state, {showSettings: true})
     case 'HIDE_SETTINGS':
       return Object.assign({}, state, {showSettings: false})
+    default:
+      return state
+  }
+}
+
+function goalPageReducer(state = {
+  selectedGoal: 1
+}, action = null) {
+  switch (action.type) {
+    case 'SWITCH_GOAL':
+      return Object.assign({}, state, {selectedGoal: action.data})
     default:
       return state
   }
@@ -123,5 +133,6 @@ export default {
   authReducer,
   splashPageReducer,
   dashboardReducer,
+  goalPageReducer,
   plaidReducer
 }

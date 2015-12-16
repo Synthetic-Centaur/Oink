@@ -4,18 +4,6 @@ import util from '../util'
 
 
 describe('Transaction Table', () => {
-  before( (done) => {
-    util.clearDB().then(() => {
-      util.populateDB( () => {
-        done()
-      })
-    })
-  })
-  after( (done) => {
-    util.populateDB( () => {
-        done()
-    })
-  })
   
   it('should have a user_id column which is an integer', (done) => {
     db.knex('transactions').columnInfo('user_id').then((info) => {
@@ -35,7 +23,7 @@ describe('Transaction Table', () => {
       done()
     })
   })
-  it('should have a date column which is varchar', (done) => {
+  it('should have a date column which is a date', (done) => {
     db.knex('transactions').columnInfo('date').then((info) => {
       expect(info.type).to.equal('date')
       done()
@@ -71,7 +59,7 @@ describe('Transaction Table', () => {
       done()
     })
   })
-  it('should have a amount column which is a decimal', (done) => {
+  it('should have a amount column which is a number', (done) => {
     db.knex('transactions').columnInfo('amount').then((info) => {
       expect(info.type).to.equal('real')
       done()

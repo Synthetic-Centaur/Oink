@@ -55,3 +55,33 @@ export function postBudget(data) {
     })
   }
 }
+
+export function postGoal(data) {
+  return function(dispatch) {
+    dispatch(ACTIONS.requestData())
+    return fetch('/api/goals', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: 'Bearer ' + JSON.parse(window.localStorage.redux).auth.token
+      },
+      body: JSON.stringify({
+        amount: data.amount,
+        description: data.description,
+        goalBy: data.goalBy
+      })
+    })
+    .then((response) => {
+      if (response.status === 201) {
+        getInitialState()(dispatch)
+      }
+    })
+    
+    // .then((response) => {
+    //   dispatch(ACTIONS.receiveData(response))
+    // })
+    .catch((error) => {
+      dispatch(ACTIONS.receiveError(error))
+    })
+  }
+}
