@@ -1,7 +1,14 @@
 import React, { Component, PropTypes } from 'react'
 import RaisedButton from 'material-ui/lib/raised-button'
+import ThemeManager from 'material-ui/lib/styles/theme-manager'
+import Theme from '../../material-theme.js'
 
 class PlaidButton extends Component {
+  getChildContext() {
+    return {
+      muiTheme: ThemeManager.getMuiTheme(Theme),
+    }
+  }
 
   componentDidMount() {
     this.props.getKey()
@@ -50,6 +57,10 @@ class PlaidButton extends Component {
 
 PlaidButton.propTypes = {
   authenticate: PropTypes.func.isRequired
+}
+
+PlaidButton.childContextTypes = {
+  muiTheme: PropTypes.object
 }
 
 export default PlaidButton

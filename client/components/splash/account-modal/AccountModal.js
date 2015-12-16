@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import FlatButton from 'material-ui/lib/flat-button'
 import Dialog from 'material-ui/lib/dialog'
-import { Link } from 'react-router'
 import LoginField from './LoginField'
 import SignupField from './SignupField'
 
@@ -12,10 +11,9 @@ class AccountModal extends Component {
     }
   }
 
-  handleSubmit(e) {
-    e.preventDefault()
+  handleSubmit() {
     const { showLogin, showSignup } = this.props
-    showLogin ? this.handleLogin() : showSignup ? this.handleSignup() : null
+    showLogin ? this.handleLogin(e) : showSignup ? this.handleSignup(e) : null
   }
 
   handleLogin() {
@@ -46,8 +44,7 @@ class AccountModal extends Component {
     })
   }
 
-  handleCancel(e) {
-    e.preventDefault()
+  handleCancel() {
     const { showLogin, showSignup, hideLoginModal, hideSignupModal } = this.props
     showLogin ? hideLoginModal() : showSignup ? hideSignupModal() : null
     this.refs.modal.dismiss()
@@ -71,12 +68,14 @@ class AccountModal extends Component {
         key={0}
         label="Cancel"
         secondary={true}
-        onTouchTap={this.handleCancel.bind(this)} />,
+        onTouchTap={this.handleCancel.bind(this)}
+      />,
       <FlatButton
         key={1}
         label="Submit"
         primary={true}
-        onTouchTap={this.handleSubmit.bind(this)} />
+        onTouchTap={this.handleSubmit.bind(this)}
+      />
     ]
 
     return (

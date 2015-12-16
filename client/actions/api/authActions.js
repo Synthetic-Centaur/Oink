@@ -143,6 +143,12 @@ export function authRedirect() {
   }
 }
 
+export function splashRedirect() {
+  return function(dispatch) {
+    dispatch(updatePath('/dashboard'))
+  }
+}
+
 export function authLogout() {
   return function(dispatch) {
     dispatch(ACTIONS.removeJWT())

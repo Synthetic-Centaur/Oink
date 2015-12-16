@@ -14,16 +14,19 @@ class Options extends Component {
   showSettings(e) {
     e.preventDefault()
 
-    console.log('inside showSettings', this.props)
-
     this.props.showSettings()
   }
   
   render() {
     return (
       <IconMenu iconButtonElement={
-        <IconButton>
-          <MoreVertIcon className="settings-icon" />
+        <IconButton className="settings-icon" iconStyle=
+          {{
+            height: '32px',
+            width: '32px'
+          }}
+        >
+          <MoreVertIcon />
         </IconButton>
       }>
         <MenuItem primaryText="Settings" onTouchTap={this.showSettings.bind(this)}/>
