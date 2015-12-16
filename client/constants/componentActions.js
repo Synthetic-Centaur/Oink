@@ -23,7 +23,15 @@ export const DROPDOWN_ACTIONS = [
     component: Goals,
     icon: 'card_travel'
   },
+    
+    //component: HeatMap,
+    icon: 'add_location'
+  }
 
+  // {
+  //   text: "Plan",
+  //   icon: "account_balance"
+  // },
   // {
   //   text: "Recommendations",
   //   icon: "lightbulb_outline"

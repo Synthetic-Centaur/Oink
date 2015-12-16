@@ -19,7 +19,6 @@ export function getInitialState() {
       }
     })
     .then((response) => {
-      console.log('get initial state res', response)
       dispatch(ACTIONS.receiveData(response))
     })
     .catch((err) => {
@@ -84,5 +83,11 @@ export function postGoal(data) {
     .catch((error) => {
       dispatch(ACTIONS.receiveError(error))
     })
+  }
+}
+
+export function deleteBudget(budgetId) {
+  return (dispatch) => {
+    
   }
 }

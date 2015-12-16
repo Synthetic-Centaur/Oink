@@ -20,7 +20,7 @@ function chartConfig(data) {
       type: 'pie'
     },
     title: {
-      text: 'Budget'
+      text: 'Your Budgets'
     },
     tooltip: {
       pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'

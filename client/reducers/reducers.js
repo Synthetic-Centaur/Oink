@@ -11,6 +11,7 @@ dispatched as the result of user interaction. If there is no relevant action, it
 just return the current state. See actions folder and api folder for a list of
 these actions.
 ***************************************************************************************/
+
 import { DROPDOWN_ACTIONS } from '../constants/componentActions'
 
 function dashboardReducer(state = {
@@ -19,6 +20,20 @@ function dashboardReducer(state = {
   switch (action.type) {
     case 'SWITCH_COMPONENT':
       return Object.assign({}, state, {currentComponent: action.data})
+    default:
+      return state
+  }
+}
+
+function budgetReducer(state = {
+  settingsView: 'ADD',
+  currentBudget: { index: null }
+}, action = null) {
+  switch (action.type) {
+    case 'CHANGE_SETTINGS_VIEW':
+      return Object.assign({}, state, {settingsView: action.view})
+    case 'CHANGE_CURRENT_BUDGET':
+      return Object.assign({}, state, {currentBudget: { index: action.budgetIndex }})
     default:
       return state
   }
@@ -135,4 +150,6 @@ export default {
   dashboardReducer,
   goalPageReducer,
   plaidReducer
+  plaidReducer,
+  budgetReducer
 }

@@ -78,6 +78,7 @@ let apiHandler = {
   },
 
   budget(req, res) {
+    console.log('*********** reqbody', req.body)
     if (!req.headers.authorization) {
       res.status(403)
       res.json({ success: false, message: 'Failed, user is not authenticated'})
@@ -89,7 +90,8 @@ let apiHandler = {
           budgetController.createBudget(req.params.id, user.attributes.id, req.body.amount).then((budget) => {
             if (budget) {
               // Send back the budget created
-              res.json(budget)
+              // res.json(budget)
+              res.send(200)
             } else {
               res.json({ success: false, message: 'Failed, error creating budget.' })
             }

@@ -58,10 +58,6 @@ class BudgetCategories extends React.Component{
         <div className="row">
           <DropDownMenu className="category-dropdown"
             ref="category"
-            autoWidth={false}
-            style={{
-              width: '100%',
-            }}
             menuItems={menuItems}
             errorText="Please choose a category."
             onChange={this.handleCatError.bind(this)} />

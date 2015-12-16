@@ -1,6 +1,5 @@
 .budget-container {
   margin-bottom: 4em;
-  border-bottom: 2px solid #999;
 }
 
 .options-container {
@@ -9,5 +8,5 @@
 
 .options-bar {
   padding: 2em;
+  text-align: center;
 }
-
