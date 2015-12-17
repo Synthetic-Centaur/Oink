@@ -22,7 +22,7 @@ class Goals extends Component {
     const { actions, goalPage, data } = this.props
     return (
       <div>
-        <div className = "container">
+        <div className = "container goals">
           <div className = "row">
             <div className="eight columns">
                 <MessageCenter data = { data }

@@ -15,7 +15,6 @@ class GoalChart extends Component {
     let { data } = this.props
     let config = {}
     if (data.goals.length > 0) {
-      console.log("I Am updating")
       let goal = data.goals[this.props.goalPage.selectedGoal - 1]
       let net = data.avgNet
       let avg = this.props.goalPage.selectedAvg / 30

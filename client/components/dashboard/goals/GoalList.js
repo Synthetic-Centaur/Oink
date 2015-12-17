@@ -15,11 +15,11 @@ class GoalList extends Component {
     let index = 0
     let goalList = data.goals.map((goal) => {
       index++
-      return <ListItem primaryText = {goal.description} value = { index }/>
+      return <ListItem key={index}primaryText = {goal.description} value = { index }/>
     })
     return (
       <SelectableList valueLink = {{value: this.props.selectedGoal, requestChange: this.selectGoal.bind(this)}}
-        subheader="Select from your goals">
+        subheader="Select from your goals" subheaderStyle={{color: '#ccc'}}>
         {goalList}
       </SelectableList>
     )

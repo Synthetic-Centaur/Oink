@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { Slider } from 'material-ui'
 import moment from 'moment'
+import ReactDOM from 'react-dom'
 
 class MessageCenter extends Component {
 
@@ -20,7 +21,6 @@ class MessageCenter extends Component {
       message = 'You are saving for ' + goal.description + ', and you need to save $' + goal.amount + ' to achieve this.'
     }
     let curAvg = curAvg || 0
-    console.log(curAvg)
     return (
       <div>
         <h5> {message} </h5>
@@ -29,7 +29,9 @@ class MessageCenter extends Component {
           padding: '5px'
         }}>
           <tbody>
-            <th style={{ align: 'center'}}>Average Savings per Month:</th>
+            <tr>
+              <th style={{ align: 'center'}}>Average Savings per Month:</th>
+            </tr>
             <tr>
               <td>Last Month: </td>
               <td style={{ color: -data.avgNet.lastMonth > 0 ? 'green' : 'red', textAlign: 'right' }}>{-data.avgNet.lastMonth.toFixed(2)}</td>

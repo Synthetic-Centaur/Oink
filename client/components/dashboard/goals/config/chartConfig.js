@@ -34,10 +34,13 @@ function chartConfig(data, net, avg) {
       },
       categories: dateScale,
       plotLines: [{
-        color: 'red',
+        color: '#FF1970',
         label: {
           text: 'Today',
-          align: 'left'
+          align: 'left',
+          style: {
+            color: '#ccc'
+          }
         },
         value: today,
         width: 2
