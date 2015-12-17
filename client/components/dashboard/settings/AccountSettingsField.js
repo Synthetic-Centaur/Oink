@@ -3,6 +3,10 @@ import { List, ListDivider, ListItem, TextField, RaisedButton, FontIcon } from '
 
 export class AccountSettingsField extends React.Component {
 
+  componentDidUpdate() {
+    this.render()
+  }
+
   handleEditStart(key) {
     this.props.editStart(key)
   }
@@ -21,6 +25,7 @@ export class AccountSettingsField extends React.Component {
           <TextField
             ref = {item.key}
             defaultValue= {item.property}
+            onChange={this.updateAccountSettings.bind(this, item)}
           />
         </td>
         <td>
@@ -57,19 +62,31 @@ export class AccountSettingsField extends React.Component {
     return this.renderSave(item, i)
   }
 
-  // handleSettings(e) {
-  //   e.preventDefault()
+  updateAccountSettings(item) {
 
-  //   let firstName = this.refs.FRIST_NAME.getValue()
-  //   let lastName = this.refs.LAST_NAME.getValue()
-  //   let email = this.refs.EMAIL.getValue()
+    let keyToValue = {
+      'FIRST_NAME': 'first_name',
+      'LAST_NAME': 'last_name',
+      'EMAIL': 'email'
+    }
 
-  //   this.props.postSettings({
-  //     firstName: firstName,
-  //     lastName: lastName,
-  //     email: email
-  //   })
-  // }
+    let itemName = keyToValue[item.key]
+    let itemVal = this.refs[item.key].getValue()
+
+    let itemToUpdate = {}
+
+    itemToUpdate[itemName] = itemVal
+
+    this.props.updateAccountSettings(itemToUpdate)
+  }
+
+  updateCommunicationSettings() {
+    let phoneNumber = this.refs.PHONE_NUMBER.getValue()
+
+    this.props.updateCommunicationSettings({
+      firstName: phoneNumber
+    })
+  }
   
   render() {
     return (

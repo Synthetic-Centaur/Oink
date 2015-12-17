@@ -24,6 +24,10 @@ class SettingsModal extends Component {
   handleSettings() {
     const { accountData, communicationData } = this.props
 
+    console.log('ACCOUNT DATA:', accountData)
+    console.log('COMMUNICATION DATA', communicationData)
+    console.log('PROPS:', this.props)
+
     let completeData = {}
 
     for (let key in accountData) {
@@ -104,6 +108,8 @@ class SettingsModal extends Component {
                 editingFirstName={this.props.editingFirstName}
                 lastName={user.lastName}
                 editingLastName={this.props.editingLastName}
+                updateAccountSettings={this.props.updateAccountSettings}
+                updateCommunicationSettings={this.props.updateCommunicationSettings}
               />
               
             </div>

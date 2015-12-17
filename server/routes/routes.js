@@ -41,3 +41,7 @@ app.put('/api/goals/:id', apiHandler.updateGoal)
 app.get('/api/transactions', apiHandler.getTransactions)
 
 app.get('/api/transactions/:year/:month', apiHandler.getTransactions)
+
+app.post('/api/goals', apiHandler.goals)
+
+app.post('/api/settings', apiHandler.settings)

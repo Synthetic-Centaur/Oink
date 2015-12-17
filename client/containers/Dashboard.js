@@ -5,7 +5,8 @@ import ThemeManager from 'material-ui/lib/styles/theme-manager'
 import Theme from '../material-theme.js'
 import { authRedirect, authLogout } from '../actions/api/authActions'
 import { getInitialState, postSettings } from '../actions/api/apiActions'
-import { changeView, switchComponent, showSettings, hideSettings, editStart, editFinish } from '../actions/actions'
+import { changeView, switchComponent, showSettings, hideSettings, editStart, editFinish,
+         updateAccountSettings, updateCommunicationSettings } from '../actions/actions'
 import SideNav from '../components/dashboard/sidenav/SideNav'
 import SettingsModal from '../components/dashboard/settings/SettingsModal'
 import Budget from './Budget'
@@ -50,7 +51,8 @@ class Dashboard extends React.Component {
 
   render() {
     console.log('THIS PROPS DASH:', this.props)
-    const { actions, currentComponent, data, homePage, editingFirstName, editingLastName, EditingEmail, EditingPhoneNumber } = this.props
+    const { actions, currentComponent, data, homePage, editingFirstName, editingLastName,
+            EditingEmail, EditingPhoneNumber, accountData, communicationData } = this.props
     return (
       <div className="dashboard-el">
       
@@ -77,6 +79,10 @@ class Dashboard extends React.Component {
             editingLastName={editingLastName}
             EditingEmail={EditingEmail}
             EditingPhoneNumber={EditingPhoneNumber}
+            accountData={accountData}
+            communicationData={communicationData}
+            updateAccountSettings={actions.updateAccountSettings}
+            updateCommunicationSettings={actions.updateCommunicationSettings}
           />
 
           <div className="header">
@@ -134,7 +140,9 @@ function mapDispatchToProps(dispatch) {
       switchComponent,
       postSettings,
       editStart,
-      editFinish
+      editFinish,
+      updateAccountSettings,
+      updateCommunicationSettings
     }, dispatch)
   }
 }

@@ -249,15 +249,12 @@ function editFinish(item) {
 }
 
 // Update the user account settings on state
-function updateAccountSettings(firstName, lastName, email) {
+function updateAccountSettings(item) {
+  console.log('item is:', item)
   return (dispatch) => {
     dispatch({
       type: 'UPDATE_ACCOUNT_SETTINGS',
-      data: {      
-        first_name: firstName,
-        last_name: lastName,
-        email: email
-      }
+      data: item
     })
   }
 }
@@ -301,5 +298,7 @@ export default {
   editEmail
   changeCurrentBudget,
   editStart,
-  editFinish
+  editFinish,
+  updateCommunicationSettings,
+  updateAccountSettings
 }

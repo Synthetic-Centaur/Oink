@@ -74,6 +74,13 @@ let authController = {
     })
   },
 
+  updateUser(user, properties) {
+    return db.knex('users').where(user).update(properties).returning('id').then((user) => {
+      console.log('USER WAS UPDATED TO USER', user)
+      return user
+    })
+  },
+
   saveAuthToken(token, userID) {
     let newUser = new User({id: userID})
     return newUser.fetch().then((user) => {

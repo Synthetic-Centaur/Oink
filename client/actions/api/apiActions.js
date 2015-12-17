@@ -27,33 +27,30 @@ export function getInitialState() {
 }
 
 export function postSettings(data) {
+  console.log('Data is:', data)
   return function(dispatch) {
     dispatch(ACTIONS.requestData())
-    return fetch('/auth/settings', {
+    return fetch('/api/settings', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+         authorization: 'Bearer ' + JSON.parse(window.localStorage.redux).auth.token
       },
       body: JSON.stringify(data)
     })
     .then((response) => {
-      if (response.status === 200) {
-        return response.json()
+      if (response.status === 201) {
+        getInitialState()(dispatch)
       } else if (response.status === 409) {
         console.log('Cannot Update User Fields')
       } else if (response.status === 500) {
         throw new Error('Error on the server', response)
       }
     })
-    .then((data) => {
-      //dispatch(ACTIONS.addJWT(data))
-      dispatch(ACTIONS.receiveData({}))
-    })
     .catch((err) => {
       dispatch(ACTIONS.receiveError(err))
       console.error(err)
     })
-  
   }
 }
 //Post user budget data
@@ -75,10 +72,6 @@ export function postBudget(data) {
         getInitialState()(dispatch)
       }
     })
-    
-    // .then((response) => {
-    //   dispatch(ACTIONS.receiveData(response))
-    // })
     .catch((error) => {
       dispatch(ACTIONS.receiveError(error))
     })
