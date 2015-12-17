@@ -5,8 +5,7 @@ import ThemeManager from 'material-ui/lib/styles/theme-manager'
 import Theme from '../material-theme.js'
 import { authRedirect, authLogout } from '../actions/api/authActions'
 import { getInitialState } from '../actions/api/apiActions'
-import { changeView, switchComponent, showSettings, hideSettings, editFirstName,
-         editLastName, editPhoneNumber, editEmail } from '../actions/actions'
+import { changeView, switchComponent, showSettings, hideSettings, editStart, editFinish } from '../actions/actions'
 import SideNav from '../components/dashboard/sidenav/SideNav'
 // TODO: either move settings modal onto settings and link to settings or delete settings container
 import Settings from './Settings'
@@ -52,7 +51,8 @@ class Dashboard extends React.Component {
   }
 
   render() {
-    const { actions, currentComponent, data, homePage, editingFirstName, editingLastName, editingPhoneNumber, editingEmail } = this.props
+    console.log('THIS PROPS DASH:', this.props)
+    const { actions, currentComponent, data, homePage, editingFirstName, editingLastName, EditingEmail, EditingPhoneNumber } = this.props
     return (
       <div className="dashboard-el">
       
@@ -72,15 +72,13 @@ class Dashboard extends React.Component {
             showSettings={homePage.showSettings}
             showSettingsModal={actions.showSettings}
             hideSettingsModal={actions.hideSettings}
-            editFirstName={actions.editFirstName}
-            editLastName={actions.editLastName}
-            editPhoneNumber={actions.editPhoneNumber}
-            editEmail={actions.editEmail}
+            editStart={actions.editStart}
+            editFinish={actions.editFinish}
             data={data}
             editingFirstName={editingFirstName}
-            editLastName={editingLastName}
-            editingPhoneNumber={editingPhoneNumber}
-            editingEmail={editingEmail}
+            editingLastName={editingLastName}
+            EditingEmail={EditingEmail}
+            EditingPhoneNumber={EditingPhoneNumber}
           />
 
           <div className="header">
@@ -119,8 +117,8 @@ function mapStateToProps(state) {
     currentComponent: state.dashboard.currentComponent,
     editingFirstName: state.settings.editingFirstName,
     editingLastName: state.settings.editingLastName,
-    editingPhoneNumber: state.settings.editingPhoneNumber,
-    editingEmail: state.settings.editingEmail
+    editingEmail: state.settings.editingEmail,
+    editingPhoneNumber: state.settings.editingPhoneNumber
   }
 }
 
@@ -134,10 +132,8 @@ function mapDispatchToProps(dispatch) {
       hideSettings,
       changeView,
       switchComponent,
-      editFirstName,
-      editLastName,
-      editPhoneNumber,
-      editEmail
+      editStart,
+      editFinish
     }, dispatch)
   }
 }

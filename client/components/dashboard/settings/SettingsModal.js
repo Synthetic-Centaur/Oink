@@ -45,6 +45,13 @@ class SettingsModal extends Component {
     this.refs.modal.dismiss()
   }
 
+  parsePhoneNumber(num) {
+    if (num.length === 10) {
+      return "(" + num.slice(0, 3) + ")" + num.slice(3, 6) + "-" + num.slice(6)
+    }
+    return num
+  }
+
   render() {
     let user = {
       firstName: this.props.data.user ? this.props.data.user.first_name : '',
@@ -52,7 +59,15 @@ class SettingsModal extends Component {
       phoneNumber: this.props.data.user ? this.props.data.user.phone_number : ''
     }
 
-    let userData = [user.firstName, user.lastName, user.phoneNumber]
+    let userData = [
+      {property: user.firstName, title: 'First Name', key: 'FIRST_NAME', editing: this.props.editingFirstName},
+      {property: user.lastName,  title: 'Last Name', key: 'LAST_NAME', editing: this.props.editingLastName},
+      {property: user.email,  title: 'Email', key: 'EMAIL', editing: this.props.editingEmail},
+    ]
+
+    let CommunicationData = [
+      {property: this.parsePhoneNumber(user.phoneNumber), title: 'Phone Number', key: 'PHONE_NUMBER', editing: this.props.editingPhoneNumber}
+    ]
 
     let modalActions = [
       <FlatButton
@@ -82,11 +97,11 @@ class SettingsModal extends Component {
 
               <AccountSettingsField
                 userData={userData}
+                editStart={this.props.editStart}
+                editFinish={this.props.editFinish}
                 firstName={user.firstName}
-                editFirstName={this.props.editFirstName}
                 editingFirstName={this.props.editingFirstName}
                 lastName={user.lastName}
-                editLastName={this.props.editLastName}
                 editingLastName={this.props.editingLastName}
               />
               

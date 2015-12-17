@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import TextField from 'material-ui/lib/text-field'
-import RaisedButton from 'material-ui/lib/raised-button'
+import { List, ListDivider, ListItem, TextField, RaisedButton, FontIcon } from 'material-ui'
 
 export class AccountSettingsField extends React.Component {
 
@@ -13,13 +12,57 @@ export class AccountSettingsField extends React.Component {
     return <span>{this.props.firstName}</span>
   }
 
-  renderItems() {
-    console.log('Rendering Items')
-    return <ul>{this.props.userData.map(this.renderItem, this)}</ul>
+  handleEditStart(key) {
+    this.props.editStart(key)
   }
 
-  renderItem(item) {
-    return <li>{item}</li>
+  handleEditFinish(key) {
+    this.props.editFinish(key)
+  }
+
+  renderEdit(item, i) {
+    return (
+      <tr key={i}>
+        <td>
+          <ListItem primaryText={ item.title } disabled={true} />
+        </td>
+        <td>
+          <TextField
+            ref = {item.property}
+            defaultText= {item.property}
+          />
+        </td>
+        <td>
+          <FontIcon hoverColor='red' className='material-icons' onTouchTap={this.handleEditFinish.bind(this, item.key)} > close </FontIcon>
+        </td>
+      </tr>
+    )
+  }
+
+  renderSave(item, i) {    
+    return (
+      <tr key={i}>
+        <td>
+          <ListItem primaryText={ item.title } disabled={true} />
+        </td>
+        <td>
+          <ListItem
+            secondaryText={ item.property }
+            disabled={true}
+          />
+        </td>
+        <td>
+          <FontIcon hoverColor='red' className='material-icons' onTouchTap={this.handleEditStart.bind(this, item.key)} > mode_edit </FontIcon>
+        </td>
+      </tr>
+    )
+  }
+
+  renderItem(item, i) {
+    if (item.editing) {
+      return this.renderEdit(item, i)
+    }
+    return this.renderSave(item, i)
   }
 
   handleSettings(e) {
@@ -41,11 +84,12 @@ export class AccountSettingsField extends React.Component {
   }
   
   render() {
-    console.log('USER DATA FROM ACCT FIELD SETTINGS:', this.props.userData)
     return (
-      <form>
-        {this.renderItems()}
-      </form>
+      <table className="ten columns offset-by-one" style={{border: '0px'}}>
+        <tbody>
+          {this.props.userData.map(this.renderItem, this)}
+        </tbody>
+      </table>
     )
   }
 }

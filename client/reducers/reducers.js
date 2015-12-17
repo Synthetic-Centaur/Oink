@@ -120,24 +120,37 @@ export function spendingPageReducer(state = {
 export function settingsReducer(state = {
   editingFirstName: false,
   editingLastName: false,
-  editingPhoneNumber: false,
   editingEmail: false,
-  editing: false
+  editingPhoneNumber: false
 }, action = null) {
   switch (action.type) {
     case 'EDIT_START':
-      return Object.assign({}, state, {editing: true})
+      switch (action.data) {
+        case 'FIRST_NAME':
+          return Object.assign({}, state, {editingFirstName: true})
+        case 'LAST_NAME':
+          return Object.assign({}, state, {editingLastName: true})
+        case 'EMAIL':
+          return Object.assign({}, state, {editingEmail: true})
+        case 'PHONE_NUMBER':
+          return Object.assign({}, state, {editingPhoneNumber: true})
+        default:
+          return state
+      }
     case 'EDIT_FINISH':
-      return Object.assign({}, state, {editing: false})  
-    case 'EDIT_FIRST_NAME':
-      return Object.assign({}, state, {editingFirstName: true})
-    case 'EDIT_LAST_NAME':
-      return Object.assign({}, state, {editingLastName: !editingLastName})
-    case 'EDIT_PHONE_NUMBER':
-      return Object.assign({}, state, {editingPhoneNumber: !editingPhoneNumber})
-    case 'EDIT_EMAIL':
-      return Object.assign({}, state, {editingEmail: !editingEmail})
-    default:
+      switch (action.data) {
+        case 'FIRST_NAME':
+          return Object.assign({}, state, {editingFirstName: false})
+        case 'LAST_NAME':
+          return Object.assign({}, state, {editingLastName: false})
+        case 'EMAIL':
+          return Object.assign({}, state, {editingEmail: false})
+        case 'PHONE_NUMBER':
+          return Object.assign({}, state, {editingPhoneNumber: false})
+        default:
+          return state
+      }
+    default:  
       return state
   }
 }
