@@ -1,10 +1,18 @@
 import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import ThemeManager from 'material-ui/lib/styles/theme-manager'
+import Theme from '../material-theme.js'
 import PlaidButton from '../components/plaid/PlaidButton'
 import { postPlaid, getPlaid } from '../actions/api/authActions'
 
 export class Plaid extends React.Component {
+  getChildContext() {
+    return {
+      muiTheme: ThemeManager.getMuiTheme(Theme),
+    }
+  }
+
   render() {
     const { actions, publicKey } = this.props
 
@@ -18,6 +26,10 @@ export class Plaid extends React.Component {
       </div>
     )
   }
+}
+
+Plaid.childContextTypes = {
+  muiTheme: PropTypes.object
 }
 
 function mapStateToProps(state) {

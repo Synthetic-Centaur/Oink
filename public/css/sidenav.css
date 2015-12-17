@@ -1,11 +1,11 @@
 .sidenav {
   did-flip:true;
-  background-color:#ffffff;
+  background-color:#4B4B4B;
   transition:all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
   box-sizing:border-box;
   font-family:Roboto, sans-serif;
   -webkit-tap-highlight-color:rgba(0,0,0,0);
-  box-shadow:0 3px 10px rgba(0, 0, 0, 0.16), 0 3px 10px rgba(0, 0, 0, 0.23);
+  box-shadow:0 3px 10px #000, 0 3px 10px #000;
   border-radius:0px;
   height:100%;
   width:256px;
@@ -27,8 +27,9 @@
 }
 
 .sidenav .header {
+  color: #FF1970;
   border-bottom: 2px solid #eee;
-  padding: 13px 0px 10px 0;
+  padding: 23px 0px 10px 0;
 }
 
 .sidenav .logo {

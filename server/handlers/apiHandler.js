@@ -77,7 +77,7 @@ let apiHandler = {
     }
   },
 
-  budget(req, res) {
+  addOrUpdateBudget(req, res) {
     if (!req.headers.authorization) {
       res.status(403)
       res.json({ success: false, message: 'Failed, user is not authenticated'})
@@ -89,9 +89,35 @@ let apiHandler = {
           budgetController.createBudget(req.params.id, user.id, req.body.amount).then((budget) => {
             if (budget) {
               // Send back the budget created
-              res.json(budget)
+              // res.json(budget)
+              res.send(200)
             } else {
               res.json({ success: false, message: 'Failed, error creating budget.' })
+            }
+          })
+        } else {
+          res.sendStatus(500)
+        }
+      })
+    }
+  },
+
+  deleteBudget(req, res) {
+    if (!req.headers.authorization) {
+      res.status(403)
+      res.json({ success: false, message: 'Failed, user is not authenticated'})
+    } else {
+      // Find the user based on auth token
+      authController.findUserByToken(req).then((user) => {
+        if (user) {
+          // Create budget with category, amount, and userId
+          budgetController.deleteBudget(req.params.id, user.id).then((result) => {
+            if (result) {
+              // Send back the budget created
+              // res.json(budget)
+              res.send(200)
+            } else {
+              res.json({ success: false, message: 'Failed, error deleting budget.' })
             }
           })
         } else {

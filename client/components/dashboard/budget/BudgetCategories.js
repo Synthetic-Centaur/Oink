@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import DropDownMenu from 'material-ui/lib/drop-down-menu'
 import TextField from 'material-ui/lib/text-field'
 import RaisedButton from 'material-ui/lib/raised-button'
+import { List, ListDivider, ListItem, Paper } from 'material-ui'
 
 class BudgetCategories extends React.Component{
 
@@ -53,9 +54,9 @@ class BudgetCategories extends React.Component{
     }
 
     return (
-      <form className="u-pull-right">
+      <div className="container">
         <div className="row">
-          <DropDownMenu
+          <DropDownMenu className="category-dropdown"
             ref="category"
             menuItems={menuItems}
             errorText="Please choose a category."
@@ -63,18 +64,19 @@ class BudgetCategories extends React.Component{
         </div>
         <div className="row">
           <TextField
+            fullWidth={true}
             ref="amount"
             hintText="Enter a sum"
             onChange={this.handleNumError.bind(this)} />
         </div>
         <div className="row">
-          <RaisedButton
+          <RaisedButton className="submit-budget-button"
             ref="input"
             label="Add new category"
             disabled={this.props.numberError || this.props.categoryError}
             onClick={this.handleBudget.bind(this)} />
         </div>
-      </form>
+      </div>
     )
   }
 

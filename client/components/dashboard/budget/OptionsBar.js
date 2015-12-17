@@ -1,0 +1,81 @@
+import React, { Component, PropTypes } from 'react'
+import { List, ListDivider, ListItem, Paper, RaisedButton } from 'material-ui'
+import BudgetCategories from './BudgetCategories'
+import BudgetList from './BudgetList'
+import UpdateField from './UpdateField'
+
+export class OptionsBar extends React.Component {
+  renderView() {
+    const { actions, homePage, data, budgetPage } = this.props
+    switch (budgetPage.settingsView) {
+      case 'ADD':
+        return (
+            <BudgetCategories className="add-budget-form"
+              data = { data }
+              postBudget={ actions.postBudget }
+              numberValidation={ actions.numberValidation }
+              categoryValidation={ actions.categoryValidation }
+              numberError={ homePage.numberError }
+              categoryError={ homePage.categoryError }
+              category={ homePage.category }
+            />
+          )
+      case 'EDIT':
+        return (
+            <BudgetList
+              data = { data }
+              editBudget={ actions.changeSettingsView }
+              showBudget={ actions.changeCurrentBudget }
+            />
+          )
+      case 'UPDATE':
+        return (
+            <UpdateField
+              changeSettingsView = { actions.changeSettingsView }
+              postBudget = { actions.postBudget }
+              deleteBudget = { actions.deleteBudget }
+              data = { data }
+              currentBudget = { budgetPage.currentBudget }
+              showBudget={ actions.changeCurrentBudget }
+            />
+          )
+
+      default:
+        return <div />
+    }
+  }
+
+  changeView(view) {
+    const { actions } = this.props
+    actions.changeSettingsView(view)
+  }
+
+  render() {
+    const { actions, homePage, data } = this.props
+
+    return (
+      <Paper zDepth={1} style={{
+        'box-shadow': '0 6px 11px #000, 0 9px 14px #000'
+      }} className="options-bar container">
+
+        <div className="row">
+          <h5>Budget Management</h5>
+        </div>
+
+        <div className="row">
+          <div className=" u-pull-left">
+            <RaisedButton label="ADD" onTouchTap={this.changeView.bind(this, 'ADD')} />
+          </div>
+          <div className=" u-pull-right">
+            <RaisedButton label="EDIT" secondary={true} onTouchTap={this.changeView.bind(this, 'EDIT')} />
+          </div>
+        </div>
+
+        { this.renderView() }
+
+      </Paper>
+    )
+  }
+}
+
+export default OptionsBar

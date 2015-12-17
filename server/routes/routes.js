@@ -30,6 +30,8 @@ app.get('/auth/plaid', authHandler.isLoggedIn, authHandler.getPlaid)
 
 app.get('/api/initialState', apiHandler.initialState)
 
-app.post('/api/budget/category/:id', apiHandler.budget)
+app.post('/api/budget/category/:id', apiHandler.addOrUpdateBudget)
+
+app.delete('/api/budget/category/:id', apiHandler.deleteBudget)
 
 app.post('/api/goals', apiHandler.goals)

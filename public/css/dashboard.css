@@ -1,6 +1,18 @@
+body {
+  background-color: #262626;
+}
+
 .dashboard .settings {
   display: inline;
   margin-top: 10px;
+}
+
+.dashboard .settings-icon {
+  margin-top: 15px;
+}
+
+.dashboard .header {
+  background-color: #4B4B4B;
 }
 
 .dashboard .header .container {
@@ -8,6 +20,7 @@
 }
 
 .dashboard .header h1 {
+  padding-top: 10px;
   text-align: center;
   color: #ccc;
 }
