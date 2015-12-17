@@ -12,6 +12,7 @@ const client = require('twilio')(accountSid, authToken)
 import db from '../db/dbConfig.js'
 
 import authController from './authController'
+import Promise from 'bluebird'
 
 let cronController = {
   findUsersByMail() {
@@ -35,6 +36,28 @@ let cronController = {
       }
     })
     
+  },
+
+  userTransactions(userId) {
+    let categories = {}
+    db.knex
+      .select()
+      .table('transactions')
+      .where({user_id: userId})
+      .then((transactions) => {
+        Promise.map(transactions, (transaction) => {
+          if (transaction.date >= new Date.getWeek() - 1) {
+            if (transaction.category_id in categories) {
+              categories[transaction.category_id] += transaction.amount
+            } else {
+              categories[transaction.category_id] = transaction.amount
+            }
+          }
+        })
+          .then(() => {
+            return categories
+          })
+      })
   }
 }
 
