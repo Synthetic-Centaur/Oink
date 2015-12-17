@@ -37,8 +37,19 @@ let cronHandler = {
 
       })
   },
-  removeUser: function(req, res) {
 
+  cancelEmail: function(req, res) {
+    authController.findUserByToken(req)
+      .then((user) => {
+        cronController.cancelEmail(user, function(err, result) {
+          if (result) {
+            res.status(200)
+            res.json({success: true})
+          } else {
+            res.state(400)
+          }
+        })
+      })
   }
 
 }

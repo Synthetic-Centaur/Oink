@@ -28,18 +28,13 @@ let cronController = {
 
   cancelEmail(user, callback) {
 
-    let id = user.id
-
-    let allJobs = schedule.scheduledJobs
-    let job = allJobs['job_sms_1']
-
-    console.log("Here's your old job---------->",job)
-
-    job.cancel()
-
-    console.log("your job should be cancelled!")
-
-    callback(null, "it worked")
+    user.attributes.receive_mail = false
+    return user.save().then((user) => {
+      if (user) {
+        callback(null, 'success')
+      }
+    })
+    
   }
 }
 

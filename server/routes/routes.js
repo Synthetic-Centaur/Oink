@@ -2,6 +2,7 @@ import app from '../server'
 
 import authHandler from '../handlers/authHandler'
 import apiHandler from '../handlers/apiHandler'
+import cronHandler from '../handlers/cronHandler'
 
 // TODO: remove this after testing webhooks////////////////////////////////////////////////////////////////////////////
 app.post('/webhook', (req, res) => {
@@ -45,3 +46,4 @@ app.get('/api/transactions/:year/:month', apiHandler.getTransactions)
 app.post('/api/settings', apiHandler.settings)
 
 app.delete('/api/deleteAccount', apiHandler.deleteAccount)
+
