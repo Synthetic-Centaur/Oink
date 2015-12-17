@@ -37,3 +37,5 @@ app.delete('/api/budget/category/:id', apiHandler.deleteBudget)
 app.post('/api/goals', apiHandler.createGoal)
 
 app.delete('/api/goals/:id', apiHandler.deleteGoal)
+
+app.put('/api/goals/:id', apiHandler.updateGoal)

@@ -156,6 +156,24 @@ let apiHandler = {
         })
       })
     }
+  },
+
+  updateGoal(req, res) {
+    if (!req.headers.authorization) {
+      res.status(403)
+      res.json({ success: false, message: 'Failed, user is not authenticated'})
+    } else {
+      authController.findUserByToken(req).then((user) => {
+        goalController.updateGoal(user.id, req.params.id).then((goal) => {
+          if (goal) {
+            res.status(201)
+            res.json(goal)
+          } else {
+            res.json({success: false, message: 'Failed, error updating goal'})
+          }
+        })
+      })
+    }
   }
 }
 

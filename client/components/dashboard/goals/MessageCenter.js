@@ -20,6 +20,7 @@ class MessageCenter extends Component {
       let end = moment(goal.goalStarted).add((goal.amount / (-avg / 30)), 'days')
       message = 'You are saving for ' + goal.description + ', and you need to save $' + goal.amount + ' to achieve this.'
     }
+    
     let curAvg = curAvg || 0
     return (
       <div>
@@ -54,7 +55,7 @@ class MessageCenter extends Component {
           </tbody>
         </table>
         <br/>
-        {data.goals.length > 0 ? <Slider description= {"Adjust your savings below to see the impact!  Current average is $"+this.props.selectedAvg + " a month saved."} name="average" ref="average" defaultValue={0} onChange={this.handleAvg.bind(this)}/> : <br/>}
+        {data.goals.length > 0 ? <Slider description= {'Adjust your savings below to see the impact!  Current average is $' + this.props.selectedAvg + ' a month saved.'} name="average" ref="average" defaultValue={0} onChange={this.handleAvg.bind(this)}/> : <br/>}
         
       </div>
     )

@@ -37,9 +37,9 @@ function chartConfig(data) {
     },
     tooltip: {
       shared: true,
-      formatter: function(){
-        return '<strong>'+this.x+ '</strong><br/><p style={"color":"' + this.points[0].color +'"}>'+this.points[0].series.name + ' : $' + this.y.toLocaleString() + '</p>'
-          + '<br/><p style={"color":"' + this.points[0].color +'"}>'+this.points[1].series.name + ' : $' + this.points[1].y.toLocaleString()
+      formatter: function() {
+        return '<strong>' + this.x + '</strong><br/><p style={"color":"' + this.points[0].color + '"}>' + this.points[0].series.name + ' : $' + this.y.toLocaleString() + '</p>'
+          + '<br/><p style={"color":"' + this.points[0].color + '"}>' + this.points[1].series.name + ' : $' + this.points[1].y.toLocaleString()
       }
     },
     plotOptions: {

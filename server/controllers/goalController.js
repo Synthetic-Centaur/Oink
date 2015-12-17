@@ -35,7 +35,18 @@ let goalController = {
     }).catch((err) => {
       console.error(err)
     })
-  },  
+  },
+  
+  updateGoal(userId, goalId, body) {
+    return db.knex('goals').where({
+      user_id: userId,
+      id: goalId
+    }).update(body).then((response) => {
+      return response
+    }).catch((err) => {
+      console.error(err)
+    })
+  },
 
   getGoalsById(userId) {
 
