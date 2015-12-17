@@ -13,23 +13,27 @@ let cronHandler = {
       .then((users) => {
         if (users) {
           Promise.each(users, (user) => {
-            //get users transactions by week
-            //get users budget for week
-            //get users actual for week
-            //send email
-            let mailOptions = {
-              from: 'aaronbackerman@gmail.com',
-              to: user.email,
-              subject: 'Your weekend summary',
-              text: 'Hello from Oink Financial!!',
-              html: '<b>Hello World</b>'
-            }
+            //get users transactions/actul for week
+            cronController.userTransactions(user.id)
+              .then((sums) => {
+                console.log('here are your sum-------->', sums)
+                //send email
+                let mailOptions = {
+                  from: 'aaronbackerman@gmail.com',
+                  to: user.email,
+                  subject: 'Your weekend summary',
+                  text: 'Hello from Oink Financial!!',
+                  html: '<b>Hello World</b>'
+                }
 
-            transporter.sendMail(mailOptions, (error, info) => {
-              if (error) {
-                return console.log(error)
-              }
-            })
+                transporter.sendMail(mailOptions, (error, info) => {
+                  if (error) {
+                    return console.log(error)
+                  }
+                })
+                
+              })
+            //get users budget for week
 
           })
 

@@ -40,18 +40,25 @@ let cronController = {
 
   userTransactions(userId) {
     let categories = {}
-    db.knex
+    return db.knex
       .select()
       .table('transactions')
       .where({user_id: userId})
       .then((transactions) => {
-        Promise.map(transactions, (transaction) => {
-          if (transaction.date >= new Date.getWeek() - 1) {
-            if (transaction.category_id in categories) {
-              categories[transaction.category_id] += transaction.amount
-            } else {
-              categories[transaction.category_id] = transaction.amount
-            }
+        return Promise.map(transactions, (transaction) => {
+          let date = new Date()
+          date.setDate(date.getDate() - 7)
+          if (transaction.date >= date) {
+            return db.knex.select().table('categories').where({id: transaction.category_id})
+              .then((category) => {
+
+                if (category.description in categories) {
+                  categories[category.description] += transaction.amount
+                } else {
+                  categories[category.description] = transaction.amount
+                }
+
+              })
           }
         })
           .then(() => {
