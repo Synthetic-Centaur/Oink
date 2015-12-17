@@ -248,6 +248,31 @@ function editFinish(item) {
   }
 }
 
+// Update the user account settings on state
+function updateAccountSettings(firstName, lastName, email) {
+  return (dispatch) => {
+    dispatch({
+      type: 'UPDATE_ACCOUNT_SETTINGS',
+      data: {      
+        first_name: firstName,
+        last_name: lastName,
+        email: email
+      }
+    })
+  }
+}
+
+// Update the user account settings on state
+function updateCommunicationSettings(phoneNumber) {
+  return (dispatch) => {
+    dispatch({
+      type: 'UPDATE_COMMUNICATION_SETTINGS',
+      data: {
+        phone_number: phoneNumber
+      }
+    })
+  }
+}
 export default {
   requestData,
   receiveData,

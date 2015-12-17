@@ -26,6 +26,36 @@ export function getInitialState() {
   }
 }
 
+export function postSettings(data) {
+  return function(dispatch) {
+    dispatch(ACTIONS.requestData())
+    return fetch('/auth/settings', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    .then((response) => {
+      if (response.status === 200) {
+        return response.json()
+      } else if (response.status === 409) {
+        console.log('Cannot Update User Fields')
+      } else if (response.status === 500) {
+        throw new Error('Error on the server', response)
+      }
+    })
+    .then((data) => {
+      //dispatch(ACTIONS.addJWT(data))
+      dispatch(ACTIONS.receiveData({}))
+    })
+    .catch((err) => {
+      dispatch(ACTIONS.receiveError(err))
+      console.error(err)
+    })
+  
+  }
+}
 //Post user budget data
 export function postBudget(data) {
   return function(dispatch) {

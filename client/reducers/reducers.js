@@ -121,7 +121,9 @@ export function settingsReducer(state = {
   editingFirstName: false,
   editingLastName: false,
   editingEmail: false,
-  editingPhoneNumber: false
+  editingPhoneNumber: false,
+  accountData: {},
+  communicationData: {}
 }, action = null) {
   switch (action.type) {
     case 'EDIT_START':
@@ -150,6 +152,10 @@ export function settingsReducer(state = {
         default:
           return state
       }
+    case 'UPDATE_ACCOUNT_SETTINGS':
+      return Object.assign({}, state, {accountData: action.data})
+    case 'UPDATE_COMMUNICATION_SETTINGS':
+      return Object.assign({}, state, {communicationData: action.data})
     default:  
       return state
   }

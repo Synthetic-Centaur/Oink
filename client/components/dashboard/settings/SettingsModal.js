@@ -22,20 +22,21 @@ class SettingsModal extends Component {
   }
 
   handleSettings() {
-    const { settingsField } = this.refs
-    let firstName = AccountSettingsField.refs.firstName.getValue()
-    let lastName = AccountSettingsField.refs.lastName.getValue()
-    let email = AccountSettingsField.refs.email.getValue()
-    let phone = AccountSettingsField.refs.phone.getValue()
-    let password = AccountSettingsField.refs.password.getValue()
+    const { accountData, communicationData } = this.props
 
-    this.props.settings({
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      phone: phone,
-      password: password
-    })
+    let completeData = {}
+
+    for (let key in accountData) {
+      completeData[key] = accountData[key]
+    }
+
+    for (let key in communicationData) {
+      completeData[key] = communicationData[key]
+    }
+
+    this.props.postSettings(completeData)
+    this.props.hideSettingsModal()
+    this.refs.modal.dismiss()
   }
 
   handleCancel(e) {
@@ -125,7 +126,6 @@ class SettingsModal extends Component {
 }
 
 SettingsModal.propTypes = {
-  settings: PropTypes.func.isRequired,
   showSettings: PropTypes.bool.isRequired,
   hideSettingsModal: PropTypes.func.isRequired,
   showSettingsModal: PropTypes.func.isRequired

@@ -4,11 +4,9 @@ import { connect } from 'react-redux'
 import ThemeManager from 'material-ui/lib/styles/theme-manager'
 import Theme from '../material-theme.js'
 import { authRedirect, authLogout } from '../actions/api/authActions'
-import { getInitialState } from '../actions/api/apiActions'
+import { getInitialState, postSettings } from '../actions/api/apiActions'
 import { changeView, switchComponent, showSettings, hideSettings, editStart, editFinish } from '../actions/actions'
 import SideNav from '../components/dashboard/sidenav/SideNav'
-// TODO: either move settings modal onto settings and link to settings or delete settings container
-import Settings from './Settings'
 import SettingsModal from '../components/dashboard/settings/SettingsModal'
 import Budget from './Budget'
 import Goals from './Goals'
@@ -68,7 +66,7 @@ class Dashboard extends React.Component {
           </div>
 
           <SettingsModal
-            settings={actions.postSignup}
+            postSettings={actions.postSettings}
             showSettings={homePage.showSettings}
             showSettingsModal={actions.showSettings}
             hideSettingsModal={actions.hideSettings}
@@ -118,7 +116,9 @@ function mapStateToProps(state) {
     editingFirstName: state.settings.editingFirstName,
     editingLastName: state.settings.editingLastName,
     editingEmail: state.settings.editingEmail,
-    editingPhoneNumber: state.settings.editingPhoneNumber
+    editingPhoneNumber: state.settings.editingPhoneNumber,
+    accountData: state.settings.accountData,
+    communicationData: state.settings.communicationData
   }
 }
 
@@ -132,6 +132,7 @@ function mapDispatchToProps(dispatch) {
       hideSettings,
       changeView,
       switchComponent,
+      postSettings,
       editStart,
       editFinish
     }, dispatch)

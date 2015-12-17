@@ -3,15 +3,6 @@ import { List, ListDivider, ListItem, TextField, RaisedButton, FontIcon } from '
 
 export class AccountSettingsField extends React.Component {
 
-  renderFristName() {
-    console.log('rendering first name', this.props.editingFirstName)
-    let test = this.props.editingFirstName || false
-    if (test) {
-      return <TextField ref="firstName" hintText="First Name"/>
-    }
-    return <span>{this.props.firstName}</span>
-  }
-
   handleEditStart(key) {
     this.props.editStart(key)
   }
@@ -28,8 +19,8 @@ export class AccountSettingsField extends React.Component {
         </td>
         <td>
           <TextField
-            ref = {item.property}
-            defaultText= {item.property}
+            ref = {item.key}
+            defaultValue= {item.property}
           />
         </td>
         <td>
@@ -47,6 +38,7 @@ export class AccountSettingsField extends React.Component {
         </td>
         <td>
           <ListItem
+            ref={item.key}
             secondaryText={ item.property }
             disabled={true}
           />
@@ -65,23 +57,19 @@ export class AccountSettingsField extends React.Component {
     return this.renderSave(item, i)
   }
 
-  handleSettings(e) {
-    e.preventDefault()
+  // handleSettings(e) {
+  //   e.preventDefault()
 
-    let firstName = this.refs.firstName.getValue()
-    let lastName = this.refs.lastName.getValue()
-    let email = this.refs.email.getValue()
-    let phone = this.refs.phone.getValue()
-    let password = this.refs.password.getValue()
+  //   let firstName = this.refs.FRIST_NAME.getValue()
+  //   let lastName = this.refs.LAST_NAME.getValue()
+  //   let email = this.refs.EMAIL.getValue()
 
-    this.props.signup({
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      phone: phone,
-      password: password
-    })
-  }
+  //   this.props.postSettings({
+  //     firstName: firstName,
+  //     lastName: lastName,
+  //     email: email
+  //   })
+  // }
   
   render() {
     return (
