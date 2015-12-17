@@ -77,10 +77,13 @@ button {
   text-align: vertical;
 }
 
+.info {
+  background-color: #fff;
+}
 
 .info .container {
-  margin-top: 6em;
-  margin-bottom: 6em;
+  padding-top: 6em;
+  padding-bottom: 6em;
 }
 
 .info .container img {

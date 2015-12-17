@@ -1,15 +1,21 @@
 import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import ThemeManager from 'material-ui/lib/styles/theme-manager'
+import Theme from '../material-theme.js'
 import OptionsBar from '../components/dashboard/budget/OptionsBar'
 import PieChart from '../components/dashboard/budget/PieChart'
 import BarChart from '../components/dashboard/budget/BarChart'
 import BudgetCategories from '../components/dashboard/budget/BudgetCategories'
 import { getInitialState, postBudget, deleteBudget } from '../actions/api/apiActions'
 import { numberValidation, categoryValidation, changeSettingsView, changeCurrentBudget } from '../actions/actions'
-import Paper from 'material-ui/lib/paper'
 
 class Budget extends Component {
+  getChildContext() {
+    return {
+      muiTheme: ThemeManager.getMuiTheme(Theme),
+    }
+  }
   
   render() {
     const { actions, homePage, data, budgetPage } = this.props
@@ -56,6 +62,10 @@ class Budget extends Component {
 
 Budget.PropTypes = {
   
+}
+
+Budget.childContextTypes = {
+  muiTheme: PropTypes.object
 }
 
 //Unpack state onto container props

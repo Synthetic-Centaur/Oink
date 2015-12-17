@@ -1,12 +1,18 @@
 .budget-container {
-  margin-bottom: 4em;
+  margin-top: 2em;
+  margin-bottom: 2em;
 }
 
 .options-container {
-  padding-top: 6em;
+  color: #fff;
+  margin-top: 4em;
 }
 
 .options-bar {
   padding: 2em;
   text-align: center;
+}
+
+.highcharts-container {
+  box-shadow: 0 2px 2px #000, 0 3px 3px #000;
 }

@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import ThemeManager from 'material-ui/lib/styles/theme-manager'
+import Theme from '../material-theme.js'
 import { authRedirect, authLogout } from '../actions/api/authActions'
 import { getInitialState } from '../actions/api/apiActions'
 import { changeView, switchComponent, showSettings } from '../actions/actions'
@@ -12,6 +14,12 @@ import ComponentPlayground from './ComponentPlayground'
 import { DROPDOWN_ACTIONS } from '../constants/componentActions'
 
 class Dashboard extends React.Component {
+  getChildContext() {
+    return {
+      muiTheme: ThemeManager.getMuiTheme(Theme),
+    }
+  }
+
   //Render home container with chart, budget input, and navbar
   componentWillMount() {
     this.checkAuth()
@@ -42,7 +50,7 @@ class Dashboard extends React.Component {
   render() {
     const { actions, currentComponent, data, homePage } = this.props
     return (
-      <div>
+      <div className="dashboard-el">
       
         <SideNav
           changeView={ actions.changeView }
@@ -75,6 +83,10 @@ class Dashboard extends React.Component {
       </div>
     )
   }
+}
+
+Dashboard.childContextTypes = {
+  muiTheme: PropTypes.object
 }
 
 function mapStateToProps(state) {

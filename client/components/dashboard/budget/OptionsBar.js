@@ -54,7 +54,9 @@ export class OptionsBar extends React.Component {
     const { actions, homePage, data } = this.props
 
     return (
-      <Paper zDepth={1} className="options-bar container">
+      <Paper zDepth={1} style={{
+        'box-shadow': '0 6px 11px #000, 0 9px 14px #000'
+      }} className="options-bar container">
 
         <div className="row">
           <h5>Budget Management</h5>

@@ -3,11 +3,23 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import AccountModal from '../components/splash/account-modal/AccountModal'
 import SplashNavBar from '../components/splash/navbar/SplashNavBar'
-import { postLogin, postSignup } from '../actions/api/authActions'
+import { postLogin, postSignup, splashRedirect } from '../actions/api/authActions'
 import { showLogin, hideLogin, showSignup, hideSignup, getJWT } from '../actions/actions'
 import ProfileCard from '../components/splash/ProfileCard'
 
 class Splash extends Component {
+  //Render home container with chart, budget input, and navbar
+  componentWillMount() {
+    this.checkAuth()
+  }
+
+  checkAuth() {
+    const { actions, isAuthenticated } = this.props
+    if (isAuthenticated) {
+      actions.splashRedirect()
+    }
+  }
+
   render() {
     const { actions, splashPage } = this.props
     return (
@@ -160,7 +172,8 @@ function mapDispatchToProps(dispatch) {
       showLogin,
       showSignup,
       hideLogin,
-      hideSignup
+      hideSignup,
+      splashRedirect
     }, dispatch),
   }
 }

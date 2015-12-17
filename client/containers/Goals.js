@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import ThemeManager from 'material-ui/lib/styles/theme-manager'
+import Theme from '../material-theme.js'
 import MessageCenter from '../components/dashboard/goals/MessageCenter'
 import GoalChart from '../components/dashboard/goals/GoalChart'
 import GoalConfigurer from '../components/dashboard/goals/GoalConfigurer'
@@ -10,6 +12,12 @@ import { postGoal } from '../actions/api/apiActions'
 import { switchGoal } from '../actions/actions'
 
 class Goals extends Component {
+  getChildContext() {
+    return {
+      muiTheme: ThemeManager.getMuiTheme(Theme),
+    }
+  }
+  
   render() {
     const { actions, goalPage, data } = this.props
     return (
@@ -43,6 +51,10 @@ class Goals extends Component {
 
 Goals.PropTypes = {
 
+}
+
+Goals.childContextTypes = {
+  muiTheme: PropTypes.object
 }
 
 //Unpack state onto container props
