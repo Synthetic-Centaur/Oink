@@ -127,7 +127,7 @@ let apiHandler = {
     }
   },
 
-  goals(req, res) {
+  createGoal(req, res) {
     if (!req.headers.authorization) {
       res.status(403)
       res.json({ success: false, message: 'Failed, user is not authenticated'})
@@ -139,6 +139,10 @@ let apiHandler = {
         })
       })
     }
+  },
+
+  deleteGoal(req, res) {
+    
   }
 }
 

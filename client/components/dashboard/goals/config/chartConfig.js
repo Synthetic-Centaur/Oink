@@ -57,7 +57,12 @@ function chartConfig(data, net, avg) {
       }]
     },
     tooltip: {
-      valuePrefix: '$'
+      valuePrefix: '$',
+      formatter: function(){
+        return '<b>You should have saved $'+ this.y.toLocaleString() +'</b><br/>'+
+        'By: '+ this.x + '<br/>' +
+        'This is your ' + this.series.name + ' path'
+      }
     },
     plotOptions: {
       series: {
