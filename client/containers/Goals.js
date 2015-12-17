@@ -9,7 +9,7 @@ import GoalConfigurer from '../components/dashboard/goals/GoalConfigurer'
 import GoalList from '../components/dashboard/goals/GoalList'
 import { Paper } from 'material-ui'
 import { postGoal } from '../actions/api/apiActions'
-import { switchGoal, validateGoal, selectAvg } from '../actions/actions'
+import { switchGoal, validateGoal, selectAvg, updateGoal, deleteGoal } from '../actions/actions'
 
 class Goals extends Component {
   getChildContext() {
@@ -39,6 +39,8 @@ class Goals extends Component {
                 data = { data }
                 selectedGoal = { goalPage.selectedGoal }
                 switchGoal = { actions.switchGoal }
+                deleteGoal = { actions.deleteGoal }
+                updateGoal = { actions.updateGoal }
                />
               <hr/>
               <GoalConfigurer
@@ -80,7 +82,9 @@ function mapDispatchToProps(dispatch) {
       postGoal,
       switchGoal,
       validateGoal,
-      selectAvg
+      selectAvg,
+      deleteGoal,
+      updateGoal
     }, dispatch)
   }
 }

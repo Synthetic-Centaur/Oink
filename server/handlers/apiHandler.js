@@ -164,7 +164,7 @@ let apiHandler = {
       res.json({ success: false, message: 'Failed, user is not authenticated'})
     } else {
       authController.findUserByToken(req).then((user) => {
-        goalController.updateGoal(user.id, req.params.id).then((goal) => {
+        goalController.updateGoal(user.id, req.params.id, req.body).then((goal) => {
           if (goal) {
             res.status(201)
             res.json(goal)
