@@ -142,7 +142,20 @@ let apiHandler = {
   },
 
   deleteGoal(req, res) {
-    
+    if (!req.headers.authorization) {
+      res.status(403)
+      res.json({ success: false, message: 'Failed, user is not authenticated'})
+    } else {
+      authController.findUserByToken(req).then((user) => {
+        goalController.deleteGoal(user.id, req.params.id).then((goal) => {
+          if (goal) {
+            res.send(200)
+          } else {
+            res.json({success: false, message: 'Failed, error deleting goal'})
+          }
+        })
+      })
+    }
   }
 }
 
