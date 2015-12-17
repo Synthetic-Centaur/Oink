@@ -6,7 +6,7 @@ var app = new Express()
 
 const port = process.env.PORT || 3000
 
-if (process.env.NODE_ENV === 'dev') {
+if (process.env.NODE_ENV === 'dev' || process.env.NODE_ENV === 'test') {
   var server = app.listen(port, (error) => {
     if (error) {
       console.error(error)
@@ -14,6 +14,7 @@ if (process.env.NODE_ENV === 'dev') {
       console.info(`==>   Listening on port ${port}. NODE_ENV is ${process.env.NODE_ENV}.`)
     }
   })
+
 } else {
   app.listen(port, '0.0.0.0', (error) => {
     if (error) {

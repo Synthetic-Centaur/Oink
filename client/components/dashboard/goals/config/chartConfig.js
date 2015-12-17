@@ -15,6 +15,7 @@ function chartConfig(data, net, avg) {
       path.push(Math.round(avg * i))
     }
   }
+
   generatePath(goalPath, avgNeeded)
   generatePath(actualPath, avgActual)
   generatePath(userPath, avg)
@@ -22,6 +23,7 @@ function chartConfig(data, net, avg) {
   for (var k = 0; k <= daysToGoal; k++) {
     dateScale.push(goalStart.add(1, 'day').format('M/D/YY'))
   }
+
   let today = dateScale.indexOf(moment().format('M/D/YY'))
   let config = {
     title: {
@@ -34,10 +36,13 @@ function chartConfig(data, net, avg) {
       },
       categories: dateScale,
       plotLines: [{
-        color: 'red',
+        color: '#FF1970',
         label: {
           text: 'Today',
-          align: 'left'
+          align: 'left',
+          style: {
+            color: '#ccc'
+          }
         },
         value: today,
         width: 2
@@ -54,7 +59,12 @@ function chartConfig(data, net, avg) {
       }]
     },
     tooltip: {
-      valuePrefix: '$'
+      valuePrefix: '$',
+      formatter: function() {
+        return '<b>You should have saved $' + this.y.toLocaleString() + '</b><br/>' +
+        'By: ' + this.x + '<br/>' +
+        'This is your ' + this.series.name + ' path'
+      }
     },
     plotOptions: {
       series: {

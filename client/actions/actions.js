@@ -197,6 +197,15 @@ function selectAvg(avg) {
   }
 }
 
+function changeGoalView(view) {
+  return (dispatch) => {
+    dispatch({
+      type: 'CHANGE_GOAL_VIEW',
+      data: view
+    })
+  }
+}
+
 /********************************************************
                     SETTINGS REDUX ACTIONS
 *********************************************************/
@@ -238,5 +247,6 @@ export default {
   showSettings,
   hideSettings,
   changeSettingsView,
-  changeCurrentBudget
+  changeCurrentBudget,
+  changeGoalView
 }

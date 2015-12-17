@@ -127,7 +127,7 @@ let apiHandler = {
     }
   },
 
-  goals(req, res) {
+  createGoal(req, res) {
     if (!req.headers.authorization) {
       res.status(403)
       res.json({ success: false, message: 'Failed, user is not authenticated'})
@@ -136,6 +136,41 @@ let apiHandler = {
         goalController.createGoal(user.id, req.body).then((goal) => {
           res.status(201)
           res.json(goal)
+        })
+      })
+    }
+  },
+
+  deleteGoal(req, res) {
+    if (!req.headers.authorization) {
+      res.status(403)
+      res.json({ success: false, message: 'Failed, user is not authenticated'})
+    } else {
+      authController.findUserByToken(req).then((user) => {
+        goalController.deleteGoal(user.id, req.params.id).then((goal) => {
+          if (goal) {
+            res.sendStatus(200)
+          } else {
+            res.json({success: false, message: 'Failed, error deleting goal'})
+          }
+        })
+      })
+    }
+  },
+
+  updateGoal(req, res) {
+    if (!req.headers.authorization) {
+      res.status(403)
+      res.json({ success: false, message: 'Failed, user is not authenticated'})
+    } else {
+      authController.findUserByToken(req).then((user) => {
+        goalController.updateGoal(user.id, req.params.id, req.body).then((goal) => {
+          if (goal) {
+            res.status(201)
+            res.json(goal)
+          } else {
+            res.json({success: false, message: 'Failed, error updating goal'})
+          }
         })
       })
     }
