@@ -22,6 +22,7 @@ class SettingsModal extends Component {
   }
 
   handleSettings() {
+
     const { accountData, communicationData } = this.props
 
     console.log('ACCOUNT DATA:', accountData)

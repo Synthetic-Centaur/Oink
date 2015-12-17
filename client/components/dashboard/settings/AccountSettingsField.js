@@ -43,7 +43,6 @@ export class AccountSettingsField extends React.Component {
         </td>
         <td>
           <ListItem
-            ref={item.key}
             secondaryText={ item.property }
             disabled={true}
           />
@@ -64,20 +63,31 @@ export class AccountSettingsField extends React.Component {
 
   updateAccountSettings(item) {
 
-    let keyToValue = {
-      'FIRST_NAME': 'first_name',
-      'LAST_NAME': 'last_name',
-      'EMAIL': 'email'
+    let updateFields = {}
+
+    if (this.refs.FIRST_NAME) {
+      updateFields.first_name = this.refs.FIRST_NAME.getValue()
     }
+    if (this.refs.LAST_NAME) {
+      updateFields.last_name = this.refs.LAST_NAME.getValue()
+    }
+    if (this.refs.EMAIL) {
+      updateFields.email = this.refs.EMAIL.getValue()
+    }
+    // let keyToValue = {
+    //   'FIRST_NAME': 'first_name',
+    //   'LAST_NAME': 'last_name',
+    //   'EMAIL': 'email'
+    // }
 
-    let itemName = keyToValue[item.key]
-    let itemVal = this.refs[item.key].getValue()
+    // let itemName = keyToValue[item.key]
+    // let itemVal = this.refs[item.key].getValue()
 
-    let itemToUpdate = {}
+    // let itemToUpdate = {}
 
-    itemToUpdate[itemName] = itemVal
+    // itemToUpdate[itemName] = itemVal
 
-    this.props.updateAccountSettings(itemToUpdate)
+    this.props.updateAccountSettings(updateFields)
   }
 
   updateCommunicationSettings() {
