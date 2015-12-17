@@ -45,9 +45,8 @@ class Goals extends Component {
               <hr/>
               <GoalConfigurer
                 data = { data }
-                isValid = { goalPage.isValid }
-                validateGoal={ actions.validateGoal }
-                postGoal={ actions.postGoal }
+                actions = { actions }
+                goalPage = { goalPage }
                 />
             </Paper>
           </div>
