@@ -4,7 +4,7 @@ import Promise from 'bluebird'
 import nodemailer from 'nodemailer'
 
 var transporter = nodemailer.createTransport();
-let makeChart = Promise.promisify(cronController.makeEmailChart)
+const makeChart = Promise.promisify(cronController.makeEmailChart)
 
 import phantom from 'node-phantom'
 
@@ -20,13 +20,13 @@ let cronHandler = {
             cronController.userTransactions(user.id)
               .then((sums) => {
 
-                let svg = cronController.makeEmailChart(sums)
-
+                cronController.makeEmailChart(sums)
 
                 let mailOptions = {
                   from: 'aaronbackerman@gmail.com',
                   to: user.email,
                   subject: 'Your weekend summary',
+                  text: 'Dear ' + user.first_name + ',\n\nHere is your financial data for the week of ' + (""+ new Date()).slice(0,15) + '\n\nSincerely,\nOinkFinancial',
                   attachments: [{
                     filename: 'chart.png',
                     path: __dirname + "/../staticUserCharts/chart.png"
@@ -38,8 +38,8 @@ let cronHandler = {
                     return console.log(error)
                   }
                 })
+                  
 
-                
               })
 
           })

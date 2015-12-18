@@ -146,10 +146,11 @@ let cronController = {
     // Generate the chart into the container
     Highcharts.chart('container', chartConfig());
 
+    //get svg and remove div container surrounding it
     var svg = win.document.getElementById('container').innerHTML.slice(178)
     svg = svg.slice(0, -6)
-    // console.log('is this wrapped in a div???', svg.children[0])
-    // return svg
+
+    //write svg file and convert it to png
     writeFile(__dirname + "/../staticUserCharts/chart.svg", svg).then(() => {
       svg2png(__dirname + "/../staticUserCharts/chart.svg", __dirname + "/../staticUserCharts/chart.png", (err) => {
         if (err) {
@@ -166,10 +167,12 @@ let cronController = {
 
 function chartConfig(data) {
 
-  let categories = []
+
+  //convert sums to datapoints for highchart
+  let userCategories = []
   let dataPoints = []
   for (var key in data) {
-    categories.push(key)
+    userCategories.push(key)
     dataPoints.push({y: data[key]})
   }
 
@@ -183,6 +186,7 @@ function chartConfig(data) {
         text: 'Your Weekly Transactions'
     },
     xAxis: {
+        //switch out hardcoded categories with user categories
         categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
     },
 
@@ -206,6 +210,7 @@ function chartConfig(data) {
     },
 
     series: [{
+        //switch out hardCoded data with user data points
         name: 'Monthly rainfall',
         data: [{
             y: 29.9,
