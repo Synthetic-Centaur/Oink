@@ -38,6 +38,7 @@
     "expect": "^1.13.2",
     "express": "4.13.3",
     "fs": "0.0.2",
+    "highcharts": "^4.2.0",
     "highcharts-release": "4.1.10",
     "history": "1.13.1",
     "immutable": "^3.7.5",
@@ -50,9 +51,11 @@
     "moment": "^2.10.6",
     "morgan": "1.6.1",
     "nock": "^3.4.0",
+    "node-phantom": "^0.2.5",
     "node-schedule": "^0.6.0",
     "nodemailer": "^1.10.0",
     "pg": "4.4.3",
+    "phantom": "^0.8.4",
     "plaid": "1.0.7",
     "qs": "4.0.0",
     "r-dom": "^2.1.0",
@@ -70,7 +73,11 @@
     "redux-thunk": "0.1.0",
     "request": "^2.67.0",
     "serve-static": "1.10.0",
-    "twilio": "2.6.0"
+    "svg-to-png": "^2.0.1",
+    "svg2png": "^2.0.0",
+    "system": "^1.0.4",
+    "twilio": "2.6.0",
+    "webpage": "^0.3.0"
   },
   "devDependencies": {
     "babel-core": "^5.8.22",
