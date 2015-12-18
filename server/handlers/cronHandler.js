@@ -19,19 +19,17 @@ let cronHandler = {
             //get users transactions/actul for week
             cronController.userTransactions(user.id)
               .then((sums) => {
-                console.log('here are your sum-------->', sums)
-                //send email
 
-                cronController.makeEmailChart(sums)
+                let svg = cronController.makeEmailChart(sums)
+
 
                 let mailOptions = {
                   from: 'aaronbackerman@gmail.com',
                   to: user.email,
                   subject: 'Your weekend summary',
-                  text: 'Hello from Oink Financial!!',
                   attachments: [{
-                    filename: 'chart.svg',
-                    path: __dirname + "/chart.svg"
+                    filename: 'chart.png',
+                    path: __dirname + "/../staticUserCharts/chart.png"
                   }]
                 }
 
