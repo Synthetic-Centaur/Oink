@@ -46,7 +46,7 @@ let apiController = {
     })
   },
 
-  getTransactions(plaid_token, userid) {
+  retrieveTransactions(plaid_token, userid) {
     // TODO: this logic should be reorganized -- > need to add update budget method on budget controller to simplify
     return plaidClient.getConnectUser(plaid_token,
     {
@@ -57,6 +57,7 @@ let apiController = {
       if (err) {
         console.error('ERROR', err)
       } else {
+        
         // log ('You have ' + response.transactions.length + ' transactions')
         // log ('Transactions (first 4): ', response.transactions.slice(0, 4))
 

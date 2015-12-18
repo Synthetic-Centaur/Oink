@@ -15,7 +15,7 @@ app.get('/setWebhook', apiHandler.setWebhook)
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-app.get('/transactions', apiHandler.getTransactions)
+app.get('/transactions', apiHandler.retrieveTransactions)
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 app.post('/auth/login', authHandler.login)
@@ -37,3 +37,7 @@ app.post('/api/goals', apiHandler.createGoal)
 app.delete('/api/goals/:id', apiHandler.deleteGoal)
 
 app.put('/api/goals/:id', apiHandler.updateGoal)
+
+app.get('/api/transactions', apiHandler.getTransactions)
+
+app.get('/api/transactions/:year/:month', apiHandler.getTransactions)

@@ -1,5 +1,6 @@
 import Budget from '../containers/Budget'
 import Goals from '../containers/Goals'
+import Spending from '../containers/Spending'
 
 // TODO: Update below once there is a heatmap container
 // import HeatMap from '../components/dashboard/GoogleHeatMap'
@@ -24,10 +25,12 @@ export const DROPDOWN_ACTIONS = [
     icon: 'card_travel'
   },
 
-  // {
-  //   text: "Plan",
-  //   icon: "account_balance"
-  // },
+  {
+    text: 'Spending Tracker',
+    component: Spending,
+    icon: 'local_atm'
+  },
+
   // {
   //   text: "Recommendations",
   //   icon: "lightbulb_outline"

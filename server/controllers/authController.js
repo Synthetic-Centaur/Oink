@@ -29,7 +29,14 @@ let authController = {
     })
   },
 
-  findUserByToken(req) {
+  findUserByToken(req, secure) {
+    secure = secure || false
+    let select = ['first_name', 'last_name', 'email', 'phone_number', 'id']
+
+    if (secure) {
+      select = ['first_name', 'last_name', 'email', 'phone_number', 'id', 'token_plaid', 'password']
+    }
+
     if (!req.headers.authorization) {
       return null
     }
@@ -40,7 +47,7 @@ let authController = {
     // Generate search querey
     return db.knex('users')
     .where('token_auth', token)
-    .select('first_name', 'last_name', 'email', 'phone_number', 'id')
+    .select(select)
     .then((user) => {
       //If user is found, return user
       if (user) {
