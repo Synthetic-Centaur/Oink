@@ -2,18 +2,47 @@ import apiController from '../controllers/apiController'
 import budgetController from '../controllers/budgetController'
 import authController from '../controllers/authController'
 import goalController from '../controllers/goalController'
+import transactionController from '../controllers/transactionController'
 
 // Poplulate categories after server initializes
 apiController.getCategories()
 
 let apiHandler = {
-  getTransactions(req, res) {
+  retrieveTransactions(req, res) {
     // TODO: Add Token Plaid logic
-    authController.findUserByToken(req).then((user) => {
-      apiController.getTransactions(user.attributes.token_plaid, user.attributes.id)
+    authController.findUserByToken(req, true).then((user) => {
+      apiController.retrieveTransactions(user.token_plaid, user.id)
     })
   },
-
+  getTransactions(req, res) {
+     // Find the user based on auth token
+    if (!req.headers.authorization) {
+      res.status(403)
+      res.json({ success: false, message: 'Failed, user is not authenticated'})
+    } else {
+      authController.findUserByToken(req).then((user) => {
+        if( req.params.year ) {
+          transactionController.getTransactionsByTime(user.id, req.params.month, req.params.year)
+          .then((transactions) => {
+            if (transactions) {
+              res.json(transactions)
+            } else {
+              res.json({success: false, message: 'Error retrieving transactions'})
+            }
+          })
+        } else {
+          transactionController.getTransactionsByTime(user.id)
+          .then((transactions) => {
+            if (transactions) {
+              res.json(transactions)
+            } else {
+              res.json({success: false, message: 'Error retrieving transactions'})
+            }
+          })
+        }
+      })
+    }
+  },
   setWebhook(req, res) {
     // get user from database using token
     authController.findUserByToken(req).then((user) => {

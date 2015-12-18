@@ -70,7 +70,7 @@ let goalController = {
     .where('user_id', userId)
     .then((transactions) => {
       transactions.forEach((transaction) => {
-        if (transaction.date > start && transaction.date < end) {
+        if (transaction.date >= start && transaction.date <= end) {
           sum += transaction.amount
         }
       })
