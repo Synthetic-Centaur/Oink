@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react'
-import ReactHighcharts from 'react-highcharts'
 import chartConfig from './config/chartConfig'
+
+let ReactHighcharts
+
 class GoalChart extends Component {
 
   checkSelectedGoal(curProps, newProps) {
@@ -23,6 +25,11 @@ class GoalChart extends Component {
 
   render() {
     let { data } = this.props
+
+    if (window !== undefined) {
+      ReactHighCharts = require('react-highcharts/dist/bundle/highcharts')
+    }
+
     let config = {}
     if (data.goals.length > 0) {
       let goal = data.goals[this.props.goalPage.selectedGoal - 1]
@@ -33,8 +40,14 @@ class GoalChart extends Component {
     
     return (
       <div>
-        <ReactHighcharts config = {config}></ReactHighcharts>
-      </div>
+          {
+            window !== undefined
+            ?
+            <ReactHighCharts config={config} ref="chart" />
+            :
+            null
+          }
+        </div>
     )
   }
 }
