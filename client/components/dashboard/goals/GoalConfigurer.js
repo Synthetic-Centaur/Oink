@@ -33,7 +33,8 @@ class GoalConfigurer extends Component {
               deleteGoal = { actions.deleteGoal }
               switchGoal = { actions.switchGoal }
               changeGoalView = { actions.changeGoalView }
-              validateGoal = { actions.validateGoal } />
+              validateGoal = { actions.validateGoal } 
+              selectAvg = { actions.selectAvg}/>
           </div>
         )
       default:

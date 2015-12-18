@@ -19,6 +19,7 @@ class GoalUpdate extends Component {
     this.props.deleteGoal(id)
     this.props.changeGoalView('')
     this.props.switchGoal(1)
+    this.props.selectAvg(0)
   }
   
   handleGoal(e) {
