@@ -6,6 +6,7 @@ import Tab from 'material-ui/lib/tabs/tab'
 import { Link } from 'react-router'
 import AccountSettingsField from './AccountSettingsField'
 import CommunicationSettingsField from './CommunicationSettingsField'
+import SecuritySettingsField from './SecuritySettingsField'
 
 class SettingsModal extends Component {
 
@@ -119,15 +120,47 @@ class SettingsModal extends Component {
             </div>
           </Tab>
           <Tab label="Communication" >
+            <div className="modal-content">
 
-            <CommunicationSettingsField
-            />
-
+              <CommunicationSettingsField
+                userData={userData}
+                editStart={this.props.editStart}
+                editFinish={this.props.editFinish}
+                firstName={user.firstName}
+                editingFirstName={this.props.editingFirstName}
+                lastName={user.lastName}
+                editingLastName={this.props.editingLastName}
+                email={user.email}
+                editingEmail={this.props.editingEmail}
+                phoneNumber={user.phoneNumber}
+                editingPhoneNumber={this.props.editingPhoneNumber}
+                updateAccountSettings={this.props.updateAccountSettings}
+                updateCommunicationSettings={this.props.updateCommunicationSettings}
+              />
+              
+            </div>
           </Tab>
-          <Tab
-            label="Item Three"
-            route="home"
-            onActive={this._handleTabActive} />
+          <Tab label="Security" >
+            <div className="modal-content">
+
+              <SecuritySettingsField
+                userData={userData}
+                editStart={this.props.editStart}
+                editFinish={this.props.editFinish}
+                firstName={user.firstName}
+                editingFirstName={this.props.editingFirstName}
+                lastName={user.lastName}
+                editingLastName={this.props.editingLastName}
+                email={user.email}
+                editingEmail={this.props.editingEmail}
+                phoneNumber={user.phoneNumber}
+                editingPhoneNumber={this.props.editingPhoneNumber}
+                updateAccountSettings={this.props.updateAccountSettings}
+                updateCommunicationSettings={this.props.updateCommunicationSettings}
+              />
+              
+            </div>
+          </Tab>
         </Tabs>
       </Dialog>
     )
