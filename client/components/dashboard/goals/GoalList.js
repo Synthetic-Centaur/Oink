@@ -6,9 +6,6 @@ import MoreVertIcon from 'material-ui/lib/svg-icons/navigation/more-vert'
 var SelectableList = SelectableContainerEnhance(List)
 
 class GoalList extends Component {
-  handleEdit(e) {
-
-  }
 
   selectGoal(e, index) {
     e.preventDefault()
@@ -21,8 +18,7 @@ class GoalList extends Component {
     let index = 0
     let goalList = data.goals.map((goal) => {
       index++
-      return <ListItem key={ index } primaryText = { goal.description } value = { index } rightIconButton={<i className='material-icons'
-        onTouchTap={this.handleEdit.bind(this)}>mode_edit</i>}/>
+      return <ListItem key={ index } primaryText = { goal.description } value = { index }/>
     })
     return (
       <SelectableList valueLink = {{value: this.props.selectedGoal, requestChange: this.selectGoal.bind(this)}}

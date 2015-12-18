@@ -103,10 +103,10 @@ export function deleteBudget(data) {
   }
 }
 
-export function deleteGoal(data) {
+export function deleteGoal(id) {
   return (dispatch) => {
     dispatch(ACTIONS.requestData())
-    return fetch('/api/goals/' + data.goalId, {
+    return fetch('/api/goals/' + id, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -128,7 +128,7 @@ export function deleteGoal(data) {
 export function updateGoal(data) {
   return (dispatch) => {
     dispatch(ACTIONS.requestData())
-    return fetch('/api/goals/' + data.goalId, {
+    return fetch('/api/goals/' + data.id, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -141,7 +141,7 @@ export function updateGoal(data) {
       })
     })
     .then((response) => {
-      if (response.status === 200) {
+      if (response.status === 201) {
         getInitialState()(dispatch)
         dispatch(ACTIONS.receiveData(response))
       }

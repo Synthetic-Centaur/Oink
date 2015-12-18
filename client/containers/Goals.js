@@ -8,8 +8,8 @@ import GoalChart from '../components/dashboard/goals/GoalChart'
 import GoalConfigurer from '../components/dashboard/goals/GoalConfigurer'
 import GoalList from '../components/dashboard/goals/GoalList'
 import { Paper } from 'material-ui'
-import { postGoal } from '../actions/api/apiActions'
-import { switchGoal, validateGoal, selectAvg, updateGoal, deleteGoal } from '../actions/actions'
+import { postGoal, updateGoal, deleteGoal } from '../actions/api/apiActions'
+import { switchGoal, validateGoal, selectAvg, changeGoalView } from '../actions/actions'
 
 class Goals extends Component {
   getChildContext() {
@@ -32,11 +32,13 @@ class Goals extends Component {
                 selectedAvg = { goalPage.selectedAvg }/>
                 { data.goals.length > 0 ? <GoalChart data = { data }
                 goalPage = { goalPage }
+                goalView = { goalPage.goalView }
                 selectedAvg = { goalPage.selectedAvg }/> : <div/> }
             </div>
             <Paper zDepth={1} rounded={false} className="four columns">
               <GoalList
                 data = { data }
+                goalPage = { goalPage }
                 selectedGoal = { goalPage.selectedGoal }
                 switchGoal = { actions.switchGoal }
                 deleteGoal = { actions.deleteGoal }
@@ -83,7 +85,8 @@ function mapDispatchToProps(dispatch) {
       validateGoal,
       selectAvg,
       deleteGoal,
-      updateGoal
+      updateGoal,
+      changeGoalView
     }, dispatch)
   }
 }

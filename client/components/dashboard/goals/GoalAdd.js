@@ -26,9 +26,10 @@ class GoalAdd extends Component {
 
     if (this.props.isValid) {
       this.props.postGoal(goal)
-      this.refs.amount.setValue('')
-      this.refs.description.setValue('')
-      this.refs.goalBy.setDate()
+      this.props.changeGoalView('')
+      // this.refs.amount.setValue('')
+      // this.refs.description.setValue('')
+      // this.refs.goalBy.setDate()
     }
   }
 
@@ -61,7 +62,7 @@ class GoalAdd extends Component {
             />
         </div>
         <div className = "row">
-          <RaisedButton label="Submit" disabled={(!this.props.isValid)}
+          <RaisedButton label="CREATE" disabled={(!this.props.isValid)}
            onClick={this.handleGoal.bind(this)}/>
         </div>
         <br/>

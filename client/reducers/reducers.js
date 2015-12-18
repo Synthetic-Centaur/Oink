@@ -117,7 +117,7 @@ export function homePageReducer(state = {
 export function goalPageReducer(state = {
   selectedGoal: 1,
   isValid: false,
-  selectedAvg: 0
+  selectedAvg: 0,
 }, action = null) {
   switch (action.type) {
     case 'ALLOW_SUBMISSION':
@@ -128,6 +128,8 @@ export function goalPageReducer(state = {
       return Object.assign({}, state, {selectedGoal: action.data})
     case 'ENTER_AVG':
       return Object.assign({}, state, {selectedAvg: action.data})
+    case 'CHANGE_GOAL_VIEW':
+      return Object.assign({}, state, {goalView: action.data})
     default:
       return state
   }

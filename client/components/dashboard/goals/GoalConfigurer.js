@@ -14,12 +14,17 @@ class GoalConfigurer extends Component {
                 data = { data }
                 isValid = { goalPage.isValid }
                 validateGoal = { actions.validateGoal }
-                postGoal = { actions.postGoal } />
+                postGoal = { actions.postGoal }
+                changeGoalView = { actions.changeGoalView } />
       case 'EDIT' :
         return <GoalUpdate
                 data = { data }
+                isValid = { goalPage.isValid }
+                selectedGoal = { goalPage.selectedGoal }
                 updateGoal = { actions.updateGoal }
-                deleteGoal = { actions.deleteGoal } />
+                deleteGoal = { actions.deleteGoal }
+                changeGoalView = { actions.changeGoalView }
+                validateGoal = { actions.validateGoal } />
       default: 
         return <br/>
     }
@@ -27,7 +32,7 @@ class GoalConfigurer extends Component {
   }
 
   changeView(view) {
-    this.props.changeGoalView(view)
+    this.props.actions.changeGoalView(view)
   }
 
   render() {

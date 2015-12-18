@@ -247,5 +247,6 @@ export default {
   showSettings,
   hideSettings,
   changeSettingsView,
-  changeCurrentBudget
+  changeCurrentBudget,
+  changeGoalView
 }

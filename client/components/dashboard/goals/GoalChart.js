@@ -5,7 +5,7 @@ class GoalChart extends Component {
 
   shouldComponentUpdate(nextProps) {
     if (this.props.goalPage.selectedGoal && nextProps.goalPage.selectedGoal) {
-      return (this.props.goalPage.selectedGoal !== nextProps.goalPage.selectedGoal || this.props.goalPage.selectedAvg !== nextProps.goalPage.selectedAvg)
+      return (this.props.goalPage.selectedGoal !== nextProps.goalPage.selectedGoal || this.props.goalPage.selectedAvg !== nextProps.goalPage.selectedAvg || this.props.goalPage.goalView !== nextProps.goalPage.goalView)
     } else {
       return true
     }
