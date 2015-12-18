@@ -4,6 +4,7 @@ import Budgets from '../db/collections/budgets'
 import db from '../db/dbConfig.js'
 import Transaction from '../db/models/transaction'
 import Promise from 'bluebird'
+import moment from 'moment'
 
 // import apiController for message sending on budget update
 import apiController from './apiController'
@@ -88,7 +89,7 @@ let budgetController = {
     return db.knex('transactions').where({category_id: categoryId}).select().then((transactions)=> {
       let sum = 0
       return Promise.map(transactions, (transaction) => {
-        if (transaction.date >= (new Date().getMonth() - 1)) {
+        if (transaction.date >= moment().startOf('month')) {
           sum += transaction.amount
         }
       }).then(() => {

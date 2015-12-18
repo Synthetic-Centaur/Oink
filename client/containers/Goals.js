@@ -8,8 +8,8 @@ import GoalChart from '../components/dashboard/goals/GoalChart'
 import GoalConfigurer from '../components/dashboard/goals/GoalConfigurer'
 import GoalList from '../components/dashboard/goals/GoalList'
 import { Paper } from 'material-ui'
-import { postGoal } from '../actions/api/apiActions'
-import { switchGoal } from '../actions/actions'
+import { postGoal, updateGoal, deleteGoal } from '../actions/api/apiActions'
+import { switchGoal, validateGoal, selectAvg, changeGoalView } from '../actions/actions'
 
 class Goals extends Component {
   getChildContext() {
@@ -20,37 +20,56 @@ class Goals extends Component {
   
   render() {
     const { actions, goalPage, data } = this.props
-    return (
-      <div>
-        <div className = "container">
-          <div className = "row">
-            <div className="eight columns">
-                <MessageCenter data = { data }
-                selectedGoal = { goalPage.selectedGoal }/>
-                <GoalChart data = { data }
-                selectedGoal = { goalPage.selectedGoal } />
+    if (data) {
+      return (
+        <div>
+          <div className = "container goals">
+            <div className = "row">
+              <div className="eight columns">
+                  <MessageCenter data = { data }
+                  selectedGoal = { goalPage.selectedGoal }
+                  selectAvg = { actions.selectAvg }
+                  goalPage = { goalPage }
+                  selectedAvg = { goalPage.selectedAvg }/>
+                  { data.goals && data.goals.length > 0 ? <GoalChart data = { data }
+                    goalPage = { goalPage }
+                    goalView = { goalPage.goalView }
+                    selectedAvg = { goalPage.selectedAvg }/> : <div/> }
+              </div>
+              <br/>
+              <Paper zDepth={1} rounded={false} className="four columns">
+                <GoalList
+                  data = { data }
+                  goalPage = { goalPage }
+                  selectedGoal = { goalPage.selectedGoal }
+                  switchGoal = { actions.switchGoal }
+                  deleteGoal = { actions.deleteGoal }
+                  updateGoal = { actions.updateGoal }
+                 />
+                <hr/>
+                <GoalConfigurer
+                  data = { data }
+                  actions = { actions }
+                  goalPage = { goalPage }
+                  />
+              </Paper>
             </div>
-            <Paper zDepth={1} rounded={false} className="four columns">
-              <GoalList
-                data = { data }
-                selectedGoal = { goalPage.selectedGoal }
-                switchGoal = { actions.switchGoal }
-               />
-              <hr/>
-              <GoalConfigurer
-                data = { data }
-                postGoal={ actions.postGoal }
-                />
-            </Paper>
           </div>
         </div>
-      </div>
-     )
+       )
+    } else {
+      return <div/>
+    }
   }
 }
 
 Goals.PropTypes = {
+  data: PropTypes.object.isRequired,
+  goalPage: PropTypes.object.isRequired
+}
 
+Goals.childContextTypes = {
+  muiTheme: PropTypes.object
 }
 
 Goals.childContextTypes = {
@@ -72,7 +91,12 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
       postGoal,
-      switchGoal
+      switchGoal,
+      validateGoal,
+      selectAvg,
+      deleteGoal,
+      updateGoal,
+      changeGoalView
     }, dispatch)
   }
 }

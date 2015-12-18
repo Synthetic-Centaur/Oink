@@ -75,10 +75,6 @@ export function postGoal(data) {
         getInitialState()(dispatch)
       }
     })
-    
-    // .then((response) => {
-    //   dispatch(ACTIONS.receiveData(response))
-    // })
     .catch((error) => {
       dispatch(ACTIONS.receiveError(error))
     })
@@ -97,6 +93,55 @@ export function deleteBudget(data) {
     })
     .then((response) => {
       if (response.status === 200) {
+        getInitialState()(dispatch)
+        dispatch(ACTIONS.receiveData(response))
+      }
+    })
+    .catch((err) => {
+      dispatch(ACTIONS.receiveError(err))
+    })
+  }
+}
+
+export function deleteGoal(id) {
+  return (dispatch) => {
+    dispatch(ACTIONS.requestData())
+    return fetch('/api/goals/' + id, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: 'Bearer ' + JSON.parse(window.localStorage.redux).auth.token
+      }
+    })
+    .then((response) => {
+      if (response.status === 200) {
+        getInitialState()(dispatch)
+        dispatch(ACTIONS.receiveData(response))
+      }
+    })
+    .catch((err) => {
+      dispatch(ACTIONS.receiveError(err))
+    })
+  }
+}
+
+export function updateGoal(data) {
+  return (dispatch) => {
+    dispatch(ACTIONS.requestData())
+    return fetch('/api/goals/' + data.id, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: 'Bearer ' + JSON.parse(window.localStorage.redux).auth.token
+      },
+      body: JSON.stringify({
+        amount: data.amount,
+        description: data.description,
+        goalBy: data.goalBy
+      })
+    })
+    .then((response) => {
+      if (response.status === 201) {
         getInitialState()(dispatch)
         dispatch(ACTIONS.receiveData(response))
       }

@@ -26,13 +26,35 @@ let goalController = {
     })
   },
 
+  deleteGoal(userId, goalId) {
+    return db.knex('goals').where({
+      user_id: userId,
+      id: goalId
+    }).select('description', 'amount', 'goalBy', 'goalStarted', 'id').del().then((oldGoal) => {
+      return oldGoal || null
+    }).catch((err) => {
+      console.error(err)
+    })
+  },
+  
+  updateGoal(userId, goalId, body) {
+    return db.knex('goals').where({
+      user_id: userId,
+      id: goalId
+    }).update(body).then((response) => {
+      return response
+    }).catch((err) => {
+      console.error(err)
+    })
+  },
+
   getGoalsById(userId) {
 
     // Search goals table
     return db.knex('goals')
 
     // Only returns certain columns
-    .select('description', 'goalBy', 'goalStarted', 'amount')
+    .select('description', 'goalBy', 'goalStarted', 'amount', 'id')
 
     // Only gets goals from specified user
     .where('user_id', userId).then((goals) => {
