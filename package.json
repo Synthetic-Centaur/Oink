@@ -8,7 +8,8 @@
     "copyEnv": "cp ./server/env/envConfig-temp.js ./server/env/envConfig.js",
     "build": "NODE_ENV=production webpack --config webpack.production.config.js",
     "clean": "rm -r ./public/bundle.min.js",
-    "testall": "mocha --timeout 10000 --compilers js:babel/register test/loadTests.js",
+    "test": "NODE_ENV=test mocha --timeout 10000 --compilers js:babel/register test/loadtests.js",
+    "testdev": "NODE_ENV=dev mocha --timeout 10000 --compilers js:babel/register test/loadtests.js",
     "lint": "jscs ./"
   },
   "pre-commit": [
