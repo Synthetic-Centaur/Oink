@@ -26,10 +26,11 @@ export const DROPDOWN_ACTIONS = [
   },
 
   {
-    text: "Spending Tracker",
+    text: 'Spending Tracker',
     component: Spending,
-    icon: "local_atm"
+    icon: 'local_atm'
   },
+
   // {
   //   text: "Recommendations",
   //   icon: "lightbulb_outline"

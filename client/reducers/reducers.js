@@ -114,6 +114,14 @@ export function homePageReducer(state = {
   }
 }
 
+export function spendingPageReducer(state = {
+}, action = null) {
+  switch (action.type) {
+    default:
+      return state
+  }
+}
+
 export function goalPageReducer(state = {
   selectedGoal: 1,
   isValid: false,

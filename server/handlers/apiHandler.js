@@ -9,19 +9,22 @@ apiController.getCategories()
 
 let apiHandler = {
   retrieveTransactions(req, res) {
+
     // TODO: Add Token Plaid logic
     authController.findUserByToken(req, true).then((user) => {
       apiController.retrieveTransactions(user.token_plaid, user.id)
     })
   },
+
   getTransactions(req, res) {
-     // Find the user based on auth token
+    
+    // Find the user based on auth token
     if (!req.headers.authorization) {
       res.status(403)
       res.json({ success: false, message: 'Failed, user is not authenticated'})
     } else {
       authController.findUserByToken(req).then((user) => {
-        if( req.params.year ) {
+        if (req.params.year && req.params.month) {
           transactionController.getTransactionsByTime(user.id, req.params.month, req.params.year)
           .then((transactions) => {
             if (transactions) {
@@ -43,6 +46,7 @@ let apiHandler = {
       })
     }
   },
+
   setWebhook(req, res) {
     // get user from database using token
     authController.findUserByToken(req).then((user) => {
@@ -78,16 +82,18 @@ let apiHandler = {
                   // Retrieve all goals from user
                   goalController.getGoalsById(user.id).then((goals) => {
                     goalController.generateReport(user.id).then((avgNet) => {
-
-                      // Build response object
-                      let state = {
-                        user,
-                        budgets,
-                        categories,
-                        goals,
-                        avgNet
-                      }
-                      res.json(state)
+                      transactionController.getTransactionsByTime(user.id).then((transactions) => {
+                        // Build response object
+                        let state = {
+                          transactions,
+                          user,
+                          budgets,
+                          categories,
+                          goals,
+                          avgNet
+                        }
+                        res.json(state)
+                      })
                     })
                   })
                 } else {
