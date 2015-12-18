@@ -24,11 +24,7 @@ class SettingsModal extends Component {
 
   handleSettings() {
 
-    const { accountData, communicationData } = this.props
-
-    console.log('ACCOUNT DATA:', accountData)
-    console.log('COMMUNICATION DATA', communicationData)
-    console.log('PROPS:', this.props)
+    const { accountData, communicationData, securityData } = this.props
 
     let completeData = {}
 
@@ -38,6 +34,10 @@ class SettingsModal extends Component {
 
     for (let key in communicationData) {
       completeData[key] = communicationData[key]
+    }
+
+    for (let key in securityData) {
+      completeData[key] = securityData[key]
     }
 
     this.props.postSettings(completeData)
@@ -115,6 +115,7 @@ class SettingsModal extends Component {
                 editingPhoneNumber={this.props.editingPhoneNumber}
                 updateAccountSettings={this.props.updateAccountSettings}
                 updateCommunicationSettings={this.props.updateCommunicationSettings}
+                updateSecuritySettings={this.props.updateSecuritySettings}
               />
               
             </div>
@@ -126,16 +127,9 @@ class SettingsModal extends Component {
                 userData={userData}
                 editStart={this.props.editStart}
                 editFinish={this.props.editFinish}
-                firstName={user.firstName}
-                editingFirstName={this.props.editingFirstName}
-                lastName={user.lastName}
-                editingLastName={this.props.editingLastName}
-                email={user.email}
-                editingEmail={this.props.editingEmail}
-                phoneNumber={user.phoneNumber}
-                editingPhoneNumber={this.props.editingPhoneNumber}
                 updateAccountSettings={this.props.updateAccountSettings}
                 updateCommunicationSettings={this.props.updateCommunicationSettings}
+                updateSecuritySettings={this.props.updateSecuritySettings}
               />
               
             </div>
@@ -147,16 +141,12 @@ class SettingsModal extends Component {
                 userData={userData}
                 editStart={this.props.editStart}
                 editFinish={this.props.editFinish}
-                firstName={user.firstName}
-                editingFirstName={this.props.editingFirstName}
-                lastName={user.lastName}
-                editingLastName={this.props.editingLastName}
-                email={user.email}
-                editingEmail={this.props.editingEmail}
-                phoneNumber={user.phoneNumber}
-                editingPhoneNumber={this.props.editingPhoneNumber}
+                editingPassword={this.props.editingPassword}
+                editingDeleteAccount={this.props.editingDeleteAccount}
                 updateAccountSettings={this.props.updateAccountSettings}
                 updateCommunicationSettings={this.props.updateCommunicationSettings}
+                updateSecuritySettings={this.props.updateSecuritySettings}
+                securityData={this.props.securityData}
               />
               
             </div>

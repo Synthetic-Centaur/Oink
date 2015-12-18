@@ -6,7 +6,7 @@ import Theme from '../material-theme.js'
 import { authRedirect, authLogout } from '../actions/api/authActions'
 import { getInitialState, postSettings } from '../actions/api/apiActions'
 import { changeView, switchComponent, showSettings, hideSettings, editStart, editFinish,
-         updateAccountSettings, updateCommunicationSettings } from '../actions/actions'
+         updateAccountSettings, updateCommunicationSettings, updateSecuritySettings } from '../actions/actions'
 import SideNav from '../components/dashboard/sidenav/SideNav'
 import SettingsModal from '../components/dashboard/settings/SettingsModal'
 import Budget from './Budget'
@@ -51,8 +51,8 @@ class Dashboard extends React.Component {
 
   render() {
     const { actions, currentComponent, data, homePage, editingFirstName, editingLastName,
-            editingEmail, editingPhoneNumber, accountData, communicationData } = this.props
-    console.log('THIS EDITING EMAIL', editingEmail)
+            editingEmail, editingPhoneNumber, editingPassword, editingDeleteAccount,
+            accountData, communicationData, securityData } = this.props
     return (
       <div className="dashboard-el">
       
@@ -79,10 +79,14 @@ class Dashboard extends React.Component {
             editingLastName={editingLastName}
             editingEmail={editingEmail}
             editingPhoneNumber={editingPhoneNumber}
+            editingPassword={editingPassword}
+            editingDeleteAccount={editingDeleteAccount}
             accountData={accountData}
             communicationData={communicationData}
+            securityData={securityData}
             updateAccountSettings={actions.updateAccountSettings}
             updateCommunicationSettings={actions.updateCommunicationSettings}
+            updateSecuritySettings={actions.updateSecuritySettings}
           />
 
           <div className="header">
@@ -123,8 +127,11 @@ function mapStateToProps(state) {
     editingLastName: state.settings.editingLastName,
     editingEmail: state.settings.editingEmail,
     editingPhoneNumber: state.settings.editingPhoneNumber,
+    editingPassword: state.settings.editingPassword,
+    editingDeleteAccount: state.settings.editingDeleteAccount,
     accountData: state.settings.accountData,
-    communicationData: state.settings.communicationData
+    communicationData: state.settings.communicationData,
+    securityData: state.settings.securityData
   }
 }
 
@@ -142,7 +149,8 @@ function mapDispatchToProps(dispatch) {
       editStart,
       editFinish,
       updateAccountSettings,
-      updateCommunicationSettings
+      updateCommunicationSettings,
+      updateSecuritySettings
     }, dispatch)
   }
 }

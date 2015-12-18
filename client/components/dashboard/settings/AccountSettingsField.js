@@ -55,7 +55,6 @@ export class AccountSettingsField extends React.Component {
   }
 
   renderItem(item, i) {
-    console.log('inside account settings firld item is', item)
     if (item.editing) {
       return this.renderEdit(item, i)
     }
@@ -91,7 +90,6 @@ export class AccountSettingsField extends React.Component {
   }
   
   render() {
-    console.log('USER DATA:', this.props.userData)
     return (
       <table className="ten columns offset-by-one" style={{border: '0px'}}>
         <tbody>

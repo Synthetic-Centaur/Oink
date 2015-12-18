@@ -230,7 +230,6 @@ function hideSettings() {
 
 // We should know when a user is editing their first name
 function editStart(item) {
-  console.log('in edit start', item)
   return (dispatch) => {
     dispatch({
       type: 'EDIT_START',
@@ -251,7 +250,6 @@ function editFinish(item) {
 
 // Update the user account settings on state
 function updateAccountSettings(item) {
-  console.log('item is:', item)
   return (dispatch) => {
     dispatch({
       type: 'UPDATE_ACCOUNT_SETTINGS',
@@ -260,7 +258,7 @@ function updateAccountSettings(item) {
   }
 }
 
-// Update the user account settings on state
+// Update the communication settings on state
 function updateCommunicationSettings(phoneNumber) {
   return (dispatch) => {
     dispatch({
@@ -271,6 +269,18 @@ function updateCommunicationSettings(phoneNumber) {
     })
   }
 }
+
+// Update the communication settings on state
+function updateSecuritySettings(item) {
+  console.log('inside update updateSecuritySettings item is', item)
+  return (dispatch) => {
+    dispatch({
+      type: 'UPDATE_SECURITY_SETTINGS',
+      data: item
+    })
+  }
+}
+
 export default {
   requestData,
   receiveData,
@@ -301,5 +311,6 @@ export default {
   editStart,
   editFinish,
   updateCommunicationSettings,
-  updateAccountSettings
+  updateAccountSettings,
+  updateSecuritySettings
 }

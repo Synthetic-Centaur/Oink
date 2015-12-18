@@ -122,8 +122,11 @@ export function settingsReducer(state = {
   editingLastName: false,
   editingEmail: false,
   editingPhoneNumber: false,
+  editingPassword: false,
+  editingDeleteAccount: false,
   accountData: {},
-  communicationData: {}
+  communicationData: {},
+  securityData: {}
 }, action = null) {
   switch (action.type) {
     case 'EDIT_START':
@@ -136,6 +139,10 @@ export function settingsReducer(state = {
           return Object.assign({}, state, {editingEmail: true})
         case 'PHONE_NUMBER':
           return Object.assign({}, state, {editingPhoneNumber: true})
+        case 'PASSWORD':
+          return Object.assign({}, state, {editingPassword: true})
+        case 'DELETE_ACCOUNT':
+          return Object.assign({}, state, {editingDeleteAccount: true})
         default:
           return state
       }
@@ -149,6 +156,10 @@ export function settingsReducer(state = {
           return Object.assign({}, state, {editingEmail: false})
         case 'PHONE_NUMBER':
           return Object.assign({}, state, {editingPhoneNumber: false})
+        case 'PASSWORD':
+          return Object.assign({}, state, {editingPassword: false})
+        case 'DELETE_ACCOUNT':
+          return Object.assign({}, state, {editingDeleteAccount: false})
         default:
           return state
       }
@@ -156,6 +167,8 @@ export function settingsReducer(state = {
       return Object.assign({}, state, {accountData: action.data})
     case 'UPDATE_COMMUNICATION_SETTINGS':
       return Object.assign({}, state, {communicationData: action.data})
+    case 'UPDATE_SECURITY_SETTINGS':
+      return Object.assign({}, state, {securityData: action.data})
     default:  
       return state
   }
