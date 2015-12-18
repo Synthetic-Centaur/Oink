@@ -17,7 +17,6 @@ let apiHandler = {
   setWebhook(req, res) {
     // get user from database using token
     authController.findUserByToken(req).then((user) => {
-      console.log('inside WEBHOOK SETUP handler. User is :', user)
       if (user.attributes.token_plaid) {
         apiController.setWebhook(user.attributes.token_plaid)
         res.sendStatus(200)

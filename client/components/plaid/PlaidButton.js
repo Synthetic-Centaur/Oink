@@ -17,8 +17,6 @@ class PlaidButton extends Component {
   handlePlaid(e) {
     e.preventDefault()
 
-    console.log('PROPS', this.props)
-    
     const { authenticate, publicKey } = this.props
 
     // COMMENT IN BELOW FOR SANDBOX ENV
