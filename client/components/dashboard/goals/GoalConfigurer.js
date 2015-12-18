@@ -13,7 +13,7 @@ class GoalConfigurer extends Component {
         return (
           <div>
             <br/>
-            <GoalAdd 
+            <GoalAdd
               data = { data }
               isValid = { goalPage.isValid }
               validateGoal = { actions.validateGoal }
@@ -36,7 +36,7 @@ class GoalConfigurer extends Component {
               validateGoal = { actions.validateGoal } />
           </div>
         )
-      default: 
+      default:
         return <br/>
     }
 
@@ -48,7 +48,7 @@ class GoalConfigurer extends Component {
 
   render() {
     const { actions, goalPage, data } = this.props
-    let editValid = data.goals.length > 0 ? false: true
+    let editValid = data.goals.length > 0 ? false : true
     return (
       <div className="container">
         <div className="row">

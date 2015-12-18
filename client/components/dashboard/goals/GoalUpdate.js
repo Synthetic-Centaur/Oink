@@ -11,6 +11,7 @@ class GoalUpdate extends Component {
       this.props.validateGoal(false)
     }
   }
+
   deleteGoal(e) {
     const { data } = this.props
     let id = data.goals[this.props.selectedGoal - 1].id
@@ -23,7 +24,6 @@ class GoalUpdate extends Component {
   handleGoal(e) {
     e.preventDefault()
     const { data } = this.props
-
 
     let description = this.refs.description.getValue()
     let amount = parseInt(this.refs.amount.getValue())

@@ -27,9 +27,6 @@ class GoalAdd extends Component {
     if (this.props.isValid) {
       this.props.postGoal(goal)
       this.props.changeGoalView('')
-      // this.refs.amount.setValue('')
-      // this.refs.description.setValue('')
-      // this.refs.goalBy.setDate()
     }
   }
 
