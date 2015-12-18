@@ -50,9 +50,9 @@ class Dashboard extends React.Component {
   }
 
   render() {
-    console.log('THIS PROPS DASH:', this.props)
     const { actions, currentComponent, data, homePage, editingFirstName, editingLastName,
-            EditingEmail, EditingPhoneNumber, accountData, communicationData } = this.props
+            editingEmail, editingPhoneNumber, accountData, communicationData } = this.props
+    console.log('THIS EDITING EMAIL', editingEmail)
     return (
       <div className="dashboard-el">
       
@@ -77,8 +77,8 @@ class Dashboard extends React.Component {
             data={data}
             editingFirstName={editingFirstName}
             editingLastName={editingLastName}
-            EditingEmail={EditingEmail}
-            EditingPhoneNumber={EditingPhoneNumber}
+            editingEmail={editingEmail}
+            editingPhoneNumber={editingPhoneNumber}
             accountData={accountData}
             communicationData={communicationData}
             updateAccountSettings={actions.updateAccountSettings}

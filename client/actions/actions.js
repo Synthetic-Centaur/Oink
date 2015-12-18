@@ -230,6 +230,7 @@ function hideSettings() {
 
 // We should know when a user is editing their first name
 function editStart(item) {
+  console.log('in edit start', item)
   return (dispatch) => {
     dispatch({
       type: 'EDIT_START',

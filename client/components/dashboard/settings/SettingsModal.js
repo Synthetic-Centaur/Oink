@@ -59,6 +59,7 @@ class SettingsModal extends Component {
   }
 
   render() {
+    console.log('this props', this.props)
     let user = {
       firstName: this.props.data.user ? this.props.data.user.first_name : '',
       lastName: this.props.data.user ? this.props.data.user.last_name : '',
@@ -71,9 +72,6 @@ class SettingsModal extends Component {
       {property: user.lastName,  title: 'Last Name', key: 'LAST_NAME', editing: this.props.editingLastName},
       {property: user.email,  title: 'Email', key: 'EMAIL', editing: this.props.editingEmail},
       {property: this.parsePhoneNumber(user.phoneNumber), title: 'Phone Number', key: 'PHONE_NUMBER', editing: this.props.editingPhoneNumber}
-    ]
-
-    let CommunicationData = [
     ]
 
     let modalActions = [
