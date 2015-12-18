@@ -62,6 +62,7 @@ class SettingsModal extends Component {
     let user = {
       firstName: this.props.data.user ? this.props.data.user.first_name : '',
       lastName: this.props.data.user ? this.props.data.user.last_name : '',
+      email: this.props.data.user ? this.props.data.user.email : '',
       phoneNumber: this.props.data.user ? this.props.data.user.phone_number : ''
     }
 
@@ -69,10 +70,10 @@ class SettingsModal extends Component {
       {property: user.firstName, title: 'First Name', key: 'FIRST_NAME', editing: this.props.editingFirstName},
       {property: user.lastName,  title: 'Last Name', key: 'LAST_NAME', editing: this.props.editingLastName},
       {property: user.email,  title: 'Email', key: 'EMAIL', editing: this.props.editingEmail},
+      {property: this.parsePhoneNumber(user.phoneNumber), title: 'Phone Number', key: 'PHONE_NUMBER', editing: this.props.editingPhoneNumber}
     ]
 
     let CommunicationData = [
-      {property: this.parsePhoneNumber(user.phoneNumber), title: 'Phone Number', key: 'PHONE_NUMBER', editing: this.props.editingPhoneNumber}
     ]
 
     let modalActions = [
@@ -109,6 +110,10 @@ class SettingsModal extends Component {
                 editingFirstName={this.props.editingFirstName}
                 lastName={user.lastName}
                 editingLastName={this.props.editingLastName}
+                email={user.email}
+                editingEmail={this.props.editingEmail}
+                phoneNumber={user.phoneNumber}
+                editingPhoneNumber={this.props.editingPhoneNumber}
                 updateAccountSettings={this.props.updateAccountSettings}
                 updateCommunicationSettings={this.props.updateCommunicationSettings}
               />
@@ -118,7 +123,6 @@ class SettingsModal extends Component {
           <Tab label="Communication" >
 
             <CommunicationSettingsField
-              phoneNumber={user.phoneNumber}
             />
 
           </Tab>

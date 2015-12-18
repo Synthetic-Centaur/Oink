@@ -74,18 +74,9 @@ export class AccountSettingsField extends React.Component {
     if (this.refs.EMAIL) {
       updateFields.email = this.refs.EMAIL.getValue()
     }
-    // let keyToValue = {
-    //   'FIRST_NAME': 'first_name',
-    //   'LAST_NAME': 'last_name',
-    //   'EMAIL': 'email'
-    // }
-
-    // let itemName = keyToValue[item.key]
-    // let itemVal = this.refs[item.key].getValue()
-
-    // let itemToUpdate = {}
-
-    // itemToUpdate[itemName] = itemVal
+    if (this.refs.PHONE_NUMBER) {
+      updateFields.phone_number = this.refs.PHONE_NUMBER.getValue()
+    }
 
     this.props.updateAccountSettings(updateFields)
   }
