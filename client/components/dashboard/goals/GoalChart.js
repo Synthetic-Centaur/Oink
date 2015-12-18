@@ -3,9 +3,19 @@ import ReactHighcharts from 'react-highcharts'
 import chartConfig from './config/chartConfig'
 class GoalChart extends Component {
 
+  checkSelectedGoal(curProps, newProps) {
+    let curGoal = curProps.data.goals[curProps.goalPage.selectedGoal - 1]
+    let nextGoal = newProps.data.goals[newProps.goalPage.selectedGoal - 1]
+    if (curProps.selectedAvg !== newProps.selectedAvg || curGoal.id !== nextGoal.id || curGoal.amount !== nextGoal.amount) {
+      return true
+    } else {
+      return false
+    }
+  }
+
   shouldComponentUpdate(nextProps) {
-    if (this.props.goalPage.selectedGoal && nextProps.goalPage.selectedGoal) {
-      return (this.props.goalPage.selectedGoal !== nextProps.goalPage.selectedGoal || this.props.goalPage.selectedAvg !== nextProps.goalPage.selectedAvg || this.props.goalPage.goalView !== nextProps.goalPage.goalView)
+    if (this.props.data && nextProps.data && this.props.goalPage.selectedGoal && nextProps.goalPage.selectedGoal) {
+      return this.checkSelectedGoal(this.props, nextProps)
     } else {
       return true
     }

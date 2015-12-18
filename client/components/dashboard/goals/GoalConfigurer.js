@@ -10,21 +10,32 @@ class GoalConfigurer extends Component {
     const { goalPage, data, actions } = this.props
     switch (goalPage.goalView) {
       case 'CREATE':
-        return <GoalAdd 
-                data = { data }
-                isValid = { goalPage.isValid }
-                validateGoal = { actions.validateGoal }
-                postGoal = { actions.postGoal }
-                changeGoalView = { actions.changeGoalView } />
+        return (
+          <div>
+            <br/>
+            <GoalAdd 
+              data = { data }
+              isValid = { goalPage.isValid }
+              validateGoal = { actions.validateGoal }
+              postGoal = { actions.postGoal }
+              changeGoalView = { actions.changeGoalView } />
+          </div>
+        )
       case 'EDIT' :
-        return <GoalUpdate
-                data = { data }
-                isValid = { goalPage.isValid }
-                selectedGoal = { goalPage.selectedGoal }
-                updateGoal = { actions.updateGoal }
-                deleteGoal = { actions.deleteGoal }
-                changeGoalView = { actions.changeGoalView }
-                validateGoal = { actions.validateGoal } />
+        return (
+          <div>
+            <br/>
+            <GoalUpdate
+              data = { data }
+              isValid = { goalPage.isValid }
+              selectedGoal = { goalPage.selectedGoal }
+              updateGoal = { actions.updateGoal }
+              deleteGoal = { actions.deleteGoal }
+              switchGoal = { actions.switchGoal }
+              changeGoalView = { actions.changeGoalView }
+              validateGoal = { actions.validateGoal } />
+          </div>
+        )
       default: 
         return <br/>
     }

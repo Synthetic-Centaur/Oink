@@ -17,6 +17,7 @@ class GoalUpdate extends Component {
     e.preventDefault()
     this.props.deleteGoal(id)
     this.props.changeGoalView('')
+    this.props.switchGoal(1)
   }
   
   handleGoal(e) {
@@ -75,6 +76,7 @@ class GoalUpdate extends Component {
             onChange={this.handleEntry.bind(this)}
             />
         </div>
+        <br/>
         <div className = 'row'>
           <div className='u-pull-left'>
             <RaisedButton label='Update' disabled={(!this.props.isValid)}

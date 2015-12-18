@@ -36,7 +36,7 @@ class GoalAdd extends Component {
   render() {
     let today = moment().add(1, 'days').toDate()
     return (
-      <div className="container">
+      <div>
         <div className = "row">
           <TextField
             fullWidth={true}
@@ -61,6 +61,7 @@ class GoalAdd extends Component {
             onChange={this.handleEntry.bind(this)}
             />
         </div>
+        <br/>
         <div className = "row">
           <RaisedButton label="CREATE" disabled={(!this.props.isValid)}
            onClick={this.handleGoal.bind(this)}/>
