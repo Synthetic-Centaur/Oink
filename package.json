@@ -17,7 +17,7 @@
   ],
   "pre-push": [
     "lint",
-    "testall"
+    "testdev"
   ],
   "repository": {
     "type": "git",
