@@ -1,8 +1,8 @@
-/* eslint-disable no-console, no-use-before-define */
-
 import Express from 'express'
+import cors from 'cors'
 
 var app = new Express()
+app.use(cors())
 
 const port = process.env.PORT || 3000
 

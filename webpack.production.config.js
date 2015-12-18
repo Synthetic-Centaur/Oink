@@ -2,9 +2,7 @@ var path = require('path')
 var webpack = require('webpack')
 
 module.exports = {
-  devtool: 'inline-source-map',
   entry: [
-    'webpack-hot-middleware/client',
     './client/index.js'
   ],
   output: {
@@ -14,8 +12,7 @@ module.exports = {
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.optimize.UglifyJsPlugin()
   ],
   module: {
     loaders: [

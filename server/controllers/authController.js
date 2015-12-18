@@ -20,7 +20,6 @@ let authController = {
 
   findUser(user) {
     let newUser = new User({email: user.email})
-    console.log('new user:', newUser)
     return newUser.fetch().then((user) => {
       if (user) {
         return user
@@ -31,7 +30,6 @@ let authController = {
   },
 
   findUserByToken(req) {
-    console.log('AUTH', req.headers.authorization)
     if (!req.headers.authorization) {
       return null
     }
@@ -59,13 +57,12 @@ let authController = {
     return newUser.fetch().then((user) => {
       if (user) {
         user.attributes.token_plaid = tokenPlaid
-        console.log('USER', user)
         return user.save().then((user) => {
           return user
         })
       } else {
         // user was not found
-        console.log('Error: USER not found')
+        console.error('Error: USER not found')
       }
     })
   },
@@ -80,7 +77,7 @@ let authController = {
         })
       } else {
         // user was not found
-        console.log('Error: USER not found')
+        console.error('Error: USER not found')
       }
     })
   }

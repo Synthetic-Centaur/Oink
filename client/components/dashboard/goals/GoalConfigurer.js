@@ -40,7 +40,6 @@ class GoalConfigurer extends Component {
       default:
         return <br/>
     }
-
   }
 
   changeView(view) {
