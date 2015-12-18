@@ -58,11 +58,13 @@ let cronController = {
           if (transaction.date >= date) {
             return db.knex.select().table('categories').where({id: transaction.category_id})
               .then((category) => {
-
-                if (category.description in categories) {
-                  categories[category.description] += transaction.amount
+                console.log(category)
+                let type = category[0].description
+                let amount = transaction.amount
+                if (!(type in categories)) {
+                  categories[type] = amount
                 } else {
-                  categories[category.description] = transaction.amount
+                  categories[type] += amount
                 }
 
               })
@@ -144,7 +146,7 @@ let cronController = {
       }
     })
     // Generate the chart into the container
-    Highcharts.chart('container', chartConfig());
+    Highcharts.chart('container', chartConfig(sums));
 
     //get svg and remove div container surrounding it
     var svg = win.document.getElementById('container').innerHTML.slice(178)
@@ -169,12 +171,14 @@ function chartConfig(data) {
 
 
   //convert sums to datapoints for highchart
+  console.log('data in chart config: --->', data)
   let userCategories = []
   let dataPoints = []
   for (var key in data) {
     userCategories.push(key)
     dataPoints.push({y: data[key]})
   }
+  console.log(userCategories, dataPoints)
 
   return {
     chart: {
@@ -187,12 +191,12 @@ function chartConfig(data) {
     },
     xAxis: {
         //switch out hardcoded categories with user categories
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        categories: userCategories
     },
 
     yAxis: {
         title: {
-            text: 'Rainfall / mm'
+            text: 'Dollars / week'
         }
     },
 
@@ -211,32 +215,8 @@ function chartConfig(data) {
 
     series: [{
         //switch out hardCoded data with user data points
-        name: 'Monthly rainfall',
-        data: [{
-            y: 29.9,
-        }, {
-            y: 71.5
-        }, {
-            y: 106.4
-        }, {
-            y: 129.2
-        }, {
-            y: 144.0
-        }, {
-            y: 176.0
-        }, {
-            y: 135.6
-        }, {
-            y: 148.5
-        }, {
-            y: 216.4,
-        }, {
-            y: 194.1
-        }, {
-            y: 95.6
-        }, {
-            y: 54.4
-        }]
+        name: 'Categories',
+        data: dataPoints
     }]
   }
 }
