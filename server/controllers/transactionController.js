@@ -2,12 +2,13 @@ import moment from 'moment'
 import db from '../db/dbConfig'
 
 let transactionController = {
-  getTransactionsByTime(userId, month, year){
+  getTransactionsByTime(userId, month, year) {
     let start = moment().subtract(4, 'years')
     let end = moment()
+
     if (month === 'now') {
       start = moment().startOf('month')
-    } else if (month) {
+    } else if (month && year) {
 
       // using moment validation to check if input is valid
       if (moment(month, 'MMMM').isValid() && moment(year, 'YYYY').isValid()) {
