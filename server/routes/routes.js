@@ -5,9 +5,7 @@ import apiHandler from '../handlers/apiHandler'
 
 // TODO: remove this after testing webhooks////////////////////////////////////////////////////////////////////////////
 app.post('/webhook', (req, res) => {
-  console.log('WEBHOOKS WORKING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
   
-  //console.log('FIRST 10 TRANSACTIOMS ARE:',req.body);
   if (req.body.code === 2) {
     apiController.sendMessage('YAY WEBHOOK HAS FIRED!!!! You have a new transaction', 7344749351)
   }

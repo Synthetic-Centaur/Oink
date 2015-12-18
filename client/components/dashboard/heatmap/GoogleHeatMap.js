@@ -22,7 +22,7 @@ export default class GoogleHeatMap extends Component {
           }
           googleMapElement={
             <GoogleMap
-              ref={(map) => (this._googleMapComponent = map) && console.log('_googlemapcomp: ', this._googleMapComponent)}
+              ref={(map) => (this._googleMapComponent = map)}
               defaultZoom={12}
               defaultCenter={{lat: 37.7833, lng: -122.4167}} />
           } />

@@ -53,9 +53,7 @@ ReactDOM.render(
         <Route path="/dashboard" component={Dashboard} />
       </Router>
     </Provider>
-    <DebugPanel top right bottom>
-      <DevTools store={store} monitor={LogMonitor} visibleOnLoad={false} />
-    </DebugPanel>
+    { window.ENV === 'dev' ? <DebugPanel top right bottom><DevTools store={store} monitor={LogMonitor} visibleOnLoad={false} /></DebugPanel> : null}
   </div>,
   document.getElementById('app')
 )

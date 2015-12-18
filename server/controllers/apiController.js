@@ -38,12 +38,11 @@ let apiController = {
     },
     (err, mfaResponse, response) => {
       // The webhook URI should receive a code 4 "webhook acknowledged" webhook
-      console.log('ERROR', err)
-      console.log('MFA', mfaResponse)
+      // log ('ERROR', err)
+      // log ('MFA', mfaResponse)
 
       // this will get initial state. All accounts and transactions
-      //console.log('RESPONSE', response)
-      console.log('User has been patched, webhook should receive a code 4 "webhook acknowledged" webhook')
+      // log ('User has been patched, webhook should receive a code 4 "webhook acknowledged" webhook')
     })
   },
 
@@ -56,10 +55,17 @@ let apiController = {
     },
     (err, response) => {
       if (err) {
-        console.log('ERROR', err)
+        console.error('ERROR', err)
       } else {
+        
+        // log ('You have ' + response.transactions.length + ' transactions')
+        // log ('Transactions (first 4): ', response.transactions.slice(0, 4))
+
         //TODO: need to make async and move this logic to controller to send back
         budgetController.updateTransactions(response.transactions, userid).then((response) => {
+
+          // log ('response from update transactions -- inside api controller', response)
+
           // check to see if new transactions were updated
           if (response.length > 0) {
             
@@ -85,16 +91,16 @@ let apiController = {
     },
     (err, response) => {
       if (err) {
-        console.log('ERROR', err)
+        console.error('ERROR', err)
       } else {
-        console.log('Transactions (first 4): ', response.transactions.slice(0, 4))
+        // log ('Transactions (first 4): ', response.transactions.slice(0, 4))
 
-        console.log('You have ' + response.transactions.length + ' transactions')
+        // log ('You have ' + response.transactions.length + ' transactions')
 
         //TODO: need to make async and move this logic to controller to send back
         budgetController.updateTransactions(response.transactions, userid).then((response) => {
 
-          console.log('response from update transactions -- inside api controller', response)
+          // log ('response from update transactions -- inside api controller', response)
 
           // check to see if new transactions were updated
           // TODO: FIX THIS!!!! response always coming back populated so check doesn't work
@@ -117,10 +123,9 @@ let apiController = {
       body: text,
     }, (err, message) => {
       if (err) {
-        console.log(err)
+        console.error(err)
         return err
       } else {
-        console.log(message.sid)
         return message.sid
       }
     })
