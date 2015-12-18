@@ -6,6 +6,9 @@ machine:
 dependencies:
   pre:
     - pip install awsebcli
+test:
+  pre:
+    - npm run copyEnv
 deployment:
   production:
     branch: master
