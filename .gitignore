@@ -11,6 +11,8 @@ bower_components/
 public/bundle.js
 npm-debug.log
 server/env/envConfig.js
+server/staticUserCharts/chart.png
+server/staticUserCharts/chart.svg
 coverage/
 public/bundle.min.js
 client/config/authKeys.js
