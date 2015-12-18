@@ -72,6 +72,10 @@ Goals.childContextTypes = {
   muiTheme: PropTypes.object
 }
 
+Goals.childContextTypes = {
+  muiTheme: PropTypes.object
+}
+
 //Unpack state onto container props
 function mapStateToProps(state) {
   return {

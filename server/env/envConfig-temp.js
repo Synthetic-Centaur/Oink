@@ -47,6 +47,32 @@ if (process.env.NODE_ENV === 'dev') {
     charset: 'UTF8_GENERAL_CI'
   }
 
+// Test Enviroment
+} else if (process.env.NODE_ENV === 'test') {
+
+  twilio_private = {
+    accountSid: 'PRIVATE_KEY',
+    authToken: 'AUTH_TOKEN',
+    twilioPhone: 'PHONE_NUMBER'
+  }
+
+  plaid_private = {
+    clientId: 'test_id',
+    secret: 'test_secret',
+    publicKey: 'test_key'
+  }
+
+  jwt_private = {
+    secret: 'JWT_SECRET'
+  }
+
+  db_connection = {
+    host: 'localhost',
+    port: 5432,
+    user: 'ubuntu',
+    database: 'circle_test',
+  }
+
 // Production enviroment
 } else {
 
