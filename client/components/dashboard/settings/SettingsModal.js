@@ -36,8 +36,9 @@ class SettingsModal extends Component {
       completeData[key] = communicationData[key]
     }
 
-    for (let key in securityData) {
-      completeData[key] = securityData[key]
+    // verify that new password field in security data exists and that password has been verified
+    if (securityData.newPassword && !securityData.errorText) {
+      completeData.password = securityData.newPassword
     }
 
     this.props.postSettings(completeData)

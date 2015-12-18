@@ -1,6 +1,7 @@
 import User from '../db/models/user'
 import Users from '../db/collections/users'
 import db from '../db/dbConfig'
+import bcrypt from 'bcrypt'
 
 let authController = {
 
@@ -75,6 +76,10 @@ let authController = {
   },
 
   updateUser(user, properties) {
+    // if user is updating thier password we need to encrypt it before we save
+    if (properties.password) {
+      properties.password = bcrypt.hashSync(properties.password, bcrypt.genSaltSync(8), null)
+    }
     return db.knex('users').where(user).update(properties).returning('id').then((user) => {
       console.log('USER WAS UPDATED TO USER', user)
       return user

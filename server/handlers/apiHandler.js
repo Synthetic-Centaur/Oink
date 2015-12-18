@@ -210,10 +210,7 @@ let apiHandler = {
       res.json({success: false, message: 'Failed, user is not authenticated'})
     } else {
       authController.findUserByToken(req).then((user) => {
-        console.log('user in settings handler:', user)
-        console.log('request is:', req.body)
         authController.updateUser(user, req.body).then((user) => {
-          console.log('YAY now we in settings handler and user is', user)
           if (user) {
             res.status(201)
             res.json(user)
