@@ -99,6 +99,37 @@ export function hideLogin() {
   }
 }
 
+// The user provided an email that does not exist in the system
+export function invalidEmail() {
+  return (dispatch) => {
+    dispatch({
+      type: 'INVALID_EMAIL'
+    })
+  }
+}
+
+// The user provided an password that does not exist in the system
+export function invalidPassword() {
+  return (dispatch) => {
+    dispatch({
+      type: 'INVALID_PASSWORD'
+    })
+  }
+}
+
+// The user has not authorized their bank account
+export function invalidBank() {
+  return (dispatch) => {
+    dispatch({
+      type: 'INVALID_BANK'
+    })
+  }
+}
+
+/********************************************************
+                    SIGNUP REDUX ACTIONS
+*********************************************************/
+
 // We should show the pop-up signup modal
 export function showSignup() {
   return (dispatch) => {
@@ -116,6 +147,28 @@ export function hideSignup() {
     })
   }
 }
+
+// The there is already a user with that email in the database
+export function userExists() {
+  return (dispatch) => {
+    dispatch({
+      type: 'USER_EXISTS'
+    })
+  }
+}
+
+// Remove all error messages
+export function removeAlerts() {
+  return (dispatch) => {
+    dispatch({
+      type: 'REMOVE_ALERTS'
+    })
+  }
+}
+
+/********************************************************
+                    PLAID REDUX ACTIONS
+*********************************************************/
 
 // We should show the pop-up signup modal
 export function showPlaid() {
@@ -161,7 +214,7 @@ export function removeJWT() {
 
 export function categoryValidation(allow, category) {
 // We should show the pop-up signup modal
-function authenticateUser() {
+export function authenticateUser() {
   return (dispatch) => {
     dispatch({
       type: 'AUTHENTICATE_USER',
@@ -169,7 +222,7 @@ function authenticateUser() {
   }
 }
 
-function categoryValidation(allow, category) {
+export function categoryValidation(allow, category) {
   if (!allow) {
     return (dispatch) => {
       dispatch({

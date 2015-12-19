@@ -25,15 +25,15 @@ export function postLogin(data) {
     })
     .then((data) => {
       if (data.success === false) {
-        if (data.message === 'Invalid Email') { alert('invalid email') }
+        if (data.message === 'Invalid Email') { dispatch(ACTIONS.invalidEmail()) }
 
         if (data.message === 'Invalid Bank') {
+          dispatch(ACTIONS.invalidBank())
           dispatch(ACTIONS.hideLogin())
           dispatch(ACTIONS.showPlaid())
-          alert('Invalid Bank')
         }
 
-        if (data.message === 'Invalid Password') { alert('invalid password') }
+        if (data.message === 'Invalid Password') { dispatch(ACTIONS.invalidPassword()) }
       } else {
         dispatch(ACTIONS.addJWT(data))
         dispatch(ACTIONS.authenticateUser())
@@ -66,7 +66,7 @@ export function postSignup(data) {
       })
     })
     .then((response) => {
-      if (response.status === 200) {
+      if (response.status === 200 || response.status === 403) {
         return response.json()
       } else if (response.status === 409) {
         throw new Error('Email or password invalid')
@@ -75,11 +75,15 @@ export function postSignup(data) {
       }
     })
     .then((data) => {
-      dispatch(ACTIONS.addJWT(data))
-      dispatch(ACTIONS.receiveData({}))
-      
-      dispatch(ACTIONS.hideSignup())
-      dispatch(ACTIONS.showPlaid())
+      if (data.success === false) {
+        if (data.message === 'User Exists') { dispatch(ACTIONS.userExists()) }
+      } else {
+        dispatch(ACTIONS.receiveData({}))
+        dispatch(ACTIONS.addJWT(data))
+        
+        dispatch(ACTIONS.hideSignup())
+        dispatch(ACTIONS.showPlaid())
+      }
     })
     .catch((err) => {
       dispatch(ACTIONS.receiveError(err))

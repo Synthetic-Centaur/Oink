@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import FlatButton from 'material-ui/lib/flat-button'
 import Dialog from 'material-ui/lib/dialog'
+import SnackBar from 'material-ui/lib/snackbar'
 import LoginField from './LoginField'
 import SignupField from './SignupField'
 import PlaidButton from './PlaidButton'
@@ -13,8 +14,9 @@ class AccountModal extends Component {
   }
 
   handleSubmit() {
-    const { showLogin, showSignup } = this.props
+    const { showLogin, showSignup, removeAlerts } = this.props
     showLogin ? this.handleLogin() : showSignup ? this.handleSignup() : null
+    removeAlerts()
   }
 
   handleLogin() {
@@ -46,9 +48,10 @@ class AccountModal extends Component {
   }
 
   handleCancel() {
-    const { showLogin, showSignup, hideLoginModal, hideSignupModal } = this.props
+    const { showLogin, showSignup, hideLoginModal, hideSignupModal, removeAlerts } = this.props
     showLogin ? hideLoginModal() : showSignup ? hideSignupModal() : null
     this.refs.modal.dismiss()
+    removeAlerts()
   }
 
   renderInputFields() {
@@ -66,7 +69,10 @@ class AccountModal extends Component {
   }
 
   render() {
-    console.log(this.props)
+    const { userExists, invalidBank, invalidEmail, invalidPassword, errorText } = this.props
+    let errorMessage = userExists ? errorText : invalidPassword ? errorText :
+                    invalidEmail ? errorText : invalidBank ? errorText : false
+
     let modalActions = [
       <FlatButton
         key={0}
@@ -91,10 +97,12 @@ class AccountModal extends Component {
         autoScrollBodyContent={true}
         modal={true}
       >
-        <div className="modal-content">
+        <div>
 
           { this.renderInputFields() }
-          
+
+          { errorText ? <span className="error-text animated fadeInUp">{errorMessage}</span> : null }
+
         </div>
       </Dialog>
     )

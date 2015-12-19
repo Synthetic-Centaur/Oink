@@ -75,7 +75,12 @@ export function asyncStatusReducer(state = {
 
 export function splashPageReducer(state = {
   showLogin: false,
-  showSignup: false
+  showSignup: false,
+  invalidEmail: false,
+  invalidPassword: false,
+  invalidBank: false,
+  userExists: false,
+  errorText: ''
 }, action = null) {
   switch (action.type) {
 
@@ -87,6 +92,16 @@ export function splashPageReducer(state = {
       return Object.assign({}, state, {showSignup: true})
     case 'HIDE_SIGNUP':
       return Object.assign({}, state, {showSignup: false})
+    case 'REMOVE_ALERTS':
+      return Object.assign({}, state, {invalidBank: false, invalidEmail: false, userExists: false, invalidPassword: false, errorText: ''})
+    case 'INVALID_EMAIL':
+      return Object.assign({}, state, {invalidEmail: true, errorText: 'Oops, looks like that email doesn\'t exist! Please sign up to get started.'})
+    case 'INVALID_PASSWORD':
+      return Object.assign({}, state, {invalidPassword: true, errorText: 'Oops, looks like that password isn\'t right!'})
+    case 'INVALID_BANK':
+      return Object.assign({}, state, {invalidBank: true, errorText: 'Looks like you haven\'t authorized your bank with us yet.'})
+    case 'USER_EXISTS':
+      return Object.assign({}, state, {userExists: true, errorText: 'Looks like there is already a user with that email in our system. Please choose a different email.'})
     default:
       return state
   }

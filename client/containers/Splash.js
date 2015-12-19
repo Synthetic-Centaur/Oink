@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import AccountModal from '../components/splash/account-modal/AccountModal'
 import SplashNavBar from '../components/splash/navbar/SplashNavBar'
 import { postLogin, postSignup, splashRedirect, getPlaid, postPlaid } from '../actions/api/authActions'
-import { showLogin, hideLogin, showSignup, hideSignup, getJWT, showPlaid, hidePlaid } from '../actions/actions'
+import { showLogin, hideLogin, showSignup, hideSignup, getJWT, showPlaid, hidePlaid, removeAlerts } from '../actions/actions'
 import ProfileCard from '../components/splash/ProfileCard'
 
 class Splash extends Component {
@@ -38,6 +38,12 @@ class Splash extends Component {
           getKey={actions.getPlaid}
           publicKey={publicKey}
           showPlaid={showPlaid}
+          invalidEmail={splashPage.invalidEmail}
+          invalidPassword={splashPage.invalidPassword}
+          invalidBank={splashPage.invalidBank}
+          userExists={splashPage.userExists}
+          errorText={splashPage.errorText}
+          removeAlerts={actions.removeAlerts}
         />
 
         <div className="navbar">
