@@ -225,6 +225,28 @@ let budgetController = {
 function saveTransaction(transaction, user_id, category_id) {
   console.log("lat, long: ------->", transaction.meta.location)
   // Creates new transaction object
+  let store, latitude, longitude, address, city, state
+
+  if (transaction.meta.location) {
+    if (transaction.meta.location.coordinates) {
+      latitude = transaction.meta.location.coordinates.lat || 0.0
+      longitude = transaction.meta.location.coordinates.lon || 0.0
+    } else {
+      latitude = 0.0
+      longitude = 0.0
+    }
+    address = transaction.meta.location.address || ""
+    city = transaction.meta.location.city || ""
+    state = transaction.meta.location.state || ""
+  } else {
+    latitude = 0.0
+    longitude = 0.0
+    address = ""
+    city = ""
+    state = ""
+  }
+  store = transaction.name || ''
+
   let newTransaction = new Transaction({
     user_id: user_id,
     category_id: category_id,
@@ -234,7 +256,12 @@ function saveTransaction(transaction, user_id, category_id) {
     amount: transaction.amount,
     date: new Date(transaction.date),
     pending: transaction.pending,
-    store_name: transaction.name
+    store_name: store,
+    latitude: latitude,
+    longitude: longitude,
+    address: address,
+    city: city,
+    state: state
   })
 
   // Saves to db
