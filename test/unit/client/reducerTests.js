@@ -115,6 +115,7 @@ describe('homePageReducer', () => {
       categoryError: true,
       category: '',
       showSettings: false,
+      showPhoneVerify: true
     })
   })
 
@@ -128,6 +129,7 @@ describe('homePageReducer', () => {
       categoryError: true,
       category: '',
       showSettings: false,
+      showPhoneVerify: true
     })
   })
 
@@ -141,6 +143,7 @@ describe('homePageReducer', () => {
       categoryError: true,
       category: '',
       showSettings: false,
+      showPhoneVerify: true
     })
   })
 
@@ -155,6 +158,7 @@ describe('homePageReducer', () => {
       categoryError: false,
       category: 'testCategory',
       showSettings: false,
+      showPhoneVerify: true
     })
   })
 
@@ -168,6 +172,7 @@ describe('homePageReducer', () => {
       categoryError: true,
       category: '',
       showSettings: false,
+      showPhoneVerify: true
     })
   })
 })

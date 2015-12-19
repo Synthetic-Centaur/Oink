@@ -161,14 +161,12 @@ function chartConfig(data) {
 
 
   //convert sums to datapoints for highchart
-  console.log('data in chart config: --->', data)
   let userCategories = []
   let dataPoints = []
   for (var key in data) {
     userCategories.push(key)
     dataPoints.push({y: data[key]})
   }
-  console.log(userCategories, dataPoints)
 
   return {
     chart: {
