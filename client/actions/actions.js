@@ -2,7 +2,7 @@
                 DASHBOARD VIEW REDUX ACTIONS
 *********************************************************/
 
-function switchComponent(component) {
+export function switchComponent(component) {
   return (dispatch) => {
     dispatch({
       type: 'SWITCH_COMPONENT',
@@ -11,7 +11,7 @@ function switchComponent(component) {
   }
 }
 
-function showPhoneVerify() {
+export function showPhoneVerify() {
   return (dispatch) => {
     dispatch({
       type: 'SHOW_PHONE_VERIFY'
@@ -19,7 +19,7 @@ function showPhoneVerify() {
   }
 }
 
-function hidePhoneVerify() {
+export function hidePhoneVerify() {
   return (dispatch) => {
     dispatch({
       type: 'HIDE_PHONE_VERIFY'
@@ -30,7 +30,7 @@ function hidePhoneVerify() {
                 BUDGET VIEW REDUX ACTIONS
 *********************************************************/
 
-function changeSettingsView(view) {
+export function changeSettingsView(view) {
   return (dispatch) => {
     dispatch({
       type: 'CHANGE_SETTINGS_VIEW',
@@ -39,7 +39,7 @@ function changeSettingsView(view) {
   }
 }
 
-function changeCurrentBudget(budgetIndex) {
+export function changeCurrentBudget(budgetIndex) {
   return (dispatch) => {
     dispatch({
       type: 'CHANGE_CURRENT_BUDGET',
@@ -53,13 +53,13 @@ function changeCurrentBudget(budgetIndex) {
 *********************************************************/
 
 // An async operation has been made and we are waiting for a response
-function requestData() {
+export function requestData() {
   // Dispatch will be called in api/authActions.js for these
   return { type: 'REQ_DATA' }
 }
 
 // We have received data from the result of an async operation
-function receiveData(data) {
+export function receiveData(data) {
   return {
     type: 'RECV_DATA',
     data: data
@@ -67,7 +67,7 @@ function receiveData(data) {
 }
 
 // We have received an error as the result of an async operation
-function receiveError(data) {
+export function receiveError(data) {
   return {
     type: 'RECV_ERROR',
     data: data
@@ -79,7 +79,7 @@ function receiveError(data) {
 *********************************************************/
 
 // We should show the pop-up login modal
-function showLogin() {
+export function showLogin() {
   return (dispatch) => {
     dispatch({
       type: 'SHOW_LOGIN'
@@ -88,7 +88,7 @@ function showLogin() {
 }
 
 // We should hide the pop-up login modal
-function hideLogin() {
+export function hideLogin() {
   
   /* Dispatch is the dispatch from the Redux store
    We must call dispatch so a reducer can act on this action appropriately */
@@ -100,7 +100,7 @@ function hideLogin() {
 }
 
 // We should show the pop-up signup modal
-function showSignup() {
+export function showSignup() {
   return (dispatch) => {
     dispatch({
       type: 'SHOW_SIGNUP'
@@ -109,7 +109,7 @@ function showSignup() {
 }
 
 // We should hide the pop-up signup modal
-function hideSignup() {
+export function hideSignup() {
   return (dispatch) => {
     dispatch({
       type: 'HIDE_SIGNUP'
@@ -122,7 +122,7 @@ function hideSignup() {
 *********************************************************/
 
 // We should show the pop-up signup modal
-function addJWT(data) {
+export function addJWT(data) {
   return (dispatch) => {
     dispatch({
       type: 'ADD_JWT',
@@ -133,7 +133,7 @@ function addJWT(data) {
 }
 
 // We should hide the pop-up signup modal
-function removeJWT() {
+export function removeJWT() {
   return (dispatch) => {
     dispatch({
       type: 'REMOVE_JWT',
@@ -141,7 +141,7 @@ function removeJWT() {
   }
 }
 
-function categoryValidation(allow, category) {
+export function categoryValidation(allow, category) {
   if (!allow) {
     return (dispatch) => {
       dispatch({
@@ -158,7 +158,7 @@ function categoryValidation(allow, category) {
   }
 }
 
-function numberValidation(allow) {
+export function numberValidation(allow) {
   if (allow) {
     return (dispatch) => {
       dispatch({
@@ -178,7 +178,7 @@ function numberValidation(allow) {
                     GOAL PAGE REDUX ACTIONS
 *********************************************************/
 
-function switchGoal(goal) {
+export function switchGoal(goal) {
   return (dispatch) => {
     dispatch({
       type: 'SWITCH_GOAL',
@@ -187,7 +187,7 @@ function switchGoal(goal) {
   }
 }
 
-function validateGoal(allow) {
+export function validateGoal(allow) {
   if (allow) {
     return (dispatch) => {
       dispatch({
@@ -203,7 +203,7 @@ function validateGoal(allow) {
   }
 }
 
-function selectAvg(avg) {
+export function selectAvg(avg) {
   return (dispatch) => {
     dispatch({
       type: 'ENTER_AVG',
@@ -212,7 +212,7 @@ function selectAvg(avg) {
   }
 }
 
-function changeGoalView(view) {
+export function changeGoalView(view) {
   return (dispatch) => {
     dispatch({
       type: 'CHANGE_GOAL_VIEW',
@@ -226,7 +226,7 @@ function changeGoalView(view) {
 *********************************************************/
 
 // We should show the pop-up settings modal
-function showSettings() {
+export function showSettings() {
   return (dispatch) => {
     dispatch({
       type: 'SHOW_SETTINGS'
@@ -235,7 +235,7 @@ function showSettings() {
 }
 
 // We should hide the pop-up settings modal
-function hideSettings() {
+export function hideSettings() {
   return (dispatch) => {
     dispatch({
       type: 'HIDE_SETTINGS'
@@ -244,7 +244,7 @@ function hideSettings() {
 }
 
 // We should know when a user is editing their first name
-function editStart(item) {
+export function editStart(item) {
   return (dispatch) => {
     dispatch({
       type: 'EDIT_START',
@@ -254,7 +254,7 @@ function editStart(item) {
 }
 
 // We should know when a user is editing their first name
-function editFinish(item) {
+export function editFinish(item) {
   return (dispatch) => {
     dispatch({
       type: 'EDIT_FINISH',
@@ -264,7 +264,7 @@ function editFinish(item) {
 }
 
 // Update the user account settings on state
-function updateAccountSettings(item) {
+export function updateAccountSettings(item) {
   return (dispatch) => {
     dispatch({
       type: 'UPDATE_ACCOUNT_SETTINGS',
@@ -274,7 +274,7 @@ function updateAccountSettings(item) {
 }
 
 // Update the communication settings on state
-function updateCommunicationSettings(item) {
+export function updateCommunicationSettings(item) {
   return (dispatch) => {
     dispatch({
       type: 'UPDATE_COMMUNICATION_SETTINGS',
@@ -284,7 +284,7 @@ function updateCommunicationSettings(item) {
 }
 
 // Update the communication settings on state
-function updateSecuritySettings(item) {
+export function updateSecuritySettings(item) {
   console.log('inside update updateSecuritySettings item is', item)
   return (dispatch) => {
     dispatch({
@@ -292,36 +292,4 @@ function updateSecuritySettings(item) {
       data: item
     })
   }
-}
-
-export default {
-  requestData,
-  receiveData,
-  receiveError,
-  showLogin,
-  hideLogin,
-  showSignup,
-  hideSignup,
-  addJWT,
-  removeJWT,
-  categoryValidation,
-  numberValidation,
-  switchComponent,
-  switchGoal,
-  selectAvg,
-  validateGoal,
-  showSettings,
-  hideSettings,
-  changeSettingsView,
-  changeCurrentBudget,
-  changeGoalView,
-  changeCurrentBudget,
-  changeCurrentBudget,
-  editStart,
-  editFinish,
-  updateCommunicationSettings,
-  updateAccountSettings,
-  updateSecuritySettings,
-  showPhoneVerify,
-  hidePhoneVerify
 }
