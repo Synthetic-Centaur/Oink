@@ -80,17 +80,17 @@ class Splash extends Component {
               <div className="one-third column">
                 <img src="/images/text10.png" alt=""/>
                 <h3>Text Updates</h3>
-                <h4>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."</h4>
+                <h4>Oink will text you when you go over budget and let you know how much you overspent. Be confident that you are sticking to your personal financial plan every month.</h4>
               </div>
               <div className="one-third column">
                 <img src="/images/shield94.png" alt=""/>
                 <h3>Security</h3>
-                <h4>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."</h4>
+                <h4>We access your transactions by authenticating your bank via <a href="https://plaid.com/" target="_blank">Plaid</a>. This means we never access any sensitive and personally identifing information like bank account numbers.</h4>
               </div>
               <div className="one-third column">
                 <img src="/images/gears3.png" alt=""/>
-                <h3>Personalization</h3>
-                <h4>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."</h4>
+                <h3>Discovery</h3>
+                <h4>We allow you to examine your spending habits through a new lens. Oink shows you where, when, and on what you spend your money.</h4>
               </div>
 
             </div>
