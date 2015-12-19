@@ -3,8 +3,8 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import AccountModal from '../components/splash/account-modal/AccountModal'
 import SplashNavBar from '../components/splash/navbar/SplashNavBar'
-import { postLogin, postSignup, splashRedirect } from '../actions/api/authActions'
-import { showLogin, hideLogin, showSignup, hideSignup, getJWT } from '../actions/actions'
+import { postLogin, postSignup, splashRedirect, getPlaid, postPlaid } from '../actions/api/authActions'
+import { showLogin, hideLogin, showSignup, hideSignup, getJWT, showPlaid, hidePlaid } from '../actions/actions'
 import ProfileCard from '../components/splash/ProfileCard'
 
 class Splash extends Component {
@@ -21,7 +21,7 @@ class Splash extends Component {
   }
 
   render() {
-    const { actions, splashPage } = this.props
+    const { actions, splashPage, publicKey, showPlaid } = this.props
     return (
       <div>
       
@@ -34,6 +34,10 @@ class Splash extends Component {
           showSignupModal={actions.showSignup}
           hideLoginModal={actions.hideLogin}
           hideSignupModal={actions.hideSignup}
+          authenticate={actions.postPlaid}
+          getKey={actions.getPlaid}
+          publicKey={publicKey}
+          showPlaid={showPlaid}
         />
 
         <div className="navbar">
@@ -160,7 +164,9 @@ function mapStateToProps(state) {
     error: state.error,
     splashPage: state.splashPage,
     isAuthenticated: state.auth.isAuthenticated,
-    token: state.auth.token
+    token: state.auth.token,
+    publicKey: state.plaid.publicKey,
+    showPlaid: state.plaid.showPlaid
   }
 }
 
@@ -173,7 +179,11 @@ function mapDispatchToProps(dispatch) {
       showSignup,
       hideLogin,
       hideSignup,
-      splashRedirect
+      splashRedirect,
+      getPlaid,
+      postPlaid,
+      showPlaid,
+      hidePlaid
     }, dispatch),
   }
 }

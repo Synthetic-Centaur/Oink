@@ -19,6 +19,10 @@ export function postLogin(data) {
         return response.json()
       } else if (response.status === 409) {
         throw new Error('User does not exist in DB')
+      } else if (response.status === 403) {
+        dispatch(ACTIONS.hideLogin())
+        dispatch(ACTIONS.showPlaid())
+        throw new Error('Must authenticate bank before logging in')
       } else if (response.status === 500) {
         throw new Error('Error on the server', response)
       }
@@ -65,7 +69,8 @@ export function postSignup(data) {
       dispatch(ACTIONS.addJWT(data))
       dispatch(ACTIONS.receiveData({}))
       
-      dispatch(updatePath('/plaid'))
+      dispatch(ACTIONS.hideSignup())
+      dispatch(ACTIONS.showPlaid())
     })
     .catch((err) => {
       dispatch(ACTIONS.receiveError(err))

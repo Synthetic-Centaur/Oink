@@ -35,7 +35,6 @@ let authHandler = {
       })
 
     } else {
-
       // if there is no token
       // return an error
       return res.status(403).send({
@@ -52,12 +51,17 @@ let authHandler = {
     authController.findUser({email: req.body.email}).then((user) => {
       if (!user) {
         res.status(403)
-        res.json({ success: false, message: 'Authentication failed. User not found.' })
+        res.json({ success: false, cause: 'Invalid Email' })
+        
+      // Check if the user has authenticated their bank with Plaid
+      } else if (!user.attributes.token_plaid) {
+        res.status(403)
+        res.json({success: false, cause: 'Invalid Bank'})
       } else {
         // Checks if provided password is valid
         if (!user.validPassword(req.body.password)) {
           res.status(403)
-          res.json({ success: false, message: 'Authentication failed. Wrong password.' })
+          res.json({success: false, message: 'Invalid Password'})
         }
 
         // if user is found and password is right
@@ -107,7 +111,8 @@ let authHandler = {
 
       // If user found, cannot signup
       else {
-        res.json({ success: false, message: 'Failed, user already exists.' })
+        res.status(403)
+        res.json({ success: false, message: 'User Exists' })
       }
     })
   },

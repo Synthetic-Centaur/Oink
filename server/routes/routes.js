@@ -25,7 +25,7 @@ app.post('/auth/signup', authHandler.signup)
 
 app.post('/auth/plaid', authHandler.plaid)
 
-app.get('/auth/plaid', authHandler.isLoggedIn, authHandler.getPlaid)
+app.get('/auth/plaid', authHandler.getPlaid)
 
 app.get('/api/initialState', apiHandler.initialState)
 

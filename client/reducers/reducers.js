@@ -40,11 +40,16 @@ export function budgetReducer(state = {
 }
 
 export function plaidReducer(state = {
-  publicKey: ''
+  publicKey: '',
+  showPlaid: false
 }, action=null) {
   switch (action.type) {
     case 'ADD_PLAID_KEY':
       return Object.assign({}, state, {publicKey: action.data})
+    case 'SHOW_PLAID':
+      return Object.assign({}, state, {showPlaid: true})
+    case 'HIDE_PLAID':
+      return Object.assign({}, state, {showPlaid: false})
     default:
       return state
   }

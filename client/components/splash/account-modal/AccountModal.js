@@ -3,6 +3,7 @@ import FlatButton from 'material-ui/lib/flat-button'
 import Dialog from 'material-ui/lib/dialog'
 import LoginField from './LoginField'
 import SignupField from './SignupField'
+import PlaidButton from './PlaidButton'
 
 class AccountModal extends Component {
   componentDidUpdate() {
@@ -51,18 +52,21 @@ class AccountModal extends Component {
   }
 
   renderInputFields() {
-    const { showLogin, showSignup } = this.props
+    const { showLogin, showSignup, showPlaid, authenticate, getKey, publicKey } = this.props
     return showLogin ? <LoginField ref="loginField"/> :
-           showSignup ? <SignupField ref="signupField"/> : null
+           showSignup ? <SignupField ref="signupField"/> :
+           showPlaid ? <PlaidButton accountModal={this.refs.modal} authenticate={authenticate} getKey={getKey} publicKey={publicKey} /> : null
   }
 
   renderTitle() {
-    const { showLogin, showSignup } = this.props
+    const { showLogin, showSignup, showPlaid } = this.props
     return showLogin ? 'Log in to Your Account' :
-           showSignup ? 'Sign up for an Account' : ''
+           showSignup ? 'Sign up for an Account' :
+           showPlaid ? 'Authenticate your Bank Account' : ''
   }
 
   render() {
+    console.log(this.props)
     let modalActions = [
       <FlatButton
         key={0}

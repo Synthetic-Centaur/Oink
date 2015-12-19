@@ -67,9 +67,14 @@ let apiHandler = {
       res.json({ success: false, message: 'Failed, user is not authenticated'})
     } else {
       authController.findUserByToken(req).then((user) => {
-
         // Check if user is in db
         if (user) {
+
+          // Check if the user has authenticated their bank with Plaid
+          if (!user.token_plaid) {
+            res.status(403)
+            res.json({success: false, message: 'You need to authenticate your Bank.', user: user})
+          }
 
           // Search for all budgets from user
           budgetController.getBudgets(user.id).then((budgets) => {

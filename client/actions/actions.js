@@ -117,6 +117,24 @@ export function hideSignup() {
   }
 }
 
+// We should show the pop-up signup modal
+export function showPlaid() {
+  return (dispatch) => {
+    dispatch({
+      type: 'SHOW_PLAID'
+    })
+  }
+}
+
+// We should hide the pop-up signup modal
+export function hidePlaid() {
+  return (dispatch) => {
+    dispatch({
+      type: 'HIDE_PLAID'
+    })
+  }
+}
+
 /********************************************************
               AUTHENTICATION REDUX ACTIONS
 *********************************************************/
@@ -285,7 +303,6 @@ export function updateCommunicationSettings(item) {
 
 // Update the communication settings on state
 export function updateSecuritySettings(item) {
-  console.log('inside update updateSecuritySettings item is', item)
   return (dispatch) => {
     dispatch({
       type: 'UPDATE_SECURITY_SETTINGS',
