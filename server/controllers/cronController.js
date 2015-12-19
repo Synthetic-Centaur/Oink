@@ -24,7 +24,7 @@ const writeFile = Promise.promisify(fs.writeFile)
 let cronController = {
   findUsersByMail() {
     console.log("in find users by mail")
-    return db.knex.select().table('users').where({receive_mail: true})
+    return db.knex.select().table('users').where({email_updates: true})
       .then((users) => {
         if (users) {
           return users
@@ -36,7 +36,7 @@ let cronController = {
 
   cancelEmail(user, callback) {
 
-    user.attributes.receive_mail = false
+    user.attributes.email_updates = false
     return user.save().then((user) => {
       if (user) {
         callback(null, 'success')

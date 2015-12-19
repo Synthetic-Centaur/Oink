@@ -2,8 +2,7 @@ import schedule from 'node-schedule'
 import cronHandler from './handlers/cronHandler'
 
 export default function() {
-  console.log('in scheduler, job is: ---------->')
-
+  //currently set up to email on Sundays at 10 AM
   let rule = new schedule.RecurrenceRule()
   rule.dayOfWeek = 0
   rule.hour = 10

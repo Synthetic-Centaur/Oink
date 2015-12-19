@@ -31,7 +31,8 @@ var populateTables = (cb) => {
         user.boolean('email_updates')
             .default(true)
         user.text('token_plaid')
-        user.boolean('receive_mail')
+        user.boolean('email_updates')
+          .default(true)
       }).then((table) => {
         console.log('Created Users Table')
       })

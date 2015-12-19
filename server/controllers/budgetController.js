@@ -223,8 +223,6 @@ let budgetController = {
 }
 
 function saveTransaction(transaction, user_id, category_id) {
-  console.log("lat, long: ------->", transaction.meta.location)
-  // Creates new transaction object
   let store, latitude, longitude, address, city, state
 
   if (transaction.meta.location) {
@@ -245,13 +243,13 @@ function saveTransaction(transaction, user_id, category_id) {
     city = ""
     state = ""
   }
-  store = transaction.name || ''
+
+  store = transaction.name || ""
 
   let newTransaction = new Transaction({
     user_id: user_id,
     category_id: category_id,
     transaction_id: transaction._id,
-
     // this was erroring out so added a check
     amount: transaction.amount,
     date: new Date(transaction.date),
