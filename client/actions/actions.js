@@ -39,7 +39,7 @@ function changeCurrentBudget(budgetIndex) {
 
 // An async operation has been made and we are waiting for a response
 function requestData() {
-  // Dispatch will be called in api/authHandlers.js for these
+  // Dispatch will be called in api/authActions.js for these
   return { type: 'REQ_DATA' }
 }
 

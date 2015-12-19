@@ -11,6 +11,19 @@ class SecuritySettingsField extends React.Component {
     this.props.editFinish(key)
   }
 
+  handleDeleteAccount() {
+    this.props.deleteAccount()
+  }
+
+  updateSecuritySettings () {
+    let newPassword = this.refs.newPassword ? this.refs.newPassword.getValue() : ""
+    let passwordCheck = this.refs.passwordCheck ? this.refs.passwordCheck.getValue() : ""
+
+    let error = newPassword === passwordCheck ? "" : "Password Fields Must Match"
+
+    this.props.updateSecuritySettings({ newPassword: newPassword, passwordCheck: passwordCheck, errorText: error})
+  }
+
   renderPrimary () {
     if (this.props.editingDeleteAccount) {
       return this.renderDeleteAccount()
@@ -55,22 +68,13 @@ class SecuritySettingsField extends React.Component {
     )
   }
 
-  updateSecuritySettings () {
-    let newPassword = this.refs.newPassword ? this.refs.newPassword.getValue() : ""
-    let passwordCheck = this.refs.passwordCheck ? this.refs.passwordCheck.getValue() : ""
-
-    let error = newPassword === passwordCheck ? "" : "Password Fields Must Match"
-
-    this.props.updateSecuritySettings({ newPassword: newPassword, passwordCheck: passwordCheck, errorText: error})
-  }
-
   renderDeleteAccount () {
     return (
       <div>
         <h4>Are You Sure?</h4>
         <h6>If you delete your account you cannot get it back</h6>
           <RaisedButton label="No, Take me back to settings" priary={true} onTouchTap={this.handleEditFinish.bind(this, 'DELETE_ACCOUNT')}/>
-          <RaisedButton label="Yes, Please Delete My Account" />
+          <RaisedButton label="Yes, Please Delete My Account" onTouchTap={this.handleDeleteAccount.bind(this)} />
       </div>
     )
   }

@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import ThemeManager from 'material-ui/lib/styles/theme-manager'
 import Theme from '../material-theme.js'
 import { authRedirect, authLogout } from '../actions/api/authActions'
-import { getInitialState, postSettings } from '../actions/api/apiActions'
+import { getInitialState, postSettings, deleteAccount } from '../actions/api/apiActions'
 import { changeView, switchComponent, showSettings, hideSettings, editStart, editFinish,
          updateAccountSettings, updateCommunicationSettings, updateSecuritySettings } from '../actions/actions'
 import SideNav from '../components/dashboard/sidenav/SideNav'
@@ -87,6 +87,7 @@ class Dashboard extends React.Component {
             updateAccountSettings={actions.updateAccountSettings}
             updateCommunicationSettings={actions.updateCommunicationSettings}
             updateSecuritySettings={actions.updateSecuritySettings}
+            deleteAccount={actions.deleteAccount}
           />
 
           <div className="header">
@@ -146,6 +147,7 @@ function mapDispatchToProps(dispatch) {
       changeView,
       switchComponent,
       postSettings,
+      deleteAccount,
       editStart,
       editFinish,
       updateAccountSettings,

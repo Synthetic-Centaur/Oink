@@ -218,6 +218,27 @@ let apiHandler = {
         })
       })
     }
+  },
+
+  deleteAccount(req, res) {
+    console.log('req$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$', req.headers)
+    if (!req.headers.authorization) {
+      res.status(403)
+      res.json({success: false, message: 'Failed, user is not authenticated'})
+    } else {
+      authController.findUserByToken(req).then((user) => {
+        console.log('USER WAS FOUND', user)
+        authController.deleteAccount(user).then((rowsDeleted) => {
+          console.log('rows deleted', rowsDeleted);
+          if (rowsDeleted.userRows > 0) {            
+            res.status(204)
+            res.json(user)
+          } else {
+            res.sendStatus(500)
+          }
+        })
+      })
+    }
   }
 }
 

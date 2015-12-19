@@ -148,6 +148,7 @@ class SettingsModal extends Component {
                 updateCommunicationSettings={this.props.updateCommunicationSettings}
                 updateSecuritySettings={this.props.updateSecuritySettings}
                 securityData={this.props.securityData}
+                deleteAccount={this.props.deleteAccount}
               />
               
             </div>
