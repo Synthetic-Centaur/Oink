@@ -1,7 +1,7 @@
 import Budget from '../containers/Budget'
 import Goals from '../containers/Goals'
 import Spending from '../containers/Spending'
-import HeatMap from '../components/dashboard/heatmap/GoogleHeatMap'
+import HeatMap from '../containers/HeatMap'
 // TODO: Update below once there is a heatmap container
 // import HeatMap from '../components/dashboard/GoogleHeatMap'
 
