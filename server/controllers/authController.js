@@ -86,13 +86,9 @@ let authController = {
   },
 
   deleteAccount(user) {
-    console.log('inside deleteAccount user is', user)
     return db.knex('users').where(user).del().then((userRows) => {
-      console.log('user rows', userRows)
       return db.knex('transactions').where({user_id: user.id}).del().then((transRows) => {
-        console.log('trans rows', transRows)
         return db.knex('budgets').where({user_id: user.id}).del().then((budgetRows) => {
-          console.log('budget rows', budgetRows)
           return {userRows: userRows, transRows: transRows, budgetRows: budgetRows}
         })
       })
