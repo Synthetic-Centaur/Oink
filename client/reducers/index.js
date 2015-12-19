@@ -17,8 +17,7 @@ const rootReducer = combineReducers({
   dashboard: REDUCERS.dashboardReducer,
   goalPage: REDUCERS.goalPageReducer,
   plaid: REDUCERS.plaidReducer,
-  budgetPage: REDUCERS.budgetReducer,
-  spendingPage: REDUCERS.spendingPageReducer
+  budgetPage: REDUCERS.budgetReducer
 })
 
 // Export the rootReducer to build our final store in configureStore.js
