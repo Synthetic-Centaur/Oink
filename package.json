@@ -16,7 +16,7 @@
   ],
   "pre-push": [
     "lint",
-    "testdev"
+    "testdev",
     "testall"
   ],
   "repository": {

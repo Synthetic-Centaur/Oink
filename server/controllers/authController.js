@@ -32,10 +32,10 @@ let authController = {
 
   findUserByToken(req, secure) {
     secure = secure || false
-    let select = ['first_name', 'last_name', 'email', 'phone_number', 'id']
+    let select = ['first_name', 'last_name', 'email', 'phone_number', 'id', 'text_over_budget', 'text_recs', 'email_updates', 'text_over_total', 'phone_verified']
 
     if (secure) {
-      select = ['first_name', 'last_name', 'email', 'phone_number', 'id', 'token_plaid', 'password']
+      select = ['first_name', 'last_name', 'email', 'phone_number', 'id', 'token_plaid', 'password', 'text_over_budget', 'text_recs', 'email_updates', 'text_over_total', 'phone_verified']
     }
 
     if (!req.headers.authorization) {
@@ -80,6 +80,7 @@ let authController = {
     if (properties.password) {
       properties.password = bcrypt.hashSync(properties.password, bcrypt.genSaltSync(8), null)
     }
+    
     return db.knex('users').where(user).update(properties).returning('id').then((user) => {
       return user
     })

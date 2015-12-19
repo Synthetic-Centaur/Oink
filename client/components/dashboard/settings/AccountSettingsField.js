@@ -35,7 +35,7 @@ export class AccountSettingsField extends React.Component {
     )
   }
 
-  renderSave(item, i) {    
+  renderSave(item, i) {
     return (
       <tr key={i}>
         <td>
@@ -58,6 +58,7 @@ export class AccountSettingsField extends React.Component {
     if (item.editing) {
       return this.renderEdit(item, i)
     }
+
     return this.renderSave(item, i)
   }
 
@@ -68,12 +69,15 @@ export class AccountSettingsField extends React.Component {
     if (this.refs.FIRST_NAME) {
       updateFields.first_name = this.refs.FIRST_NAME.getValue()
     }
+
     if (this.refs.LAST_NAME) {
       updateFields.last_name = this.refs.LAST_NAME.getValue()
     }
+
     if (this.refs.EMAIL) {
       updateFields.email = this.refs.EMAIL.getValue()
     }
+    
     if (this.refs.PHONE_NUMBER) {
       updateFields.phone_number = this.refs.PHONE_NUMBER.getValue()
     }

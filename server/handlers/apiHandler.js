@@ -204,6 +204,12 @@ let apiHandler = {
             res.json(goal)
           } else {
             res.json({success: false, message: 'Failed, error updating goal'})
+          }
+        })
+      })
+    }
+  },
+  
   settings(req, res) {
     if (!req.headers.authorization) {
       res.status(403)
@@ -227,7 +233,7 @@ let apiHandler = {
     } else {
       authController.findUserByToken(req).then((user) => {
         authController.deleteAccount(user).then((rowsDeleted) => {
-          if (rowsDeleted.userRows > 0) {            
+          if (rowsDeleted.userRows > 0) {
             res.status(204)
             res.json(user)
           } else {

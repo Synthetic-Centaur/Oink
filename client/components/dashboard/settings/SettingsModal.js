@@ -10,6 +10,16 @@ import SecuritySettingsField from './SecuritySettingsField'
 
 class SettingsModal extends Component {
 
+  // componentWillReceiveProps(nextProps) {
+  //   if (nextProps.showSettings) {
+  //     this.props.showSettings ? return : this.refs.modal.show()
+  //   }
+  // }
+
+  // shouldComponentUpdate() {
+  //   return false
+  // }
+
   componentDidUpdate() {
     if (this.props.showSettings) {
       this.refs.modal.show()
@@ -55,13 +65,13 @@ class SettingsModal extends Component {
 
   parsePhoneNumber(num) {
     if (num.length === 10) {
-      return "(" + num.slice(0, 3) + ")" + num.slice(3, 6) + "-" + num.slice(6)
+      return '(' + num.slice(0, 3) + ')' + num.slice(3, 6) + '-' + num.slice(6)
     }
+
     return num
   }
 
   render() {
-    console.log('this props', this.props)
     let user = {
       firstName: this.props.data.user ? this.props.data.user.first_name : '',
       lastName: this.props.data.user ? this.props.data.user.last_name : '',
@@ -79,28 +89,27 @@ class SettingsModal extends Component {
     let modalActions = [
       <FlatButton
         key={0}
-        label="Cancel"
+        label='Cancel'
         secondary={true}
         onTouchTap={this.handleCancel.bind(this)} />,
       <FlatButton
         key={1}
-        label="Save"
+        label='Save'
         primary={true}
         onTouchTap={this.handleSubmit.bind(this)} />
     ]
 
     return (
       <Dialog
-        ref="modal"
-        // title="Settings"
+        ref='modal'
         actions={modalActions}
         autoDetectWindowHeight={true}
         autoScrollBodyContent={true}
         modal={true}
       >
         <Tabs>
-          <Tab label="Account" >
-            <div className="modal-content">
+          <Tab label='Account' >
+            <div className='modal-content'>
 
               <AccountSettingsField
                 userData={userData}
@@ -121,31 +130,25 @@ class SettingsModal extends Component {
               
             </div>
           </Tab>
-          <Tab label="Communication" >
-            <div className="modal-content">
+          <Tab label='Communication' >
+            <div className='modal-content'>
 
               <CommunicationSettingsField
-                userData={userData}
-                editStart={this.props.editStart}
-                editFinish={this.props.editFinish}
-                updateAccountSettings={this.props.updateAccountSettings}
+                user={this.props.data.user}
                 updateCommunicationSettings={this.props.updateCommunicationSettings}
-                updateSecuritySettings={this.props.updateSecuritySettings}
+                communicationData={this.props.communicationData}
               />
               
             </div>
           </Tab>
-          <Tab label="Security" >
-            <div className="modal-content">
+          <Tab label='Security' >
+            <div className='modal-content'>
 
               <SecuritySettingsField
-                userData={userData}
                 editStart={this.props.editStart}
                 editFinish={this.props.editFinish}
                 editingPassword={this.props.editingPassword}
                 editingDeleteAccount={this.props.editingDeleteAccount}
-                updateAccountSettings={this.props.updateAccountSettings}
-                updateCommunicationSettings={this.props.updateCommunicationSettings}
                 updateSecuritySettings={this.props.updateSecuritySettings}
                 securityData={this.props.securityData}
                 deleteAccount={this.props.deleteAccount}

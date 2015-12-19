@@ -15,28 +15,27 @@ class SecuritySettingsField extends React.Component {
     this.props.deleteAccount()
   }
 
-  updateSecuritySettings () {
-    let newPassword = this.refs.newPassword ? this.refs.newPassword.getValue() : ""
-    let passwordCheck = this.refs.passwordCheck ? this.refs.passwordCheck.getValue() : ""
+  updateSecuritySettings() {
+    let newPassword = this.refs.newPassword ? this.refs.newPassword.getValue() : ''
+    let passwordCheck = this.refs.passwordCheck ? this.refs.passwordCheck.getValue() : ''
 
-    let error = newPassword === passwordCheck ? "" : "Password Fields Must Match"
+    let error = newPassword === passwordCheck ? '' : 'Password Fields Must Match'
 
     this.props.updateSecuritySettings({ newPassword: newPassword, passwordCheck: passwordCheck, errorText: error})
   }
 
-  renderPrimary () {
+  renderPrimary() {
     if (this.props.editingDeleteAccount) {
       return this.renderDeleteAccount()
     } else if (this.props.editingPassword) {
       return this.renderEditPassword()
-    }
-    else {    
+    } else {  
       return (
         <form>
-          <div className="offset-by-five">
+          <div className='offset-by-five'>
             <RaisedButton label="Change Password" onTouchTap={this.handleEditStart.bind(this, 'PASSWORD')} />
           </div>
-          <div className="offset-by-five">
+          <div className='offset-by-five'>
             <RaisedButton label="Delete Account" onTouchTap={this.handleEditStart.bind(this, 'DELETE_ACCOUNT')} />
           </div>
         </form>
@@ -44,7 +43,7 @@ class SecuritySettingsField extends React.Component {
     }
   }
 
-  renderEditPassword () {
+  renderEditPassword() {
     return (
       <div>
         <h4>Update Password</h4>
@@ -68,13 +67,13 @@ class SecuritySettingsField extends React.Component {
     )
   }
 
-  renderDeleteAccount () {
+  renderDeleteAccount() {
     return (
       <div>
         <h4>Are You Sure?</h4>
         <h6>If you delete your account you cannot get it back</h6>
-          <RaisedButton label="No, Take me back to settings" priary={true} onTouchTap={this.handleEditFinish.bind(this, 'DELETE_ACCOUNT')}/>
-          <RaisedButton label="Yes, Please Delete My Account" onTouchTap={this.handleDeleteAccount.bind(this)} />
+          <RaisedButton label='No, Take me back to settings' priary={true} onTouchTap={this.handleEditFinish.bind(this, 'DELETE_ACCOUNT')}/>
+          <RaisedButton label='Yes, Please Delete My Account' onTouchTap={this.handleDeleteAccount.bind(this)} />
       </div>
     )
   }

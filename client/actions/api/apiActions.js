@@ -36,7 +36,7 @@ export function postSettings(data) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-         authorization: 'Bearer ' + JSON.parse(window.localStorage.redux).auth.token
+        authorization: 'Bearer ' + JSON.parse(window.localStorage.redux).auth.token
       },
       body: JSON.stringify(data)
     })
@@ -65,7 +65,7 @@ export function deleteAccount() {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-         authorization: 'Bearer ' + JSON.parse(window.localStorage.redux).auth.token
+        authorization: 'Bearer ' + JSON.parse(window.localStorage.redux).auth.token
       }
     })
     .then((response) => {

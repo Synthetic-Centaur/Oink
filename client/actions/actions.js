@@ -11,6 +11,21 @@ function switchComponent(component) {
   }
 }
 
+function showPhoneVerify() {
+  return (dispatch) => {
+    dispatch({
+      type: 'SHOW_PHONE_VERIFY'
+    })
+  }
+}
+
+function hidePhoneVerify() {
+  return (dispatch) => {
+    dispatch({
+      type: 'HIDE_PHONE_VERIFY'
+    })
+  }
+}
 /********************************************************
                 BUDGET VIEW REDUX ACTIONS
 *********************************************************/
@@ -259,13 +274,11 @@ function updateAccountSettings(item) {
 }
 
 // Update the communication settings on state
-function updateCommunicationSettings(phoneNumber) {
+function updateCommunicationSettings(item) {
   return (dispatch) => {
     dispatch({
       type: 'UPDATE_COMMUNICATION_SETTINGS',
-      data: {
-        phone_number: phoneNumber
-      }
+      data: item
     })
   }
 }
@@ -301,16 +314,14 @@ export default {
   hideSettings,
   changeSettingsView,
   changeCurrentBudget,
-  changeGoalView
-  changeCurrentBudget
-  editFirstName,
-  editLastName,
-  editPhoneNumber,
-  editEmail
+  changeGoalView,
+  changeCurrentBudget,
   changeCurrentBudget,
   editStart,
   editFinish,
   updateCommunicationSettings,
   updateAccountSettings,
-  updateSecuritySettings
+  updateSecuritySettings,
+  showPhoneVerify,
+  hidePhoneVerify
 }

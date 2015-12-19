@@ -6,7 +6,8 @@ import Theme from '../material-theme.js'
 import { authRedirect, authLogout } from '../actions/api/authActions'
 import { getInitialState, postSettings, deleteAccount } from '../actions/api/apiActions'
 import { changeView, switchComponent, showSettings, hideSettings, editStart, editFinish,
-         updateAccountSettings, updateCommunicationSettings, updateSecuritySettings } from '../actions/actions'
+         updateAccountSettings, updateCommunicationSettings, updateSecuritySettings,
+         showPhoneVerify, hidePhoneVerify } from '../actions/actions'
 import SideNav from '../components/dashboard/sidenav/SideNav'
 import SettingsModal from '../components/dashboard/settings/SettingsModal'
 import Budget from './Budget'
@@ -14,6 +15,7 @@ import Goals from './Goals'
 import Options from '../components/dashboard/Options'
 import ComponentPlayground from './ComponentPlayground'
 import { DROPDOWN_ACTIONS } from '../constants/componentActions'
+import { FontIcon, Popover, RaisedButton } from 'material-ui'
 
 class Dashboard extends React.Component {
   getChildContext() {
@@ -50,9 +52,10 @@ class Dashboard extends React.Component {
   }
 
   render() {
+
     const { actions, currentComponent, data, homePage, editingFirstName, editingLastName,
             editingEmail, editingPhoneNumber, editingPassword, editingDeleteAccount,
-            accountData, communicationData, securityData } = this.props
+            accountData, communicationData, securityData} = this.props
     return (
       <div className="dashboard-el">
       
@@ -152,7 +155,9 @@ function mapDispatchToProps(dispatch) {
       editFinish,
       updateAccountSettings,
       updateCommunicationSettings,
-      updateSecuritySettings
+      updateSecuritySettings,
+      showPhoneVerify,
+      hidePhoneVerify
     }, dispatch)
   }
 }

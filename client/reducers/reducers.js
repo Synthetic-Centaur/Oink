@@ -92,6 +92,7 @@ export function homePageReducer(state = {
   numberError: true,
   categoryError: true,
   showSettings: false,
+  showPhoneVerify: true,
   category: ''
 }, action = null) {
   switch (action.type) {
@@ -109,14 +110,15 @@ export function homePageReducer(state = {
       return Object.assign({}, state, {showSettings: true})
     case 'HIDE_SETTINGS':
       return Object.assign({}, state, {showSettings: false})
+    case 'SHOW_PHONE_VERIFY':
+      return Object.assign({}, state, {showPhoneVerify: true})
+    case 'HIDE_PHONE_VERIFY':
+      return Object.assign({}, state, {hidePhoneVerify: false})
     default:
       return state
   }
 }
 
-export function spendingPageReducer(state = {
-}, action = null) {
-  switch (action.type) {
 export function settingsReducer(state = {
   editingFirstName: false,
   editingLastName: false,
@@ -169,7 +171,7 @@ export function settingsReducer(state = {
       return Object.assign({}, state, {communicationData: action.data})
     case 'UPDATE_SECURITY_SETTINGS':
       return Object.assign({}, state, {securityData: action.data})
-    default:  
+    default:
       return state
   }
 }
