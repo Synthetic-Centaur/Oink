@@ -189,7 +189,8 @@ function mapDispatchToProps(dispatch) {
       getPlaid,
       postPlaid,
       showPlaid,
-      hidePlaid
+      hidePlaid,
+      removeAlerts
     }, dispatch),
   }
 }
