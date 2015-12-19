@@ -6,7 +6,6 @@ import nodemailer from 'nodemailer'
 var transporter = nodemailer.createTransport();
 const makeChart = Promise.promisify(cronController.makeEmailChart)
 
-import phantom from 'node-phantom'
 
 let cronHandler = {
 

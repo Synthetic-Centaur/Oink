@@ -1,23 +1,13 @@
 //Node scheduler for cron jobs
 import schedule from 'node-schedule'
-//private environmental variables
-import config from '../env/envConfig'
-//twilio account credentials
-const accountSid = config.twilio_private.accountSid
-const authToken = config.twilio_private.authToken
-const twilioPhone = config.twilio_private.twilioPhone
-//twilio client with credential input
-const client = require('twilio')(accountSid, authToken)
-
-import db from '../db/dbConfig.js'
-
-import authController from './authController'
 import Promise from 'bluebird'
-
 import highcharts from 'highcharts'
 import jsdom from 'jsdom'
 import fs from 'fs'
 import svg2png from 'svg2png'
+import db from '../db/dbConfig.js'
+import authController from './authController'
+
 
 const writeFile = Promise.promisify(fs.writeFile)
 
