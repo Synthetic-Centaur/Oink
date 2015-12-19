@@ -28,10 +28,12 @@ class PlaidButton extends Component {
 
   render() {
     return (
-      <RaisedButton
-        label="Link your Bank Account"
-        onClick={this.handlePlaid.bind(this)}
-      />
+      <div className="row">
+        <RaisedButton
+          label="Link your Bank Account"
+          onClick={this.handlePlaid.bind(this)}
+        />
+      </div>
     )
   }
 }

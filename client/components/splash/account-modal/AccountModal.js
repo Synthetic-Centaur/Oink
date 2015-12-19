@@ -21,10 +21,13 @@ class AccountModal extends Component {
 
   handleLogin() {
     const { loginField } = this.refs
+    const { login, hideLoginModal } = this.props
     let email = loginField.refs.email.getValue()
     let password = loginField.refs.password.getValue()
 
-    this.props.login({
+    hideLoginModal()
+
+    login({
       email: email,
       password: password
     })
@@ -32,13 +35,16 @@ class AccountModal extends Component {
 
   handleSignup() {
     const { signupField } = this.refs
+    const { signup, hideSignupModal } = this.props
     let firstName = signupField.refs.firstName.getValue()
     let lastName = signupField.refs.lastName.getValue()
     let email = signupField.refs.email.getValue()
     let phone = signupField.refs.phone.getValue()
     let password = signupField.refs.password.getValue()
+    
+    hideSignupModal()
 
-    this.props.signup({
+    signup({
       firstName: firstName,
       lastName: lastName,
       email: email,
