@@ -7,6 +7,12 @@ import SignupField from './SignupField'
 import PlaidButton from './PlaidButton'
 
 class AccountModal extends Component {
+  componentDidMount() {
+    const { hideLoginModal, hideSignupModal } = this.props
+    hideLoginModal()
+    hideSignupModal()
+  }
+
   componentDidUpdate() {
     if (this.props.showLogin || this.props.showSignup) {
       this.refs.modal.show()
@@ -25,8 +31,6 @@ class AccountModal extends Component {
     let email = loginField.refs.email.getValue()
     let password = loginField.refs.password.getValue()
 
-    hideLoginModal()
-
     login({
       email: email,
       password: password
@@ -41,8 +45,6 @@ class AccountModal extends Component {
     let email = signupField.refs.email.getValue()
     let phone = signupField.refs.phone.getValue()
     let password = signupField.refs.password.getValue()
-    
-    hideSignupModal()
 
     signup({
       firstName: firstName,

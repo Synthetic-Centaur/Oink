@@ -142,9 +142,9 @@ class Splash extends Component {
                   name="Todd Levin"
                   title="Fullstack Engineer"
                   picture="images/Todd_Levin.jpg"
-                  email="claykschneider@gmail.com"
-                  github="https://github.com/claytonschneider"
-                  linkedin="https://www.linkedin.com/in/claytonschneider"
+                  email="todd.levin@me.com"
+                  github="https://github.com/tlevin"
+                  linkedin="https://www.linkedin.com/in/toddglevin"
                   description=" Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                                 Donec mattis pretium massa. Aliquam erat volutpat."
                 />

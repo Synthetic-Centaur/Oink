@@ -212,8 +212,6 @@ export function removeJWT() {
   }
 }
 
-export function categoryValidation(allow, category) {
-// We should show the pop-up signup modal
 export function authenticateUser() {
   return (dispatch) => {
     dispatch({
