@@ -27,8 +27,8 @@ describe('Home Container Components', () => {
     it('should render correctly', () => {
       const { output } = setup()
 
-      expect(output.type).toBe('form')
-      expect(output.props.className).toBe('u-pull-right')
+      expect(output.type).toBe('div')
+      expect(output.props.className).toBe('container')
 
       let [ div1, div2, div3 ] = output.props.children
 

@@ -113,7 +113,8 @@ describe('homePageReducer', () => {
     ).toEqual({
       numberError: true,
       categoryError: true,
-      category: ''
+      category: '',
+      showSettings: false,
     })
   })
 
@@ -125,7 +126,8 @@ describe('homePageReducer', () => {
     ).toEqual({
       numberError: false,
       categoryError: true,
-      category: ''
+      category: '',
+      showSettings: false,
     })
   })
 
@@ -137,7 +139,8 @@ describe('homePageReducer', () => {
     ).toEqual({
       numberError: true,
       categoryError: true,
-      category: ''
+      category: '',
+      showSettings: false,
     })
   })
 
@@ -150,7 +153,8 @@ describe('homePageReducer', () => {
     ).toEqual({
       numberError: true,
       categoryError: false,
-      category: 'testCategory'
+      category: 'testCategory',
+      showSettings: false,
     })
   })
 
@@ -162,7 +166,8 @@ describe('homePageReducer', () => {
     ).toEqual({
       numberError: true,
       categoryError: true,
-      category: ''
+      category: '',
+      showSettings: false,
     })
   })
 })
