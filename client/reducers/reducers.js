@@ -210,9 +210,11 @@ export function authReducer(state = {
   switch (action.type) {
 
     case 'ADD_JWT':
-      return Object.assign({}, state, {isAuthenticated: true, token: action.jwt, expiryDate: action.expiryDate})
+      return Object.assign({}, state, {isAuthenticated: false, token: action.jwt, expiryDate: action.expiryDate})
     case 'REMOVE_JWT':
       return Object.assign({}, state, {isAuthenticated: false, token: '', expiryDate: null})
+    case 'AUTHENTICATE_USER':
+      return Object.assign({}, state, {isAuthenticated: true})
     default:
       return state
   }

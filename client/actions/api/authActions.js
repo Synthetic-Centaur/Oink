@@ -15,23 +15,32 @@ export function postLogin(data) {
       })
     })
     .then((response) => {
-      if (response.status === 200) {
+      if (response.status === 200 || response.status === 403) {
         return response.json()
       } else if (response.status === 409) {
         throw new Error('User does not exist in DB')
-      } else if (response.status === 403) {
-        dispatch(ACTIONS.hideLogin())
-        dispatch(ACTIONS.showPlaid())
-        throw new Error('Must authenticate bank before logging in')
       } else if (response.status === 500) {
         throw new Error('Error on the server', response)
       }
     })
     .then((data) => {
-      dispatch(ACTIONS.addJWT(data))
-      dispatch(ACTIONS.receiveData({}))
+      if (data.success === false) {
+        if (data.message === 'Invalid Email') { alert('invalid email') }
 
-      dispatch(updatePath('/dashboard'))
+        if (data.message === 'Invalid Bank') {
+          dispatch(ACTIONS.hideLogin())
+          dispatch(ACTIONS.showPlaid())
+          alert('Invalid Bank')
+        }
+
+        if (data.message === 'Invalid Password') { alert('invalid password') }
+      } else {
+        dispatch(ACTIONS.addJWT(data))
+        dispatch(ACTIONS.authenticateUser())
+        dispatch(ACTIONS.receiveData({}))
+
+        dispatch(updatePath('/dashboard'))
+      }
     })
     .catch((err) => {
       dispatch(ACTIONS.receiveError(err))
@@ -95,8 +104,9 @@ export function postPlaid(data) {
     })
     .then((response) => {
       if (response.status === 201) {
-        dispatch(updatePath('/dashboard'))
         dispatch(ACTIONS.receiveData({}))
+        dispatch(ACTIONS.authenticateUser())
+        dispatch(updatePath('/dashboard'))
       } else if (response.status === 500) {
         throw new Error('Error on the server', response)
       }

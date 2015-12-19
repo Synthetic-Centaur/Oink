@@ -51,12 +51,12 @@ let authHandler = {
     authController.findUser({email: req.body.email}).then((user) => {
       if (!user) {
         res.status(403)
-        res.json({ success: false, cause: 'Invalid Email' })
+        res.json({ success: false, message: 'Invalid Email' })
         
       // Check if the user has authenticated their bank with Plaid
       } else if (!user.attributes.token_plaid) {
         res.status(403)
-        res.json({success: false, cause: 'Invalid Bank'})
+        res.json({success: false, message: 'Invalid Bank'})
       } else {
         // Checks if provided password is valid
         if (!user.validPassword(req.body.password)) {
