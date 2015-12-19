@@ -11,6 +11,21 @@ function switchComponent(component) {
   }
 }
 
+function showPhoneVerify() {
+  return (dispatch) => {
+    dispatch({
+      type: 'SHOW_PHONE_VERIFY'
+    })
+  }
+}
+
+function hidePhoneVerify() {
+  return (dispatch) => {
+    dispatch({
+      type: 'HIDE_PHONE_VERIFY'
+    })
+  }
+}
 /********************************************************
                 BUDGET VIEW REDUX ACTIONS
 *********************************************************/
@@ -39,7 +54,7 @@ function changeCurrentBudget(budgetIndex) {
 
 // An async operation has been made and we are waiting for a response
 function requestData() {
-  // Dispatch will be called in api/authHandlers.js for these
+  // Dispatch will be called in api/authActions.js for these
   return { type: 'REQ_DATA' }
 }
 
@@ -228,6 +243,57 @@ function hideSettings() {
   }
 }
 
+// We should know when a user is editing their first name
+function editStart(item) {
+  return (dispatch) => {
+    dispatch({
+      type: 'EDIT_START',
+      data: item
+    })
+  }
+}
+
+// We should know when a user is editing their first name
+function editFinish(item) {
+  return (dispatch) => {
+    dispatch({
+      type: 'EDIT_FINISH',
+      data: item
+    })
+  }
+}
+
+// Update the user account settings on state
+function updateAccountSettings(item) {
+  return (dispatch) => {
+    dispatch({
+      type: 'UPDATE_ACCOUNT_SETTINGS',
+      data: item
+    })
+  }
+}
+
+// Update the communication settings on state
+function updateCommunicationSettings(item) {
+  return (dispatch) => {
+    dispatch({
+      type: 'UPDATE_COMMUNICATION_SETTINGS',
+      data: item
+    })
+  }
+}
+
+// Update the communication settings on state
+function updateSecuritySettings(item) {
+  console.log('inside update updateSecuritySettings item is', item)
+  return (dispatch) => {
+    dispatch({
+      type: 'UPDATE_SECURITY_SETTINGS',
+      data: item
+    })
+  }
+}
+
 export default {
   requestData,
   receiveData,
@@ -248,5 +314,14 @@ export default {
   hideSettings,
   changeSettingsView,
   changeCurrentBudget,
-  changeGoalView
+  changeGoalView,
+  changeCurrentBudget,
+  changeCurrentBudget,
+  editStart,
+  editFinish,
+  updateCommunicationSettings,
+  updateAccountSettings,
+  updateSecuritySettings,
+  showPhoneVerify,
+  hidePhoneVerify
 }
