@@ -4,12 +4,19 @@ import chartConfig from './config/chartConfig'
 
 class SpendingChart extends Component {
 
+  shouldComponentUpdate(nextProps) {
+    if (this.props.selectedDate) {
+      return false
+    } else {
+      return true
+    }
+  }
+
   render() {
-    let { data } = this.props
+    let { data, selectDate } = this.props
     let config = {}
     if (data) {
-      let transactions = data.transactions
-      config = chartConfig(transactions)
+      config = chartConfig(data, selectDate)
     }
     
     return (

@@ -32,7 +32,7 @@ class MessageCenter extends Component {
         }}>
           <tbody>
             <tr>
-              <th style={{ align: 'center'}}>Average Savings per Month:</th>
+              <th>Average Savings per Month:</th>
             </tr>
             <tr>
               <td>Last Month: </td>

@@ -160,6 +160,19 @@ function numberValidation(allow) {
 }
 
 /********************************************************
+                    SPENDING PAGE REDUX ACTIONS
+*********************************************************/
+
+function selectDate(date) {
+  return (dispatch) => {
+    dispatch({
+      type: 'SELECT_DATE',
+      data: date
+    })
+  }
+}
+
+/********************************************************
                     GOAL PAGE REDUX ACTIONS
 *********************************************************/
 
@@ -248,5 +261,6 @@ export default {
   hideSettings,
   changeSettingsView,
   changeCurrentBudget,
-  changeGoalView
+  changeGoalView,
+  selectDate
 }

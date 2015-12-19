@@ -115,8 +115,11 @@ export function homePageReducer(state = {
 }
 
 export function spendingPageReducer(state = {
+  selectedDate: null
 }, action = null) {
   switch (action.type) {
+    case 'SELECT_DATE':
+      return Object.assign({}, state, {selectedDate: action.data})
     default:
       return state
   }
