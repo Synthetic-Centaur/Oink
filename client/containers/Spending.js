@@ -3,12 +3,23 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import ThemeManager from 'material-ui/lib/styles/theme-manager'
 import Theme from '../material-theme.js'
+import SpendingChart from '../components/dashboard/spending/SpendingChart.js'
 
 class Spending extends Component {
 
   render() {
-    return <h1>Hello World</h1>
+    const { actions, data } = this.props
+    return (
+      <div className = 'container'>
+        <SpendingChart
+            data= { data } />
+      </div>
+    )
   }
+}
+
+Spending.propTypes = {
+
 }
 
 //Unpack state onto container props

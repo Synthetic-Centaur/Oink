@@ -132,7 +132,7 @@ let authHandler = {
             let number = user.attributes.phone_number
 
             // get transactions from plaid
-            apiController.getTransactions(user.attributes.token_plaid, user.id)
+            apiController.retrieveTransactions(user.attributes.token_plaid, user.id)
             
             // .then( (transactions) => {
             //   budgetController.saveTransactions(transactions, userid)

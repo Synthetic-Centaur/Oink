@@ -82,16 +82,18 @@ let apiHandler = {
                   // Retrieve all goals from user
                   goalController.getGoalsById(user.id).then((goals) => {
                     goalController.generateReport(user.id).then((avgNet) => {
-
-                      // Build response object
-                      let state = {
-                        user,
-                        budgets,
-                        categories,
-                        goals,
-                        avgNet
-                      }
-                      res.json(state)
+                      transactionController.getTransactionsByTime(user.id).then((transactions) => {
+                        // Build response object
+                        let state = {
+                          transactions,
+                          user,
+                          budgets,
+                          categories,
+                          goals,
+                          avgNet
+                        }
+                        res.json(state)
+                      })
                     })
                   })
                 } else {

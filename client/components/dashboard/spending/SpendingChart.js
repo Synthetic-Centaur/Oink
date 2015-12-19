@@ -1,12 +1,13 @@
 import React, { Component, PropTypes } from 'react'
 import ReactHighcharts from 'react-highcharts'
 import chartConfig from './config/chartConfig'
+
 class SpendingChart extends Component {
 
   render() {
     let { data } = this.props
     let config = {}
-    if (data.transactions.length > 0) {
+    if (data) {
       let transactions = data.transactions
       config = chartConfig(transactions)
     }
@@ -19,4 +20,4 @@ class SpendingChart extends Component {
   }
 }
 
-export default GoalChart
+export default SpendingChart
