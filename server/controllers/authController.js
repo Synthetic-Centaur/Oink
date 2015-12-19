@@ -8,6 +8,7 @@ let authController = {
   addUser(user) {
     // user should be object of the following format:
     // {"first_name": "John", "last_name": "Smith", "email": "JohnSmith@example.com", , "phone_number": 8085551234, "password": "ExamplePass"}
+ 
     let newUser = new User(user)
 
     // hashes user's password prior to saving

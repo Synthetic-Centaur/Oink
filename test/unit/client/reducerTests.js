@@ -1,3 +1,4 @@
+
 import expect from 'expect'
 import * as reducers from '../../../client/reducers/reducers'
 import * as actions from '../../../client/actions/actions'
@@ -112,7 +113,9 @@ describe('homePageReducer', () => {
     ).toEqual({
       numberError: true,
       categoryError: true,
-      category: ''
+      category: '',
+      showSettings: false,
+      showPhoneVerify: true
     })
   })
 
@@ -124,7 +127,9 @@ describe('homePageReducer', () => {
     ).toEqual({
       numberError: false,
       categoryError: true,
-      category: ''
+      category: '',
+      showSettings: false,
+      showPhoneVerify: true
     })
   })
 
@@ -136,7 +141,9 @@ describe('homePageReducer', () => {
     ).toEqual({
       numberError: true,
       categoryError: true,
-      category: ''
+      category: '',
+      showSettings: false,
+      showPhoneVerify: true
     })
   })
 
@@ -149,7 +156,9 @@ describe('homePageReducer', () => {
     ).toEqual({
       numberError: true,
       categoryError: false,
-      category: 'testCategory'
+      category: 'testCategory',
+      showSettings: false,
+      showPhoneVerify: true
     })
   })
 
@@ -161,7 +170,9 @@ describe('homePageReducer', () => {
     ).toEqual({
       numberError: true,
       categoryError: true,
-      category: ''
+      category: '',
+      showSettings: false,
+      showPhoneVerify: true
     })
   })
 })

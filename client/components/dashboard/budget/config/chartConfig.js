@@ -4,6 +4,7 @@ function chartConfig(data) {
   //data should be formatted as an array with objects for data points
   let total = 0
   let budget = []
+  
   for (var i = 0; i < data.length; i++) {
     total += data[i].target
   }
