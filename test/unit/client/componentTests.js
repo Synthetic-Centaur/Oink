@@ -33,7 +33,6 @@ describe('Home Container Components', () => {
       let [ div1, div2, div3 ] = output.props.children
 
       expect(div1.type).toBe('div')
-      console.log(div1.props.children)
       expect(div1.props.children.type.displayName).toBe('DropDownMenu')
 
       expect(div2.type).toBe('div')
