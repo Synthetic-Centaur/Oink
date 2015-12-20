@@ -112,7 +112,7 @@ export function homePageReducer(state = {
   numberError: true,
   categoryError: true,
   showSettings: false,
-  showPhoneVerify: true,
+  showVerify: true,
   category: ''
 }, action = null) {
   switch (action.type) {
@@ -131,9 +131,9 @@ export function homePageReducer(state = {
     case 'HIDE_SETTINGS':
       return Object.assign({}, state, {showSettings: false})
     case 'SHOW_PHONE_VERIFY':
-      return Object.assign({}, state, {showPhoneVerify: true})
+      return Object.assign({}, state, {showVerify: true})
     case 'HIDE_PHONE_VERIFY':
-      return Object.assign({}, state, {hidePhoneVerify: false})
+      return Object.assign({}, state, {showVerify: false})
     default:
       return state
   }

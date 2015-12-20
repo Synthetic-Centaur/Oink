@@ -10,12 +10,14 @@ import { changeView, switchComponent, showSettings, hideSettings, editStart, edi
          showPhoneVerify, hidePhoneVerify } from '../actions/actions'
 import SideNav from '../components/dashboard/sidenav/SideNav'
 import SettingsModal from '../components/dashboard/settings/SettingsModal'
+import PhoneVerifyModal from '../components/dashboard/phoneVerify/PhoneVerifyModal'
+import PhoneVerifyIcon from '../components/dashboard/phoneVerify/PhoneVerifyIcon'
 import Budget from './Budget'
 import Goals from './Goals'
 import Options from '../components/dashboard/Options'
 import ComponentPlayground from './ComponentPlayground'
 import { DROPDOWN_ACTIONS } from '../constants/componentActions'
-import { FontIcon, Popover, RaisedButton } from 'material-ui'
+import { FontIcon, FlatButton, RaisedButton } from 'material-ui'
 
 class Dashboard extends React.Component {
   getChildContext() {
@@ -57,6 +59,11 @@ class Dashboard extends React.Component {
     const { actions, currentComponent, data, homePage, editingFirstName, editingLastName,
             editingEmail, editingPhoneNumber, editingPassword, editingDeleteAccount,
             accountData, communicationData, securityData} = this.props
+
+    const userIsVerified = data.user ? data.user.phone_verified : true;
+
+    console.log('USER IS VERIFIED:', userIsVerified)
+
     return (
       <div className="dashboard-el">
       
@@ -66,10 +73,23 @@ class Dashboard extends React.Component {
           dropDownComponents = { DROPDOWN_ACTIONS } />
 
         <div className="dashboard">
-      
+
           <div className="options u-pull-right">
             <Options logout={ actions.authLogout } showSettings={ actions.showSettings }/>
           </div>
+
+          <div className="needsVerify four columns" style={{padding: '30px', position: 'absolute'}}>
+            <PhoneVerifyIcon
+              showPhoneVerify={actions.showPhoneVerify}
+              showVerify={homePage.showVerify}
+              userIsVerified={userIsVerified}
+            />
+          </div>
+           <PhoneVerifyModal
+            showPhoneVerify={actions.showPhoneVerify}
+            hidePhoneVerify={actions.hidePhoneVerify}
+            showVerify={homePage.showVerify}
+           /> 
 
           <SettingsModal
             postSettings={actions.postSettings}
