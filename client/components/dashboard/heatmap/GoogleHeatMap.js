@@ -33,11 +33,11 @@ export default class GoogleHeatMap extends Component {
     return (
       <div className="container">
         <div className = "row">
-          <RaisedButton label="day" />
-          <RaisedButton label="week" />
-          <RaisedButton label="month" />
-          <RaisedButton label="year" />
-          <RaisedButton label="all" />
+          <RaisedButton label="day" onTouchTap={} />
+          <RaisedButton label="week" onTouchTap={} />
+          <RaisedButton label="month" onTouchTap={} />
+          <RaisedButton label="year" onTouchTap={} />
+          <RaisedButton label="all" onTouchTap{} />
         </div>
         <div ref="mapCanvas" style={{height: "800px", width: "100%", padding: "10px"}}/>
         <Slider ref="slider" name = "timeSlider" defaultValue={1} onChange={this.sliderValue.bind(this)}/>
@@ -70,6 +70,18 @@ export default class GoogleHeatMap extends Component {
       data: transactions,
       map: map
     })
+  }
+
+  filter(period) {
+    const { transactions } = this.props
+    
+    let points = _.map(_.filter(transactions, (transaction) => {
+      return transaction.date > period
+    }), (transaction) => {
+      return new google.maps.LatLng(parseFloat(transaction.latitude), parseFloat(transaction.longitude))
+    })
+
+    overlay(points)
   }
 
   getPoints (transactions) {
