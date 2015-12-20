@@ -3,8 +3,8 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import AccountModal from '../components/splash/account-modal/AccountModal'
 import SplashNavBar from '../components/splash/navbar/SplashNavBar'
-import { postLogin, postSignup, splashRedirect } from '../actions/api/authActions'
-import { showLogin, hideLogin, showSignup, hideSignup, getJWT } from '../actions/actions'
+import { postLogin, postSignup, splashRedirect, getPlaid, postPlaid } from '../actions/api/authActions'
+import { showLogin, hideLogin, showSignup, hideSignup, getJWT, showPlaid, hidePlaid, removeAlerts } from '../actions/actions'
 import ProfileCard from '../components/splash/ProfileCard'
 
 class Splash extends Component {
@@ -21,7 +21,7 @@ class Splash extends Component {
   }
 
   render() {
-    const { actions, splashPage } = this.props
+    const { actions, splashPage, publicKey, showPlaid } = this.props
     return (
       <div>
       
@@ -34,6 +34,16 @@ class Splash extends Component {
           showSignupModal={actions.showSignup}
           hideLoginModal={actions.hideLogin}
           hideSignupModal={actions.hideSignup}
+          authenticate={actions.postPlaid}
+          getKey={actions.getPlaid}
+          publicKey={publicKey}
+          showPlaid={showPlaid}
+          invalidEmail={splashPage.invalidEmail}
+          invalidPassword={splashPage.invalidPassword}
+          invalidBank={splashPage.invalidBank}
+          userExists={splashPage.userExists}
+          errorText={splashPage.errorText}
+          removeAlerts={actions.removeAlerts}
         />
 
         <div className="navbar">
@@ -70,17 +80,17 @@ class Splash extends Component {
               <div className="one-third column">
                 <img src="/images/text10.png" alt=""/>
                 <h3>Text Updates</h3>
-                <h4>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."</h4>
+                <h4>Oink will text you when you go over budget and let you know how much you overspent. Be confident that you are sticking to your personal financial plan every month.</h4>
               </div>
               <div className="one-third column">
                 <img src="/images/shield94.png" alt=""/>
                 <h3>Security</h3>
-                <h4>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."</h4>
+                <h4>We access your transactions by authenticating your bank via <a href="https://plaid.com/" target="_blank">Plaid</a>. This means we never access any sensitive and personally identifing information like bank account numbers.</h4>
               </div>
               <div className="one-third column">
                 <img src="/images/gears3.png" alt=""/>
-                <h3>Personalization</h3>
-                <h4>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."</h4>
+                <h3>Discovery</h3>
+                <h4>We allow you to examine your spending habits through a new lens. Oink shows you where, when, and on what you spend your money.</h4>
               </div>
 
             </div>
@@ -132,9 +142,9 @@ class Splash extends Component {
                   name="Todd Levin"
                   title="Fullstack Engineer"
                   picture="images/Todd_Levin.jpg"
-                  email="claykschneider@gmail.com"
-                  github="https://github.com/claytonschneider"
-                  linkedin="https://www.linkedin.com/in/claytonschneider"
+                  email="todd.levin@me.com"
+                  github="https://github.com/tlevin"
+                  linkedin="https://www.linkedin.com/in/toddglevin"
                   description=" Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                                 Donec mattis pretium massa. Aliquam erat volutpat."
                 />
@@ -160,7 +170,9 @@ function mapStateToProps(state) {
     error: state.error,
     splashPage: state.splashPage,
     isAuthenticated: state.auth.isAuthenticated,
-    token: state.auth.token
+    token: state.auth.token,
+    publicKey: state.plaid.publicKey,
+    showPlaid: state.plaid.showPlaid
   }
 }
 
@@ -173,7 +185,12 @@ function mapDispatchToProps(dispatch) {
       showSignup,
       hideLogin,
       hideSignup,
-      splashRedirect
+      splashRedirect,
+      getPlaid,
+      postPlaid,
+      showPlaid,
+      hidePlaid,
+      removeAlerts
     }, dispatch),
   }
 }

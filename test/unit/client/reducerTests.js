@@ -55,8 +55,13 @@ describe('splashPageReducer', () => {
     expect(
       reducers.splashPageReducer(undefined, {})
     ).toEqual({
+      errorText: '',
+      invalidBank: false,
+      invalidEmail: false,
+      invalidPassword: false,
       showLogin: false,
-      showSignup: false
+      showSignup: false,
+      userExists: false
     })
   })
 
@@ -66,8 +71,13 @@ describe('splashPageReducer', () => {
         type: 'SHOW_LOGIN'
       })
     ).toEqual({
+      errorText: '',
+      invalidBank: false,
+      invalidEmail: false,
+      invalidPassword: false,
       showLogin: true,
-      showSignup: false
+      showSignup: false,
+      userExists: false
     })
   })
 
@@ -77,8 +87,13 @@ describe('splashPageReducer', () => {
         type: 'HIDE_LOGIN'
       })
     ).toEqual({
+      errorText: '',
+      invalidBank: false,
+      invalidEmail: false,
+      invalidPassword: false,
       showLogin: false,
-      showSignup: false
+      showSignup: false,
+      userExists: false
     })
   })
 
@@ -88,8 +103,13 @@ describe('splashPageReducer', () => {
         type: 'SHOW_SIGNUP'
       })
     ).toEqual({
+      errorText: '',
+      invalidBank: false,
+      invalidEmail: false,
+      invalidPassword: false,
       showLogin: false,
-      showSignup: true
+      showSignup: true,
+      userExists: false
     })
   })
 
@@ -99,8 +119,13 @@ describe('splashPageReducer', () => {
         type: 'HIDE_SIGNUP'
       })
     ).toEqual({
+      errorText: '',
+      invalidBank: false,
+      invalidEmail: false,
+      invalidPassword: false,
       showLogin: false,
-      showSignup: false
+      showSignup: false,
+      userExists: false
     })
   })
 })
@@ -198,7 +223,7 @@ describe('authReducer', () => {
         expiryDate: testDate
       })
     ).toEqual({
-      isAuthenticated: true,
+      isAuthenticated: false,
       token: 'testJWT',
       expiryDate: testDate
     })

@@ -223,7 +223,12 @@ let budgetController = {
 }
 
 function saveTransaction(transaction, user_id, category_id) {
-  let store, latitude, longitude, address, city, state
+  let store
+  let latitude
+  let longitude
+  let address
+  let city
+  let state
 
   if (transaction.meta.location) {
     if (transaction.meta.location.coordinates) {
@@ -233,23 +238,25 @@ function saveTransaction(transaction, user_id, category_id) {
       latitude = 0.0
       longitude = 0.0
     }
-    address = transaction.meta.location.address || ""
-    city = transaction.meta.location.city || ""
-    state = transaction.meta.location.state || ""
+
+    address = transaction.meta.location.address || ''
+    city = transaction.meta.location.city || ''
+    state = transaction.meta.location.state || ''
   } else {
     latitude = 0.0
     longitude = 0.0
-    address = ""
-    city = ""
-    state = ""
+    address = ''
+    city = ''
+    state = ''
   }
 
-  store = transaction.name || ""
+  store = transaction.name || ''
 
   let newTransaction = new Transaction({
     user_id: user_id,
     category_id: category_id,
     transaction_id: transaction._id,
+
     // this was erroring out so added a check
     amount: transaction.amount,
     date: new Date(transaction.date),

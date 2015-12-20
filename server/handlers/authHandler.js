@@ -6,12 +6,12 @@ import jwt from 'jsonwebtoken'
 // shhhhh secrets
 import config from '../env/envConfig'
 
-const jwt_secret = config.jwt_private.secret.secret
+const jwt_secret = config.jwt_private.secret
 
 let authHandler = {
   isLoggedIn(req, res, next) {
     if (!req.headers.authorization) {
-      return res.status(403).send({
+      return res.status(403).json({
         success: false,
         message: 'No token provided.'
       })
@@ -24,7 +24,7 @@ let authHandler = {
     if (token) {
 
       // verifies secret and checks exp
-      jwt.verify(token, 'jwt_secret', (err, decoded) => {
+      jwt.verify(token, jwt_secret, (err, decoded) => {
         if (err) {
           return res.json({ success: false, message: 'Failed to authenticate token.' })
         } else {
@@ -35,10 +35,9 @@ let authHandler = {
       })
 
     } else {
-
       // if there is no token
       // return an error
-      return res.status(403).send({
+      return res.status(403).json({
         success: false,
         message: 'No token provided.'
       })
@@ -52,17 +51,22 @@ let authHandler = {
     authController.findUser({email: req.body.email}).then((user) => {
       if (!user) {
         res.status(403)
-        res.json({ success: false, message: 'Authentication failed. User not found.' })
+        res.json({ success: false, message: 'Invalid Email' })
+        
+      // Check if the user has authenticated their bank with Plaid
+      } else if (!user.attributes.token_plaid) {
+        res.status(403)
+        res.json({success: false, message: 'Invalid Bank'})
       } else {
         // Checks if provided password is valid
         if (!user.validPassword(req.body.password)) {
           res.status(403)
-          res.json({ success: false, message: 'Authentication failed. Wrong password.' })
+          res.json({success: false, message: 'Invalid Password'})
         }
 
         // if user is found and password is right
         // create a token
-        let token = jwt.sign(user, 'jwt_secret', {
+        let token = jwt.sign(user.attributes.email, jwt_secret, {
           expiresIn: 604800 // expires in 24 hours
         })
 
@@ -87,7 +91,7 @@ let authHandler = {
 
         //If user is not in database, create user
         authController.addUser(req.body).then((newUser) => {
-          let token = jwt.sign(newUser, 'jwt_secret', {
+          let token = jwt.sign(newUser.attributes.email, jwt_secret, {
             expiresIn: 604800 // expires in 24 hours
           })
 
@@ -107,7 +111,8 @@ let authHandler = {
 
       // If user found, cannot signup
       else {
-        res.json({ success: false, message: 'Failed, user already exists.' })
+        res.status(403)
+        res.json({ success: false, message: 'User Exists' })
       }
     })
   },

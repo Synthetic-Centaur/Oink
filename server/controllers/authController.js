@@ -98,11 +98,15 @@ let authController = {
   },
 
   saveAuthToken(token, userID) {
+    console.log('token in save auth token', token)
     let newUser = new User({id: userID})
     return newUser.fetch().then((user) => {
+      console.log('USER pre if', user)
       if (user) {
+        console.log('USER post if', user)
         user.attributes.token_auth = token
         return user.save().then((user) => {
+          console.log('user pre return', user)
           return user
         })
       } else {
