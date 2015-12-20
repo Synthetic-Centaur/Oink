@@ -1,11 +1,10 @@
 import React, { Component, PropTypes } from 'react'
 import ReactDOM from 'react-dom'
-import ReactHighCharts from 'react-highcharts/dist/bundle/highcharts'
 import ChartTheme from '../../../chart-theme'
 import chartConfig from './config/barChartConfig'
 
 // Set the styling for the Graph
-ReactHighCharts.Highcharts.setOptions(ChartTheme)
+let ReactHighCharts
 
 class BarChart extends Component {
 
@@ -33,10 +32,16 @@ class BarChart extends Component {
   render() {
     const { data } = this.props
     let config = data.budgets !== undefined ? chartConfig(data.budgets) : null
+
+    if (window !== undefined) {
+      ReactHighCharts = require('react-highcharts/dist/bundle/highcharts')
+      ReactHighCharts.Highcharts.setOptions(ChartTheme)
+    }
+
     return (
         <div>
           {
-            data.budgets !== undefined
+            data.budgets !== undefined && window !== undefined
             ?
             <ReactHighCharts config={config} ref="chart" />
             :

@@ -92,6 +92,7 @@ export function homePageReducer(state = {
   numberError: true,
   categoryError: true,
   showSettings: false,
+  showPhoneVerify: true,
   category: ''
 }, action = null) {
   switch (action.type) {
@@ -109,6 +110,10 @@ export function homePageReducer(state = {
       return Object.assign({}, state, {showSettings: true})
     case 'HIDE_SETTINGS':
       return Object.assign({}, state, {showSettings: false})
+    case 'SHOW_PHONE_VERIFY':
+      return Object.assign({}, state, {showPhoneVerify: true})
+    case 'HIDE_PHONE_VERIFY':
+      return Object.assign({}, state, {hidePhoneVerify: false})
     default:
       return state
   }
@@ -120,6 +125,63 @@ export function spendingPageReducer(state = {
   switch (action.type) {
     case 'SELECT_DATE':
       return Object.assign({}, state, {selectedDate: action.data})
+    default:
+      return state
+  }
+}
+
+export function settingsReducer(state = {
+  editingFirstName: false,
+  editingLastName: false,
+  editingEmail: false,
+  editingPhoneNumber: false,
+  editingPassword: false,
+  editingDeleteAccount: false,
+  accountData: {},
+  communicationData: {},
+  securityData: {}
+}, action = null) {
+  switch (action.type) {
+    case 'EDIT_START':
+      switch (action.data) {
+        case 'FIRST_NAME':
+          return Object.assign({}, state, {editingFirstName: true})
+        case 'LAST_NAME':
+          return Object.assign({}, state, {editingLastName: true})
+        case 'EMAIL':
+          return Object.assign({}, state, {editingEmail: true})
+        case 'PHONE_NUMBER':
+          return Object.assign({}, state, {editingPhoneNumber: true})
+        case 'PASSWORD':
+          return Object.assign({}, state, {editingPassword: true})
+        case 'DELETE_ACCOUNT':
+          return Object.assign({}, state, {editingDeleteAccount: true})
+        default:
+          return state
+      }
+    case 'EDIT_FINISH':
+      switch (action.data) {
+        case 'FIRST_NAME':
+          return Object.assign({}, state, {editingFirstName: false})
+        case 'LAST_NAME':
+          return Object.assign({}, state, {editingLastName: false})
+        case 'EMAIL':
+          return Object.assign({}, state, {editingEmail: false})
+        case 'PHONE_NUMBER':
+          return Object.assign({}, state, {editingPhoneNumber: false})
+        case 'PASSWORD':
+          return Object.assign({}, state, {editingPassword: false})
+        case 'DELETE_ACCOUNT':
+          return Object.assign({}, state, {editingDeleteAccount: false})
+        default:
+          return state
+      }
+    case 'UPDATE_ACCOUNT_SETTINGS':
+      return Object.assign({}, state, {accountData: action.data})
+    case 'UPDATE_COMMUNICATION_SETTINGS':
+      return Object.assign({}, state, {communicationData: action.data})
+    case 'UPDATE_SECURITY_SETTINGS':
+      return Object.assign({}, state, {securityData: action.data})
     default:
       return state
   }

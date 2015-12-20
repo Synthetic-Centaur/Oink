@@ -205,6 +205,7 @@ let budgetController = {
         let category = transaction.category[0]
 
         return db.knex('categories').where({description: category}).select().then((result) => {
+
           if (result.length > 0) {
             let category_id = result[0].id
             return saveTransaction(transaction, user_id, category_id)
@@ -222,17 +223,43 @@ let budgetController = {
 }
 
 function saveTransaction(transaction, user_id, category_id) {
-  // Creates new transaction object
+  let store, latitude, longitude, address, city, state
+
+  if (transaction.meta.location) {
+    if (transaction.meta.location.coordinates) {
+      latitude = transaction.meta.location.coordinates.lat || 0.0
+      longitude = transaction.meta.location.coordinates.lon || 0.0
+    } else {
+      latitude = 0.0
+      longitude = 0.0
+    }
+    address = transaction.meta.location.address || ""
+    city = transaction.meta.location.city || ""
+    state = transaction.meta.location.state || ""
+  } else {
+    latitude = 0.0
+    longitude = 0.0
+    address = ""
+    city = ""
+    state = ""
+  }
+
+  store = transaction.name || ""
+
   let newTransaction = new Transaction({
     user_id: user_id,
     category_id: category_id,
     transaction_id: transaction._id,
-
     // this was erroring out so added a check
     amount: transaction.amount,
     date: new Date(transaction.date),
     pending: transaction.pending,
-    store_name: transaction.name
+    store_name: store,
+    latitude: latitude,
+    longitude: longitude,
+    address: address,
+    city: city,
+    state: state
   })
 
   // Saves to db

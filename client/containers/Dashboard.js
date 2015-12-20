@@ -4,14 +4,18 @@ import { connect } from 'react-redux'
 import ThemeManager from 'material-ui/lib/styles/theme-manager'
 import Theme from '../material-theme.js'
 import { authRedirect, authLogout } from '../actions/api/authActions'
-import { getInitialState } from '../actions/api/apiActions'
-import { changeView, switchComponent, showSettings } from '../actions/actions'
+import { getInitialState, postSettings, deleteAccount } from '../actions/api/apiActions'
+import { changeView, switchComponent, showSettings, hideSettings, editStart, editFinish,
+         updateAccountSettings, updateCommunicationSettings, updateSecuritySettings,
+         showPhoneVerify, hidePhoneVerify } from '../actions/actions'
 import SideNav from '../components/dashboard/sidenav/SideNav'
+import SettingsModal from '../components/dashboard/settings/SettingsModal'
 import Budget from './Budget'
 import Goals from './Goals'
 import Options from '../components/dashboard/Options'
 import ComponentPlayground from './ComponentPlayground'
 import { DROPDOWN_ACTIONS } from '../constants/componentActions'
+import { FontIcon, Popover, RaisedButton } from 'material-ui'
 
 class Dashboard extends React.Component {
   getChildContext() {
@@ -48,7 +52,10 @@ class Dashboard extends React.Component {
   }
 
   render() {
-    const { actions, currentComponent, data, homePage } = this.props
+
+    const { actions, currentComponent, data, homePage, editingFirstName, editingLastName,
+            editingEmail, editingPhoneNumber, editingPassword, editingDeleteAccount,
+            accountData, communicationData, securityData} = this.props
     return (
       <div className="dashboard-el">
       
@@ -62,6 +69,29 @@ class Dashboard extends React.Component {
           <div className="options u-pull-right">
             <Options logout={ actions.authLogout } showSettings={ actions.showSettings }/>
           </div>
+
+          <SettingsModal
+            postSettings={actions.postSettings}
+            showSettings={homePage.showSettings}
+            showSettingsModal={actions.showSettings}
+            hideSettingsModal={actions.hideSettings}
+            editStart={actions.editStart}
+            editFinish={actions.editFinish}
+            data={data}
+            editingFirstName={editingFirstName}
+            editingLastName={editingLastName}
+            editingEmail={editingEmail}
+            editingPhoneNumber={editingPhoneNumber}
+            editingPassword={editingPassword}
+            editingDeleteAccount={editingDeleteAccount}
+            accountData={accountData}
+            communicationData={communicationData}
+            securityData={securityData}
+            updateAccountSettings={actions.updateAccountSettings}
+            updateCommunicationSettings={actions.updateCommunicationSettings}
+            updateSecuritySettings={actions.updateSecuritySettings}
+            deleteAccount={actions.deleteAccount}
+          />
 
           <div className="header">
             <div className="container">
@@ -96,7 +126,16 @@ function mapStateToProps(state) {
     error: state.asyncStatus.error,
     homePage: state.homePage,
     isAuthenticated: state.auth.isAuthenticated,
-    currentComponent: state.dashboard.currentComponent
+    currentComponent: state.dashboard.currentComponent,
+    editingFirstName: state.settings.editingFirstName,
+    editingLastName: state.settings.editingLastName,
+    editingEmail: state.settings.editingEmail,
+    editingPhoneNumber: state.settings.editingPhoneNumber,
+    editingPassword: state.settings.editingPassword,
+    editingDeleteAccount: state.settings.editingDeleteAccount,
+    accountData: state.settings.accountData,
+    communicationData: state.settings.communicationData,
+    securityData: state.settings.securityData
   }
 }
 
@@ -107,8 +146,18 @@ function mapDispatchToProps(dispatch) {
       authRedirect,
       authLogout,
       showSettings,
+      hideSettings,
       changeView,
-      switchComponent
+      switchComponent,
+      postSettings,
+      deleteAccount,
+      editStart,
+      editFinish,
+      updateAccountSettings,
+      updateCommunicationSettings,
+      updateSecuritySettings,
+      showPhoneVerify,
+      hidePhoneVerify
     }, dispatch)
   }
 }

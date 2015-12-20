@@ -208,6 +208,40 @@ let apiHandler = {
         })
       })
     }
+  },
+  
+  settings(req, res) {
+    if (!req.headers.authorization) {
+      res.status(403)
+      res.json({success: false, message: 'Failed, user is not authenticated'})
+    } else {
+      authController.findUserByToken(req).then((user) => {
+        authController.updateUser(user, req.body).then((user) => {
+          if (user) {
+            res.status(201)
+            res.json(user)
+          }
+        })
+      })
+    }
+  },
+
+  deleteAccount(req, res) {
+    if (!req.headers.authorization) {
+      res.status(403)
+      res.json({success: false, message: 'Failed, user is not authenticated'})
+    } else {
+      authController.findUserByToken(req).then((user) => {
+        authController.deleteAccount(user).then((rowsDeleted) => {
+          if (rowsDeleted.userRows > 0) {
+            res.status(204)
+            res.json(user)
+          } else {
+            res.sendStatus(500)
+          }
+        })
+      })
+    }
   }
 }
 

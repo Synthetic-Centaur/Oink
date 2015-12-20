@@ -11,3 +11,6 @@ require('./middleware')
 
 // Instantiation of routes
 require('./routes/routes')
+
+//Instantiation of email cron job
+require('./schedule')()

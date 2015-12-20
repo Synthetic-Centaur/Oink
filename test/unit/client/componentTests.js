@@ -15,7 +15,6 @@ function setup() {
   renderer.render(<BudgetCategories {...props} />)
   let output = renderer.getRenderOutput()
 
-  console.log('is this working??', output)
   return {
     props,
     output,
@@ -28,13 +27,12 @@ describe('Home Container Components', () => {
     it('should render correctly', () => {
       const { output } = setup()
 
-      expect(output.type).toBe('form')
-      expect(output.props.className).toBe('u-pull-right')
+      expect(output.type).toBe('div')
+      expect(output.props.className).toBe('container')
 
       let [ div1, div2, div3 ] = output.props.children
 
       expect(div1.type).toBe('div')
-      console.log(div1.props.children)
       expect(div1.props.children.type.displayName).toBe('DropDownMenu')
 
       expect(div2.type).toBe('div')

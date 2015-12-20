@@ -1,5 +1,6 @@
 import * as ACTIONS from '../actions'
 import fetch from 'isomorphic-fetch'
+import { updatePath } from 'redux-simple-router'
 
 //Get initial state data for user
 export function getInitialState() {
@@ -26,6 +27,64 @@ export function getInitialState() {
   }
 }
 
+// update user settings
+export function postSettings(data) {
+  console.log('Data is:', data)
+  return function(dispatch) {
+    dispatch(ACTIONS.requestData())
+    return fetch('/api/settings', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: 'Bearer ' + JSON.parse(window.localStorage.redux).auth.token
+      },
+      body: JSON.stringify(data)
+    })
+    .then((response) => {
+      if (response.status === 201) {
+        getInitialState()(dispatch)
+      } else if (response.status === 409) {
+        console.log('Cannot Update User Fields')
+      } else if (response.status === 500) {
+        throw new Error('Error on the server', response)
+      }
+    })
+    .catch((err) => {
+      dispatch(ACTIONS.receiveError(err))
+      console.error(err)
+    })
+  }
+}
+
+// delete user's account
+export function deleteAccount() {
+  console.log('Inside Delete Account')
+  return function(dispatch) {
+    dispatch(ACTIONS.requestData())
+    return fetch('/api/deleteAccount', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: 'Bearer ' + JSON.parse(window.localStorage.redux).auth.token
+      }
+    })
+    .then((response) => {
+      if (response.status === 204) {
+        dispatch(ACTIONS.removeJWT())
+        dispatch(updatePath('/'))
+      } else if (response.status === 403) {
+        console.log('User not authenticated -- delete request failed')
+      } else if (response.status === 500) {
+        throw new Error('Error on the server', response)
+      }
+    })
+    .catch((err) => {
+      dispatch(ACTIONS.receiveError(err))
+      console.error(err)
+    })
+  }
+}
+
 //Post user budget data
 export function postBudget(data) {
   return function(dispatch) {
@@ -45,10 +104,6 @@ export function postBudget(data) {
         getInitialState()(dispatch)
       }
     })
-    
-    // .then((response) => {
-    //   dispatch(ACTIONS.receiveData(response))
-    // })
     .catch((error) => {
       dispatch(ACTIONS.receiveError(error))
     })

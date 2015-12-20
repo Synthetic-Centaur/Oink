@@ -8,6 +8,7 @@ import nock from 'nock'
 const middleware = [ thunk ]
 
 /////////////////////Create mock Redux store with middleware////////////////////////////
+
 function mockStore(getState, expectedActions, done) {
   if (!Array.isArray(expectedActions)) {
     throw new Error('expectedActions should be an array of expected actions.')
