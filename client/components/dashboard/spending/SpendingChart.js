@@ -6,7 +6,7 @@ let ReactHighCharts
 class SpendingChart extends Component {
 
   shouldComponentUpdate(nextProps) {
-    if (this.props.selectedDate) {
+    if (nextProps.selectedDate) {
       return false
     } else {
       return true

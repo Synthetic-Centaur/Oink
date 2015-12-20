@@ -26,10 +26,10 @@ class DateTransactions extends Component {
         <div className = 'row'>
           <table className = 'twelve columns'>
           <tbody>
-          <tr>
-              <th>Name</th>
-              <th>Amount</th>
-          </tr>
+            <tr>
+                <th>Name</th>
+                <th>Amount</th>
+            </tr>
             { transactions }
           </tbody>
           </table>

@@ -335,7 +335,6 @@ export function hideSettings() {
   }
 }
 
-
 // We should know when a user is editing their first name
 export function editStart(item) {
   return (dispatch) => {
