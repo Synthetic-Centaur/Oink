@@ -5,8 +5,16 @@ let ReactHighCharts
 
 class SpendingChart extends Component {
 
+  shouldComponentUpdate(nextProps) {
+    if (nextProps.selectedDate) {
+      return false
+    } else {
+      return true
+    }
+  }
+
   render() {
-    let { data } = this.props
+    let { data, selectDate } = this.props
     let config = {}
 
     if (window !== undefined) {
@@ -14,8 +22,7 @@ class SpendingChart extends Component {
     }
 
     if (data) {
-      let transactions = data.transactions
-      config = chartConfig(transactions)
+      config = chartConfig(data, selectDate)
     }
     
     return (

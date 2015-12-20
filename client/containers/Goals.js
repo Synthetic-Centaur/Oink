@@ -24,6 +24,7 @@ class Goals extends Component {
       return (
         <div>
           <div className = "container goals">
+            <br/>
             <div className = "row">
               <div className="eight columns">
                   <MessageCenter data = { data }
