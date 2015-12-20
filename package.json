@@ -13,6 +13,7 @@
     "lint": "jscs ./"
   },
   "pre-commit": [
+    "lint"
   ],
   "pre-push": [
     "lint",
