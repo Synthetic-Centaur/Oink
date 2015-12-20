@@ -15,7 +15,7 @@ export function postLogin(data) {
       })
     })
     .then((response) => {
-      if (response.status === 200) {
+      if (response.status === 200 || response.status === 403) {
         return response.json()
       } else if (response.status === 409) {
         throw new Error('User does not exist in DB')
@@ -24,10 +24,23 @@ export function postLogin(data) {
       }
     })
     .then((data) => {
-      dispatch(ACTIONS.addJWT(data))
-      dispatch(ACTIONS.receiveData({}))
+      if (data.success === false) {
+        if (data.message === 'Invalid Email') { dispatch(ACTIONS.invalidEmail()) }
 
-      dispatch(updatePath('/dashboard'))
+        if (data.message === 'Invalid Bank') {
+          dispatch(ACTIONS.invalidBank())
+          dispatch(ACTIONS.hideLogin())
+          dispatch(ACTIONS.showPlaid())
+        }
+
+        if (data.message === 'Invalid Password') { dispatch(ACTIONS.invalidPassword()) }
+      } else {
+        dispatch(ACTIONS.addJWT(data))
+        dispatch(ACTIONS.authenticateUser())
+        dispatch(ACTIONS.receiveData({}))
+
+        dispatch(updatePath('/dashboard'))
+      }
     })
     .catch((err) => {
       dispatch(ACTIONS.receiveError(err))
@@ -53,7 +66,7 @@ export function postSignup(data) {
       })
     })
     .then((response) => {
-      if (response.status === 200) {
+      if (response.status === 200 || response.status === 403) {
         return response.json()
       } else if (response.status === 409) {
         throw new Error('Email or password invalid')
@@ -62,10 +75,15 @@ export function postSignup(data) {
       }
     })
     .then((data) => {
-      dispatch(ACTIONS.addJWT(data))
-      dispatch(ACTIONS.receiveData({}))
-      
-      dispatch(updatePath('/plaid'))
+      if (data.success === false) {
+        if (data.message === 'User Exists') { dispatch(ACTIONS.userExists()) }
+      } else {
+        dispatch(ACTIONS.receiveData({}))
+        dispatch(ACTIONS.addJWT(data))
+        
+        dispatch(ACTIONS.hideSignup())
+        dispatch(ACTIONS.showPlaid())
+      }
     })
     .catch((err) => {
       dispatch(ACTIONS.receiveError(err))
@@ -90,8 +108,9 @@ export function postPlaid(data) {
     })
     .then((response) => {
       if (response.status === 201) {
-        dispatch(updatePath('/dashboard'))
         dispatch(ACTIONS.receiveData({}))
+        dispatch(ACTIONS.authenticateUser())
+        dispatch(updatePath('/dashboard'))
       } else if (response.status === 500) {
         throw new Error('Error on the server', response)
       }

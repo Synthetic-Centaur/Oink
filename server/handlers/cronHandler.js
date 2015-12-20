@@ -3,9 +3,8 @@ import authController from '../controllers/authController'
 import Promise from 'bluebird'
 import nodemailer from 'nodemailer'
 
-var transporter = nodemailer.createTransport();
+var transporter = nodemailer.createTransport()
 const makeChart = Promise.promisify(cronController.makeEmailChart)
-
 
 let cronHandler = {
 
@@ -15,6 +14,7 @@ let cronHandler = {
       .then((users) => {
         if (users) {
           Promise.each(users, (user) => {
+
             //get users transactions/actul for week
             cronController.userTransactions(user.id)
               .then((sums) => {
@@ -25,10 +25,10 @@ let cronHandler = {
                   from: 'aaronbackerman@gmail.com',
                   to: user.email,
                   subject: 'Your weekend summary',
-                  text: 'Dear ' + user.first_name + ',\n\nHere is your financial data for the week of ' + (""+ new Date()).slice(0,15) + '\n\nSincerely,\nOinkFinancial',
+                  text: 'Dear ' + user.first_name + ',\n\nHere is your financial data for the week of ' + ('' + new Date()).slice(0, 15) + '\n\nSincerely,\nOinkFinancial',
                   attachments: [{
                     filename: 'chart.png',
-                    path: __dirname + "/../staticUserCharts/chart.png"
+                    path: __dirname + '/../staticUserCharts/chart.png'
                   }]
                 }
 
@@ -37,13 +37,12 @@ let cronHandler = {
                     return console.log(error)
                   }
                 })
-                  
 
               })
 
           })
 
-        } 
+        }
 
       })
   },
@@ -51,7 +50,7 @@ let cronHandler = {
   cancelEmail: function(req, res) {
     authController.findUserByToken(req)
       .then((user) => {
-        cronController.cancelEmail(user, function(err, result) {
+        cronController.cancelEmail(user, (err, result) => {
           if (result) {
             res.status(200)
             res.json({success: true})

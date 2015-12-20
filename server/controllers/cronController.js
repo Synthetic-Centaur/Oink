@@ -8,12 +8,10 @@ import svg2png from 'svg2png'
 import db from '../db/dbConfig.js'
 import authController from './authController'
 
-
 const writeFile = Promise.promisify(fs.writeFile)
 
 let cronController = {
   findUsersByMail() {
-    console.log("in find users by mail")
     return db.knex.select().table('users').where({email_updates: true})
       .then((users) => {
         if (users) {
@@ -68,60 +66,62 @@ let cronController = {
 
   makeEmailChart(sums) {
     //create document and window for highchart
-    var doc = jsdom.jsdom('<!doctype html><html><body><div id="container"></div></body></html>'),
-    win = doc.defaultView;
-    doc.createElementNS = function (ns, tagName) {
-        var elem = doc.createElement(tagName);
+    var doc = jsdom.jsdom('<!doctype html><html><body><div id="container"></div></body></html>')
+    var win = doc.defaultView
+    doc.createElementNS = (ns, tagName) => {
+      var elem = doc.createElement(tagName)
 
-        // Set private namespace to satisfy jsdom's getter
-        elem._namespaceURI = ns; // eslint-disable-line no-underscore-dangle
+      // Set private namespace to satisfy jsdom's getter
+      elem._namespaceURI = ns // eslint-disable-line no-underscore-dangle
 
-        elem.createSVGRect = function () {};
+      elem.createSVGRect = function() {}
 
-        elem.getBBox = function () {
-            var lineWidth = 0,
-                width = 0,
-                height = 0;
+      elem.getBBox = function() {
+        var lineWidth = 0
+        var width = 0
+        var height = 0
 
-            [].forEach.call(elem.children.length ? elem.children : [elem], function (child) {
-                var fontSize = child.style.fontSize || elem.style.fontSize,
-                    lineHeight,
-                    textLength;
+        Array.prototype.forEach.call(elem.children.length ? elem.children : [elem], (child) => {
+          var fontSize = child.style.fontSize || elem.style.fontSize
+          var lineHeight
+          var textLength
 
-                // The font size and lineHeight is based on empirical values, copied from
-                // the SVGRenderer.fontMetrics function in Highcharts.
-                if (/px/.test(fontSize)) {
-                    fontSize = parseInt(fontSize, 10);
-                } else {
-                    fontSize = /em/.test(fontSize) ? parseFloat(fontSize) * 12 : 12;
-                }
-                lineHeight = fontSize < 24 ? fontSize + 3 : Math.round(fontSize * 1.2);
-                textLength = child.textContent.length * fontSize * 0.55;
+          // The font size and lineHeight is based on empirical values, copied from
+          // the SVGRenderer.fontMetrics function in Highcharts.
+          if (/px/.test(fontSize)) {
+            fontSize = parseInt(fontSize, 10)
+          } else {
+            fontSize = /em/.test(fontSize) ? parseFloat(fontSize) * 12 : 12
+          }
 
-                // Tspans on the same line
-                if (child.getAttribute('dx') !== '0') {
-                    height += lineHeight;
-                }
+          lineHeight = fontSize < 24 ? fontSize + 3 : Math.round(fontSize * 1.2)
+          textLength = child.textContent.length * fontSize * 0.55
 
-                // New line
-                if (child.getAttribute('dy') !== null) {
-                    lineWidth = 0;
-                }
+          // Tspans on the same line
+          if (child.getAttribute('dx') !== '0') {
+            height += lineHeight
+          }
 
-                lineWidth += textLength;
-                width = Math.max(width, lineWidth);
+          // New line
+          if (child.getAttribute('dy') !== null) {
+            lineWidth = 0
+          }
 
-            });
+          lineWidth += textLength
+          width = Math.max(width, lineWidth)
 
-            return {
-                x: 0,
-                y: 0,
-                width: width,
-                height: height
-            };
-        };
-        return elem;
-    };
+        })
+
+        return {
+          x: 0,
+          y: 0,
+          width: width,
+          height: height
+        }
+      }
+
+      return elem
+    }
 
     const Highcharts = highcharts(win)
 
@@ -135,16 +135,17 @@ let cronController = {
         }
       }
     })
+
     // Generate the chart into the container
-    Highcharts.chart('container', chartConfig(sums));
+    Highcharts.chart('container', chartConfig(sums))
 
     //get svg and remove div container surrounding it
     var svg = win.document.getElementById('container').innerHTML.slice(178)
     svg = svg.slice(0, -6)
 
     //write svg file and convert it to png
-    writeFile(__dirname + "/../staticUserCharts/chart.svg", svg).then(() => {
-      svg2png(__dirname + "/../staticUserCharts/chart.svg", __dirname + "/../staticUserCharts/chart.png", (err) => {
+    writeFile(__dirname + '/../staticUserCharts/chart.svg', svg).then(() => {
+      svg2png(__dirname + '/../staticUserCharts/chart.svg', __dirname + '/../staticUserCharts/chart.png', (err) => {
         if (err) {
           console.log(err)
           return 'err'
@@ -159,7 +160,6 @@ let cronController = {
 
 function chartConfig(data) {
 
-
   //convert sums to datapoints for highchart
   let userCategories = []
   let dataPoints = []
@@ -170,41 +170,43 @@ function chartConfig(data) {
 
   return {
     chart: {
-        type: 'column',
-        width: 600,
-        height: 400
+      type: 'column',
+      width: 600,
+      height: 400
     },
     title: {
-        text: 'Your Weekly Transactions'
+      text: 'Your Weekly Transactions'
     },
     xAxis: {
-        //switch out hardcoded categories with user categories
-        categories: userCategories
+
+      //switch out hardcoded categories with user categories
+      categories: userCategories
     },
 
     yAxis: {
-        title: {
-            text: 'Dollars / week'
-        }
+      title: {
+        text: 'Dollars / week'
+      }
     },
 
     plotOptions: {
-        series: {
-            dataLabels: {
-                shape: 'callout',
-                backgroundColor: 'rgba(0, 0, 0, 0.75)',
-                style: {
-                    color: '#FFFFFF',
-                    textShadow: 'none'
-                }
-            }
+      series: {
+        dataLabels: {
+          shape: 'callout',
+          backgroundColor: 'rgba(0, 0, 0, 0.75)',
+          style: {
+            color: '#FFFFFF',
+            textShadow: 'none'
+          }
         }
+      }
     },
 
     series: [{
-        //switch out hardCoded data with user data points
-        name: 'Categories',
-        data: dataPoints
+
+      //switch out hardCoded data with user data points
+      name: 'Categories',
+      data: dataPoints
     }]
   }
 }

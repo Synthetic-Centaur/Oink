@@ -67,7 +67,6 @@ let apiHandler = {
       res.json({ success: false, message: 'Failed, user is not authenticated'})
     } else {
       authController.findUserByToken(req).then((user) => {
-
         // Check if user is in db
         if (user) {
 

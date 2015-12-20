@@ -29,7 +29,7 @@ class SecuritySettingsField extends React.Component {
       return this.renderDeleteAccount()
     } else if (this.props.editingPassword) {
       return this.renderEditPassword()
-    } else {  
+    } else {
       return (
         <form>
           <div className='offset-by-five'>

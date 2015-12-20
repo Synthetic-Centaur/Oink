@@ -27,6 +27,7 @@ class Dashboard extends React.Component {
   //Render home container with chart, budget input, and navbar
   componentWillMount() {
     this.checkAuth()
+    document.body.style.backgroundColor = '#262626'
   }
 
   //Call init when component is mounted

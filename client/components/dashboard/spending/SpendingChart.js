@@ -24,10 +24,8 @@ class SpendingChart extends Component {
     if (data) {
       config = chartConfig(data, selectDate)
     }
-
     
     return (
-
 
       <div>
         <ReactHighCharts config = {config}></ReactHighCharts>

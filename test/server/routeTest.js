@@ -23,7 +23,7 @@ describe('Static routing', () => {
   })
 })
 describe('AuthRoutes', () => {
-  it('should respond with a 403 forbidden with unauthorized request to auth/plaid', (done) => {
+  xit('should respond with a 403 forbidden with unauthorized request to auth/plaid', (done) => {
     request
       .get('/auth/plaid')
       .expect(403, done)

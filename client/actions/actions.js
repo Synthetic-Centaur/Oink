@@ -99,6 +99,37 @@ export function hideLogin() {
   }
 }
 
+// The user provided an email that does not exist in the system
+export function invalidEmail() {
+  return (dispatch) => {
+    dispatch({
+      type: 'INVALID_EMAIL'
+    })
+  }
+}
+
+// The user provided an password that does not exist in the system
+export function invalidPassword() {
+  return (dispatch) => {
+    dispatch({
+      type: 'INVALID_PASSWORD'
+    })
+  }
+}
+
+// The user has not authorized their bank account
+export function invalidBank() {
+  return (dispatch) => {
+    dispatch({
+      type: 'INVALID_BANK'
+    })
+  }
+}
+
+/********************************************************
+                    SIGNUP REDUX ACTIONS
+*********************************************************/
+
 // We should show the pop-up signup modal
 export function showSignup() {
   return (dispatch) => {
@@ -113,6 +144,46 @@ export function hideSignup() {
   return (dispatch) => {
     dispatch({
       type: 'HIDE_SIGNUP'
+    })
+  }
+}
+
+// The there is already a user with that email in the database
+export function userExists() {
+  return (dispatch) => {
+    dispatch({
+      type: 'USER_EXISTS'
+    })
+  }
+}
+
+// Remove all error messages
+export function removeAlerts() {
+  return (dispatch) => {
+    dispatch({
+      type: 'REMOVE_ALERTS'
+    })
+  }
+}
+
+/********************************************************
+                    PLAID REDUX ACTIONS
+*********************************************************/
+
+// We should show the pop-up signup modal
+export function showPlaid() {
+  return (dispatch) => {
+    dispatch({
+      type: 'SHOW_PLAID'
+    })
+  }
+}
+
+// We should hide the pop-up signup modal
+export function hidePlaid() {
+  return (dispatch) => {
+    dispatch({
+      type: 'HIDE_PLAID'
     })
   }
 }
@@ -137,6 +208,14 @@ export function removeJWT() {
   return (dispatch) => {
     dispatch({
       type: 'REMOVE_JWT',
+    })
+  }
+}
+
+export function authenticateUser() {
+  return (dispatch) => {
+    dispatch({
+      type: 'AUTHENTICATE_USER',
     })
   }
 }
@@ -299,7 +378,6 @@ export function updateCommunicationSettings(item) {
 
 // Update the communication settings on state
 export function updateSecuritySettings(item) {
-  console.log('inside update updateSecuritySettings item is', item)
   return (dispatch) => {
     dispatch({
       type: 'UPDATE_SECURITY_SETTINGS',
