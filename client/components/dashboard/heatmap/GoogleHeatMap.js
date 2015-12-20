@@ -2,6 +2,7 @@ import {default as React, Component} from 'react'
 import ReactDOM from 'react-dom'
 import {GoogleMapLoader, GoogleMap, Marker} from 'react-google-maps'
 import Slider from 'material-ui/lib/slider'
+import RaisedButton from 'material-ui/lib/raised-button'
 import _ from 'underscore'
 
 // import HeatMapOverlay from 'react-map-gl-heatmap-overlay'
@@ -21,15 +22,28 @@ export default class GoogleHeatMap extends Component {
     //this.overlay(filteredLocations)
   }
 
+  //We could also just have a dropdown that allows you to select a filter, i.e. lets see my transactions by 
+  //today, the past week, the past month, the past year, all your transactions, which actually might be better than 
+  //having a slider
+
+
+
   render () {
 
     return (
-      <div className="map">
+      <div className="container">
+        <div className = "row">
+          <RaisedButton label="day" />
+          <RaisedButton label="week" />
+          <RaisedButton label="month" />
+          <RaisedButton label="year" />
+          <RaisedButton label="all" />
+        </div>
         <div ref="mapCanvas" style={{height: "800px", width: "100%", padding: "10px"}}/>
         <Slider ref="slider" name = "timeSlider" defaultValue={1} onChange={this.sliderValue.bind(this)}/>
       </div>
     );
-    
+
   }
 
 
