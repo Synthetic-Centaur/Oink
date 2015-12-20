@@ -8,18 +8,30 @@ import _ from 'underscore'
 
 export default class GoogleHeatMap extends Component {
 
-  render() {
-    return (
-      <div className='map'>
-        <div ref='mapCanvas' style={{height: '800px', width: '100%'}}/>
-        <Slider name = 'timeSlider'/>
-      </div>
-    )
+
+  sliderValue(e) {
+    const { transactions } = this.props
+    console.log(this.refs.slider.getValue())
+    //i will want a way to set the very first date of users transactions to 0, the most recent date to 1, and then filter
+    // let filteredLocations = _.filter(transactions, (transaction) => {
+    //   return transaction.date < slider
+    // })
+    //map these all to be google map lat lng data
+    //then render new heat map with just this data
+    //this.overlay(filteredLocations)
   }
 
-  overlay(map) {
-    console.log('in overlay', map)
+  render () {
+
+    return (
+      <div className="map">
+        <div ref="mapCanvas" style={{height: "800px", width: "100%", padding: "10px"}}/>
+        <Slider ref="slider" name = "timeSlider" defaultValue={1} onChange={this.sliderValue.bind(this)}/>
+      </div>
+    );
+    
   }
+
 
   componentDidMount() {
     const { transactions } = this.props
@@ -38,7 +50,15 @@ export default class GoogleHeatMap extends Component {
     map.setMapTypeId(google.maps.MapTypeId.ROADMAP)
   }
 
-  getPoints(transactions) {
+
+  overlay(transactions) {
+    let heatmap = new google.maps.visualization.HeatmapLayer({
+      data: transactions,
+      map: map
+    })
+  }
+
+  getPoints (transactions) {
 
     return _.map(_.filter(transactions, (t) => {
       return t.latitude !== '0.00' && t.longitude !== '0.00'
