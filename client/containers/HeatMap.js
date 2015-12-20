@@ -3,14 +3,13 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import GoogleMap from '../components/dashboard/heatmap/GoogleHeatMap'
 
-
 class HeatMap extends Component {
 
   render() {
 
     const { data } = this.props
     return (
-      <GoogleMap 
+      <GoogleMap
         transactions = { data.transactions } />
     )
   }

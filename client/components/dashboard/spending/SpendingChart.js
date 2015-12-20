@@ -17,10 +17,8 @@ class SpendingChart extends Component {
       let transactions = data.transactions
       config = chartConfig(transactions)
     }
-
     
     return (
-
 
       <div>
         <ReactHighCharts config = {config}></ReactHighCharts>
