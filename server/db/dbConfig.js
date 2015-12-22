@@ -20,7 +20,7 @@ var populateTables = (cb) => {
         user.string('last_name', 255)
         user.bigint('phone_number')
         user.string('email', 255)
-        user.integer('phone_verify_code')
+        user.string('phone_verify_code', 10)
         user.boolean('phone_verified')
           .default(false)
         user.boolean('text_over_budget')

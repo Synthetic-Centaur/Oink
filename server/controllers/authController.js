@@ -36,7 +36,7 @@ let authController = {
     let select = ['first_name', 'last_name', 'email', 'phone_number', 'id', 'text_over_budget', 'text_recs', 'email_updates', 'text_over_total', 'phone_verified']
 
     if (secure) {
-      select = ['first_name', 'last_name', 'email', 'phone_number', 'id', 'token_plaid', 'password', 'text_over_budget', 'text_recs', 'email_updates', 'text_over_total', 'phone_verified']
+      select = ['first_name', 'last_name', 'email', 'phone_number', 'id', 'token_plaid', 'password', 'text_over_budget', 'text_recs', 'email_updates', 'text_over_total', 'phone_verified', 'phone_verify_code']
     }
 
     if (!req.headers.authorization) {
@@ -112,6 +112,30 @@ let authController = {
       } else {
         // user was not found
         console.error('Error: USER not found')
+      }
+    })
+  },
+
+  generateVerificationCode(user) {
+    // generate random number between 0 and 9
+    let codeStr = Math.floor(Math.random()*10).toString()
+    while (codeStr.length < 7) {
+      codeStr += Math.floor(Math.random()*10).toString()
+    }
+    // save code string to database async and return the code when finished
+    return db.knex('users').where(user).update({phone_verify_code: codeStr}).then(() => {
+      return codeStr
+    })
+  },
+
+  checkVerificationCode(user, code) {
+    return db.knex('users').where(user).select('phone_verify_code').then((userCode) => {
+      if (userCode[0].phone_verify_code === code) {
+        return db.knex('users').where(user).update({phone_verified: true}).then((result) => {
+          return true 
+        })
+      } else {
+        return false
       }
     })
   }

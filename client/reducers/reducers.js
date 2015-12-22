@@ -112,7 +112,7 @@ export function homePageReducer(state = {
   numberError: true,
   categoryError: true,
   showSettings: false,
-  showVerify: true,
+  showVerify: false,
   category: ''
 }, action = null) {
   switch (action.type) {

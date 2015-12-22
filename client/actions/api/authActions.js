@@ -1,5 +1,6 @@
 import { updatePath } from 'redux-simple-router'
 import * as ACTIONS from '../actions'
+import { getInitialState } from './apiActions'
 
 export function postLogin(data) {
   return function(dispatch) {
@@ -171,5 +172,61 @@ export function authLogout() {
   return function(dispatch) {
     dispatch(ACTIONS.removeJWT())
     dispatch(updatePath('/'))
+  }
+}
+
+export function sendPhoneVerification() {
+  console.log('inside send phone verification')
+  return function(dispatch) {
+    dispatch(ACTIONS.requestData())
+    return fetch('auth/phoneVerification/send', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: 'Bearer ' + JSON.parse(window.localStorage.redux).auth.token
+      }
+    })
+    .then((response) => {
+      if (response.status === 200) {
+        console.log('sent verification code')
+      } else if (response.status === 500) {
+        throw new Error('Error on the server', response)
+      }
+    })
+    .catch((err) => {
+      dispatch(ACTIONS.receiveError(err))
+      console.error(err)
+    })
+  }
+}
+
+export function checkPhoneVerification(code) {
+  console.log('inside check phone verification')
+  return function(dispatch) {
+    dispatch(ACTIONS.requestData())
+    return fetch('auth/phoneVerification/check', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: 'Bearer ' + JSON.parse(window.localStorage.redux).auth.token
+      },
+      body: JSON.stringify({
+        code: code,
+      })
+    })
+    .then((response) => {
+      if (response.status === 202) {
+        // user phone_verified property should now be true
+        getInitialState()(dispatch)
+      } else if (response.status === 401) {
+        throw new Error('Incorrect Code Entered -- Phone Not Verified')
+      } else if (response.status === 500) {
+        throw new Error('Error on the server', response)
+      }
+    })
+    .catch((err) => {
+      dispatch(ACTIONS.receiveError(err))
+      console.error(err)
+    })
   }
 }

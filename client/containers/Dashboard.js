@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import ThemeManager from 'material-ui/lib/styles/theme-manager'
 import Theme from '../material-theme.js'
-import { authRedirect, authLogout } from '../actions/api/authActions'
+import { authRedirect, authLogout, sendPhoneVerification, checkPhoneVerification } from '../actions/api/authActions'
 import { getInitialState, postSettings, deleteAccount } from '../actions/api/apiActions'
 import { changeView, switchComponent, showSettings, hideSettings, editStart, editFinish,
          updateAccountSettings, updateCommunicationSettings, updateSecuritySettings,
@@ -60,9 +60,8 @@ class Dashboard extends React.Component {
             editingEmail, editingPhoneNumber, editingPassword, editingDeleteAccount,
             accountData, communicationData, securityData} = this.props
 
-    const userIsVerified = data.user ? data.user.phone_verified : true;
-
-    console.log('USER IS VERIFIED:', userIsVerified)
+    const userIsVerified = data.user ? data.user.phone_verified : true
+    //const userIsVerified = false
 
     return (
       <div className="dashboard-el">
@@ -74,21 +73,25 @@ class Dashboard extends React.Component {
 
         <div className="dashboard">
 
+
           <div className="options u-pull-right">
             <Options logout={ actions.authLogout } showSettings={ actions.showSettings }/>
           </div>
 
-          <div className="needsVerify four columns" style={{padding: '30px', position: 'absolute'}}>
+          <div className="needsVerify four columns offset-by-eight" style={{padding: '10px', position: 'absolute', 'zIndex': '4'}}>
             <PhoneVerifyIcon
               showPhoneVerify={actions.showPhoneVerify}
               showVerify={homePage.showVerify}
               userIsVerified={userIsVerified}
             />
           </div>
+
            <PhoneVerifyModal
             showPhoneVerify={actions.showPhoneVerify}
             hidePhoneVerify={actions.hidePhoneVerify}
             showVerify={homePage.showVerify}
+            sendPhoneVerification={actions.sendPhoneVerification}
+            checkPhoneVerification={actions.checkPhoneVerification}
            /> 
 
           <SettingsModal
@@ -178,7 +181,9 @@ function mapDispatchToProps(dispatch) {
       updateCommunicationSettings,
       updateSecuritySettings,
       showPhoneVerify,
-      hidePhoneVerify
+      hidePhoneVerify,
+      sendPhoneVerification,
+      checkPhoneVerification
     }, dispatch)
   }
 }

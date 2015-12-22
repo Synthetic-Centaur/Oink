@@ -19,8 +19,6 @@ export class CommunicationSettingsField extends React.Component {
   }
 
   render() {
-    console.log('user props', this.props.user)
-    console.log('com data', this.props.communicationData)
     return (
       <form>
         <div className="row">

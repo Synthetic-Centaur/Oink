@@ -12,7 +12,8 @@ class PhoneVerifyModal extends Component {
   }
 
   handleSubmit() {
-    console.log('Need to handle that submit bro')
+    let code = this.refs.phoneVerifyCode.getValue()
+    this.props.checkPhoneVerification(code)
   }
 
   handleCancel() {
@@ -22,12 +23,10 @@ class PhoneVerifyModal extends Component {
   }
 
   sendCode() {
-    console.log('set up that code path dawg')
+    this.props.sendPhoneVerification()
   }
 
   render() {
-
-    console.log('DEZE PROPS DAWG', this.props)
 
     let modalActions = [
       <FlatButton
@@ -44,6 +43,7 @@ class PhoneVerifyModal extends Component {
 
     return (
       <Dialog
+        title='Oink Oink! Looks like you still need to verify your phone number'
         ref='phoneVerify'
         actions={modalActions}
         autoDetectWindowHeight={true}

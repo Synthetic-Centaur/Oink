@@ -149,7 +149,7 @@ let authHandler = {
             // send welcome message
             //apiController.sendMessage('Hello ' + name + '! Welcome to Oink, Lets Budget Together!!', number)
 
-            res.sendStatus(201)
+            res.sendStatus(200)
           } else {
             res.sendStatus(500)
           }
@@ -163,6 +163,38 @@ let authHandler = {
 
   getPlaid(req, res) {
     res.json(config.plaid_private.publicKey)
+  },
+
+  sendVerificationCode(req, res) {
+    console.log('inside send verification')
+    authController.findUserByToken(req).then((user) => {
+      console.log('inside send verification code handler user is ', user)
+      let phone = user.phone_number
+      let name = user.first_name
+      authController.generateVerificationCode(user).then((code) => {
+        if (code) {        
+          let text = 'Hi ' + name + ',\nYour verification code for Oink is:\n\n' + code 
+          apiController.sendMessage(text, phone)
+          res.sendStatus(200)
+        } else {
+          res.sendStatus(500)
+        }
+      })
+    })
+  },
+
+  checkVerificationCode(req, res) {
+    let code = req.body.code
+    console.log('code inside check verification handler is ', code)
+    authController.findUserByToken(req).then((user, secure) => {
+      authController.checkVerificationCode(user, code).then((result) => {
+        if (result) {
+          res.sendStatus(202)
+        } else {
+          res.sendStatus(401)
+        }
+      })
+    })
   }
 }
 
