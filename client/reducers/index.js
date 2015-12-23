@@ -18,6 +18,7 @@ const rootReducer = combineReducers({
   goalPage: REDUCERS.goalPageReducer,
   plaid: REDUCERS.plaidReducer,
   budgetPage: REDUCERS.budgetReducer,
+  spendingPage: REDUCERS.spendingPageReducer,
   settings: REDUCERS.settingsReducer
 })
 
