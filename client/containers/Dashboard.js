@@ -54,13 +54,6 @@ class Dashboard extends React.Component {
     actions.switchComponent(component)
   }
 
-  // componentDidUpdate() {
-  //   if (this.props.showPhoneVerify && this.props.data.user.phone_verified) {
-  //     console.log('hiding phone verify')
-  //     this.props.actions.hidePhoneVerify()
-  //   }
-  // }
-
   render() {
 
     const { actions, currentComponent, data, homePage, editingFirstName, editingLastName,
@@ -68,7 +61,6 @@ class Dashboard extends React.Component {
             accountData, communicationData, securityData} = this.props
 
     const userIsVerified = data.user ? data.user.phone_verified : true
-    //const userIsVerified = false
 
     return (
       <div className="dashboard-el">

@@ -4,17 +4,15 @@ import { FontIcon, FlatButton, RaisedButton, Badge} from 'material-ui'
 class PhoneVerifyIcon extends React.Component {
 
   openPhoneVerify() {
-    console.log('Phone verify icon has been clicked')
     this.props.showPhoneVerify()
   }
 
   renderVerifyNeeded() {
-    console.log('rendering Verify Needed')
     return (
       <a onClick={this.openPhoneVerify.bind(this)}>
         <Badge badgeContent={1} primary={true} >
           <FontIcon 
-            hoverColor='red'
+            hoverColor='grey'
             className='material-icons'
             onTouchTap={this.openPhoneVerify.bind(this)} > cellphone </FontIcon>
         </Badge>
@@ -23,7 +21,6 @@ class PhoneVerifyIcon extends React.Component {
   }
 
   handleRender() {
-    console.log('inside phone verify icon userIsVerified is ', this.props.userIsVerified)
     if (this.props.userIsVerified) {
       return ''
     } else {
@@ -32,7 +29,6 @@ class PhoneVerifyIcon extends React.Component {
   }
 
   render() {
-    console.log('INSIDE PHONE VERIFY ICON')
     return (
       <div>  
         {this.handleRender()}
