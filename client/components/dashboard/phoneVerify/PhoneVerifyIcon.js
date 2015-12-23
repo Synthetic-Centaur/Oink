@@ -11,25 +11,21 @@ class PhoneVerifyIcon extends React.Component {
   renderVerifyNeeded() {
     console.log('rendering Verify Needed')
     return (
-      <Badge badgeContent={1} primary={true}>
-        <FontIcon 
-          hoverColor='red'
-          className='material-icons'
-          onTouchTap={this.openPhoneVerify.bind(this)} > cellphone </FontIcon>
-      </Badge>
-    )
-  }
-
-  renderVerified() {
-    return (
-      ''
+      <a onClick={this.openPhoneVerify.bind(this)}>
+        <Badge badgeContent={1} primary={true} >
+          <FontIcon 
+            hoverColor='red'
+            className='material-icons'
+            onTouchTap={this.openPhoneVerify.bind(this)} > cellphone </FontIcon>
+        </Badge>
+      </a>
     )
   }
 
   handleRender() {
     console.log('inside phone verify icon userIsVerified is ', this.props.userIsVerified)
     if (this.props.userIsVerified) {
-      return this.renderVerified()
+      return ''
     } else {
       return this.renderVerifyNeeded()
     }

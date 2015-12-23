@@ -140,7 +140,7 @@ describe('homePageReducer', () => {
       categoryError: true,
       category: '',
       showSettings: false,
-      showPhoneVerify: true
+      showVerify: false
     })
   })
 
@@ -154,7 +154,7 @@ describe('homePageReducer', () => {
       categoryError: true,
       category: '',
       showSettings: false,
-      showPhoneVerify: true
+      showVerify: false
     })
   })
 
@@ -168,7 +168,7 @@ describe('homePageReducer', () => {
       categoryError: true,
       category: '',
       showSettings: false,
-      showPhoneVerify: true
+      showVerify: false
     })
   })
 
@@ -183,7 +183,7 @@ describe('homePageReducer', () => {
       categoryError: false,
       category: 'testCategory',
       showSettings: false,
-      showPhoneVerify: true
+      showVerify: false
     })
   })
 
@@ -197,7 +197,63 @@ describe('homePageReducer', () => {
       categoryError: true,
       category: '',
       showSettings: false,
-      showPhoneVerify: true
+      showVerify: false
+    })
+  })
+
+  it('should handle SHOW_SETTINGS', () => {
+    expect(
+      reducers.homePageReducer(undefined, {
+        type: 'SHOW_SETTINGS'
+      })
+    ).toEqual({
+      numberError: true,
+      categoryError: true,
+      category: '',
+      showSettings: true,
+      showVerify: false
+    })
+  })
+
+  it('should handle HIDE_SETTINGS', () => {
+    expect(
+      reducers.homePageReducer(undefined, {
+        type: 'HIDE_SETTINGS'
+      })
+    ).toEqual({
+      numberError: true,
+      categoryError: true,
+      category: '',
+      showSettings: false,
+      showVerify: false
+    })
+  })
+
+  it('should handle SHOW_PHONE_VERIFY', () => {
+    expect(
+      reducers.homePageReducer(undefined, {
+        type: 'SHOW_PHONE_VERIFY'
+      })
+    ).toEqual({
+      numberError: true,
+      categoryError: true,
+      category: '',
+      showSettings: false,
+      showVerify: true
+    })
+  })
+
+  it('should handle HIDE_PHONE_VERIFY', () => {
+    expect(
+      reducers.homePageReducer(undefined, {
+        type: 'HIDE_PHONE_VERIFY'
+      })
+    ).toEqual({
+      numberError: true,
+      categoryError: true,
+      category: '',
+      showSettings: false,
+      showVerify: false
     })
   })
 })
@@ -240,4 +296,221 @@ describe('authReducer', () => {
       expiryDate: null
     })
   })
+})
+
+describe('settingsReducer', () => {
+  
+  it('should return initial state', () => {
+    expect(
+      reducers.settingsReducer(undefined, {})
+    ).toEqual({
+      editingFirstName: false,
+      editingLastName: false,
+      editingEmail: false,
+      editingPhoneNumber: false,
+      editingPassword: false,
+      editingDeleteAccount: false,
+      accountData: {},
+      communicationData: {},
+      securityData: {}
+    })
+  })
+
+  it('should handle EDIT_START', () => {
+    expect(
+      reducers.settingsReducer(undefined, {
+        type: 'EDIT_START',
+        data: 'FIRST_NAME'
+      })
+    ).toEqual({
+      editingFirstName: true,
+      editingLastName: false,
+      editingEmail: false,
+      editingPhoneNumber: false,
+      editingPassword: false,
+      editingDeleteAccount: false,
+      accountData: {},
+      communicationData: {},
+      securityData: {}
+    })
+    expect(
+      reducers.settingsReducer(undefined, {
+        type: 'EDIT_START',
+        data: 'LAST_NAME'
+      })
+    ).toEqual({
+      editingFirstName: false,
+      editingLastName: true,
+      editingEmail: false,
+      editingPhoneNumber: false,
+      editingPassword: false,
+      editingDeleteAccount: false,
+      accountData: {},
+      communicationData: {},
+      securityData: {}
+    })
+    expect(
+      reducers.settingsReducer(undefined, {
+        type: 'EDIT_START',
+        data: 'EMAIL'
+      })
+    ).toEqual({
+      editingFirstName: false,
+      editingLastName: false,
+      editingEmail: true,
+      editingPhoneNumber: false,
+      editingPassword: false,
+      editingDeleteAccount: false,
+      accountData: {},
+      communicationData: {},
+      securityData: {}
+    })
+    expect(
+      reducers.settingsReducer(undefined, {
+        type: 'EDIT_START',
+        data: 'PHONE_NUMBER'
+      })
+    ).toEqual({
+      editingFirstName: false,
+      editingLastName: false,
+      editingEmail: false,
+      editingPhoneNumber: true,
+      editingPassword: false,
+      editingDeleteAccount: false,
+      accountData: {},
+      communicationData: {},
+      securityData: {}
+    })
+    expect(
+      reducers.settingsReducer(undefined, {
+        type: 'EDIT_START',
+        data: 'PASSWORD'
+      })
+    ).toEqual({
+      editingFirstName: false,
+      editingLastName: false,
+      editingEmail: false,
+      editingPhoneNumber: false,
+      editingPassword: true,
+      editingDeleteAccount: false,
+      accountData: {},
+      communicationData: {},
+      securityData: {}
+    })
+    expect(
+      reducers.settingsReducer(undefined, {
+        type: 'EDIT_START',
+        data: 'DELETE_ACCOUNT'
+      })
+    ).toEqual({
+      editingFirstName: false,
+      editingLastName: false,
+      editingEmail: false,
+      editingPhoneNumber: false,
+      editingPassword: false,
+      editingDeleteAccount: true,
+      accountData: {},
+      communicationData: {},
+      securityData: {}
+    })
+  })
+  it('should handle EDIT_FINISH', () => {
+    expect(
+      reducers.settingsReducer(undefined, {
+        type: 'EDIT_FINISH',
+        data: 'FIRST_NAME'
+      })
+    ).toEqual({
+      editingFirstName: false,
+      editingLastName: false,
+      editingEmail: false,
+      editingPhoneNumber: false,
+      editingPassword: false,
+      editingDeleteAccount: false,
+      accountData: {},
+      communicationData: {},
+      securityData: {}
+    })
+    expect(
+      reducers.settingsReducer(undefined, {
+        type: 'EDIT_FINISH',
+        data: 'LAST_NAME'
+      })
+    ).toEqual({
+      editingFirstName: false,
+      editingLastName: false,
+      editingEmail: false,
+      editingPhoneNumber: false,
+      editingPassword: false,
+      editingDeleteAccount: false,
+      accountData: {},
+      communicationData: {},
+      securityData: {}
+    })
+    expect(
+      reducers.settingsReducer(undefined, {
+        type: 'EDIT_FINISH',
+        data: 'EMAIL'
+      })
+    ).toEqual({
+      editingFirstName: false,
+      editingLastName: false,
+      editingEmail: false,
+      editingPhoneNumber: false,
+      editingPassword: false,
+      editingDeleteAccount: false,
+      accountData: {},
+      communicationData: {},
+      securityData: {}
+    })
+    expect(
+      reducers.settingsReducer(undefined, {
+        type: 'EDIT_FINISH',
+        data: 'PHONE_NUMBER'
+      })
+    ).toEqual({
+      editingFirstName: false,
+      editingLastName: false,
+      editingEmail: false,
+      editingPhoneNumber: false,
+      editingPassword: false,
+      editingDeleteAccount: false,
+      accountData: {},
+      communicationData: {},
+      securityData: {}
+    })
+    expect(
+      reducers.settingsReducer(undefined, {
+        type: 'EDIT_FINISH',
+        data: 'PASSWORD'
+      })
+    ).toEqual({
+      editingFirstName: false,
+      editingLastName: false,
+      editingEmail: false,
+      editingPhoneNumber: false,
+      editingPassword: false,
+      editingDeleteAccount: false,
+      accountData: {},
+      communicationData: {},
+      securityData: {}
+    })
+    expect(
+      reducers.settingsReducer(undefined, {
+        type: 'EDIT_FINISH',
+        data: 'DELETE_ACCOUNT'
+      })
+    ).toEqual({
+      editingFirstName: false,
+      editingLastName: false,
+      editingEmail: false,
+      editingPhoneNumber: false,
+      editingPassword: false,
+      editingDeleteAccount: false,
+      accountData: {},
+      communicationData: {},
+      securityData: {}
+    })
+  })
+
 })
