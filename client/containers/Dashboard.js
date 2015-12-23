@@ -79,67 +79,69 @@ class Dashboard extends React.Component {
           dropDownComponents = { DROPDOWN_ACTIONS } />
 
         <div className="dashboard">
+            <div className="row">
+
+              <div className="options u-pull-right">
+                <Options logout={ actions.authLogout } showSettings={ actions.showSettings }/>
+              </div>
+
+              <div className="needsVerify u-pull-left" style={{paddingTop: '20px', paddingLeft: '20px', position: 'relative', 'zIndex': '4'}}>
+                <PhoneVerifyIcon
+                  showPhoneVerify={actions.showPhoneVerify}
+                  showVerify={homePage.showVerify}
+                  userIsVerified={userIsVerified}
+                />
+              </div>
 
 
-          <div className="options u-pull-right">
-            <Options logout={ actions.authLogout } showSettings={ actions.showSettings }/>
-          </div>
 
-          <div className="needsVerify four columns offset-by-eight" style={{padding: '10px', position: 'absolute', 'zIndex': '4'}}>
-            <PhoneVerifyIcon
-              showPhoneVerify={actions.showPhoneVerify}
-              showVerify={homePage.showVerify}
-              userIsVerified={userIsVerified}
-            />
-          </div>
+              <div className="header">
+                <div className="container">
+                  <div className="row">
 
-           <PhoneVerifyModal
-            showPhoneVerify={actions.showPhoneVerify}
-            hidePhoneVerify={actions.hidePhoneVerify}
-            showVerify={homePage.showVerify}
-            sendPhoneVerification={actions.sendPhoneVerification}
-            checkPhoneVerification={actions.checkPhoneVerification}
-           /> 
+                    <h1>{ currentComponent.text }</h1>
 
-          <SettingsModal
-            postSettings={actions.postSettings}
-            showSettings={homePage.showSettings}
-            showSettingsModal={actions.showSettings}
-            hideSettingsModal={actions.hideSettings}
-            editStart={actions.editStart}
-            editFinish={actions.editFinish}
-            data={data}
-            editingFirstName={editingFirstName}
-            editingLastName={editingLastName}
-            editingEmail={editingEmail}
-            editingPhoneNumber={editingPhoneNumber}
-            editingPassword={editingPassword}
-            editingDeleteAccount={editingDeleteAccount}
-            accountData={accountData}
-            communicationData={communicationData}
-            securityData={securityData}
-            updateAccountSettings={actions.updateAccountSettings}
-            updateCommunicationSettings={actions.updateCommunicationSettings}
-            updateSecuritySettings={actions.updateSecuritySettings}
-            deleteAccount={actions.deleteAccount}
-          />
-
-          <div className="header">
-            <div className="container">
-              <div className="row">
-
-                <h1>{ currentComponent.text }</h1>
-
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-
-          <div className="view-container container">
-            <ComponentPlayground
-              currentComponent = { currentComponent } />
-          </div>
-
         </div>
+
+        <div className="view-container container">
+          <ComponentPlayground
+            currentComponent = { currentComponent } />
+        </div>
+        
+       <PhoneVerifyModal
+        showPhoneVerify={actions.showPhoneVerify}
+        hidePhoneVerify={actions.hidePhoneVerify}
+        showVerify={homePage.showVerify}
+        sendPhoneVerification={actions.sendPhoneVerification}
+        checkPhoneVerification={actions.checkPhoneVerification}
+       /> 
+
+      <SettingsModal
+        postSettings={actions.postSettings}
+        showSettings={homePage.showSettings}
+        showSettingsModal={actions.showSettings}
+        hideSettingsModal={actions.hideSettings}
+        editStart={actions.editStart}
+        editFinish={actions.editFinish}
+        data={data}
+        editingFirstName={editingFirstName}
+        editingLastName={editingLastName}
+        editingEmail={editingEmail}
+        editingPhoneNumber={editingPhoneNumber}
+        editingPassword={editingPassword}
+        editingDeleteAccount={editingDeleteAccount}
+        accountData={accountData}
+        communicationData={communicationData}
+        securityData={securityData}
+        updateAccountSettings={actions.updateAccountSettings}
+        updateCommunicationSettings={actions.updateCommunicationSettings}
+        updateSecuritySettings={actions.updateSecuritySettings}
+        deleteAccount={actions.deleteAccount}
+      />
 
       </div>
     )

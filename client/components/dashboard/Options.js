@@ -20,7 +20,7 @@ class Options extends Component {
   render() {
     return (
       <IconMenu iconButtonElement={
-        <IconButton className="settings-icon" iconStyle=
+        <IconButton className="options-icon" iconStyle=
           {{
             height: '32px',
             width: '32px'
