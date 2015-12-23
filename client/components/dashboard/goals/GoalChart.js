@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import chartConfig from './config/chartConfig'
 
-let ReactHighcharts
+let ReactHighCharts
 
 class GoalChart extends Component {
 

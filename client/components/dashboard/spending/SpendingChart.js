@@ -26,9 +26,14 @@ class SpendingChart extends Component {
     }
     
     return (
-
       <div>
-        <ReactHighCharts config = {config}></ReactHighCharts>
+        {
+          window !== undefined
+          ?
+          <ReactHighCharts config={config} ref="chart" />
+          :
+          null
+        }
       </div>
     )
   }
