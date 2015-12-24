@@ -140,7 +140,9 @@ describe('homePageReducer', () => {
       categoryError: true,
       category: '',
       showSettings: false,
-      showVerify: false
+      showVerify: false,
+      verifySuccess: false,
+      errorText: ''
     })
   })
 
@@ -154,7 +156,9 @@ describe('homePageReducer', () => {
       categoryError: true,
       category: '',
       showSettings: false,
-      showVerify: false
+      showVerify: false,
+      verifySuccess: false,
+      errorText: ''
     })
   })
 
@@ -168,7 +172,9 @@ describe('homePageReducer', () => {
       categoryError: true,
       category: '',
       showSettings: false,
-      showVerify: false
+      showVerify: false,
+      verifySuccess: false,
+      errorText: ''
     })
   })
 
@@ -183,7 +189,9 @@ describe('homePageReducer', () => {
       categoryError: false,
       category: 'testCategory',
       showSettings: false,
-      showVerify: false
+      showVerify: false,
+      verifySuccess: false,
+      errorText: ''
     })
   })
 
@@ -197,7 +205,9 @@ describe('homePageReducer', () => {
       categoryError: true,
       category: '',
       showSettings: false,
-      showVerify: false
+      showVerify: false,
+      verifySuccess: false,
+      errorText: ''
     })
   })
 
@@ -211,7 +221,9 @@ describe('homePageReducer', () => {
       categoryError: true,
       category: '',
       showSettings: true,
-      showVerify: false
+      showVerify: false,
+      verifySuccess: false,
+      errorText: ''
     })
   })
 
@@ -225,7 +237,9 @@ describe('homePageReducer', () => {
       categoryError: true,
       category: '',
       showSettings: false,
-      showVerify: false
+      showVerify: false,
+      verifySuccess: false,
+      errorText: ''
     })
   })
 
@@ -239,7 +253,9 @@ describe('homePageReducer', () => {
       categoryError: true,
       category: '',
       showSettings: false,
-      showVerify: true
+      showVerify: true,
+      verifySuccess: false,
+      errorText: ''
     })
   })
 
@@ -253,7 +269,41 @@ describe('homePageReducer', () => {
       categoryError: true,
       category: '',
       showSettings: false,
-      showVerify: false
+      showVerify: false,
+      verifySuccess: false,
+      errorText: ''
+    })
+  })
+
+  it('should handle PHONE_VERIFY_SUCCESS', () => {
+    expect(
+      reducers.homePageReducer(undefined, {
+        type: 'PHONE_VERIFY_SUCCESS'
+      })
+    ).toEqual({
+      numberError: true,
+      categoryError: true,
+      category: '',
+      showSettings: false,
+      showVerify: false,
+      verifySuccess: true,
+      errorText: ''
+    })
+  })
+
+  it('should handle PHONE_VERIFY_ERROR', () => {
+    expect(
+      reducers.homePageReducer(undefined, {
+        type: 'PHONE_VERIFY_ERROR'
+      })
+    ).toEqual({
+      numberError: true,
+      categoryError: true,
+      category: '',
+      showSettings: false,
+      showVerify: false,
+      verifySuccess: false,
+      errorText: 'Incorrect Code. Please try again'
     })
   })
 })
