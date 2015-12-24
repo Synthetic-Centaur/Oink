@@ -44,7 +44,7 @@ function chartConfig(data, selectDate) {
       valuePrefix: '$',
       formatter: function() {
         return '<p>Daily Net: $' + this.y.toLocaleString() + '</p><br/>' +
-          '<p>on ' + moment(categories[this.x]).format('M/D/YY') + '</p>'
+          '<p>on ' + moment(this.x).format('M/D/YY') + '</p>'
       }
     },
     plotOptions: {
