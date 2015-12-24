@@ -27,33 +27,13 @@ class PhoneVerifyModal extends Component {
     this.props.sendPhoneVerification()
   }
 
-  render
+  renderVerifyContent() {
+    const { verifySuccess, errorText } = this.props
 
-  render() {
-
-    const { errorText, verifySuccess } = this.props
-    const titleText = verifySuccess ? 'Your phone has been verified! Welcome to Oink!!' : 'Oink Oink! Looks like you still need to verify your phone number'
-   
-    const modalActions = [
-      <FlatButton
-        key={1}
-        label='Submit'
-        primary={true}
-        style={{fontSize: '20px'}}
-        onTouchTap={this.handleSubmit.bind(this)} />
-    ]
-
-    return (
-      <Dialog
-        title={titleText}
-        className="container"
-        ref='phoneVerify'
-        actions={modalActions}
-        autoDetectWindowHeight={true}
-        autoScrollBodyContent={true}
-        open={this.props.showVerify}
-        onRequestClose={this.handleCancel.bind(this)}
-      >
+    if (verifySuccess) {
+      return null
+    } else {
+      return (
         <div className='row'>
           <div className='send-code-btn u-pull-left' style={{paddingTop:'30px', paddingLeft:'30px'}}>
             <FlatButton
@@ -75,8 +55,44 @@ class PhoneVerifyModal extends Component {
             </div>
           </div>
         </div>
-        <div className='submit-phoneVerify four columns offset-by-four'>
-        </div>
+      )
+    }
+  }
+
+  render() {
+
+    const { verifySuccess } = this.props
+    const titleText = verifySuccess ? 'Your phone has been verified! Welcome to Oink!!' : 'Oink Oink! Looks like you still need to verify your phone number'
+   
+    const modalActions = verifySuccess ? [
+      <FlatButton
+        key={1}
+        label='Close'
+        style={{fontSize: '20px'}}
+        onTouchTap={this.handleCancel.bind(this)} />
+    ] : [
+      <FlatButton
+        key={0}
+        label='Submit'
+        primary={true}
+        style={{fontSize: '20px'}}
+        onTouchTap={this.handleSubmit.bind(this)} />
+    ]
+
+    return (
+      <Dialog
+        title={titleText}
+        className="container"
+        ref='phoneVerify'
+        actions={modalActions}
+        autoDetectWindowHeight={true}
+        autoScrollBodyContent={true}
+        open={this.props.showVerify}
+        onRequestClose={this.handleCancel.bind(this)}
+      >
+        
+        {this.renderVerifyContent()}
+        
       </Dialog>
     )
   }

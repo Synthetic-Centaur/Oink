@@ -218,6 +218,7 @@ export function checkPhoneVerification(code) {
       if (response.status === 202) {
         // user phone_verified property should now be true
         getInitialState()(dispatch)
+        dispatch(ACTIONS.phoneVerifySuccess())
       } else if (response.status === 401) {
         // code that user enered is not correct --> show them error message
         dispatch(ACTIONS.phoneVerifyError())
