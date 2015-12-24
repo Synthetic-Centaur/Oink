@@ -113,7 +113,6 @@ export function homePageReducer(state = {
   categoryError: true,
   showSettings: false,
   showVerify: false,
-  verifyError: false,
   verifySuccess: false,
   errorText: '',
   category: ''
@@ -138,9 +137,9 @@ export function homePageReducer(state = {
     case 'HIDE_PHONE_VERIFY':
       return Object.assign({}, state, {showVerify: false})
     case 'PHONE_VERIFY_SUCCESS':
-      return Object.assign({}, state, {verifySuccess: true, verifyError: false})
+      return Object.assign({}, state, {verifySuccess: true})
     case 'PHONE_VERIFY_ERROR':
-      return Object.assign({}, state, {verifySuccess: false, verifyError: true, errorText:'Incorrect Code. Please try again'})
+      return Object.assign({}, state, {errorText:'Incorrect Code. Please try again'})
     default:
       return state
   }
@@ -203,6 +202,16 @@ export function settingsReducer(state = {
         default:
           return state
       }
+    case 'EDIT_FINISH_ALL':
+      return Object.assign({}, state, { editingFirstName: false,
+                                        editingLastName: false,
+                                        editingEmail: false,
+                                        editingPhoneNumber: false,
+                                        editingPassword: false,
+                                        editingDeleteAccount: false,
+                                        accountData: {},
+                                        communicationData: {},
+                                        securityData: {} })
     case 'UPDATE_ACCOUNT_SETTINGS':
       return Object.assign({}, state, {accountData: action.data})
     case 'UPDATE_COMMUNICATION_SETTINGS':

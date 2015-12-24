@@ -58,8 +58,9 @@ class SettingsModal extends Component {
 
   handleCancel(e) {
     e.preventDefault()
-    const { showSettings, hideSettingsModal } = this.props
+    const { showSettings, hideSettingsModal, editFinishAll } = this.props
     showSettings ? hideSettingsModal() : null
+    editFinishAll()
     this.refs.modal.dismiss()
   }
 

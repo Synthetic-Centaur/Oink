@@ -27,10 +27,13 @@ class PhoneVerifyModal extends Component {
     this.props.sendPhoneVerification()
   }
 
+  render
+
   render() {
 
-    const { errorText } = this.props
-
+    const { errorText, verifySuccess } = this.props
+    const titleText = verifySuccess ? 'Your phone has been verified! Welcome to Oink!!' : 'Oink Oink! Looks like you still need to verify your phone number'
+   
     const modalActions = [
       <FlatButton
         key={1}
@@ -42,7 +45,7 @@ class PhoneVerifyModal extends Component {
 
     return (
       <Dialog
-        title='Oink Oink! Looks like you still need to verify your phone number'
+        title={titleText}
         className="container"
         ref='phoneVerify'
         actions={modalActions}

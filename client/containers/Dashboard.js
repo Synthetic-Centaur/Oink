@@ -7,7 +7,7 @@ import { authRedirect, authLogout, sendPhoneVerification, checkPhoneVerification
 import { getInitialState, postSettings, deleteAccount } from '../actions/api/apiActions'
 import { changeView, switchComponent, showSettings, hideSettings, editStart, editFinish,
          updateAccountSettings, updateCommunicationSettings, updateSecuritySettings,
-         showPhoneVerify, hidePhoneVerify } from '../actions/actions'
+         showPhoneVerify, hidePhoneVerify, editFinishAll } from '../actions/actions'
 import SideNav from '../components/dashboard/sidenav/SideNav'
 import SettingsModal from '../components/dashboard/settings/SettingsModal'
 import PhoneVerifyModal from '../components/dashboard/phoneVerify/PhoneVerifyModal'
@@ -109,6 +109,7 @@ class Dashboard extends React.Component {
         hidePhoneVerify={actions.hidePhoneVerify}
         showVerify={homePage.showVerify}
         errorText={homePage.errorText}
+        verifySuccess={homePage.verifySuccess}
         isLoading={isLoading}
         sendPhoneVerification={actions.sendPhoneVerification}
         checkPhoneVerification={actions.checkPhoneVerification}
@@ -135,6 +136,7 @@ class Dashboard extends React.Component {
         updateCommunicationSettings={actions.updateCommunicationSettings}
         updateSecuritySettings={actions.updateSecuritySettings}
         deleteAccount={actions.deleteAccount}
+        editFinishAll={actions.editFinishAll}
       />
 
       </div>
@@ -186,7 +188,8 @@ function mapDispatchToProps(dispatch) {
       showPhoneVerify,
       hidePhoneVerify,
       sendPhoneVerification,
-      checkPhoneVerification
+      checkPhoneVerification,
+      editFinishAll
     }, dispatch)
   }
 }
