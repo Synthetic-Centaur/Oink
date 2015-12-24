@@ -26,6 +26,22 @@ export function hidePhoneVerify() {
     })
   }
 }
+
+export function phoneVerifySuccess() {
+  return (dispatch) => {
+    dispatch({
+      type: 'PHONE_VERIFY_SUCCESS'
+    })
+  }
+}
+
+export function phoneVerifyError() {
+  return (dispatch) => {
+    dispatch({
+      type: 'PHONE_VERIFY_ERROR'
+    })
+  }
+}
 /********************************************************
                 BUDGET VIEW REDUX ACTIONS
 *********************************************************/

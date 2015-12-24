@@ -219,7 +219,9 @@ export function checkPhoneVerification(code) {
         // user phone_verified property should now be true
         getInitialState()(dispatch)
       } else if (response.status === 401) {
-        throw new Error('Incorrect Code Entered -- Phone Not Verified')
+        // code that user enered is not correct --> show them error message
+        console.log('wrong code bro --- did I handle')
+        dispatch(ACTIONS.phoneVerifyError())
       } else if (response.status === 500) {
         throw new Error('Error on the server', response)
       }

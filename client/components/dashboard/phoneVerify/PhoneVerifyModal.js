@@ -7,6 +7,8 @@ class PhoneVerifyModal extends Component {
   componentDidUpdate() {
     if (this.props.showVerify) {
       this.refs.phoneVerify.show()
+    } else {
+      this.refs.phoneVerify.dismiss()
     }
   }
 
@@ -27,7 +29,9 @@ class PhoneVerifyModal extends Component {
 
   render() {
 
-    let modalActions = [
+    const { errorText } = this.props
+
+    const modalActions = [
       <FlatButton
         key={1}
         label='Submit'
@@ -63,6 +67,9 @@ class PhoneVerifyModal extends Component {
               ref='phoneVerifyCode'
               type='text'
             />
+            <div>
+              { errorText ? <span className="error-text animated fadeInUp">{errorText}</span> : null }
+            </div>
           </div>
         </div>
         <div className='submit-phoneVerify four columns offset-by-four'>

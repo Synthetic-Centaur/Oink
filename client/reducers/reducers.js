@@ -113,6 +113,9 @@ export function homePageReducer(state = {
   categoryError: true,
   showSettings: false,
   showVerify: false,
+  verifyError: false,
+  verifySuccess: false,
+  errorText: '',
   category: ''
 }, action = null) {
   switch (action.type) {
@@ -134,6 +137,10 @@ export function homePageReducer(state = {
       return Object.assign({}, state, {showVerify: true})
     case 'HIDE_PHONE_VERIFY':
       return Object.assign({}, state, {showVerify: false})
+    case 'PHONE_VERIFY_SUCCESS':
+      return Object.assign({}, state, {verifySuccess: true, verifyError: false})
+    case 'PHONE_VERIFY_ERROR':
+      return Object.assign({}, state, {verifySuccess: false, verifyError: true, errorText:'Incorrect Code. Please try again'})
     default:
       return state
   }

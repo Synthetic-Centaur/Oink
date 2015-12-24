@@ -58,7 +58,7 @@ class Dashboard extends React.Component {
 
     const { actions, currentComponent, data, homePage, editingFirstName, editingLastName,
             editingEmail, editingPhoneNumber, editingPassword, editingDeleteAccount,
-            accountData, communicationData, securityData} = this.props
+            accountData, communicationData, securityData, isLoading} = this.props
 
     const userIsVerified = data.user ? data.user.phone_verified : true
 
@@ -108,6 +108,8 @@ class Dashboard extends React.Component {
         showPhoneVerify={actions.showPhoneVerify}
         hidePhoneVerify={actions.hidePhoneVerify}
         showVerify={homePage.showVerify}
+        errorText={homePage.errorText}
+        isLoading={isLoading}
         sendPhoneVerification={actions.sendPhoneVerification}
         checkPhoneVerification={actions.checkPhoneVerification}
        /> 
