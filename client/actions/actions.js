@@ -1,7 +1,20 @@
-/********************************************************
-                DASHBOARD VIEW REDUX ACTIONS
-*********************************************************/
+/*******************************************************
+This page contains all of the non-external facing
+redux actions for the app. An action returns a function
+that accepts dispatch as an argument, and invokes dispatch
+on by providing dispatch and object with the signature of
+{
+  type: 'MY_ACTION',
+  payload: data (optional parameter)
+}
 
+Actions must be dispatched for any changes in state to
+take place in our redux store.
+********************************************************/
+
+// ## DASHBOARD REDUX ACTIONS
+
+// Change the current dashboard view
 export function switchComponent(component) {
   return (dispatch) => {
     dispatch({
@@ -11,6 +24,7 @@ export function switchComponent(component) {
   }
 }
 
+// Show phone verification notification
 export function showPhoneVerify() {
   return (dispatch) => {
     dispatch({
@@ -19,6 +33,7 @@ export function showPhoneVerify() {
   }
 }
 
+// Hide phone verification notification
 export function hidePhoneVerify() {
   return (dispatch) => {
     dispatch({
@@ -42,10 +57,10 @@ export function phoneVerifyError() {
     })
   }
 }
-/********************************************************
-                BUDGET VIEW REDUX ACTIONS
-*********************************************************/
 
+// ## BUDGET REDUX ACTIONS
+
+// Change the view of the settings to add, edit, delete, etc.
 export function changeSettingsView(view) {
   return (dispatch) => {
     dispatch({
@@ -55,6 +70,7 @@ export function changeSettingsView(view) {
   }
 }
 
+// Reflect the index of the current budget that is being edited on state
 export function changeCurrentBudget(budgetIndex) {
   return (dispatch) => {
     dispatch({
@@ -64,13 +80,11 @@ export function changeCurrentBudget(budgetIndex) {
   }
 }
 
-/********************************************************
-                    ASYNC REDUX ACTIONS
-*********************************************************/
+// ## ASYNC REDUX ACTIONS
+// ** Note: Dispatch will be called in api/authActions.js for these **
 
 // An async operation has been made and we are waiting for a response
 export function requestData() {
-  // Dispatch will be called in api/authActions.js for these
   return { type: 'REQ_DATA' }
 }
 
@@ -90,9 +104,7 @@ export function receiveError(data) {
   }
 }
 
-/********************************************************
-                    LOGIN REDUX ACTIONS
-*********************************************************/
+// ## LOGIN REDUX ACTIONS
 
 // We should show the pop-up login modal
 export function showLogin() {
@@ -105,9 +117,6 @@ export function showLogin() {
 
 // We should hide the pop-up login modal
 export function hideLogin() {
-  
-  /* Dispatch is the dispatch from the Redux store
-   We must call dispatch so a reducer can act on this action appropriately */
   return (dispatch) => {
     dispatch({
       type: 'HIDE_LOGIN'
@@ -142,9 +151,7 @@ export function invalidBank() {
   }
 }
 
-/********************************************************
-                    SIGNUP REDUX ACTIONS
-*********************************************************/
+// ## SIGNUP REDUX ACTIONS
 
 // We should show the pop-up signup modal
 export function showSignup() {
@@ -164,7 +171,7 @@ export function hideSignup() {
   }
 }
 
-// The there is already a user with that email in the database
+// There is already a user with that email in the database
 export function userExists() {
   return (dispatch) => {
     dispatch({
@@ -182,9 +189,7 @@ export function removeAlerts() {
   }
 }
 
-/********************************************************
-                    PLAID REDUX ACTIONS
-*********************************************************/
+// ## PLAID REDUX ACTIONS
 
 // We should show the pop-up signup modal
 export function showPlaid() {
@@ -204,9 +209,7 @@ export function hidePlaid() {
   }
 }
 
-/********************************************************
-              AUTHENTICATION REDUX ACTIONS
-*********************************************************/
+// ## AUTHENTICATION REDUX ACTIONS
 
 // We should show the pop-up signup modal
 export function addJWT(data) {
@@ -269,9 +272,7 @@ export function numberValidation(allow) {
   }
 }
 
-/********************************************************
-                    SPENDING PAGE REDUX ACTIONS
-*********************************************************/
+// ## SPENDING PAGE REDUX ACTIONS
 
 export function selectDate(date) {
   return (dispatch) => {
@@ -282,9 +283,7 @@ export function selectDate(date) {
   }
 }
 
-/********************************************************
-                    GOAL PAGE REDUX ACTIONS
-*********************************************************/
+// ## GOAL PAGE REDUX ACTIONS
 
 export function switchGoal(goal) {
   return (dispatch) => {
@@ -329,9 +328,7 @@ export function changeGoalView(view) {
   }
 }
 
-/********************************************************
-                    SETTINGS REDUX ACTIONS
-*********************************************************/
+// ## SETTINGS REDUX ACTIONS
 
 // We should show the pop-up settings modal
 export function showSettings() {

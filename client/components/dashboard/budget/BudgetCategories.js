@@ -6,11 +6,7 @@ import { List, ListDivider, ListItem, Paper } from 'material-ui'
 
 class BudgetCategories extends React.Component{
 
-  //Refresh state to undisable form
-  componentDidUpdate() {
-  }
-
-  //form-validation for input field/budget amount
+  // Form validation for input field/budget amount
   handleNumError(e) {
     var value = e.target.value
     var isNumeric = !isNaN(parseFloat(value)) && isFinite(value)
@@ -18,7 +14,7 @@ class BudgetCategories extends React.Component{
     this.props.numberValidation(isNumeric)
   }
 
-  //form-validation for drop-down field/budget category
+  // Form validation for drop-down field/budget category
   handleCatError(e) {
     var value = e.target.value
     var isChosen = value !== 'Choose a category' ? false : true
@@ -26,7 +22,7 @@ class BudgetCategories extends React.Component{
     this.props.categoryValidation(isChosen, value)
   }
 
-  //send budget to server and update state
+  // Send budget to server and update state
   handleBudget(e) {
     e.preventDefault()
 

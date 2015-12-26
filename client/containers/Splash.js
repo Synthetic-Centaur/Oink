@@ -8,7 +8,7 @@ import { showLogin, hideLogin, showSignup, hideSignup, getJWT, showPlaid, hidePl
 import ProfileCard from '../components/splash/ProfileCard'
 
 class Splash extends Component {
-  //Render home container with chart, budget input, and navbar
+  
   componentWillMount() {
     this.checkAuth()
   }
