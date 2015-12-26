@@ -23,7 +23,7 @@ class Splash extends Component {
   render() {
     const { actions, splashPage, publicKey, showPlaid } = this.props
     return (
-      <div>
+      <div className="splashpage">
       
         <AccountModal
           login={actions.postLogin}
@@ -97,9 +97,39 @@ class Splash extends Component {
           </div>
         </div>
 
+        <div className="opensource">
+          <div className="container">
+
+            <div className="row">
+              <div className="u-full-width">
+                <h3>Oink Financial is an Open Source Project.</h3>
+              </div>
+            </div>
+
+            <div className="row">
+              <a href="https://github.com/Synthetic-Centaur/Oink" target="_blank">
+                <button>Github</button>
+              </a>
+            </div>
+
+            <div className="row">
+              <a href="/documentation" target="_blank">
+                <button>Documentation</button>
+              </a>
+            </div>
+
+          </div>
+        </div>
+
         <div className="about">
           <div className="container">
+
             <div className="row">
+              <h3 className="heading">Our Team.</h3>
+            </div>
+
+            <div className="row">
+
 
               <div className="three columns">
                 <ProfileCard
