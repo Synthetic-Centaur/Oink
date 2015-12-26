@@ -16,3 +16,4 @@ server/staticUserCharts/chart.svg
 coverage/
 public/bundle.min.js
 client/config/authKeys.js
+docs/

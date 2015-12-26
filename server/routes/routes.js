@@ -1,3 +1,4 @@
+import path from 'path'
 import app from '../server'
 
 import authHandler from '../handlers/authHandler'
@@ -50,4 +51,8 @@ app.get('/api/transactions/:year/:month', apiHandler.getTransactions)
 app.post('/api/settings', apiHandler.settings)
 
 app.delete('/api/deleteAccount', apiHandler.deleteAccount)
+
+app.get('/documentation', (req, res) => {
+  res.sendFile(path.resolve(__dirname + '/../../docs/tableofcontents.js.html'))
+})
 
