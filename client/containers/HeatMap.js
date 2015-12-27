@@ -8,6 +8,15 @@ class HeatMap extends Component {
   render() {
 
     const { data } = this.props
+    
+    data.transactions.forEach(function(transaction) {
+      transaction.date = new Date(transaction.date)
+    })
+
+    data.transactions.sort(function(a,b) {
+      return a.date - b.date
+    })
+
     return (
       <GoogleMap
         transactions = { data.transactions } />

@@ -62,6 +62,8 @@ export default class GoogleHeatMap extends Component {
   overlay(transactions) {
 
     heatmap.setMap(heatmap.getMap() ? null : map);
+
+    console.log(transactions[transactions.length - 1].date)
     
     heatmap = new google.maps.visualization.HeatmapLayer({
       data: this.getPoints(transactions),
@@ -76,18 +78,6 @@ export default class GoogleHeatMap extends Component {
       dissipating: true
     });
 
-  }
-
-  filter(period) {
-    const { transactions } = this.props
-
-    let points = _.map(_.filter(transactions, (transaction) => {
-      return transaction.date > period
-    }), (transaction) => {
-      return new google.maps.LatLng(parseFloat(transaction.latitude), parseFloat(transaction.longitude))
-    })
-
-    overlay(points)
   }
 
   getPoints (transactions) {
