@@ -2,13 +2,14 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import GoogleMap from '../components/dashboard/heatmap/GoogleHeatMap'
+import TransactionMap from '../components/dashboard/heatmap/TransactionMap'
 
 class HeatMap extends Component {
 
   render() {
 
     const { data } = this.props
-    
+
     data.transactions.forEach(function(transaction) {
       transaction.date = new Date(transaction.date)
     })
@@ -18,7 +19,7 @@ class HeatMap extends Component {
     })
 
     return (
-      <GoogleMap
+      <TransactionMap
         transactions = { data.transactions } />
     )
   }

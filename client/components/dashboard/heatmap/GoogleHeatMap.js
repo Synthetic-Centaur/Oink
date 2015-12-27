@@ -4,7 +4,7 @@ import {GoogleMapLoader, GoogleMap, Marker} from 'react-google-maps'
 import Slider from 'material-ui/lib/slider'
 import RaisedButton from 'material-ui/lib/raised-button'
 import _ from 'underscore'
-let map, heatmap
+let map, heatmap, markerClusterer
 
 export default class GoogleHeatMap extends Component {
 
@@ -19,12 +19,47 @@ export default class GoogleHeatMap extends Component {
 
     return (
       <div className="container">
+        <div className="row">
+          <span>Place the slider to see transactions up to that date</span>
+        </div>
         <div ref="mapCanvas" style={{height: "800px", width: "100%", padding: "10px"}}/>
         <Slider ref="slider" name = "timeSlider" defaultValue={0} onDragStop={this.sliderValue.bind(this)}/>
       </div>
     );
 
   }
+
+  // componentDidMount() {
+  //   const { transactions } = this.props
+
+  //   map = new google.maps.Map(ReactDOM.findDOMNode(this.refs.mapCanvas), {
+  //     zoom: 12,
+  //     center: {lat: 37.7833, lng: -122.4167},
+  //     mapTypeId: google.maps.MapTypeId.SATELLITE
+  //   })
+
+  //   let dataPoints = this.getPoints(transactions)
+  //   console.log(dataPoints.length)
+
+  //   heatmap = new google.maps.visualization.HeatmapLayer({
+  //     data: dataPoints,
+  //     map: map
+  //   })
+
+  //   heatmap.setOptions({
+  //     maxIntensity: 10, //The maximum intensity of the heatmap
+  //     opacity: 0.8, //The opacity of the heatmap
+  //     radius: 10, //The radius of influence for each data point, in pixels.
+  //     scaleRadius: true,
+  //     dissipating: true
+  //   });
+
+  //   map.data.addListener('mouseover', function(event) {
+  //     console.log("we're hoverin!")
+  //   })
+
+  //   map.setMapTypeId(google.maps.MapTypeId.ROADMAP)
+  // }
 
   componentDidMount() {
     const { transactions } = this.props
@@ -35,25 +70,9 @@ export default class GoogleHeatMap extends Component {
       mapTypeId: google.maps.MapTypeId.SATELLITE
     })
 
-    let dataPoints = this.getPoints(transactions)
-    console.log(dataPoints.length)
+    let markers = this.getMarkers(transactions)
 
-    heatmap = new google.maps.visualization.HeatmapLayer({
-      data: dataPoints,
-      map: map
-    })
-
-    heatmap.setOptions({
-      maxIntensity: 10, //The maximum intensity of the heatmap
-      opacity: 0.8, //The opacity of the heatmap
-      radius: 12, //The radius of influence for each data point, in pixels.
-      scaleRadius: true,
-      dissipating: true
-    });
-
-    map.data.addListener('mouseover', function(event) {
-      console.log("we're hoverin!")
-    })
+    markerClusterer = new MarkerClusterer(map, markers)
 
     map.setMapTypeId(google.maps.MapTypeId.ROADMAP)
   }
@@ -64,7 +83,7 @@ export default class GoogleHeatMap extends Component {
     heatmap.setMap(heatmap.getMap() ? null : map);
 
     console.log(transactions[transactions.length - 1].date)
-    
+
     heatmap = new google.maps.visualization.HeatmapLayer({
       data: this.getPoints(transactions),
       map: map
@@ -93,5 +112,14 @@ export default class GoogleHeatMap extends Component {
     })
 
     return heatMapPoints
+  }
+
+  getMarkers (transactions) {
+    let markers = _.map(_.filter(transactions, (t) => {
+      return t.latitude !== "0.00" && t.longitude !== "0.00"
+    }), (t) => {
+      let LatLng = new google.maps.LatLng(parseFloat(t.latitude), parseFloat(t.longitude))
+      return new google.maps.Marker({'position': LatLng})
+    })
   }
 }
