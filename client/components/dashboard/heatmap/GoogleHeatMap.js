@@ -4,61 +4,55 @@ import {GoogleMapLoader, GoogleMap, Marker} from 'react-google-maps'
 import Slider from 'material-ui/lib/slider'
 import RaisedButton from 'material-ui/lib/raised-button'
 import _ from 'underscore'
-
-// import HeatMapOverlay from 'react-map-gl-heatmap-overlay'
+let map, heatmap
 
 export default class GoogleHeatMap extends Component {
 
-
   sliderValue(e) {
     const { transactions } = this.props
-    console.log(this.refs.slider.getValue())
-    //i will want a way to set the very first date of users transactions to 0, the most recent date to 1, and then filter
-    // let filteredLocations = _.filter(transactions, (transaction) => {
-    //   return transaction.date < slider
-    // })
-    //map these all to be google map lat lng data
-    //then render new heat map with just this data
-    //this.overlay(filteredLocations)
+    let index = Math.floor(transactions.length * this.refs.slider.getValue())
+    let filteredTransactions = transactions.slice(0, index)
+    this.overlay(filteredTransactions)
   }
-
-  //We could also just have a dropdown that allows you to select a filter, i.e. lets see my transactions by 
-  //today, the past week, the past month, the past year, all your transactions, which actually might be better than 
-  //having a slider
-
-
 
   render () {
 
     return (
       <div className="container">
-        <div className = "row">
-          <RaisedButton label="day" />
-          <RaisedButton label="week" />
-          <RaisedButton label="month" />
-          <RaisedButton label="year" />
-          <RaisedButton label="all" />
-        </div>
         <div ref="mapCanvas" style={{height: "800px", width: "100%", padding: "10px"}}/>
-        <Slider ref="slider" name = "timeSlider" defaultValue={1} onChange={this.sliderValue.bind(this)}/>
+        <Slider ref="slider" name = "timeSlider" defaultValue={0} onDragStop={this.sliderValue.bind(this)}/>
       </div>
     );
 
   }
 
-
   componentDidMount() {
     const { transactions } = this.props
 
-    let map = new google.maps.Map(ReactDOM.findDOMNode(this.refs.mapCanvas), {
+    map = new google.maps.Map(ReactDOM.findDOMNode(this.refs.mapCanvas), {
       zoom: 12,
       center: {lat: 37.7833, lng: -122.4167},
       mapTypeId: google.maps.MapTypeId.SATELLITE
     })
 
-    let heatmap = new google.maps.visualization.HeatmapLayer({
-      data: this.getPoints(transactions),
+    let dataPoints = this.getPoints(transactions)
+    console.log(dataPoints.length)
+
+    heatmap = new google.maps.visualization.HeatmapLayer({
+      data: dataPoints,
       map: map
+    })
+
+    heatmap.setOptions({
+      maxIntensity: 10, //The maximum intensity of the heatmap
+      opacity: 0.8, //The opacity of the heatmap
+      radius: 12, //The radius of influence for each data point, in pixels.
+      scaleRadius: true,
+      dissipating: true
+    });
+
+    map.data.addListener('mouseover', function(event) {
+      console.log("we're hoverin!")
     })
 
     map.setMapTypeId(google.maps.MapTypeId.ROADMAP)
@@ -66,10 +60,22 @@ export default class GoogleHeatMap extends Component {
 
 
   overlay(transactions) {
-    let heatmap = new google.maps.visualization.HeatmapLayer({
-      data: transactions,
+
+    heatmap.setMap(heatmap.getMap() ? null : map);
+    
+    heatmap = new google.maps.visualization.HeatmapLayer({
+      data: this.getPoints(transactions),
       map: map
     })
+
+    heatmap.setOptions({
+      maxIntensity: 10, //The maximum intensity of the heatmap
+      opacity: 0.8, //The opacity of the heatmap
+      radius: 12, //The radius of influence for each data point, in pixels.
+      scaleRadius: true,
+      dissipating: true
+    });
+
   }
 
   filter(period) {
@@ -86,19 +92,16 @@ export default class GoogleHeatMap extends Component {
 
   getPoints (transactions) {
 
-
     let filtered = _.filter(transactions, (t) => {
       return t.latitude !== "0.00" && t.longitude !== "0.00"
     })
 
-    console.log("filtered: ", filtered)
     let heatMapPoints =  _.map(_.filter(transactions, (t) => {
       return t.latitude !== "0.00" && t.longitude !== "0.00"
     }), (t) => {
       return new google.maps.LatLng(parseFloat(t.latitude), parseFloat(t.longitude))
     })
 
-    console.log("here are yo points, bro", heatMapPoints)
     return heatMapPoints
   }
 }
