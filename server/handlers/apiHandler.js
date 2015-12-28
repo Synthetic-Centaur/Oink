@@ -3,11 +3,13 @@ import budgetController from '../controllers/budgetController'
 import authController from '../controllers/authController'
 import goalController from '../controllers/goalController'
 import transactionController from '../controllers/transactionController'
+import Promise from 'bluebird'
 
 // Poplulate categories after server initializes
 apiController.getCategories()
 
 let apiHandler = {
+
   retrieveTransactions(req, res) {
 
     // TODO: Add Token Plaid logic
@@ -241,6 +243,18 @@ let apiHandler = {
         })
       })
     }
+  }
+
+  //Job for retrieving every users new daily transactions
+  usersDailyTransactions() {
+    //Retrieve all users
+    authController.allUsers()
+      .then((users) => {
+        Promise.each(users, (user) => {
+          //Call controller for each user to make a call to Plaid
+          apiController.updateTransactions(user.token_plaid, user.id)
+        })
+      })
   }
 }
 
