@@ -80,6 +80,39 @@ export function changeCurrentBudget(budgetIndex) {
   }
 }
 
+export function categoryValidation(allow, category) {
+  if (!allow) {
+    return (dispatch) => {
+      dispatch({
+        type: 'ALLOW_CAT',
+        data: category
+      })
+    }
+  } else {
+    return (dispatch) => {
+      dispatch({
+        type: 'DISABLE_CAT'
+      })
+    }
+  }
+}
+
+export function numberValidation(allow) {
+  if (allow) {
+    return (dispatch) => {
+      dispatch({
+        type: 'ALLOW_NUM'
+      })
+    }
+  } else {
+    return (dispatch) => {
+      dispatch({
+        type: 'DISABLE_NUM'
+      })
+    }
+  }
+}
+
 // ## ASYNC REDUX ACTIONS
 // ** Note: Dispatch will be called in api/authActions.js for these **
 
@@ -236,39 +269,6 @@ export function authenticateUser() {
     dispatch({
       type: 'AUTHENTICATE_USER',
     })
-  }
-}
-
-export function categoryValidation(allow, category) {
-  if (!allow) {
-    return (dispatch) => {
-      dispatch({
-        type: 'ALLOW_CAT',
-        data: category
-      })
-    }
-  } else {
-    return (dispatch) => {
-      dispatch({
-        type: 'DISABLE_CAT'
-      })
-    }
-  }
-}
-
-export function numberValidation(allow) {
-  if (allow) {
-    return (dispatch) => {
-      dispatch({
-        type: 'ALLOW_NUM'
-      })
-    }
-  } else {
-    return (dispatch) => {
-      dispatch({
-        type: 'DISABLE_NUM'
-      })
-    }
   }
 }
 
