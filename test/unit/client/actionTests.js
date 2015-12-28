@@ -40,7 +40,6 @@ function mockStore(getState, expectedActions, done) {
       }
     }
 
-
   }
     const mockStoreWithMiddleware = applyMiddleware(...middleware)(mockStoreWithoutMiddleware)
     return mockStoreWithMiddleware()
