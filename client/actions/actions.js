@@ -1,7 +1,20 @@
-/********************************************************
-                DASHBOARD VIEW REDUX ACTIONS
-*********************************************************/
+/*******************************************************
+This page contains all of the non-external facing
+redux actions for the app. An action returns a function
+that accepts dispatch as an argument, and invokes dispatch
+on by providing dispatch and object with the signature of
+{
+  type: 'MY_ACTION',
+  payload: data (optional parameter)
+}
 
+Actions must be dispatched for any changes in state to
+take place in our redux store.
+********************************************************/
+
+// ## DASHBOARD REDUX ACTIONS
+
+// Change the current dashboard view
 export function switchComponent(component) {
   return (dispatch) => {
     dispatch({
@@ -11,6 +24,7 @@ export function switchComponent(component) {
   }
 }
 
+// Show phone verification notification
 export function showPhoneVerify() {
   return (dispatch) => {
     dispatch({
@@ -19,6 +33,7 @@ export function showPhoneVerify() {
   }
 }
 
+// Hide phone verification notification
 export function hidePhoneVerify() {
   return (dispatch) => {
     dispatch({
@@ -42,10 +57,10 @@ export function phoneVerifyError() {
     })
   }
 }
-/********************************************************
-                BUDGET VIEW REDUX ACTIONS
-*********************************************************/
 
+// ## BUDGET REDUX ACTIONS
+
+// Change the view of the settings to add, edit, delete, etc.
 export function changeSettingsView(view) {
   return (dispatch) => {
     dispatch({
@@ -55,183 +70,12 @@ export function changeSettingsView(view) {
   }
 }
 
+// Reflect the index of the current budget that is being edited on state
 export function changeCurrentBudget(budgetIndex) {
   return (dispatch) => {
     dispatch({
       type: 'CHANGE_CURRENT_BUDGET',
       budgetIndex: budgetIndex
-    })
-  }
-}
-
-/********************************************************
-                    ASYNC REDUX ACTIONS
-*********************************************************/
-
-// An async operation has been made and we are waiting for a response
-export function requestData() {
-  // Dispatch will be called in api/authActions.js for these
-  return { type: 'REQ_DATA' }
-}
-
-// We have received data from the result of an async operation
-export function receiveData(data) {
-  return {
-    type: 'RECV_DATA',
-    data: data
-  }
-}
-
-// We have received an error as the result of an async operation
-export function receiveError(data) {
-  return {
-    type: 'RECV_ERROR',
-    data: data
-  }
-}
-
-/********************************************************
-                    LOGIN REDUX ACTIONS
-*********************************************************/
-
-// We should show the pop-up login modal
-export function showLogin() {
-  return (dispatch) => {
-    dispatch({
-      type: 'SHOW_LOGIN'
-    })
-  }
-}
-
-// We should hide the pop-up login modal
-export function hideLogin() {
-  
-  /* Dispatch is the dispatch from the Redux store
-   We must call dispatch so a reducer can act on this action appropriately */
-  return (dispatch) => {
-    dispatch({
-      type: 'HIDE_LOGIN'
-    })
-  }
-}
-
-// The user provided an email that does not exist in the system
-export function invalidEmail() {
-  return (dispatch) => {
-    dispatch({
-      type: 'INVALID_EMAIL'
-    })
-  }
-}
-
-// The user provided an password that does not exist in the system
-export function invalidPassword() {
-  return (dispatch) => {
-    dispatch({
-      type: 'INVALID_PASSWORD'
-    })
-  }
-}
-
-// The user has not authorized their bank account
-export function invalidBank() {
-  return (dispatch) => {
-    dispatch({
-      type: 'INVALID_BANK'
-    })
-  }
-}
-
-/********************************************************
-                    SIGNUP REDUX ACTIONS
-*********************************************************/
-
-// We should show the pop-up signup modal
-export function showSignup() {
-  return (dispatch) => {
-    dispatch({
-      type: 'SHOW_SIGNUP'
-    })
-  }
-}
-
-// We should hide the pop-up signup modal
-export function hideSignup() {
-  return (dispatch) => {
-    dispatch({
-      type: 'HIDE_SIGNUP'
-    })
-  }
-}
-
-// The there is already a user with that email in the database
-export function userExists() {
-  return (dispatch) => {
-    dispatch({
-      type: 'USER_EXISTS'
-    })
-  }
-}
-
-// Remove all error messages
-export function removeAlerts() {
-  return (dispatch) => {
-    dispatch({
-      type: 'REMOVE_ALERTS'
-    })
-  }
-}
-
-/********************************************************
-                    PLAID REDUX ACTIONS
-*********************************************************/
-
-// We should show the pop-up signup modal
-export function showPlaid() {
-  return (dispatch) => {
-    dispatch({
-      type: 'SHOW_PLAID'
-    })
-  }
-}
-
-// We should hide the pop-up signup modal
-export function hidePlaid() {
-  return (dispatch) => {
-    dispatch({
-      type: 'HIDE_PLAID'
-    })
-  }
-}
-
-/********************************************************
-              AUTHENTICATION REDUX ACTIONS
-*********************************************************/
-
-// We should show the pop-up signup modal
-export function addJWT(data) {
-  return (dispatch) => {
-    dispatch({
-      type: 'ADD_JWT',
-      jwt: data.jwt_token,
-      expiryDate: Date.now() + data.expiresIn
-    })
-  }
-}
-
-// We should hide the pop-up signup modal
-export function removeJWT() {
-  return (dispatch) => {
-    dispatch({
-      type: 'REMOVE_JWT',
-    })
-  }
-}
-
-export function authenticateUser() {
-  return (dispatch) => {
-    dispatch({
-      type: 'AUTHENTICATE_USER',
     })
   }
 }
@@ -269,9 +113,166 @@ export function numberValidation(allow) {
   }
 }
 
-/********************************************************
-                    SPENDING PAGE REDUX ACTIONS
-*********************************************************/
+// ## ASYNC REDUX ACTIONS
+// ** Note: Dispatch will be called in api/authActions.js for these **
+
+// An async operation has been made and we are waiting for a response
+export function requestData() {
+  return { type: 'REQ_DATA' }
+}
+
+// We have received data from the result of an async operation
+export function receiveData(data) {
+  return {
+    type: 'RECV_DATA',
+    data: data
+  }
+}
+
+// We have received an error as the result of an async operation
+export function receiveError(data) {
+  return {
+    type: 'RECV_ERROR',
+    data: data
+  }
+}
+
+// ## LOGIN REDUX ACTIONS
+
+// We should show the pop-up login modal
+export function showLogin() {
+  return (dispatch) => {
+    dispatch({
+      type: 'SHOW_LOGIN'
+    })
+  }
+}
+
+// We should hide the pop-up login modal
+export function hideLogin() {
+  return (dispatch) => {
+    dispatch({
+      type: 'HIDE_LOGIN'
+    })
+  }
+}
+
+// The user provided an email that does not exist in the system
+export function invalidEmail() {
+  return (dispatch) => {
+    dispatch({
+      type: 'INVALID_EMAIL'
+    })
+  }
+}
+
+// The user provided an password that does not exist in the system
+export function invalidPassword() {
+  return (dispatch) => {
+    dispatch({
+      type: 'INVALID_PASSWORD'
+    })
+  }
+}
+
+// The user has not authorized their bank account
+export function invalidBank() {
+  return (dispatch) => {
+    dispatch({
+      type: 'INVALID_BANK'
+    })
+  }
+}
+
+// ## SIGNUP REDUX ACTIONS
+
+// We should show the pop-up signup modal
+export function showSignup() {
+  return (dispatch) => {
+    dispatch({
+      type: 'SHOW_SIGNUP'
+    })
+  }
+}
+
+// We should hide the pop-up signup modal
+export function hideSignup() {
+  return (dispatch) => {
+    dispatch({
+      type: 'HIDE_SIGNUP'
+    })
+  }
+}
+
+// There is already a user with that email in the database
+export function userExists() {
+  return (dispatch) => {
+    dispatch({
+      type: 'USER_EXISTS'
+    })
+  }
+}
+
+// Remove all error messages
+export function removeAlerts() {
+  return (dispatch) => {
+    dispatch({
+      type: 'REMOVE_ALERTS'
+    })
+  }
+}
+
+// ## PLAID REDUX ACTIONS
+
+// We should show the pop-up signup modal
+export function showPlaid() {
+  return (dispatch) => {
+    dispatch({
+      type: 'SHOW_PLAID'
+    })
+  }
+}
+
+// We should hide the pop-up signup modal
+export function hidePlaid() {
+  return (dispatch) => {
+    dispatch({
+      type: 'HIDE_PLAID'
+    })
+  }
+}
+
+// ## AUTHENTICATION REDUX ACTIONS
+
+// We should show the pop-up signup modal
+export function addJWT(data) {
+  return (dispatch) => {
+    dispatch({
+      type: 'ADD_JWT',
+      jwt: data.jwt_token,
+      expiryDate: Date.now() + data.expiresIn
+    })
+  }
+}
+
+// We should hide the pop-up signup modal
+export function removeJWT() {
+  return (dispatch) => {
+    dispatch({
+      type: 'REMOVE_JWT',
+    })
+  }
+}
+
+export function authenticateUser() {
+  return (dispatch) => {
+    dispatch({
+      type: 'AUTHENTICATE_USER',
+    })
+  }
+}
+
+// ## SPENDING PAGE REDUX ACTIONS
 
 export function selectDate(date) {
   return (dispatch) => {
@@ -282,9 +283,7 @@ export function selectDate(date) {
   }
 }
 
-/********************************************************
-                    GOAL PAGE REDUX ACTIONS
-*********************************************************/
+// ## GOAL PAGE REDUX ACTIONS
 
 export function switchGoal(goal) {
   return (dispatch) => {
@@ -329,9 +328,7 @@ export function changeGoalView(view) {
   }
 }
 
-/********************************************************
-                    SETTINGS REDUX ACTIONS
-*********************************************************/
+// ## SETTINGS REDUX ACTIONS
 
 // We should show the pop-up settings modal
 export function showSettings() {

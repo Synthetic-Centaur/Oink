@@ -34,4 +34,7 @@ app.use(bodyParser.json())
 app.use(morgan('dev'))
 
 //Static serving of client files
-app.use(Express.static(__dirname + '/../public'))
+app.use('/', Express.static(__dirname + '/../public'))
+
+//Static serving of documentation
+app.use('/documentation', Express.static(__dirname + '/../docs'))

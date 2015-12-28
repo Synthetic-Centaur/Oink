@@ -5,6 +5,9 @@ FROM node:4.2.1
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
+# Install CLI dependencies
+RUN npm install -g grunt-cli
+
 # Copy package.json over to working directory
 COPY package.json /usr/src/app/
 
@@ -16,6 +19,9 @@ COPY . /usr/src/app/
 
 # Copy ./server/env/envConfig-temp.js and make ./server/env/envConfig.js
 RUN npm run copyEnv
+
+# Create Docs
+RUN npm run docs
 
 # Build bundle.min.js
 RUN npm run build
