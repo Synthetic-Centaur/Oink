@@ -8,16 +8,16 @@ class BudgetCategories extends React.Component{
 
   // Form validation for input field/budget amount
   handleNumError(e) {
-    var value = e.target.value
-    var isNumeric = !isNaN(parseFloat(value)) && isFinite(value)
+    let value = e.target.value
+    let isNumeric = !isNaN(parseFloat(value)) && isFinite(value)
     
     this.props.numberValidation(isNumeric)
   }
 
   // Form validation for drop-down field/budget category
   handleCatError(e) {
-    var value = e.target.value
-    var isChosen = value !== 'Choose a category' ? false : true
+    let value = e.target.value
+    let isChosen = value !== 'Choose a category' ? false : true
 
     this.props.categoryValidation(isChosen, value)
   }
