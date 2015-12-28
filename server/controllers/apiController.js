@@ -58,9 +58,6 @@ let apiController = {
       if (err) {
         console.error('ERROR', err)
       } else {
-        
-        // log ('You have ' + response.transactions.length + ' transactions')
-        // log ('Transactions (first 4): ', response.transactions.slice(0, 4))
 
         //TODO: need to make async and move this logic to controller to send back
         budgetController.updateTransactions(response.transactions, userid).then((response) => {

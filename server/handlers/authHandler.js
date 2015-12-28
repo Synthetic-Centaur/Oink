@@ -135,21 +135,21 @@ let authHandler = {
         .then((user) => {
 
           // if token attribute is not null the request was successful
-          if (user.attributes.token_plaid) {
-            let name = user.attributes.first_name
-            let number = user.attributes.phone_number
+          if (user.token_plaid) {
+            let name = user.first_name
+            let number = user.phone_number
 
             // get transactions from plaid
             apiController.retrieveTransactions(user.attributes.token_plaid, user.id, () => {
               res.sendStatus(200)
             })
-            
             // .then( (transactions) => {
             //   budgetController.saveTransactions(transactions, userid)
             // })
 
+            // TODO: move message to after user has verified phone
             // set webhook for new user
-            apiController.setWebhook(user.attributes.token_plaid)
+            apiController.setWebhook(user.token_plaid)
 
             // send welcome message
             //apiController.sendMessage('Hello ' + name + '! Welcome to Oink, Lets Budget Together!!', number)
