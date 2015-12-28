@@ -26,6 +26,22 @@ export function hidePhoneVerify() {
     })
   }
 }
+
+export function phoneVerifySuccess() {
+  return (dispatch) => {
+    dispatch({
+      type: 'PHONE_VERIFY_SUCCESS'
+    })
+  }
+}
+
+export function phoneVerifyError() {
+  return (dispatch) => {
+    dispatch({
+      type: 'PHONE_VERIFY_ERROR'
+    })
+  }
+}
 /********************************************************
                 BUDGET VIEW REDUX ACTIONS
 *********************************************************/
@@ -335,7 +351,7 @@ export function hideSettings() {
   }
 }
 
-// We should know when a user is editing their first name
+// We should know when a user is editing a single property
 export function editStart(item) {
   return (dispatch) => {
     dispatch({
@@ -345,12 +361,21 @@ export function editStart(item) {
   }
 }
 
-// We should know when a user is editing their first name
+// We should know when a user is editing a single property
 export function editFinish(item) {
   return (dispatch) => {
     dispatch({
       type: 'EDIT_FINISH',
       data: item
+    })
+  }
+}
+
+// We should know when a user is editing a single property
+export function editFinishAll() {
+  return (dispatch) => {
+    dispatch({
+      type: 'EDIT_FINISH_ALL'
     })
   }
 }

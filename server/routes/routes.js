@@ -27,6 +27,10 @@ app.post('/auth/plaid', authHandler.plaid)
 
 app.get('/auth/plaid', authHandler.getPlaid)
 
+app.get('/auth/phoneVerification/send', authHandler.sendVerificationCode)
+
+app.put('/auth/phoneVerification/check', authHandler.checkVerificationCode)
+
 app.get('/api/initialState', apiHandler.initialState)
 
 app.post('/api/budget/category/:id', apiHandler.addOrUpdateBudget)

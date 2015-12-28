@@ -3,19 +3,21 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import ThemeManager from 'material-ui/lib/styles/theme-manager'
 import Theme from '../material-theme.js'
-import { authRedirect, authLogout } from '../actions/api/authActions'
+import { authRedirect, authLogout, sendPhoneVerification, checkPhoneVerification } from '../actions/api/authActions'
 import { getInitialState, postSettings, deleteAccount } from '../actions/api/apiActions'
 import { changeView, switchComponent, showSettings, hideSettings, editStart, editFinish,
          updateAccountSettings, updateCommunicationSettings, updateSecuritySettings,
-         showPhoneVerify, hidePhoneVerify } from '../actions/actions'
+         showPhoneVerify, hidePhoneVerify, editFinishAll } from '../actions/actions'
 import SideNav from '../components/dashboard/sidenav/SideNav'
 import SettingsModal from '../components/dashboard/settings/SettingsModal'
+import PhoneVerifyModal from '../components/dashboard/phoneVerify/PhoneVerifyModal'
+import PhoneVerifyIcon from '../components/dashboard/phoneVerify/PhoneVerifyIcon'
 import Budget from './Budget'
 import Goals from './Goals'
 import Options from '../components/dashboard/Options'
 import ComponentPlayground from './ComponentPlayground'
 import { DROPDOWN_ACTIONS } from '../constants/componentActions'
-import { FontIcon, Popover, RaisedButton } from 'material-ui'
+import { FontIcon, FlatButton, RaisedButton } from 'material-ui'
 
 class Dashboard extends React.Component {
   getChildContext() {
@@ -56,7 +58,10 @@ class Dashboard extends React.Component {
 
     const { actions, currentComponent, data, homePage, editingFirstName, editingLastName,
             editingEmail, editingPhoneNumber, editingPassword, editingDeleteAccount,
-            accountData, communicationData, securityData} = this.props
+            accountData, communicationData, securityData, isLoading} = this.props
+
+    const userIsVerified = data.user ? data.user.phone_verified : true
+
     return (
       <div className="dashboard-el">
       
@@ -66,50 +71,73 @@ class Dashboard extends React.Component {
           dropDownComponents = { DROPDOWN_ACTIONS } />
 
         <div className="dashboard">
-      
-          <div className="options u-pull-right">
-            <Options logout={ actions.authLogout } showSettings={ actions.showSettings }/>
-          </div>
+            <div className="row">
 
-          <SettingsModal
-            postSettings={actions.postSettings}
-            showSettings={homePage.showSettings}
-            showSettingsModal={actions.showSettings}
-            hideSettingsModal={actions.hideSettings}
-            editStart={actions.editStart}
-            editFinish={actions.editFinish}
-            data={data}
-            editingFirstName={editingFirstName}
-            editingLastName={editingLastName}
-            editingEmail={editingEmail}
-            editingPhoneNumber={editingPhoneNumber}
-            editingPassword={editingPassword}
-            editingDeleteAccount={editingDeleteAccount}
-            accountData={accountData}
-            communicationData={communicationData}
-            securityData={securityData}
-            updateAccountSettings={actions.updateAccountSettings}
-            updateCommunicationSettings={actions.updateCommunicationSettings}
-            updateSecuritySettings={actions.updateSecuritySettings}
-            deleteAccount={actions.deleteAccount}
-          />
+              <div className="options u-pull-right">
+                <Options logout={ actions.authLogout } showSettings={ actions.showSettings }/>
+              </div>
 
-          <div className="header">
-            <div className="container">
-              <div className="row">
+              <div className="needsVerify u-pull-left" style={{paddingTop: '20px', paddingLeft: '20px', position: 'relative', zIndex: '4'}}>
+                <PhoneVerifyIcon
+                  showPhoneVerify={actions.showPhoneVerify}
+                  showVerify={homePage.showVerify}
+                  userIsVerified={userIsVerified}
+                />
+              </div>
 
-                <h1>{ currentComponent.text }</h1>
 
+
+              <div className="header">
+                <div className="container">
+                  <div className="row">
+
+                    <h1>{ currentComponent.text }</h1>
+
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-
-          <div className="view-container container">
-            <ComponentPlayground
-              currentComponent = { currentComponent } />
-          </div>
-
         </div>
+
+        <div className="view-container container">
+          <ComponentPlayground
+            currentComponent = { currentComponent } />
+        </div>
+        
+       <PhoneVerifyModal
+        showPhoneVerify={actions.showPhoneVerify}
+        hidePhoneVerify={actions.hidePhoneVerify}
+        showVerify={homePage.showVerify}
+        errorText={homePage.errorText}
+        verifySuccess={homePage.verifySuccess}
+        isLoading={isLoading}
+        sendPhoneVerification={actions.sendPhoneVerification}
+        checkPhoneVerification={actions.checkPhoneVerification}
+       />
+
+      <SettingsModal
+        postSettings={actions.postSettings}
+        showSettings={homePage.showSettings}
+        showSettingsModal={actions.showSettings}
+        hideSettingsModal={actions.hideSettings}
+        editStart={actions.editStart}
+        editFinish={actions.editFinish}
+        data={data}
+        editingFirstName={editingFirstName}
+        editingLastName={editingLastName}
+        editingEmail={editingEmail}
+        editingPhoneNumber={editingPhoneNumber}
+        editingPassword={editingPassword}
+        editingDeleteAccount={editingDeleteAccount}
+        accountData={accountData}
+        communicationData={communicationData}
+        securityData={securityData}
+        updateAccountSettings={actions.updateAccountSettings}
+        updateCommunicationSettings={actions.updateCommunicationSettings}
+        updateSecuritySettings={actions.updateSecuritySettings}
+        deleteAccount={actions.deleteAccount}
+        editFinishAll={actions.editFinishAll}
+      />
 
       </div>
     )
@@ -158,7 +186,10 @@ function mapDispatchToProps(dispatch) {
       updateCommunicationSettings,
       updateSecuritySettings,
       showPhoneVerify,
-      hidePhoneVerify
+      hidePhoneVerify,
+      sendPhoneVerification,
+      checkPhoneVerification,
+      editFinishAll
     }, dispatch)
   }
 }

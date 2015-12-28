@@ -27,6 +27,7 @@ let plaidClient = new plaid.Client(clientId, secret, plaid.environments.tartan)
 let apiController = {
 
   tradeToken(public_token) {
+    console.log('public token is ', public_token)
     return plaidClient.exchangeTokenAsync(public_token)
   },
 

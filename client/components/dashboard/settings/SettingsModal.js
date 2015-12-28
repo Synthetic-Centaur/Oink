@@ -58,9 +58,19 @@ class SettingsModal extends Component {
 
   handleCancel(e) {
     e.preventDefault()
-    const { showSettings, hideSettingsModal } = this.props
-    showSettings ? hideSettingsModal() : null
-    this.refs.modal.dismiss()
+    const { showSettings, hideSettingsModal, editFinishAll, editingEmail, editingPassword, editingFirstName,
+            editingLastName, editingPhoneNumber, editingDeleteAccount } = this.props
+    if (editingEmail || editingPhoneNumber || editingPassword || editingFirstName || editingLastName) {
+      if (confirm('You have unsaved changes to your settngs, are you sure you want to quit?')) {
+        showSettings ? hideSettingsModal() : null
+        editFinishAll()
+        this.refs.modal.dismiss()
+      }
+    } else {
+      showSettings ? hideSettingsModal() : null
+      editFinishAll()
+      this.refs.modal.dismiss()
+    }
   }
 
   parsePhoneNumber(num) {

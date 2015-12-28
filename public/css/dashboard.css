@@ -1,13 +1,14 @@
+
 .dashboard-el {
   background-color: #262626;
 }
 
-.dashboard .settings {
+.dashboard .options {
   display: inline;
   margin-top: 10px;
 }
 
-.dashboard .settings-icon {
+.dashboard .options-icon {
   margin-top: 15px;
 }
 
