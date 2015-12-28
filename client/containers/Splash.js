@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import AccountModal from '../components/splash/account-modal/AccountModal'
 import SplashNavBar from '../components/splash/navbar/SplashNavBar'
 import { postLogin, postSignup, splashRedirect, getPlaid, postPlaid } from '../actions/api/authActions'
-import { showLogin, hideLogin, showSignup, hideSignup, getJWT, showPlaid, hidePlaid, removeAlerts } from '../actions/actions'
+import { showLogin, hideLogin, showSignup, hideSignup, getJWT, showPlaid, hidePlaid, removeAlerts, passwordMatchError, missingSignupFields } from '../actions/actions'
 import ProfileCard from '../components/splash/ProfileCard'
 
 class Splash extends Component {
@@ -21,7 +21,7 @@ class Splash extends Component {
   }
 
   render() {
-    const { actions, splashPage, publicKey, showPlaid } = this.props
+    const { actions, splashPage, publicKey, showPlaid, passwordErr, missingFields } = this.props
     return (
       <div className="splashpage">
       
@@ -44,6 +44,10 @@ class Splash extends Component {
           userExists={splashPage.userExists}
           errorText={splashPage.errorText}
           removeAlerts={actions.removeAlerts}
+          passwordErr={passwordErr}
+          passwordMatchError={actions.passwordMatchError}
+          missingFields={missingFields}
+          missingSignupFields={actions.missingSignupFields}
         />
 
         <div className="navbar">
@@ -202,7 +206,9 @@ function mapStateToProps(state) {
     isAuthenticated: state.auth.isAuthenticated,
     token: state.auth.token,
     publicKey: state.plaid.publicKey,
-    showPlaid: state.plaid.showPlaid
+    showPlaid: state.plaid.showPlaid,
+    passwordErr: state.splashPage.passwordMatchError,
+    missingFields: state.splashPage.missingSignupFields
   }
 }
 
@@ -220,7 +226,9 @@ function mapDispatchToProps(dispatch) {
       postPlaid,
       showPlaid,
       hidePlaid,
-      removeAlerts
+      removeAlerts,
+      passwordMatchError,
+      missingSignupFields
     }, dispatch),
   }
 }

@@ -213,6 +213,24 @@ export function userExists() {
   }
 }
 
+// The password fields don't match
+export function passwordMatchError() {
+  return (dispatch) => {
+    dispatch({
+      type: 'PASSWORD_MATCH_ERR'
+    })
+  }
+}
+
+// Missing required fields for signup
+export function missingSignupFields() {
+  return (dispatch) => {
+    dispatch({
+      type: 'MISSING_SIGNUP_FIELDS'
+    })
+  }
+}
+
 // Remove all error messages
 export function removeAlerts() {
   return (dispatch) => {
