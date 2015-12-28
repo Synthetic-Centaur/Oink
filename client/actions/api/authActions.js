@@ -108,7 +108,8 @@ export function postPlaid(data) {
       })
     })
     .then((response) => {
-      if (response.status === 201) {
+      console.log('RESSSS', response)
+      if (response.status === 200) {
         dispatch(ACTIONS.receiveData({}))
         dispatch(ACTIONS.authenticateUser())
         dispatch(updatePath('/dashboard'))

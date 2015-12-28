@@ -1,3 +1,4 @@
+// ## Dependencies
 import 'babel-core/polyfill'
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -8,11 +9,11 @@ import { Router, Route } from 'react-router'
 import createHistory from 'history/lib/createHashHistory'
 import { syncReduxAndRouter } from 'redux-simple-router'
 
-//Function to create a store with devtools, middleware, etc
+// Function to create a store with devtools, middleware, etc
 import configureStore from './store/configureStore'
 
 // Redux DevTools store enhancers
-// NOTE: Hit Control + H to open DevTools
+// ** NOTE: Hit Control + H to open DevTools **
 import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools/lib/react'
 
 // Import containers for React Router
@@ -22,11 +23,11 @@ import Dashboard from './containers/Dashboard'
 // Required by Material UI
 import injectTapEventPlugin from 'react-tap-event-plugin'
 
-//Needed for onTouchTap with Material UI
-//Can go away when react 1.0 releases
+// Needed for onTouchTap with Material UI
+// Can go away when react 1.0 releases
 injectTapEventPlugin()
 
-//Needed for React Developer Tools
+// Needed for React Developer Tools
 window.React = React
 
 // To be used with server side rendering
@@ -43,6 +44,7 @@ const history = createHistory({
 // Sync Redux state with our router's history
 syncReduxAndRouter(history, store)
 
+// Render React App to the DOM
 ReactDOM.render(
   <div>
     <Provider store={store}>

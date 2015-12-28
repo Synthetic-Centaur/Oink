@@ -1,10 +1,16 @@
 .goals {
   color: #ccc;
 }
-.info {
+
+/*
+Breaks splash page, seems like its not in use?
+*/
+
+/*.info {
   color: #ccc;
   background-color: #262626;
-}
+}*/
+
 .center {
   margin: 0 auto;
   text-align: center;

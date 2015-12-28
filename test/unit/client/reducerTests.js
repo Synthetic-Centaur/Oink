@@ -1,4 +1,3 @@
-
 import expect from 'expect'
 import * as reducers from '../../../client/reducers/reducers'
 import * as actions from '../../../client/actions/actions'
