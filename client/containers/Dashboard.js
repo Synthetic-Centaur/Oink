@@ -77,7 +77,7 @@ class Dashboard extends React.Component {
                 <Options logout={ actions.authLogout } showSettings={ actions.showSettings }/>
               </div>
 
-              <div className="needsVerify u-pull-left" style={{paddingTop: '20px', paddingLeft: '20px', position: 'relative', 'zIndex': '4'}}>
+              <div className="needsVerify u-pull-left" style={{paddingTop: '20px', paddingLeft: '20px', position: 'relative', zIndex: '4'}}>
                 <PhoneVerifyIcon
                   showPhoneVerify={actions.showPhoneVerify}
                   showVerify={homePage.showVerify}
@@ -113,7 +113,7 @@ class Dashboard extends React.Component {
         isLoading={isLoading}
         sendPhoneVerification={actions.sendPhoneVerification}
         checkPhoneVerification={actions.checkPhoneVerification}
-       /> 
+       />
 
       <SettingsModal
         postSettings={actions.postSettings}

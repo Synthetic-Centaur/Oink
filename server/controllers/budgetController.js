@@ -147,13 +147,15 @@ let budgetController = {
                   // get category name for text
                   return budgetController.getCategoryName(item.category_id).then((description) => {
                     // check to see if user has indicated that they would like to recieve text notifications when they go over budget
-                    if (user[0].text_over_budget) {                  
+                    if (user[0].text_over_budget) {
                       apiController.sendMessage('Oink Oink!! \n\nHey ' + user[0].first_name + ' looks like you have gone over your '
                       + description[0].description + ' budget for this month! \n \n Budget: $' + item.target + ' \n Actual: $' + item.actual, user[0].phone_number)
                     }
-                    if (user[0].text_over_total && pos===budget.length-1) {
+
+                    if (user[0].text_over_total && pos === budget.length - 1) {
                       budgetController.checkTotalMonthlySpending(user[0])
                     }
+
                     return description
                   })
                 })
@@ -167,7 +169,7 @@ let budgetController = {
 
   // TODO: Update Transactions is currently being used for both update and save. May be possible to remove save transactions
   saveTransactions(transactions, user_id) {
-    console.log('inside save transactions')
+
     // loop over transactions array
     return Promise.map(transactions, (item) => {
       // this breaks if transaction doesn't have a category so check if category is definied first
@@ -194,7 +196,7 @@ let budgetController = {
   },
 
   updateTransactions(transactions, user_id) {
-    console.log('inside update transactions')
+
     // TODO: Fix promise
     // pull previous transactions for user out of database
     return db.knex('transactions').where({user_id: user_id}).select('transaction_id').then((oldTransactions) => {

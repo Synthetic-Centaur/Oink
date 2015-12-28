@@ -11,7 +11,7 @@ class PhoneVerifyIcon extends React.Component {
     return (
       <a onClick={this.openPhoneVerify.bind(this)}>
         <Badge badgeContent={1} primary={true} >
-          <FontIcon 
+          <FontIcon
             hoverColor='grey'
             className='material-icons'
             onTouchTap={this.openPhoneVerify.bind(this)} > cellphone </FontIcon>
@@ -30,7 +30,7 @@ class PhoneVerifyIcon extends React.Component {
 
   render() {
     return (
-      <div>  
+      <div>
         {this.handleRender()}
       </div>
     )

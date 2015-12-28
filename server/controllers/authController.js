@@ -118,10 +118,11 @@ let authController = {
 
   generateVerificationCode(user) {
     // generate random number between 0 and 9
-    let codeStr = Math.floor(Math.random()*10).toString()
+    let codeStr = Math.floor(Math.random() * 10).toString()
     while (codeStr.length < 7) {
-      codeStr += Math.floor(Math.random()*10).toString()
+      codeStr += Math.floor(Math.random() * 10).toString()
     }
+
     // save code string to database async and return the code when finished
     return db.knex('users').where(user).update({phone_verify_code: codeStr}).then(() => {
       return codeStr
@@ -132,7 +133,7 @@ let authController = {
     return db.knex('users').where(user).select('phone_verify_code').then((userCode) => {
       if (userCode[0].phone_verify_code === code) {
         return db.knex('users').where(user).update({phone_verified: true}).then((result) => {
-          return true 
+          return true
         })
       } else {
         return false

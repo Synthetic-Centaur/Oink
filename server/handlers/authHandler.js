@@ -172,8 +172,8 @@ let authHandler = {
       let phone = user.phone_number
       let name = user.first_name
       authController.generateVerificationCode(user).then((code) => {
-        if (code) {        
-          let text = 'Hi ' + name + ',\nYour verification code for Oink is:\n\n' + code 
+        if (code) {
+          let text = 'Hi ' + name + ',\nYour verification code for Oink is:\n\n' + code
           apiController.sendMessage(text, phone)
           res.sendStatus(200)
         } else {
