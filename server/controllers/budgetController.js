@@ -136,29 +136,30 @@ let budgetController = {
         return budgetController.sumTransactionByCategoryMonthly(item.category_id).then((sum) => {
           // if sum of transactions in a given category does not match actual
           // TODO: May want to add in if statement so only updating if actual has changed but need to add in logic to whipe actual each month first
-          //if (sum !== item.actual) {
-          // update actual
-          return db.knex('budgets').where({user_id: userId, category_id: item.category_id}).update({actual: sum}).then((response) => {
-            // if actual is over target in any category
-            if (item.actual > item.target) {
-              // send text letting user know that they have exceeded their budget for that category
-              // get user for text
-              return budgetController.findUserByID(userId).then((user) => {
-                // get category name for text
-                return budgetController.getCategoryName(item.category_id).then((description) => {
-                  // check to see if user has indicated that they would like to recieve text notifications when they go over budget
-                  if (user[0].text_over_budget) {                  
-                    apiController.sendMessage('Oink Oink!! \n\nHey ' + user[0].first_name + ' looks like you have gone over your '
-                    + description[0].description + ' budget for this month! \n \n Budget: $' + item.target + ' \n Actual: $' + item.actual, user[0].phone_number)
-                  }
-                  if (user[0].text_over_total && pos===budget.length-1) {
-                    budgetController.checkTotalMonthlySpending(user[0])
-                  }
-                  return description
+          if (sum !== item.actual) {
+            // update actual
+            return db.knex('budgets').where({user_id: userId, category_id: item.category_id}).update({actual: sum}).then((response) => {
+              // if actual is over target in any category
+              if (item.actual > item.target) {
+                // send text letting user know that they have exceeded their budget for that category
+                // get user for text
+                return budgetController.findUserByID(userId).then((user) => {
+                  // get category name for text
+                  return budgetController.getCategoryName(item.category_id).then((description) => {
+                    // check to see if user has indicated that they would like to recieve text notifications when they go over budget
+                    if (user[0].text_over_budget) {                  
+                      apiController.sendMessage('Oink Oink!! \n\nHey ' + user[0].first_name + ' looks like you have gone over your '
+                      + description[0].description + ' budget for this month! \n \n Budget: $' + item.target + ' \n Actual: $' + item.actual, user[0].phone_number)
+                    }
+                    if (user[0].text_over_total && pos===budget.length-1) {
+                      budgetController.checkTotalMonthlySpending(user[0])
+                    }
+                    return description
+                  })
                 })
-              })
-            }
-          })
+              }
+            })
+          }
         })
       })
     })

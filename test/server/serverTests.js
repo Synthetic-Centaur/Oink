@@ -3,6 +3,7 @@ var server = require('../../server/server').server
 
 var routeTest = require('./routeTest')
 var goalRoutesTest = require('./goalRoutesTest')
+var settingsRoutesTest = require('./settingsRoutesTest')
 var userTableTest = require('./dbTableTests/userTableTest')
 var budgetsTableTest = require ('./dbTableTests/budgetsTableTest')
 var transactionTableTest = require('./dbTableTests/transactionTableTest')
