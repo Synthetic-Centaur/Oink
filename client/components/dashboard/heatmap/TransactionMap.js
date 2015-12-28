@@ -1,15 +1,48 @@
 import react, { Component, PropTypes } from 'react'
 import Slider from 'material-ui/lib/slider'
+import List from 'material-ui/lib/lists/list';
+// import Divider from 'material-ui/lib/divider';
+import ListItem from 'material-ui/lib/lists/list-item';
+import DropDownMenu from 'material-ui/lib/drop-down-menu'
 import _ from 'underscore'
 let map, markers, overlays
 
+let categories = {
+  'Bank Fees': 'bank',
+  'Food and Drink': 'restaurant',
+  Healthcare: 'hospital',
+  Recreation: 'pitch',
+  Shops: 'shop',
+  Service: 'logging',
+  Transfer: 'bank',
+  Travel: 'airport'
+}
 
 export default class TransactionMap extends Component {
+  componentDidUpdate(){
+
+  }
+
   render() {
+    const { categories } = this.props
+    let menuItems = [{ payload: 'Choose a category', text: 'Choose a category'}]
+
+    if (categories !== undefined) {
+      let categoryItems = categories.map((category) => {
+        return {payload: category, text: category}
+      })
+      menuItems = menuItems.concat(categoryItems)
+    }
+
     return (
       <div className="container">
-        <div id="map" style={{height: "800px", width: "100%", padding: "10px"}} />
-        <Slider ref="slider" name = "timeSlider" defaultValue={0} onDragStop={this.sliderValue.bind(this)}/>
+        <DropDownMenu 
+          className="category-dropdown"
+          ref="category"
+          menuItems = {menuItems}
+          onChange={this.markerFilter.bind(this)}/>
+        <div id="map" style={{height: "700px", width: "100%", padding: "10px"}} />
+        <Slider ref="slider" name = "timeSlider" defaultValue={0} onChange={this.sliderValue.bind(this)}/>
       </div>
     )
   }
@@ -23,7 +56,6 @@ export default class TransactionMap extends Component {
 
     this.addMarkers(transactions)
 
-    L.mapbox.featureLayer('')
   }
 
   sliderValue(e) {
@@ -35,14 +67,19 @@ export default class TransactionMap extends Component {
 
   addMarkers(transactions) {
     overlays.clearLayers()
-    markers = new L.MarkerClusterGroup().addTo(overlays);
+    markers = new L.MarkerClusterGroup({zoomToBoundsOnClick: false}).addTo(overlays);
+
+    markers.on('clusterclick', function (a) {
+      let children = a.layer.getAllChildMarkers()
+    });
 
     _.each(_.filter(transactions, (t) => {
       return t.latitude !== "0.00" && t.longitude !== "0.00"
     }), (t) => {
       let title = t.store_name
+      let symbol = (t.description in categories) ? categories[t.description] : 'marker-stroked'
       let marker = L.marker(new L.LatLng(parseFloat(t.latitude), parseFloat(t.longitude)), {
-        icon: L.mapbox.marker.icon({'marker-symbol': 'restaurant', 'marker-color': '0044FF'}),
+        icon: L.mapbox.marker.icon({'marker-symbol': symbol, 'marker-color': '0044FF'}),
         title: title
       })
       marker.bindPopup(title)
@@ -50,5 +87,15 @@ export default class TransactionMap extends Component {
     })
 
     // map.addLayer(markers);
+  }
+
+  markerFilter(event) {
+    let value = event.target.value
+    let symbol = (value in categories) ? categories[value] : 'marker-stroked'
+    map.featureLayer.setFilter((f) => {
+      return f.properties['marker-symbol'] === symbol
+    })
+    console.log('should have set filter')
+    return false
   }
 }

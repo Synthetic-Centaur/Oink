@@ -20,7 +20,8 @@ class HeatMap extends Component {
 
     return (
       <TransactionMap
-        transactions = { data.transactions } />
+        transactions = { data.transactions } 
+        categories = { data.categories } />
     )
   }
 }
