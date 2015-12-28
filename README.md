@@ -3,12 +3,12 @@
 ### Team
 
 * ***Product Owner***
-  * [Aaron Ackerman](https://github.com/)
+  * [Aaron Ackerman](https://github.com/aackerman050)
 * ***Scrum Master***
-  * [Lucilla Chalmer](https://github.com/)
+  * [Lucilla Chalmer](https://github.com/LucillaC)
 * ***Development Team***
-  * [Aaron Ackerman](https://github.com/)
-  * [Lucilla Chalmer](https://github.com/)
+  * [Aaron Ackerman](https://github.com/aackerman050)
+  * [Lucilla Chalmer](https://github.com/LucillaC)
   * [Todd Levin](https://github.com/tlevin)
   * [Clayton Schneider](https://github.com/claytonschneider)
 
@@ -68,7 +68,7 @@ npm install
   * Click [here](https://dashboard.plaid.com/signup/) to get a Plaid account
 3. Enter a secret phrase for JWT secret
 4. Save the new file as envConfig.js
-  * This file will be git-ignored
+  * This file will be git ignored
 5. Verify that no API data is in your envConfig-temp file (Retain this, any pull requests without it will be refused)
 
 
@@ -95,6 +95,14 @@ npm install
 5. You're successfully setup for Postgres to use ***oink***!
 
 
+#### Starting the server
+
+To run server after setting up environment and database:
+
+```sh
+npm run dev
+
+```
 
 ### Roadmap
 
