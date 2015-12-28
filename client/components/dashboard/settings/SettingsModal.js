@@ -1,8 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import FlatButton from 'material-ui/lib/flat-button'
-import Dialog from 'material-ui/lib/dialog'
-import Tabs from 'material-ui/lib/tabs/tabs'
-import Tab from 'material-ui/lib/tabs/tab'
+import { Dialog, Tabs, Tab, FlatButton } from 'material-ui'
 import { Link } from 'react-router'
 import AccountSettingsField from './AccountSettingsField'
 import CommunicationSettingsField from './CommunicationSettingsField'
@@ -111,13 +108,17 @@ class SettingsModal extends Component {
 
     return (
       <Dialog
+        actionsContainerClassName="actions"
+        bodyClassName="settings-body"
+        contentClassName="settings-content"
+        titleClassName="settings-title"
         ref='modal'
         actions={modalActions}
         autoDetectWindowHeight={true}
         autoScrollBodyContent={true}
         modal={true}
       >
-        <Tabs>
+        <Tabs contentContainerClassName='settings-tabs-container' className='settings-tabs' tabItemContainerStyle={{padding: '0px'}}>
           <Tab label='Account' >
             <div className='modal-content'>
 
