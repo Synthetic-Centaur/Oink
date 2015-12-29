@@ -58,6 +58,8 @@ describe('splashPageReducer', () => {
       invalidBank: false,
       invalidEmail: false,
       invalidPassword: false,
+      missingSignupFields: false,
+      passwordMatchError: false,
       showLogin: false,
       showSignup: false,
       userExists: false
@@ -74,6 +76,8 @@ describe('splashPageReducer', () => {
       invalidBank: false,
       invalidEmail: false,
       invalidPassword: false,
+      missingSignupFields: false,
+      passwordMatchError: false,
       showLogin: true,
       showSignup: false,
       userExists: false
@@ -90,6 +94,8 @@ describe('splashPageReducer', () => {
       invalidBank: false,
       invalidEmail: false,
       invalidPassword: false,
+      missingSignupFields: false,
+      passwordMatchError: false,
       showLogin: false,
       showSignup: false,
       userExists: false
@@ -106,6 +112,8 @@ describe('splashPageReducer', () => {
       invalidBank: false,
       invalidEmail: false,
       invalidPassword: false,
+      missingSignupFields: false,
+      passwordMatchError: false,
       showLogin: false,
       showSignup: true,
       userExists: false
@@ -122,6 +130,8 @@ describe('splashPageReducer', () => {
       invalidBank: false,
       invalidEmail: false,
       invalidPassword: false,
+      missingSignupFields: false,
+      passwordMatchError: false,
       showLogin: false,
       showSignup: false,
       userExists: false
