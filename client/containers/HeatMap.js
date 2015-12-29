@@ -3,13 +3,13 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import GoogleMap from '../components/dashboard/heatmap/GoogleHeatMap'
 import TransactionMap from '../components/dashboard/heatmap/TransactionMap'
-import { updateChildren } from '../actions/actions'
+import { updateCluster, updateMapDate, updateAddress } from '../actions/actions'
 
 class HeatMap extends Component {
 
   render() {
 
-    const { actions, data, currentChildren } = this.props
+    const { actions, data, currentChildren, mapDate, currentAddress } = this.props
 
     data.transactions.forEach(function(transaction) {
       transaction.date = new Date(transaction.date)
@@ -23,8 +23,12 @@ class HeatMap extends Component {
       <TransactionMap
         transactions = { data.transactions } 
         categories = { data.categories } 
-        updateChildren = { actions.updateChildren }
-        currentChildren = { currentChildren } />
+        currentChildren = { currentChildren }
+        updateCluster = { actions.updateCluster }
+        mapDate = { mapDate } 
+        updateMapDate = { actions.updateMapDate }
+        currentAddress = { currentAddress }
+        updateAddress = { updateAddress }/>
     )
   }
 }
@@ -32,7 +36,9 @@ class HeatMap extends Component {
 function mapStateToProps(state) {
   return {
     data: state.asyncStatus.data,
-    currentChildren: state.transactionMap.childrenCluster
+    currentChildren: state.transactionMap.childrenCluster,
+    mapDate: state.transactionMap.mapDate,
+    currentAddress: state.transactionMap.currentAddress
   }
 }
 
@@ -40,7 +46,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
-      updateChildren
+      updateCluster,
+      updateMapDate
     }, dispatch)
   }
 }

@@ -5,7 +5,7 @@ import Divider from 'material-ui/lib/lists/list-divider';
 import ListItem from 'material-ui/lib/lists/list-item';
 import DropDownMenu from 'material-ui/lib/drop-down-menu'
 import _ from 'underscore'
-let map, markers, overlays
+let map, markers, overlays, geocoder
 
 let categories = {
   'Bank Fees': 'bank',
@@ -25,7 +25,7 @@ export default class TransactionMap extends Component {
   }
 
   render() {
-    const { categories, currentChildren } = this.props
+    const { categories, currentChildren, mapDate, currentAddress } = this.props
 
     let purchases = []
     for (var key in currentChildren) {
@@ -44,7 +44,11 @@ export default class TransactionMap extends Component {
       )
     })
 
-    listItems.unshift(<ListItem primaryText={"Your top purchases near ___"} />)
+    if (currentAddress) {
+      listItems.unshift(<ListItem primaryText={"Your top purchases near " + currentAddress} />)
+    } else {
+      listItems.unshift(<ListItem primaryText={"Select a marker to view your purchases"} />)
+    }
     listItems = listItems.slice(0,9)
 
     let menuItems = [{ payload: 'Choose a category', text: 'Choose a category'}]
@@ -58,36 +62,37 @@ export default class TransactionMap extends Component {
 
     return (
       <div className="container">
-        <DropDownMenu 
-          className="category-dropdown"
-          ref="category"
-          menuItems = {menuItems}
-          onChange={this.markerFilter.bind(this)}/>
+        <div className="sixteen columns" style={{height: "80px"}}>
+          <span className="four columns offset-by-four" style={{color: 'white'}}>Showing transactions before {mapDate}</span>
+        </div>
         <div className="row" style={{width: "100%"}}>
           <div id="map" className="eight columns" style={{height: "700px"}} />
           <List className="four columns" >
             { listItems }
           </List>
         </div>
-        <Slider ref="slider" name = "timeSlider" defaultValue={0} onChange={this.sliderValue.bind(this)}/>
+        <Slider ref="slider" name = "timeSlider" defaultValue={1} onDragStop={this.sliderValue.bind(this)}/>
       </div>
     )
   }
 
   componentDidMount() {
-    const { transactions } = this.props
+    const { transactions, updateMapDate } = this.props
     L.mapbox.accessToken = "pk.eyJ1IjoiYWFja2VybWFuMDUwIiwiYSI6ImNpaW94NmswbDAxZ3V0cmtuZ3RmbzlyZWEifQ.5o1kSPi-0DNLrs2iyYpEpg"
     map = L.mapbox.map('map', 'mapbox.streets').setView([37.7833, -122.4167], 12);
     overlays = L.layerGroup().addTo(map)
+    geocoder = new google.maps.Geocoder
 
+    updateMapDate(transactions[transactions.length - 1].date.toString().slice(0,16))
     this.addMarkers(transactions)
 
   }
 
   sliderValue(e) {
-    const { transactions } = this.props
+    const { transactions, updateMapDate } = this.props
     let index = Math.floor(transactions.length * this.refs.slider.getValue())
     let filteredTransactions = transactions.slice(0, index)
+    updateMapDate(filteredTransactions[filteredTransactions.length - 1].date.toString().slice(0,16))
     this.addMarkers(filteredTransactions)
   }
 
@@ -124,13 +129,26 @@ export default class TransactionMap extends Component {
   }
 
   clusterChildren(a) {
-    const { updateChildren } = this.props
+    const { updateCluster, updateMapDate, updateAddress } = this.props
+    //get all markers contained within cluster
     let children = a.layer.getAllChildMarkers()
+    //get coordinates of cluster bounding box
     let bounds = a.layer.getBounds()
+    console.log("Lat long of cluster marker ----------->", a.layer._cLatLng)
     let hash = {}
+    //hash number of visits for each transaction
     _.each(children, (child) => {
       (child.options.title in hash) ? hash[child.options.title] += 1 : hash[child.options.title] = 1
     })
-    updateChildren(hash)
+    //update hash on state
+    let latlng = {lat: parseFloat(a.layer._cLatLng.lat), lng: parseFloat(a.layer._cLatLng.lng)}
+    geocoder.geocode({'location': latlng}, (results, status) => {
+      if(status === google.maps.GeocoderStatus.OK) {
+        if (results[1]) {
+          let address = results[1].formatted_address.replace(/-/g, '').replace(/[0-9]/g, '')
+          updateCluster({markers: hash, address: address})
+        }
+      }
+    })
   }
 }
