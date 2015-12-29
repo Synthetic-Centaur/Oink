@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import chartConfig from './config/chartConfig'
+import ChartTheme from '../../../chart-theme'
 
 let ReactHighCharts
 
@@ -22,6 +23,7 @@ class SpendingChart extends Component {
     // prevents errors when running tests
     if (window !== undefined) {
       ReactHighCharts = require('react-highcharts/dist/bundle/highcharts')
+      ReactHighCharts.Highcharts.setOptions(ChartTheme)
     }
 
     if (data) {
