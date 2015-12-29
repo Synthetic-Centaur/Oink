@@ -74,14 +74,14 @@ class Dashboard extends React.Component {
 
     const { actions, currentComponent, data, homePage, editingFirstName, editingLastName,
             editingEmail, editingPhoneNumber, editingPassword, editingDeleteAccount,
-            accountData, communicationData, securityData, isLoading} = this.props
+            accountData, communicationData, securityData, isLoading, firstPull } = this.props
 
     const userIsVerified = data.user ? data.user.phone_verified : true
 
     return (
       <div className="dashboard-el">
 
-        <LoadingIndicator isLoading={isLoading} />
+        <LoadingIndicator isLoading={isLoading} firstPull={firstPull} />
       
         <SideNav
           changeView={ actions.changeView }
@@ -184,7 +184,8 @@ function mapStateToProps(state) {
     editingDeleteAccount: state.settings.editingDeleteAccount,
     accountData: state.settings.accountData,
     communicationData: state.settings.communicationData,
-    securityData: state.settings.securityData
+    securityData: state.settings.securityData,
+    firstPull: state.homePage.firstPull
   }
 }
 

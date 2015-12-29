@@ -30,17 +30,24 @@
   border-bottom: 2px solid #eee;
 }
 
-/*
-  Uncomment this if we want to do a greyed out background color under the loading indicator
-*/
-/*.loading-indicator:before {
+.loading-indicator.first-pull:before {
   display: block;
   content: ""; 
-  background: rgba(0,0,0,.5);
+  background: rgba(0,0,0,.85);
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0; 
   z-index: 12;
-}*/
+}
+
+.loading-indicator.first-pull h1 {
+  font-size: 25px;
+  color: #ddd;
+  position: fixed;
+  top: 15%; left: 50%; right: 0; bottom: 0; 
+  z-index: 13;
+  text-align: center;
+  transform: translate(-50%, 0%);
+}
 
 .sk-three-bounce {
   width: 100px;
@@ -49,6 +56,7 @@
   top: 30%;
   left: 50%;
   z-index: 13;
+  transform: translate(-50%, 0%);
 }
   .sk-three-bounce .sk-child {
     width: 25px;

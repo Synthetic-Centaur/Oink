@@ -12,13 +12,15 @@ class ProfileCard extends Component {
     return (
       <Card className="card">
 
-        <CardHeader className="header"
+        <CardHeader
+          className="header"
+          style={{padding: '16px 0', height: '160px'}}
           title={ name }
           subtitle={ title }
           avatar={ <Avatar className="avatar" src={ picture } size={ 100 } /> }
         />
 
-        <div className="icon-container container u-full-width">
+        <div className="icon-container u-full-width">
           <div className="row">
 
             <a className="github-icon one-third column" href={ github }>
