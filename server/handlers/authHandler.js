@@ -8,6 +8,9 @@ import config from '../env/envConfig'
 
 const jwt_secret = config.jwt_private.secret
 
+// JWT Token Expires in 24 hours
+const jwtExpiryDate = 86400000
+
 let authHandler = {
   isLoggedIn(req, res, next) {
     if (!req.headers.authorization) {
@@ -67,7 +70,7 @@ let authHandler = {
         // if user is found and password is right
         // create a token
         let token = jwt.sign(user.attributes.email, jwt_secret, {
-          expiresIn: 604800 // expires in 24 hours
+          expiresIn: jwtExpiryDate
         })
 
         authController.saveAuthToken(token, user.attributes.id).then((user) => {
@@ -77,7 +80,7 @@ let authHandler = {
             success: true,
             message: 'Enjoy your token!',
             jwt_token: token,
-            expiresIn: 604800
+            expiresIn: jwtExpiryDate
           })
         })
       }
@@ -92,7 +95,7 @@ let authHandler = {
         //If user is not in database, create user
         authController.addUser(req.body).then((newUser) => {
           let token = jwt.sign(newUser.attributes.email, jwt_secret, {
-            expiresIn: 604800 // expires in 24 hours
+            expiresIn: jwtExpiryDate
           })
 
           // save auth token to DB
@@ -103,7 +106,7 @@ let authHandler = {
               success: true,
               message: 'Enjoy your token!',
               jwt_token: token,
-              expiresIn: 604800
+              expiresIn: jwtExpiryDate
             })
           })
         })

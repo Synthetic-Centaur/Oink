@@ -152,9 +152,9 @@ class Splash extends Component {
                   name="Lucilla Chalmer"
                   title="Fullstack Engineer"
                   picture="images/Lucilla_Chalmer.jpg"
-                  email="claykschneider@gmail.com"
-                  github="https://github.com/claytonschneider"
-                  linkedin="https://www.linkedin.com/in/claytonschneider"
+                  email="chalmer.lucilla@gmail.com"
+                  github="https://www.linkedin.com/in/LucillaChalmer"
+                  linkedin="https://www.linkedin.com/in/LucillaChalmer"
                   description=" Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                                 Donec mattis pretium massa. Aliquam erat volutpat."
                 />
@@ -164,9 +164,9 @@ class Splash extends Component {
                   name="Aaron Ackerman"
                   title="Fullstack Engineer"
                   picture="images/Aaron_Ackerman.jpg"
-                  email="claykschneider@gmail.com"
-                  github="https://github.com/claytonschneider"
-                  linkedin="https://www.linkedin.com/in/claytonschneider"
+                  email="a.ackerman050@gmail.com"
+                  github="https://github.com/aackerman050"
+                  linkedin="https://www.linkedin.com/in/aackerman050"
                   description=" Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                                 Donec mattis pretium massa. Aliquam erat volutpat."
                 />

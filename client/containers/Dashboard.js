@@ -7,7 +7,7 @@ import { authRedirect, authLogout, sendPhoneVerification, checkPhoneVerification
 import { getInitialState, postSettings, deleteAccount } from '../actions/api/apiActions'
 import { changeView, switchComponent, showSettings, hideSettings, editStart, editFinish,
          updateAccountSettings, updateCommunicationSettings, updateSecuritySettings,
-         showPhoneVerify, hidePhoneVerify, editFinishAll } from '../actions/actions'
+         showPhoneVerify, hidePhoneVerify, editFinishAll, removeJWT } from '../actions/actions'
 import SideNav from '../components/dashboard/sidenav/SideNav'
 import SettingsModal from '../components/dashboard/settings/SettingsModal'
 import PhoneVerifyModal from '../components/dashboard/phoneVerify/PhoneVerifyModal'
@@ -30,7 +30,7 @@ class Dashboard extends React.Component {
   // This is our delayed call to initial state after transactions are loaded on server side on first pull
   shouldComponentUpdate(nextProps) {
     if (this.props.firstPull !== nextProps.firstPull) {
-      this.init()
+      this.props.actions.getInitialState()
     }
     
     return true
@@ -42,21 +42,25 @@ class Dashboard extends React.Component {
     document.body.style.backgroundColor = '#262626'
   }
 
-  //Call init when component is mounted only when not first call for an user
+  //Get initial state of app when component is mounted only when not first call for an user
   componentDidMount() {
     if (!this.props.firstPull) {
-      this.init()
+      //Get initial state of app, including all of user's transactions
+      this.props.actions.getInitialState()
     }
   }
 
-  //Get initial state of app, including all of user's transactions
-  init() {
-    this.props.actions.getInitialState()
-  }
-
   checkAuth() {
-    const { actions, isAuthenticated } = this.props
+    const { actions, isAuthenticated, jwtExpiryDate } = this.props
+
+    // Check if a user is authenticated
     if (!isAuthenticated) {
+      actions.authRedirect()
+    }
+
+    // Check if a user's token has expired
+    if ((jwtExpiryDate - Date.now()) < 0) {
+      actions.removeJWT()
       actions.authRedirect()
     }
   }
@@ -170,6 +174,7 @@ function mapStateToProps(state) {
     error: state.asyncStatus.error,
     homePage: state.homePage,
     isAuthenticated: state.auth.isAuthenticated,
+    jwtExpiryDate: state.auth.expiryDate,
     currentComponent: state.dashboard.currentComponent,
     editingFirstName: state.settings.editingFirstName,
     editingLastName: state.settings.editingLastName,
@@ -204,7 +209,8 @@ function mapDispatchToProps(dispatch) {
       hidePhoneVerify,
       sendPhoneVerification,
       checkPhoneVerification,
-      editFinishAll
+      editFinishAll,
+      removeJWT
     }, dispatch)
   }
 }
