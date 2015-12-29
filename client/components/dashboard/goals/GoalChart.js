@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import chartConfig from './config/chartConfig'
+import ChartTheme from '../../../chart-theme'
 
 let ReactHighCharts
 
@@ -31,6 +32,7 @@ class GoalChart extends Component {
     // prevents errors when running testing
     if (window !== undefined) {
       ReactHighCharts = require('react-highcharts/dist/bundle/highcharts')
+      ReactHighCharts.Highcharts.setOptions(ChartTheme)
     }
 
     let config = {}
