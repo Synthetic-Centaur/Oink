@@ -16,6 +16,8 @@ class GoalChart extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
+
+    // this prevents graph from redrawing with state changes on rest of dashboard view
     if (this.props.data && nextProps.data && this.props.goalPage.selectedGoal && nextProps.goalPage.selectedGoal) {
       return this.checkSelectedGoal(this.props, nextProps)
     } else {
@@ -26,21 +28,27 @@ class GoalChart extends Component {
   render() {
     let { data } = this.props
 
+    // prevents errors when running testing
     if (window !== undefined) {
       ReactHighCharts = require('react-highcharts/dist/bundle/highcharts')
     }
 
     let config = {}
+
     if (data.goals.length > 0) {
       let goal = data.goals[this.props.goalPage.selectedGoal - 1]
       let net = data.avgNet
       let avg = this.props.goalPage.selectedAvg / 30
+
+      // generates config options from function
       config = chartConfig(goal, net, avg)
     }
     
     return (
       <div>
           {
+
+            // prevents errors when running testing
             window !== undefined
             ?
             <ReactHighCharts config={config} ref="chart" />

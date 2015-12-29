@@ -5,6 +5,8 @@ import moment from 'moment'
 class GoalAdd extends Component {
 
   handleEntry(e) {
+
+    // Ensure that type is correct on input and all input provided
     if (this.refs.amount.getValue() !== undefined && !isNaN(parseInt(this.refs.amount.getValue())) && this.refs.description.getValue() !== undefined && this.refs.goalBy.getDate() !== undefined) {
       this.props.validateGoal(true)
     } else {
@@ -26,12 +28,16 @@ class GoalAdd extends Component {
 
     if (this.props.isValid) {
       this.props.postGoal(goal)
+
+      // Hides add goal component on addition
       this.props.changeGoalView('')
     }
   }
 
   render() {
-    let today = moment().add(1, 'days').toDate()
+
+    // Prevents user from creating a goal before tomorrow
+    let tomorrow = moment().add(1, 'days').toDate()
     return (
       <div>
         <div className = "row">
@@ -53,7 +59,7 @@ class GoalAdd extends Component {
             fullWidth={true}
             ref="goalBy"
             autoOk={true}
-            minDate={today}
+            minDate={tomorrow}
             hintText="When do you want your goal by?"
             onChange={this.handleEntry.bind(this)}
             />

@@ -17,6 +17,8 @@ class GoalUpdate extends Component {
     let id = data.goals[this.props.selectedGoal - 1].id
     e.preventDefault()
     this.props.deleteGoal(id)
+
+    // dispatches state change to return to defaults
     this.props.changeGoalView('')
     this.props.switchGoal(1)
     this.props.selectAvg(0)
@@ -46,7 +48,9 @@ class GoalUpdate extends Component {
   render() {
     const { data } = this.props
     let goal = data.goals[this.props.selectedGoal - 1]
-    let today = moment().add(1, 'days').toDate()
+
+    // prevents user from changing goal to anything before tomorrow
+    let tomorrow = moment().add(1, 'days').toDate()
 
     return (
       <div>
@@ -72,7 +76,7 @@ class GoalUpdate extends Component {
             ref='goalBy'
             autoOk={true}
             defaultDate = {moment(goal.goalBy).toDate()}
-            minDate={today}
+            minDate={tomorrow}
             hintText='When do you want your goal by?'
             onChange={this.handleEntry.bind(this)}
             />

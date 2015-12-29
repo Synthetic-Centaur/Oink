@@ -2,14 +2,10 @@
   color: #ccc;
 }
 
-/*
-Breaks splash page, seems like its not in use?
-*/
-
-/*.info {
+.infoModule {
   color: #ccc;
   background-color: #262626;
-}*/
+}
 
 .center {
   margin: 0 auto;

@@ -12,6 +12,8 @@ class DateTransactions extends Component {
       if (transaction.date === selectedDate) {
         let color = -transaction.amount > 0 ? 'green' : 'red'
         return (
+
+          // React requires unique key, using index counter
           <tr key={index}>
             <td>{transaction.store_name}</td>
             <td style= {{color: color}}>${-transaction.amount}</td>

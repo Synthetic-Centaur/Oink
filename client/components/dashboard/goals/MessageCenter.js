@@ -6,18 +6,19 @@ import ReactDOM from 'react-dom'
 class MessageCenter extends Component {
 
   handleAvg(e) {
+
+    // establishes range from 0 to 1000, adjust values here to modify range
     this.props.selectAvg(this.refs.average.getValue() * 1000)
   }
 
   render() {
     const { data } = this.props
+
+    // default message on view load without any goals
     let message = 'Welcome to Oink! I see that you don\'t currently have a goal.  Please create a goal on the right.'
     if (data.goals && this.props.selectedGoal) {
       if (data.goals[this.props.selectedGoal - 1] !== undefined) {
         let goal = data.goals[this.props.selectedGoal - 1]
-        let start = moment(goal.goalStarted)
-        let avg = Math.min(data.avgNet.lastMonth, data.avgNet.lastThree, data.avgNet.lastSix, data.avgNet.lastYear)
-        let end = moment(goal.goalStarted).add((goal.amount / (-avg / 30)), 'days')
         message = 'You are saving for ' + goal.description + ', and you need to save $' + goal.amount + ' to achieve this.'
       }
     }
