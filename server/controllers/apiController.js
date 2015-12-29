@@ -47,7 +47,7 @@ let apiController = {
     })
   },
 
-  retrieveTransactions(plaid_token, userid) {
+  retrieveTransactions(plaid_token, userid, cb) {
     // TODO: this logic should be reorganized -- > need to add update budget method on budget controller to simplify
     return plaidClient.getConnectUser(plaid_token,
     {
@@ -66,7 +66,7 @@ let apiController = {
         budgetController.updateTransactions(response.transactions, userid).then((response) => {
 
           // log ('response from update transactions -- inside api controller', response)
-
+          cb()
           // check to see if new transactions were updated
           if (response.length > 0) {
             

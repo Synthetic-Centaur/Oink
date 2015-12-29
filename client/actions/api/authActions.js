@@ -95,7 +95,9 @@ export function postSignup(data) {
 }
 
 export function postPlaid(data) {
+  
   return function(dispatch) {
+    dispatch(updatePath('/dashboard'))
     dispatch(ACTIONS.requestData())
     return fetch('/auth/plaid', {
       method: 'POST',
@@ -112,7 +114,6 @@ export function postPlaid(data) {
       if (response.status === 200) {
         dispatch(ACTIONS.receiveData({}))
         dispatch(ACTIONS.authenticateUser())
-        dispatch(updatePath('/dashboard'))
       } else if (response.status === 500) {
         throw new Error('Error on the server', response)
       }
