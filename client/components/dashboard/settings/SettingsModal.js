@@ -17,6 +17,12 @@ class SettingsModal extends Component {
   //   return false
   // }
 
+  handleChange(value) {
+    this.setState({
+      slideIndex: value,
+    })
+  }
+
   componentDidUpdate() {
     if (this.props.showSettings) {
       this.refs.modal.show()
@@ -78,7 +84,39 @@ class SettingsModal extends Component {
     return num
   }
 
+  tabStyle(ref) {
+    console.log('settings', this.refs)
+    let tabRefs = ['accountTab', 'communicationTab', 'securityTab']
+
+    for (let i=0; i<tabRefs.length; i++) {
+      let tab = tabRefs[i]
+      if (tab === ref) {
+        this.refs[tab].props.style.color = '#ff1970'
+        this.refs[tab].props.style.backgroundColor = '#4B4B4B'
+      } else {
+        this.refs[tab].props.style.color = '#4B4B4B'
+        this.refs[tab].props.style.backgroundColor = '#222'
+      }
+    }
+  }
+
+  tabStyleConst(ref) {
+    if (this.refs[ref]) {
+      if (this.refs[ref].props.selected) {
+        console.log('setting pink color')
+        return {color: '#ff1970', backgroundColor: '#4B4B4B'}
+      }
+      return {color: '#4B4B4B', backgroundColor: '#222'}
+    }
+    if (ref === 'accountTab') {
+      return {color: '#ff1970', backgroundColor: '#4B4B4B'}
+    }
+    return {color: '#4B4B4B', backgroundColor: '#222'}
+  }
+
   render() {
+    // overwrite material-ui default gutter setting to set padding around modal body to 0
+    this.refs.modal ? this.refs.modal.state.muiTheme.rawTheme.spacing.desktopGutter = 0 : null
     let user = {
       firstName: this.props.data.user ? this.props.data.user.first_name : '',
       lastName: this.props.data.user ? this.props.data.user.last_name : '',
@@ -105,21 +143,16 @@ class SettingsModal extends Component {
         primary={true}
         onTouchTap={this.handleSubmit.bind(this)} />
     ]
-
     return (
       <Dialog
-        actionsContainerClassName="actions"
-        bodyClassName="settings-body"
-        contentClassName="settings-content"
-        titleClassName="settings-title"
         ref='modal'
         actions={modalActions}
         autoDetectWindowHeight={true}
         autoScrollBodyContent={true}
         modal={true}
       >
-        <Tabs contentContainerClassName='settings-tabs-container' className='settings-tabs' tabItemContainerStyle={{padding: '0px'}}>
-          <Tab label='Account' primary={true}>
+        <Tabs className='settings-tabs' style={{color: '#ff1970'}}>
+          <Tab label='Account' ref='accountTab' onActive={this.tabStyle.bind(this, 'accountTab')} style={this.tabStyleConst('accountTab')}>
             <div className='modal-content'>
 
               <AccountSettingsField
@@ -141,7 +174,7 @@ class SettingsModal extends Component {
               
             </div>
           </Tab>
-          <Tab label='Communication' primary={true}>
+          <Tab label='Communication' ref='communicationTab' onActive={this.tabStyle.bind(this, 'communicationTab')} style={this.tabStyleConst('communicationTab')}>
             <div className='modal-content'>
 
               <CommunicationSettingsField
@@ -152,7 +185,7 @@ class SettingsModal extends Component {
               
             </div>
           </Tab>
-          <Tab label='Security' primary={true}>
+          <Tab label='Security' ref='securityTab' onActive={this.tabStyle.bind(this, 'securityTab')} style={this.tabStyleConst('securityTab')}>
             <div className='modal-content'>
 
               <SecuritySettingsField
