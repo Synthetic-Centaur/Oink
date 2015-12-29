@@ -256,11 +256,15 @@ export function goalPageReducer(state = {
 }
 
 export function transactionMapReducer(state = {
-  childrenCluster: {}
+  childrenCluster: {},
+  mapDate: null,
+  currentAddress: null
 }, action = null) {
   switch (action.type) {
-    case 'UPDATE_CHILDREN':
-      return Object.assign({}, state, {childrenCluster: action.data})
+    case 'UPDATE_CLUSTER':
+      return Object.assign({}, state, {childrenCluster: action.data.markers, currentAddress: action.data.address})
+    case 'UPDATE_MAP_DATE':
+      return Object.assign({}, state, {mapDate: action.data})
     default: 
       return state
   }
