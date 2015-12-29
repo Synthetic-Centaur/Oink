@@ -6,6 +6,7 @@ import Theme from '../material-theme.js'
 import OptionsBar from '../components/dashboard/budget/OptionsBar'
 import PieChart from '../components/dashboard/budget/PieChart'
 import BarChart from '../components/dashboard/budget/BarChart'
+import WelcomeMessage from '../components/dashboard/budget/WelcomeMessage'
 import BudgetCategories from '../components/dashboard/budget/BudgetCategories'
 import { getInitialState, postBudget, deleteBudget } from '../actions/api/apiActions'
 import { numberValidation, categoryValidation, changeSettingsView, changeCurrentBudget } from '../actions/actions'
@@ -15,6 +16,16 @@ class Budget extends Component {
     return {
       muiTheme: ThemeManager.getMuiTheme(Theme),
     }
+  }
+
+  renderPieChart() {
+    const { data } = this.props
+    return data.budgets ? (data.budgets.length === 0 ? <WelcomeMessage /> : <PieChart data = { data } />) : null
+  }
+
+  renderBarChart() {
+    const { data } = this.props
+    return data.budgets ? (data.budgets.length === 0 ? null : <BarChart data = { data }/>) : null
   }
   
   render() {
@@ -27,7 +38,7 @@ class Budget extends Component {
 
             <div className="row">
               <div className="eight columns">
-                <PieChart data = { data } />
+                { this.renderPieChart() }
               </div>
 
               <div className="options-container four columns u-pull-right">
@@ -48,7 +59,7 @@ class Budget extends Component {
           <div className="container">
             <div className="row">
               <div className="u-full-width">
-                <BarChart data = { data }/>
+                { this.renderBarChart() }
               </div>
             </div>
           </div>
