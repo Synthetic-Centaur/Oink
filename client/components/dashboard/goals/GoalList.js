@@ -16,8 +16,12 @@ class GoalList extends Component {
     let selectedGoal = this.props.selectedGoal
     const { data } = this.props
     let index = 0
+
+    // dynamically creates goal list from goals array
     let goalList = data.goals.map((goal) => {
       index++
+
+      // unique key is required by React, using index counter
       return <ListItem key={ index } primaryText = { goal.description } value = { index }/>
     })
     return (

@@ -8,6 +8,8 @@ class GoalConfigurer extends Component {
 
   switchView() {
     const { goalPage, data, actions } = this.props
+
+    // conditionally renders based on current state
     switch (goalPage.goalView) {
       case 'CREATE':
         return (
@@ -37,6 +39,8 @@ class GoalConfigurer extends Component {
               selectAvg = { actions.selectAvg}/>
           </div>
         )
+
+      // initial view is empty, changed to this after update / add
       default:
         return <br/>
     }
@@ -48,6 +52,8 @@ class GoalConfigurer extends Component {
 
   render() {
     const { actions, goalPage, data } = this.props
+
+    // disables edit button if no goals are present
     let editValid = data.goals.length > 0 ? false : true
     return (
       <div className="container">

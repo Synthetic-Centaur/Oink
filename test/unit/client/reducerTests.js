@@ -137,6 +137,7 @@ describe('homePageReducer', () => {
     ).toEqual({
       numberError: true,
       categoryError: true,
+      firstPull: false,
       category: '',
       showSettings: false,
       showVerify: false,
@@ -153,6 +154,7 @@ describe('homePageReducer', () => {
     ).toEqual({
       numberError: false,
       categoryError: true,
+      firstPull: false,
       category: '',
       showSettings: false,
       showVerify: false,
@@ -171,6 +173,7 @@ describe('homePageReducer', () => {
       categoryError: true,
       category: '',
       showSettings: false,
+      firstPull: false,
       showVerify: false,
       verifySuccess: false,
       errorText: ''
@@ -188,6 +191,7 @@ describe('homePageReducer', () => {
       categoryError: false,
       category: 'testCategory',
       showSettings: false,
+      firstPull: false,
       showVerify: false,
       verifySuccess: false,
       errorText: ''
@@ -204,6 +208,7 @@ describe('homePageReducer', () => {
       categoryError: true,
       category: '',
       showSettings: false,
+      firstPull: false,
       showVerify: false,
       verifySuccess: false,
       errorText: ''
@@ -220,6 +225,7 @@ describe('homePageReducer', () => {
       categoryError: true,
       category: '',
       showSettings: true,
+      firstPull: false,
       showVerify: false,
       verifySuccess: false,
       errorText: ''
@@ -236,6 +242,7 @@ describe('homePageReducer', () => {
       categoryError: true,
       category: '',
       showSettings: false,
+      firstPull: false,
       showVerify: false,
       verifySuccess: false,
       errorText: ''
@@ -252,6 +259,7 @@ describe('homePageReducer', () => {
       categoryError: true,
       category: '',
       showSettings: false,
+      firstPull: false,
       showVerify: true,
       verifySuccess: false,
       errorText: ''
@@ -268,6 +276,7 @@ describe('homePageReducer', () => {
       categoryError: true,
       category: '',
       showSettings: false,
+      firstPull: false,
       showVerify: false,
       verifySuccess: false,
       errorText: ''
@@ -284,6 +293,7 @@ describe('homePageReducer', () => {
       categoryError: true,
       category: '',
       showSettings: false,
+      firstPull: false,
       showVerify: false,
       verifySuccess: true,
       errorText: ''
@@ -300,9 +310,44 @@ describe('homePageReducer', () => {
       categoryError: true,
       category: '',
       showSettings: false,
+      firstPull: false,
       showVerify: false,
       verifySuccess: false,
       errorText: 'Incorrect Code. Please try again'
+    })
+  })
+
+  it('should handle FIRST_PULL_START', () => {
+    expect(
+      reducers.homePageReducer(undefined, {
+        type: 'FIRST_PULL_START'
+      })
+    ).toEqual({
+      numberError: true,
+      categoryError: true,
+      category: '',
+      showSettings: false,
+      firstPull: true,
+      showVerify: false,
+      verifySuccess: false,
+      errorText: ''
+    })
+  })
+
+  it('should handle FIRST_PULL_COMPLETE', () => {
+    expect(
+      reducers.homePageReducer(undefined, {
+        type: 'FIRST_PULL_COMPLETE'
+      })
+    ).toEqual({
+      numberError: true,
+      categoryError: true,
+      category: '',
+      showSettings: false,
+      firstPull: false,
+      showVerify: false,
+      verifySuccess: false,
+      errorText: ''
     })
   })
 })

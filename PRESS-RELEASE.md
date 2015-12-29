@@ -17,8 +17,7 @@ Once the project moves into development, the press release can be used as a touc
  -->
  
 ## Heading ##
-  > Oink 
-    Piglet
+  > Oink
 
 ## Sub-Heading ##
   > For those who want to improve their spending habits.

@@ -222,6 +222,24 @@ export function removeAlerts() {
   }
 }
 
+// Trigger a loading state during first initial pull of data after signup
+export function firstPullStart() {
+  return (dispatch) => {
+    dispatch({
+      type: 'FIRST_PULL_START'
+    })
+  }
+}
+
+// Resets state to default of false, initial state call will then fire
+export function firstPullComplete() {
+  return (dispatch) => {
+    dispatch({
+      type: 'FIRST_PULL_COMPLETE'
+    })
+  }
+}
+
 // ## PLAID REDUX ACTIONS
 
 // We should show the pop-up signup modal

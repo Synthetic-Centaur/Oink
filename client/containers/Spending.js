@@ -14,7 +14,7 @@ class Spending extends Component {
   render() {
     const { actions, spendingPage, data } = this.props
     return (
-      <div className = 'container info'>
+      <div className = 'container infoModule'>
         <div className = 'row'>
          <div className= 'twelve columns'>
            <InfoModule

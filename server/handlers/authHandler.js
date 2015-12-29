@@ -137,7 +137,9 @@ let authHandler = {
             let number = user.attributes.phone_number
 
             // get transactions from plaid
-            apiController.retrieveTransactions(user.attributes.token_plaid, user.id)
+            apiController.retrieveTransactions(user.attributes.token_plaid, user.id, () => {
+              res.sendStatus(200)
+            })
             
             // .then( (transactions) => {
             //   budgetController.saveTransactions(transactions, userid)
@@ -149,7 +151,6 @@ let authHandler = {
             // send welcome message
             //apiController.sendMessage('Hello ' + name + '! Welcome to Oink, Lets Budget Together!!', number)
 
-            res.sendStatus(200)
           } else {
             res.sendStatus(500)
           }

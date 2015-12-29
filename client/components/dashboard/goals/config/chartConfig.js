@@ -5,11 +5,15 @@ function chartConfig(data, net, avg) {
   let goalEnd = moment(data.goalBy)
   let daysToGoal = goalEnd.diff(goalStart, 'days')
   let avgNeeded = (data.amount / daysToGoal)
+
+  // takes the best average savings to be used for actual path
   let avgActual = -(Math.min(net.lastMonth, net.lastThree, net.lastSix, net.lastYear) / 30)
   let goalPath = []
   let actualPath = []
   let userPath = []
   let dateScale = [goalStart.format('M/D/YY')]
+
+  // function to generate plot points for graph series
   let generatePath = (path, avg) => {
     for (var i = 0; i <= daysToGoal; i++) {
       path.push(Math.round(avg * i))
@@ -20,6 +24,7 @@ function chartConfig(data, net, avg) {
   generatePath(actualPath, avgActual)
   generatePath(userPath, avg)
 
+  // populates x axis with dates within goal range
   for (var k = 0; k <= daysToGoal; k++) {
     dateScale.push(goalStart.add(1, 'day').format('M/D/YY'))
   }
@@ -35,6 +40,8 @@ function chartConfig(data, net, avg) {
         text: 'Date'
       },
       categories: dateScale,
+
+      // this is to show a line on the current date
       plotLines: [{
         color: '#FF1970',
         label: {
@@ -60,6 +67,8 @@ function chartConfig(data, net, avg) {
     },
     tooltip: {
       valuePrefix: '$',
+
+      // custom formatting for tooltip, toLocaleString formats it with commas for localization
       formatter: function() {
         return '<b>You should have saved $' + this.y.toLocaleString() + '</b><br/>' +
         'By: ' + this.x + '<br/>' +
