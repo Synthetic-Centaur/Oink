@@ -442,3 +442,17 @@ export function updateSecuritySettings(item) {
     })
   }
 }
+
+/********************************************************
+                    TRANSACTION MAP REDUX ACTIONS
+*********************************************************/
+
+
+export function updateChildren(markers) {
+  return (dispatch) => {
+    dispatch({
+      type: 'UPDATE_CHILDREN',
+      data: markers
+    })
+  }
+}

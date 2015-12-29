@@ -255,6 +255,17 @@ export function goalPageReducer(state = {
   }
 }
 
+export function transactionMapReducer(state = {
+  childrenCluster: {}
+}, action = null) {
+  switch (action.type) {
+    case 'UPDATE_CHILDREN':
+      return Object.assign({}, state, {childrenCluster: action.data})
+    default: 
+      return state
+  }
+}
+
 export function authReducer(state = {
   isAuthenticated: false,
   token: '',
