@@ -23,6 +23,9 @@ RUN npm run copyEnv
 # Create Docs
 RUN npm run docs
 
+# Build main.min.css
+RUN npm run mincss
+
 # Build bundle.min.js
 RUN npm run build
 
