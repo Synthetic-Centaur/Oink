@@ -65,8 +65,11 @@ let apiController = {
         //TODO: need to make async and move this logic to controller to send back
         budgetController.updateTransactions(response.transactions, userid).then((response) => {
 
-          // log ('response from update transactions -- inside api controller', response)
-          cb()
+          // indicate to plaid call that transactions have been received
+          if (cb) {
+            cb()
+          }
+
           // check to see if new transactions were updated
           if (response.length > 0) {
             

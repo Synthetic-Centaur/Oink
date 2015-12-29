@@ -26,15 +26,26 @@ class Dashboard extends React.Component {
     }
   }
 
+  // This is our delayed call to initial state after transactions are loaded on server side on first pull
+  shouldComponentUpdate(nextProps) {
+    if (this.props.firstPull !== nextProps.firstPull) {
+      this.init()
+    }
+    
+    return true
+  }
+
   //Render home container with chart, budget input, and navbar
   componentWillMount() {
     this.checkAuth()
     document.body.style.backgroundColor = '#262626'
   }
 
-  //Call init when component is mounted
+  //Call init when component is mounted only when not first call for an user
   componentDidMount() {
-    this.init()
+    if (!this.props.firstPull) {
+      this.init()
+    }
   }
 
   //Get initial state of app, including all of user's transactions
@@ -150,6 +161,7 @@ Dashboard.childContextTypes = {
 
 function mapStateToProps(state) {
   return {
+    firstPull: state.homePage.firstPull,
     isLoading: state.asyncStatus.isLoading,
     data: state.asyncStatus.data,
     error: state.asyncStatus.error,

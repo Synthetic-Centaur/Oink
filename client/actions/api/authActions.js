@@ -97,8 +97,9 @@ export function postSignup(data) {
 export function postPlaid(data) {
   
   return function(dispatch) {
+    dispatch(ACTIONS.authenticateUser())
+    dispatch(ACTIONS.firstPullStart())
     dispatch(updatePath('/dashboard'))
-    dispatch(ACTIONS.requestData())
     return fetch('/auth/plaid', {
       method: 'POST',
       headers: {
@@ -112,8 +113,7 @@ export function postPlaid(data) {
     .then((response) => {
       console.log('RESSSS', response)
       if (response.status === 200) {
-        dispatch(ACTIONS.receiveData({}))
-        dispatch(ACTIONS.authenticateUser())
+        dispatch(ACTIONS.firstPullComplete())
       } else if (response.status === 500) {
         throw new Error('Error on the server', response)
       }
