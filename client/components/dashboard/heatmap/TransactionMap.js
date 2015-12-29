@@ -1,7 +1,7 @@
 import react, { Component, PropTypes } from 'react'
 import Slider from 'material-ui/lib/slider'
 import List from 'material-ui/lib/lists/list';
-// import Divider from 'material-ui/lib/divider';
+import Divider from 'material-ui/lib/lists/list-divider';
 import ListItem from 'material-ui/lib/lists/list-item';
 import DropDownMenu from 'material-ui/lib/drop-down-menu'
 import _ from 'underscore'
@@ -41,7 +41,16 @@ export default class TransactionMap extends Component {
           ref="category"
           menuItems = {menuItems}
           onChange={this.markerFilter.bind(this)}/>
-        <div id="map" style={{height: "700px", width: "100%", padding: "10px"}} />
+        <div className="row">
+          <div id="map" style={{height: "700px", width: "70%", padding: "10px"}} />
+          <List>
+            <ListItem primaryText="Inbox" />
+            <ListItem primaryText="Starred" />
+            <ListItem primaryText="Sent mail" />
+            <ListItem primaryText="Drafts" />
+            <ListItem primaryText="Inbox" />
+          </List>
+        </div>
         <Slider ref="slider" name = "timeSlider" defaultValue={0} onChange={this.sliderValue.bind(this)}/>
       </div>
     )
@@ -69,9 +78,7 @@ export default class TransactionMap extends Component {
     overlays.clearLayers()
     markers = new L.MarkerClusterGroup({zoomToBoundsOnClick: false}).addTo(overlays);
 
-    markers.on('clusterclick', function (a) {
-      let children = a.layer.getAllChildMarkers()
-    });
+    markers.on('clusterclick', this.clusterChildren.bind(this));
 
     _.each(_.filter(transactions, (t) => {
       return t.latitude !== "0.00" && t.longitude !== "0.00"
@@ -97,5 +104,17 @@ export default class TransactionMap extends Component {
     })
     console.log('should have set filter')
     return false
+  }
+
+  clusterChildren(a) {
+    const { updateChildren } = this.props
+    console.log(updateChildren)
+    let children = a.layer.getAllChildMarkers()
+    let bounds = a.layer.getBounds()
+    let hash = {}
+    _.each(children, (child) => {
+      (child.options.title in hash) ? hash[child.options.title] += 1 : hash[child.options.title] = 1
+    })
+    console.log(hash)
   }
 }
