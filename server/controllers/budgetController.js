@@ -215,13 +215,16 @@ let budgetController = {
       transactions = transactions.slice(0, pos)
 
       return Promise.map(transactions, (transaction) => {
+
         // If transaction is not assigned categories --> assign 'Other' to category
-        if (!transaction.category) {
-          transaction.category = ['Other']
+        let category = 'Other'
+
+        if (transaction.category) {
+
+          // We are only concerned with the first category listed
+          category = transaction.category[0]
         }
 
-        // We are only concerned with the first category listed
-        let category = transaction.category[0]
 
         return db.knex('categories').where({description: category}).select().then((result) => {
 
