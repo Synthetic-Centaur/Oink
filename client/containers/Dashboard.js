@@ -15,6 +15,7 @@ import PhoneVerifyIcon from '../components/dashboard/phoneVerify/PhoneVerifyIcon
 import Budget from './Budget'
 import Goals from './Goals'
 import Options from '../components/dashboard/Options'
+import LoadingIndicator from '../components/dashboard/LoadingIndicator'
 import ComponentPlayground from './ComponentPlayground'
 import { DROPDOWN_ACTIONS } from '../constants/componentActions'
 import { FontIcon, FlatButton, RaisedButton } from 'material-ui'
@@ -75,6 +76,8 @@ class Dashboard extends React.Component {
 
     return (
       <div className="dashboard-el">
+
+        <LoadingIndicator isLoading={isLoading} />
       
         <SideNav
           changeView={ actions.changeView }
