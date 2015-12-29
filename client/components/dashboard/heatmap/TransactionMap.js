@@ -5,7 +5,7 @@ import Divider from 'material-ui/lib/lists/list-divider';
 import ListItem from 'material-ui/lib/lists/list-item';
 import DropDownMenu from 'material-ui/lib/drop-down-menu'
 import _ from 'underscore'
-let map, markers, overlays, geocoder
+let map, markers, overlays, geocoder, TransactionMarker
 
 let categories = {
   'Bank Fees': 'bank',
@@ -27,29 +27,7 @@ export default class TransactionMap extends Component {
   render() {
     const { categories, currentChildren, mapDate, currentAddress } = this.props
 
-    let purchases = []
-    for (var key in currentChildren) {
-      purchases.push([key, currentChildren[key]])
-    }
-    purchases.sort((a,b) => {
-      return b[1]-a[1]
-    })
-    console.log("sorted purchases------------->", purchases)
-
-    let listItems = purchases.map((purchase) => {
-      return (
-        <ListItem
-          primaryText={purchase[0]}
-          secondaryText={purchase[1] + " visits"} />
-      )
-    })
-
-    if (currentAddress) {
-      listItems.unshift(<ListItem primaryText={"Your top purchases near " + currentAddress} />)
-    } else {
-      listItems.unshift(<ListItem primaryText={"Select a marker to view your purchases"} />)
-    }
-    listItems = listItems.slice(0,9)
+    let listItems = this.formatPurchases(currentChildren, currentAddress)
 
     let menuItems = [{ payload: 'Choose a category', text: 'Choose a category'}]
 
@@ -82,10 +60,43 @@ export default class TransactionMap extends Component {
     map = L.mapbox.map('map', 'mapbox.streets').setView([37.7833, -122.4167], 12);
     overlays = L.layerGroup().addTo(map)
     geocoder = new google.maps.Geocoder
+    TransactionMarker = L.Marker.extend({
+      options: {
+        price: 0
+      }
+    })
 
     updateMapDate(transactions[transactions.length - 1].date.toString().slice(0,16))
     this.addMarkers(transactions)
 
+  }
+
+  formatPurchases(currentChildren, currentAddress) {
+    let purchases = []
+    for (var key in currentChildren) {
+      purchases.push([key, currentChildren[key]])
+    }
+    console.log(purchases)
+    purchases.sort((a,b) => {
+      return b[1].visits-a[1].visits
+    })
+
+    let listItems = purchases.map((purchase) => {
+      return (
+        <ListItem
+          primaryText={purchase[0]}
+          secondaryText={purchase[1].visits + " visits"} 
+          onClick={this.show.bind(this, "pop")}/>
+      )
+    })
+
+    if (currentAddress) {
+      listItems.unshift(<ListItem primaryText={"Your top purchases near " + currentAddress} />)
+    } else {
+      listItems.unshift(<ListItem primaryText={"Select a marker to view your purchases"} />)
+    }
+    listItems = listItems.slice(0,9)
+    return listItems
   }
 
   sliderValue(e) {
@@ -106,10 +117,12 @@ export default class TransactionMap extends Component {
       return t.latitude !== "0.00" && t.longitude !== "0.00"
     }), (t) => {
       let title = t.store_name
+      let price = t.amount
       let symbol = (t.description in categories) ? categories[t.description] : 'marker-stroked'
-      let marker = L.marker(new L.LatLng(parseFloat(t.latitude), parseFloat(t.longitude)), {
+      let marker = new TransactionMarker(new L.LatLng(parseFloat(t.latitude), parseFloat(t.longitude)), {
         icon: L.mapbox.marker.icon({'marker-symbol': symbol, 'marker-color': '0044FF'}),
-        title: title
+        title: title,
+        price: price
       })
       marker.bindPopup(title)
       markers.addLayer(marker)
@@ -137,7 +150,14 @@ export default class TransactionMap extends Component {
     //hash number of visits for each transaction
     let hash = {}
     _.each(children, (child) => {
-      (child.options.title in hash) ? hash[child.options.title] += 1 : hash[child.options.title] = 1
+      let title = child.options.title
+      let transactionSum  = Math.floor(child.options.price)
+      if (title in hash) {
+        hash[title].visits++
+        hash[title].totalSpent += transactionSum
+      } else {
+        hash[title] = {visits: 1, totalSpent: transactionSum}
+      }
     })
     //get address of cluster marker from google geocode
     let latlng = {lat: parseFloat(a.layer._cLatLng.lat), lng: parseFloat(a.layer._cLatLng.lng)}
@@ -150,5 +170,10 @@ export default class TransactionMap extends Component {
         }
       }
     })
+  }
+
+  show(key, e) {
+    console.log("you just clicked on some shit yo!!")
+    console.log(this)
   }
 }
