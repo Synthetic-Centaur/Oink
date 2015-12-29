@@ -23,7 +23,8 @@ class HeatMap extends Component {
       <TransactionMap
         transactions = { data.transactions } 
         categories = { data.categories } 
-        updateChildren = { actions.updateChildren } />
+        updateChildren = { actions.updateChildren }
+        currentChildren = { currentChildren } />
     )
   }
 }

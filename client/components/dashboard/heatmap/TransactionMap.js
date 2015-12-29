@@ -19,12 +19,34 @@ let categories = {
 }
 
 export default class TransactionMap extends Component {
+
   componentDidUpdate(){
 
   }
 
   render() {
-    const { categories } = this.props
+    const { categories, currentChildren } = this.props
+
+    let purchases = []
+    for (var key in currentChildren) {
+      purchases.push([key, currentChildren[key]])
+    }
+    purchases.sort((a,b) => {
+      return b[1]-a[1]
+    })
+    console.log("sorted purchases------------->", purchases)
+
+    let listItems = purchases.map((purchase) => {
+      return (
+        <ListItem
+          primaryText={purchase[0]}
+          secondaryText={purchase[1] + " visits"} />
+      )
+    })
+
+    listItems.unshift(<ListItem primaryText={"Your top purchases near ___"} />)
+    listItems = listItems.slice(0,9)
+
     let menuItems = [{ payload: 'Choose a category', text: 'Choose a category'}]
 
     if (categories !== undefined) {
@@ -41,14 +63,10 @@ export default class TransactionMap extends Component {
           ref="category"
           menuItems = {menuItems}
           onChange={this.markerFilter.bind(this)}/>
-        <div className="row">
-          <div id="map" style={{height: "700px", width: "70%", padding: "10px"}} />
-          <List>
-            <ListItem primaryText="Inbox" />
-            <ListItem primaryText="Starred" />
-            <ListItem primaryText="Sent mail" />
-            <ListItem primaryText="Drafts" />
-            <ListItem primaryText="Inbox" />
+        <div className="row" style={{width: "100%"}}>
+          <div id="map" className="eight columns" style={{height: "700px"}} />
+          <List className="four columns" >
+            { listItems }
           </List>
         </div>
         <Slider ref="slider" name = "timeSlider" defaultValue={0} onChange={this.sliderValue.bind(this)}/>
@@ -58,7 +76,6 @@ export default class TransactionMap extends Component {
 
   componentDidMount() {
     const { transactions } = this.props
-    console.log(transactions)
     L.mapbox.accessToken = "pk.eyJ1IjoiYWFja2VybWFuMDUwIiwiYSI6ImNpaW94NmswbDAxZ3V0cmtuZ3RmbzlyZWEifQ.5o1kSPi-0DNLrs2iyYpEpg"
     map = L.mapbox.map('map', 'mapbox.streets').setView([37.7833, -122.4167], 12);
     overlays = L.layerGroup().addTo(map)
@@ -108,13 +125,12 @@ export default class TransactionMap extends Component {
 
   clusterChildren(a) {
     const { updateChildren } = this.props
-    console.log(updateChildren)
     let children = a.layer.getAllChildMarkers()
     let bounds = a.layer.getBounds()
     let hash = {}
     _.each(children, (child) => {
       (child.options.title in hash) ? hash[child.options.title] += 1 : hash[child.options.title] = 1
     })
-    console.log(hash)
+    updateChildren(hash)
   }
 }
