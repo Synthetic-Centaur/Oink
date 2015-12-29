@@ -134,18 +134,18 @@ export default class TransactionMap extends Component {
     let children = a.layer.getAllChildMarkers()
     //get coordinates of cluster bounding box
     let bounds = a.layer.getBounds()
-    console.log("Lat long of cluster marker ----------->", a.layer._cLatLng)
-    let hash = {}
     //hash number of visits for each transaction
+    let hash = {}
     _.each(children, (child) => {
       (child.options.title in hash) ? hash[child.options.title] += 1 : hash[child.options.title] = 1
     })
-    //update hash on state
+    //get address of cluster marker from google geocode
     let latlng = {lat: parseFloat(a.layer._cLatLng.lat), lng: parseFloat(a.layer._cLatLng.lng)}
     geocoder.geocode({'location': latlng}, (results, status) => {
       if(status === google.maps.GeocoderStatus.OK) {
         if (results[1]) {
           let address = results[1].formatted_address.replace(/-/g, '').replace(/[0-9]/g, '')
+          //update transactions and address on state
           updateCluster({markers: hash, address: address})
         }
       }
