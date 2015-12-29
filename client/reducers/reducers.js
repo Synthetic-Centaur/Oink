@@ -265,7 +265,7 @@ export function transactionMapReducer(state = {
       return Object.assign({}, state, {childrenCluster: action.data.markers, currentAddress: action.data.address})
     case 'UPDATE_MAP_DATE':
       return Object.assign({}, state, {mapDate: action.data})
-    default: 
+    default:
       return state
   }
 }

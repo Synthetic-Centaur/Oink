@@ -15,17 +15,17 @@ export default class GoogleHeatMap extends Component {
     this.overlay(filteredTransactions)
   }
 
-  render () {
+  render() {
 
     return (
       <div className="container">
         <div className="row">
           <span>Place the slider to see transactions up to that date</span>
         </div>
-        <div ref="mapCanvas" style={{height: "800px", width: "100%", padding: "10px"}}/>
+        <div ref="mapCanvas" style={{height: '800px', width: '100%', padding: '10px'}}/>
         <Slider ref="slider" name = "timeSlider" defaultValue={0} onDragStop={this.sliderValue.bind(this)}/>
       </div>
-    );
+    )
 
   }
 
@@ -77,10 +77,9 @@ export default class GoogleHeatMap extends Component {
     map.setMapTypeId(google.maps.MapTypeId.ROADMAP)
   }
 
-
   overlay(transactions) {
 
-    heatmap.setMap(heatmap.getMap() ? null : map);
+    heatmap.setMap(heatmap.getMap() ? null : map)
 
     console.log(transactions[transactions.length - 1].date)
 
@@ -95,18 +94,18 @@ export default class GoogleHeatMap extends Component {
       radius: 12, //The radius of influence for each data point, in pixels.
       scaleRadius: true,
       dissipating: true
-    });
+    })
 
   }
 
-  getPoints (transactions) {
+  getPoints(transactions) {
 
     let filtered = _.filter(transactions, (t) => {
-      return t.latitude !== "0.00" && t.longitude !== "0.00"
+      return t.latitude !== '0.00' && t.longitude !== '0.00'
     })
 
     let heatMapPoints =  _.map(_.filter(transactions, (t) => {
-      return t.latitude !== "0.00" && t.longitude !== "0.00"
+      return t.latitude !== '0.00' && t.longitude !== '0.00'
     }), (t) => {
       return new google.maps.LatLng(parseFloat(t.latitude), parseFloat(t.longitude))
     })
@@ -114,12 +113,12 @@ export default class GoogleHeatMap extends Component {
     return heatMapPoints
   }
 
-  getMarkers (transactions) {
+  getMarkers(transactions) {
     let markers = _.map(_.filter(transactions, (t) => {
-      return t.latitude !== "0.00" && t.longitude !== "0.00"
+      return t.latitude !== '0.00' && t.longitude !== '0.00'
     }), (t) => {
       let LatLng = new google.maps.LatLng(parseFloat(t.latitude), parseFloat(t.longitude))
-      return new google.maps.Marker({'position': LatLng})
+      return new google.maps.Marker({position: LatLng})
     })
   }
 }

@@ -1,11 +1,15 @@
 import react, { Component, PropTypes } from 'react'
 import Slider from 'material-ui/lib/slider'
 import List from 'material-ui/lib/lists/list';
-import Divider from 'material-ui/lib/lists/list-divider';
-import ListItem from 'material-ui/lib/lists/list-item';
+import Divider from 'material-ui/lib/lists/list-divider'
+import ListItem from 'material-ui/lib/lists/list-item'
 import DropDownMenu from 'material-ui/lib/drop-down-menu'
 import _ from 'underscore'
-let map, markers, overlays, geocoder, TransactionMarker
+let map
+let markers
+let overlays
+let geocoder
+let TransactionMarker
 
 let categories = {
   'Bank Fees': 'bank',
@@ -20,7 +24,7 @@ let categories = {
 
 export default class TransactionMap extends Component {
 
-  componentDidUpdate(){
+  componentDidUpdate() {
 
   }
 
@@ -40,11 +44,11 @@ export default class TransactionMap extends Component {
 
     return (
       <div className="container">
-        <div className="sixteen columns" style={{height: "80px"}}>
+        <div className="sixteen columns" style={{height: '80px'}}>
           <span className="four columns offset-by-four" style={{color: 'white'}}>Showing transactions before {mapDate}</span>
         </div>
-        <div className="row" style={{width: "100%"}}>
-          <div id="map" className="eight columns" style={{height: "700px"}} />
+        <div className="row" style={{width: '100%'}}>
+          <div id="map" className="eight columns" style={{height: '700px'}} />
           <List className="four columns" >
             { listItems }
           </List>
@@ -56,8 +60,8 @@ export default class TransactionMap extends Component {
 
   componentDidMount() {
     const { transactions, updateMapDate } = this.props
-    L.mapbox.accessToken = "pk.eyJ1IjoiYWFja2VybWFuMDUwIiwiYSI6ImNpaW94NmswbDAxZ3V0cmtuZ3RmbzlyZWEifQ.5o1kSPi-0DNLrs2iyYpEpg"
-    map = L.mapbox.map('map', 'mapbox.streets').setView([37.7833, -122.4167], 12);
+    L.mapbox.accessToken = 'pk.eyJ1IjoiYWFja2VybWFuMDUwIiwiYSI6ImNpaW94NmswbDAxZ3V0cmtuZ3RmbzlyZWEifQ.5o1kSPi-0DNLrs2iyYpEpg'
+    map = L.mapbox.map('map', 'mapbox.streets').setView([37.7833, -122.4167], 12)
     overlays = L.layerGroup().addTo(map)
     geocoder = new google.maps.Geocoder
     TransactionMarker = L.Marker.extend({
@@ -66,7 +70,7 @@ export default class TransactionMap extends Component {
       }
     })
 
-    updateMapDate(transactions[transactions.length - 1].date.toString().slice(0,16))
+    updateMapDate(transactions[transactions.length - 1].date.toString().slice(0, 16))
     this.addMarkers(transactions)
 
   }
@@ -76,26 +80,27 @@ export default class TransactionMap extends Component {
     for (var key in currentChildren) {
       purchases.push([key, currentChildren[key]])
     }
-    console.log(purchases)
-    purchases.sort((a,b) => {
-      return b[1].visits-a[1].visits
+
+    purchases.sort((a, b) => {
+      return b[1].visits - a[1].visits
     })
 
     let listItems = purchases.map((purchase) => {
       return (
         <ListItem
           primaryText={purchase[0]}
-          secondaryText={purchase[1].visits + " visits"} 
-          onClick={this.show.bind(this, "pop")}/>
+          secondaryText={purchase[1].visits + ' visits'}
+          onClick={this.show.bind(this, 'pop')}/>
       )
     })
 
     if (currentAddress) {
-      listItems.unshift(<ListItem primaryText={"Your top purchases near " + currentAddress} />)
+      listItems.unshift(<ListItem primaryText={'Your top purchases near ' + currentAddress} />)
     } else {
-      listItems.unshift(<ListItem primaryText={"Select a marker to view your purchases"} />)
+      listItems.unshift(<ListItem primaryText={'Select a marker to view your purchases'} />)
     }
-    listItems = listItems.slice(0,9)
+
+    listItems = listItems.slice(0, 9)
     return listItems
   }
 
@@ -103,7 +108,7 @@ export default class TransactionMap extends Component {
     const { transactions, updateMapDate } = this.props
     let index = Math.floor(transactions.length * this.refs.slider.getValue())
     let filteredTransactions = transactions.slice(0, index)
-    updateMapDate(filteredTransactions[filteredTransactions.length - 1].date.toString().slice(0,16))
+    updateMapDate(filteredTransactions[filteredTransactions.length - 1].date.toString().slice(0, 16))
     this.addMarkers(filteredTransactions)
   }
 
@@ -111,10 +116,10 @@ export default class TransactionMap extends Component {
     overlays.clearLayers()
     markers = new L.MarkerClusterGroup({zoomToBoundsOnClick: false}).addTo(overlays);
 
-    markers.on('clusterclick', this.clusterChildren.bind(this));
+    markers.on('clusterclick', this.clusterChildren.bind(this))
 
     _.each(_.filter(transactions, (t) => {
-      return t.latitude !== "0.00" && t.longitude !== "0.00"
+      return t.latitude !== '0.00' && t.longitude !== '0.00'
     }), (t) => {
       let title = t.store_name
       let price = t.amount
@@ -143,10 +148,13 @@ export default class TransactionMap extends Component {
 
   clusterChildren(a) {
     const { updateCluster, updateMapDate, updateAddress } = this.props
+
     //get all markers contained within cluster
     let children = a.layer.getAllChildMarkers()
+
     //get coordinates of cluster bounding box
     let bounds = a.layer.getBounds()
+
     //hash number of visits for each transaction
     let hash = {}
     _.each(children, (child) => {
@@ -159,12 +167,14 @@ export default class TransactionMap extends Component {
         hash[title] = {visits: 1, totalSpent: transactionSum}
       }
     })
+
     //get address of cluster marker from google geocode
     let latlng = {lat: parseFloat(a.layer._cLatLng.lat), lng: parseFloat(a.layer._cLatLng.lng)}
-    geocoder.geocode({'location': latlng}, (results, status) => {
-      if(status === google.maps.GeocoderStatus.OK) {
+    geocoder.geocode({location: latlng}, (results, status) => {
+      if (status === google.maps.GeocoderStatus.OK) {
         if (results[1]) {
           let address = results[1].formatted_address.replace(/-/g, '').replace(/[0-9]/g, '')
+
           //update transactions and address on state
           updateCluster({markers: hash, address: address})
         }
@@ -173,7 +183,7 @@ export default class TransactionMap extends Component {
   }
 
   show(key, e) {
-    console.log("you just clicked on some shit yo!!")
+    console.log('you just clicked on some shit yo!!')
     console.log(this)
   }
 }

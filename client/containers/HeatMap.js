@@ -11,21 +11,21 @@ class HeatMap extends Component {
 
     const { actions, data, currentChildren, mapDate, currentAddress } = this.props
 
-    data.transactions.forEach(function(transaction) {
+    data.transactions.forEach((transaction) => {
       transaction.date = new Date(transaction.date)
     })
 
-    data.transactions.sort(function(a,b) {
+    data.transactions.sort((a, b) => {
       return a.date - b.date
     })
 
     return (
       <TransactionMap
-        transactions = { data.transactions } 
-        categories = { data.categories } 
+        transactions = { data.transactions }
+        categories = { data.categories }
         currentChildren = { currentChildren }
         updateCluster = { actions.updateCluster }
-        mapDate = { mapDate } 
+        mapDate = { mapDate }
         updateMapDate = { actions.updateMapDate }
         currentAddress = { currentAddress }
         updateAddress = { updateAddress }/>
