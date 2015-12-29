@@ -20,9 +20,8 @@ class AccountModal extends Component {
   }
 
   handleSubmit() {
-    const { showLogin, showSignup, removeAlerts } = this.props
+    const { showLogin, showSignup, removeAlerts, passwordErr } = this.props
     showLogin ? this.handleLogin() : showSignup ? this.handleSignup() : null
-    removeAlerts()
   }
 
   handleLogin() {
@@ -35,24 +34,37 @@ class AccountModal extends Component {
       email: email,
       password: password
     })
+
+    removeAlerts()
   }
 
   handleSignup() {
     const { signupField } = this.refs
-    const { signup, hideSignupModal } = this.props
+    const { signup, hideSignupModal, passwordMatchError, missingSignupFields } = this.props
+
     let firstName = signupField.refs.firstName.getValue()
     let lastName = signupField.refs.lastName.getValue()
     let email = signupField.refs.email.getValue()
     let phone = signupField.refs.phone.getValue()
     let password = signupField.refs.password.getValue()
+    let verifyPassword = signupField.refs.verifyPassword.getValue()
 
-    signup({
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      phone: phone,
-      password: password
-    })
+    if (password !== verifyPassword) {
+      passwordMatchError()
+    } else if (firstName === '' || lastName === '' || email === '' ||
+               phone === '' || password === '' || verifyPassword === '') {
+      missingSignupFields()
+    } else {
+      signup({
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        phone: phone,
+        password: password
+      })
+
+      removeAlerts()
+    }
   }
 
   handleCancel() {
@@ -77,9 +89,9 @@ class AccountModal extends Component {
   }
 
   render() {
-    const { userExists, invalidBank, invalidEmail, invalidPassword, errorText } = this.props
-    let errorMessage = userExists ? errorText : invalidPassword ? errorText :
-                    invalidEmail ? errorText : invalidBank ? errorText : false
+    const { userExists, invalidBank, invalidEmail, invalidPassword, passwordErr, missingFields, errorText } = this.props
+    let errorMessage = userExists ? errorText : invalidPassword ? errorText : passwordErr ? errorText :
+                       missingFields ? errorText : invalidEmail ? errorText : invalidBank ? errorText : false
 
     let modalActions = [
       <FlatButton

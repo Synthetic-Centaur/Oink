@@ -225,7 +225,6 @@ let budgetController = {
           category = transaction.category[0]
         }
 
-
         return db.knex('categories').where({description: category}).select().then((result) => {
 
           if (result.length > 0) {

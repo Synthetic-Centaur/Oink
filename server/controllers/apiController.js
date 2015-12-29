@@ -152,6 +152,9 @@ let apiController = {
           return acc
         }, [])
 
+        // Add an Other category for Unknown Transactions
+        arr.push('Other')
+
         // Iterate over array
         bluebird.map(arr, (item) => {
           // Establish search criteria

@@ -80,6 +80,8 @@ export function splashPageReducer(state = {
   invalidPassword: false,
   invalidBank: false,
   userExists: false,
+  passwordMatchError: false,
+  missingSignupFields: false,
   errorText: ''
 }, action = null) {
   switch (action.type) {
@@ -102,6 +104,10 @@ export function splashPageReducer(state = {
       return Object.assign({}, state, {invalidBank: true, errorText: 'Looks like you haven\'t authorized your bank with us yet.'})
     case 'USER_EXISTS':
       return Object.assign({}, state, {userExists: true, errorText: 'Looks like there is already a user with that email in our system. Please choose a different email.'})
+    case 'PASSWORD_MATCH_ERR':
+      return Object.assign({}, state, {passwordMatchError: true, errorText: 'Oops, looks like those passwords don\'t match. Please re-enter your password in both fields and try again.'})
+    case 'MISSING_SIGNUP_FIELDS':
+      return Object.assign({}, state, {missingSignupFields: true, errorText: 'Please fill out all fields.'})
     default:
       return state
   }

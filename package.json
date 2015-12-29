@@ -12,7 +12,9 @@
     "testdev": "NODE_ENV=dev mocha --timeout 15000 --compilers js:babel/register test/loadtests.js",
     "lint": "jscs ./",
     "docs": "grunt",
-    "clean docs": "rm -r docs/*"
+    "clean docs": "rm -r docs/*",
+    "mincss": "grunt mincss",
+    "cleancss": "rm ./public/css/main.min.css"
   },
   "pre-commit": [
     "lint"
@@ -82,6 +84,7 @@
     "chai": "^3.4.1",
     "docco-plus": "^1.0.1",
     "grunt": "^0.4.5",
+    "grunt-contrib-cssmin": "^0.14.0",
     "grunt-docco-plus": "^1.0.0",
     "isparta-instrumenter-loader": "^1.0.0",
     "mocha": "^2.3.4",

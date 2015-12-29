@@ -95,7 +95,6 @@ export function postSignup(data) {
 }
 
 export function postPlaid(data) {
-  
   return function(dispatch) {
     dispatch(ACTIONS.authenticateUser())
     dispatch(ACTIONS.firstPullStart())
@@ -111,7 +110,6 @@ export function postPlaid(data) {
       })
     })
     .then((response) => {
-      console.log('RESSSS', response)
       if (response.status === 200) {
         dispatch(ACTIONS.firstPullComplete())
       } else if (response.status === 500) {
