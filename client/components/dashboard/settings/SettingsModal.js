@@ -57,13 +57,13 @@ class SettingsModal extends Component {
     e.preventDefault()
     const { showSettings, hideSettingsModal, editFinishAll, editingEmail, editingPassword, editingFirstName,
             editingLastName, editingPhoneNumber, editingDeleteAccount } = this.props
-    if (editingEmail || editingPhoneNumber || editingPassword || editingFirstName || editingLastName) {
+    if (editingEmail || editingPhoneNumber || editingPassword || editingFirstName || editingLastName ) {
       if (confirm('You have unsaved changes to your settngs, are you sure you want to quit?')) {
         showSettings ? hideSettingsModal() : null
         editFinishAll()
         this.refs.modal.dismiss()
       }
-    } else {
+    } else {  
       showSettings ? hideSettingsModal() : null
       editFinishAll()
       this.refs.modal.dismiss()
@@ -119,7 +119,7 @@ class SettingsModal extends Component {
         modal={true}
       >
         <Tabs contentContainerClassName='settings-tabs-container' className='settings-tabs' tabItemContainerStyle={{padding: '0px'}}>
-          <Tab label='Account' >
+          <Tab label='Account' primary={true}>
             <div className='modal-content'>
 
               <AccountSettingsField
@@ -141,7 +141,7 @@ class SettingsModal extends Component {
               
             </div>
           </Tab>
-          <Tab label='Communication' >
+          <Tab label='Communication' primary={true}>
             <div className='modal-content'>
 
               <CommunicationSettingsField
@@ -152,7 +152,7 @@ class SettingsModal extends Component {
               
             </div>
           </Tab>
-          <Tab label='Security' >
+          <Tab label='Security' primary={true}>
             <div className='modal-content'>
 
               <SecuritySettingsField

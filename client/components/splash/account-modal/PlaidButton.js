@@ -28,7 +28,7 @@ class PlaidButton extends Component {
 
   render() {
     return (
-      <div className="row">
+      <div className="row" style={{padding: '24px'}}>
         <RaisedButton
           label="Link your Bank Account"
           onClick={this.handlePlaid.bind(this)}

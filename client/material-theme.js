@@ -6,9 +6,9 @@ export default {
   spacing: Spacing,
   fontFamily: 'Roboto, sans-serif',
   palette: {
-    primary1Color: '#BFF3FF',
+    primary1Color: '#222',
     primary2Color: '#FF1970',
-    primary3Color: '#BFF3FF',
+    primary3Color: '#999',
     accent1Color: '#FF1970',
     accent2Color: Colors.pinkA400,
     accent3Color: Colors.pinkA100,

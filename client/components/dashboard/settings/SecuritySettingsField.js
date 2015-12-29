@@ -31,7 +31,7 @@ class SecuritySettingsField extends React.Component {
       return this.renderEditPassword()
     } else {
       return (
-        <form>
+        <form style={{padding: '24px'}}>
           <div className='offset-by-five'>
             <RaisedButton label="Change Password" onTouchTap={this.handleEditStart.bind(this, 'PASSWORD')} />
           </div>
