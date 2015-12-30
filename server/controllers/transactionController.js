@@ -22,16 +22,20 @@ let transactionController = {
       }
     }
 
-    return db.knex('transactions').where({user_id: userId}).then((transactions) => {
-      let result = []
-      transactions.forEach((transaction) => {
-        if (transaction.date >= start && transaction.date <= end) {
-          result.push(transaction)
-        }
+    return db.knex('transactions')
+      .where({user_id: userId})
+      .innerJoin('categories', 'transactions.category_id', 'categories.id')
+      .then((transactions) => {
+        let result = []
+        transactions.forEach((transaction) => {
+          if (transaction.date >= start && transaction.date <= end) {
+            result.push(transaction)
+          }
+        })
+        return result
       })
-      return result
-    })
   }
+
 }
 
 export default transactionController

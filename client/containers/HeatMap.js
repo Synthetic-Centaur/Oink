@@ -1,28 +1,55 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import GoogleMap from '../components/dashboard/heatmap/GoogleHeatMap'
+import TransactionMap from '../components/dashboard/heatmap/TransactionMap'
+import { updateCluster, updateMapDate, updateAddress } from '../actions/actions'
 
 class HeatMap extends Component {
 
   render() {
 
-    const { data } = this.props
+    const { actions, data, currentChildren, mapDate, currentAddress } = this.props
+
+    data.transactions.forEach((transaction) => {
+      transaction.date = new Date(transaction.date)
+    })
+
+    data.transactions.sort((a, b) => {
+      return a.date - b.date
+    })
+
     return (
-      <GoogleMap
-        transactions = { data.transactions } />
+      <TransactionMap
+        transactions = { data.transactions }
+        categories = { data.categories }
+        accessToken = { data.mapbox.accessToken }
+        currentChildren = { currentChildren }
+        updateCluster = { actions.updateCluster }
+        mapDate = { mapDate }
+        updateMapDate = { actions.updateMapDate }
+        currentAddress = { currentAddress }
+        updateAddress = { updateAddress } />
     )
   }
 }
 
 function mapStateToProps(state) {
   return {
-    isLoading: state.asyncStatus.isLoading,
     data: state.asyncStatus.data,
-    error: state.asyncStatus.error,
-    homePage: state.homePage,
-    budgetPage: state.budgetPage
+    currentChildren: state.transactionMap.childrenCluster,
+    mapDate: state.transactionMap.mapDate,
+    currentAddress: state.transactionMap.currentAddress
   }
 }
 
-export default connect(mapStateToProps)(HeatMap)
+//Bind container actions to dispatch
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators({
+      updateCluster,
+      updateMapDate
+    }, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(HeatMap)

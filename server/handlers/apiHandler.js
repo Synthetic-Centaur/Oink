@@ -3,11 +3,14 @@ import budgetController from '../controllers/budgetController'
 import authController from '../controllers/authController'
 import goalController from '../controllers/goalController'
 import transactionController from '../controllers/transactionController'
+import Promise from 'bluebird'
+import { mapbox_private } from '../env/envConfig'
 
 // Poplulate categories after server initializes
 apiController.getCategories()
 
 let apiHandler = {
+
   retrieveTransactions(req, res) {
 
     // TODO: Add Token Plaid logic
@@ -83,13 +86,15 @@ let apiHandler = {
                     goalController.generateReport(user.id).then((avgNet) => {
                       transactionController.getTransactionsByTime(user.id).then((transactions) => {
                         // Build response object
+                        let mapbox = {accessToken: mapbox_private.accessToken}
                         let state = {
                           transactions,
                           user,
                           budgets,
                           categories,
                           goals,
-                          avgNet
+                          avgNet,
+                          mapbox
                         }
                         res.json(state)
                       })
@@ -241,6 +246,18 @@ let apiHandler = {
         })
       })
     }
+  },
+
+  //Job for retrieving every users new daily transactions
+  usersDailyTransactions() {
+    //Retrieve all users
+    authController.allUsers()
+      .then((users) => {
+        Promise.each(users, (user) => {
+          //Call controller for each user to make a call to Plaid
+          apiController.updateTransactions(user.token_plaid, user.id)
+        })
+      })
   }
 }
 

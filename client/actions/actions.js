@@ -442,3 +442,27 @@ export function updateSecuritySettings(item) {
     })
   }
 }
+
+/********************************************************
+                    TRANSACTION MAP REDUX ACTIONS
+*********************************************************/
+
+
+export function updateCluster(data) {
+  return (dispatch) => {
+    dispatch({
+      type: 'UPDATE_CLUSTER',
+      data: data
+    })
+  }
+}
+
+export function updateMapDate(date) {
+  return (dispatch) => {
+    dispatch({
+      type: 'UPDATE_MAP_DATE',
+      data: date
+    })
+  }
+}
+

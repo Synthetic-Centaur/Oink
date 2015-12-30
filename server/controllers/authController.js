@@ -167,6 +167,11 @@ let authController = {
         return false
       }
     })
+  },
+  
+  allUsers() {
+    return db.knex('users')
+      .select('*')
   }
 }
 

@@ -28,7 +28,7 @@ export const DROPDOWN_ACTIONS = [
   },
 
   {
-    text: 'Heat Map',
+    text: 'Transaction Map',
     component: HeatMap,
     icon: 'add_location'
   }

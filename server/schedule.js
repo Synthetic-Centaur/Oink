@@ -1,12 +1,25 @@
 import schedule from 'node-schedule'
 import cronHandler from './handlers/cronHandler'
+import apiHandler from './handlers/apiHandler'
 
-export default function() {
-  //currently set up to email on Sundays at 10 AM
-  let rule = new schedule.RecurrenceRule()
-  rule.dayOfWeek = 0
-  rule.hour = 10
-  rule.minute = 0
+let jobSchedules = {
 
-  let job = schedule.scheduleJob(rule, cronHandler.sendMail)
+  emailSchedule() {
+    //currently set up to email on Sundays at 10 AM
+    let rule = new schedule.RecurrenceRule()
+    rule.dayOfWeek = 0
+    rule.hour = 10
+    rule.minute = 0
+
+    let job = schedule.scheduleJob(rule, cronHandler.sendMail)
+    return job
+  },
+
+  dailyTransactions() {
+    let job = schedule.scheduleJob('0 0 0 * * *', apiHandler.usersDailyTransactions)
+    return job
+  }
+
 }
+
+export default jobSchedules

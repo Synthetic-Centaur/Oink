@@ -19,6 +19,9 @@ let jwt_private
 //Database connection settings
 let db_connection
 
+// Leaflet/Mapbox access token
+let mapbox_private
+
 // Dev enviroment
 if (process.env.NODE_ENV === 'dev') {
 
@@ -47,6 +50,10 @@ if (process.env.NODE_ENV === 'dev') {
     charset: 'UTF8_GENERAL_CI'
   }
 
+  mapbox_private = {
+    accessToken: 'ACCESS_TOKEN'
+  } 
+
 // Test Enviroment
 } else if (process.env.NODE_ENV === 'test') {
 
@@ -71,6 +78,10 @@ if (process.env.NODE_ENV === 'dev') {
     port: 5432,
     user: 'ubuntu',
     database: 'circle_test',
+  }
+
+  mapbox_private = {
+    accessToken: 'ACCESS_TOKEN'
   }
 
 // Production enviroment
@@ -100,13 +111,17 @@ if (process.env.NODE_ENV === 'dev') {
     database: process.env.RDS_DB_NAME
   }
 
+  mapbox_private = {
+    accessToken: process.env.mapbox_accessToken
+  }
 }
 
 const config = {
   twilio_private: twilio_private,
   plaid_private: plaid_private,
   jwt_private: jwt_private,
-  db_connection: db_connection
+  db_connection: db_connection,
+  mapbox_private: mapbox_private
 }
 
 export default config
