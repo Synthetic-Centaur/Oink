@@ -143,6 +143,7 @@ let authHandler = {
             apiController.retrieveTransactions(user.attributes.token_plaid, user.id, () => {
               res.sendStatus(200)
             })
+            
             // .then( (transactions) => {
             //   budgetController.saveTransactions(transactions, userid)
             // })

@@ -18,6 +18,7 @@ let authController = {
     return newUser.save().then((user) => {
       return user
     })
+
     // user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(8), null)
     // return db.knex('users').insert(user).returning('*').then((user) => {
     //   console.log('inside addUser returned user is', user)
@@ -34,6 +35,7 @@ let authController = {
         return null
       }
     })
+
     // return db.knex('users').where({email: user.email}).select().then((user) => {
     //   if (user.length > 0) {
     //     console.log('inside findUser user was found to be', user)
@@ -41,7 +43,7 @@ let authController = {
     //   } else {
     //     return null
     //   }
-    // }) 
+    // })
   },
 
   findUserByToken(req, secure) {
