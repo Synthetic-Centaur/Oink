@@ -147,9 +147,6 @@ let authHandler = {
             // .then( (transactions) => {
             //   budgetController.saveTransactions(transactions, userid)
             // })
-
-            // TODO: move message to after user has verified phone
-            // set webhook for new user
             apiController.setWebhook(user.token_plaid)
 
 

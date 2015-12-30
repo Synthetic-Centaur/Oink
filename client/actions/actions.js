@@ -136,6 +136,7 @@ export function receiveError(data) {
     data: data
   }
 }
+
 // we have recieved a successful response but have no data to update state with
 export function requestFinished() {
   return { type: 'REQ_FINISHED' }

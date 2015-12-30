@@ -90,6 +90,7 @@ export class AccountSettingsField extends React.Component {
     if (num.length === 10) {
       return num
     }
+    
     return 'ERROR'
   }
 
