@@ -152,8 +152,6 @@ let authHandler = {
             // set webhook for new user
             apiController.setWebhook(user.token_plaid)
 
-            // send welcome message
-            //apiController.sendMessage('Hello ' + name + '! Welcome to Oink, Lets Budget Together!!', number)
 
           } else {
             res.sendStatus(500)
@@ -194,6 +192,8 @@ let authHandler = {
     authController.findUserByToken(req).then((user, secure) => {
       authController.checkVerificationCode(user, code).then((result) => {
         if (result) {
+          // send welcome message
+          apiController.sendMessage('Hello ' + user.first_name + '! Welcome to Oink, Lets Budget Together!!', user.phone_number)
           res.sendStatus(202)
         } else {
           res.sendStatus(401)
