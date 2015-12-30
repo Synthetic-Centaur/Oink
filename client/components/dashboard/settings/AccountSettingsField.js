@@ -35,6 +35,28 @@ export class AccountSettingsField extends React.Component {
     )
   }
 
+  renderEditPhone(item, i) {
+    //let error = this.props.accountData ? this.props.accountData.errorText : ''
+    return (
+      <tr key={i}>
+        <td>
+          <ListItem primaryText={ item.title } disabled={true} />
+        </td>
+        <td>
+          <TextField
+            ref = {item.key}
+            defaultValue= {item.property}
+            errorText={this.props.accountData.errorText}
+            onChange={this.updateAccountSettings.bind(this, item)}
+          />
+        </td>
+        <td>
+          <FontIcon hoverColor='#ff1970' className='material-icons' onTouchTap={this.handleEditFinish.bind(this, item.key)} > close </FontIcon>
+        </td>
+      </tr>
+    )
+  }
+
   renderSave(item, i) {
     return (
       <tr key={i}>
@@ -56,10 +78,19 @@ export class AccountSettingsField extends React.Component {
 
   renderItem(item, i) {
     if (item.editing) {
-      return this.renderEdit(item, i)
+      return item.key === 'PHONE_NUMBER' ? this.renderEditPhone(item, i) : this.renderEdit(item, i)
     }
 
     return this.renderSave(item, i)
+  }
+
+  parsePhoneNumber(num) {
+    num = num.replace(/\D/g, '')
+
+    if (num.length === 10) {
+      return num
+    }
+    return 'ERROR'
   }
 
   updateAccountSettings(item) {
@@ -79,7 +110,15 @@ export class AccountSettingsField extends React.Component {
     }
     
     if (this.refs.PHONE_NUMBER) {
-      updateFields.phone_number = this.refs.PHONE_NUMBER.getValue()
+      let parsedNum = this.parsePhoneNumber(this.refs.PHONE_NUMBER.getValue())
+
+      if (parsedNum === 'ERROR') {
+        updateFields.errorText = 'Please enter ten digit phone number'
+      } else {
+        updateFields.phone_number = parsedNum
+        updateFields.phone_verified = false
+        updateFields.errorText = ''
+      }
     }
 
     this.props.updateAccountSettings(updateFields)

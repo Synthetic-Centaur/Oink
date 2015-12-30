@@ -31,8 +31,9 @@ class SettingsModal extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    const { showSettings } = this.props
+    const { showSettings, editFinishAll } = this.props
     showSettings ? this.handleSettings() : null
+    editFinishAll()
   }
 
   handleSettings() {
@@ -42,7 +43,9 @@ class SettingsModal extends Component {
     let completeData = {}
 
     for (let key in accountData) {
-      completeData[key] = accountData[key]
+      if (key !== 'errorText') {
+        completeData[key] = accountData[key]
+      }
     }
 
     for (let key in communicationData) {
@@ -171,6 +174,7 @@ class SettingsModal extends Component {
                 updateAccountSettings={this.props.updateAccountSettings}
                 updateCommunicationSettings={this.props.updateCommunicationSettings}
                 updateSecuritySettings={this.props.updateSecuritySettings}
+                accountData={this.props.accountData}
               />
               
             </div>
