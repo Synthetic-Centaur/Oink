@@ -31,7 +31,7 @@ class SideNav extends Component {
     return (
       <div className="sidenav">
         <div className="header">
-          <img className="logo" src="/images/Logo-small-pink.png" alt="oink financial logo"/>
+          <img className="logo" src="/images/Oink-logo.png" alt="oink financial logo"/>
           <h4 className="logo-text">ink.</h4>
         </div>
         { menuItems }

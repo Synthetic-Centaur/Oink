@@ -48,7 +48,7 @@ class AccountModal extends Component {
 
   handleSignup() {
     const { signupField } = this.refs
-    const { signup, hideSignupModal, passwordMatchError, missingSignupFields } = this.props
+    const { signup, hideSignupModal, passwordMatchError, phoneNumberError, missingSignupFields } = this.props
 
     let firstName = signupField.refs.firstName.getValue()
     let lastName = signupField.refs.lastName.getValue()
@@ -57,11 +57,16 @@ class AccountModal extends Component {
     let password = signupField.refs.password.getValue()
     let verifyPassword = signupField.refs.verifyPassword.getValue()
 
+    // remove any non-numeric chars from phone number field
+    phone = phone.replace(/\D/g, '')
+
     if (password !== verifyPassword) {
       passwordMatchError()
     } else if (firstName === '' || lastName === '' || email === '' ||
                phone === '' || password === '' || verifyPassword === '') {
       missingSignupFields()
+    } else if (phone.length !== 10) {
+      phoneNumberError()
     } else {
       signup({
         firstName: firstName,
@@ -97,10 +102,11 @@ class AccountModal extends Component {
   }
 
   render() {
-    const { userExists, invalidBank, invalidEmail, invalidPassword, passwordErr, missingFields, errorText } = this.props
-    let errorMessage = userExists ? errorText : invalidPassword ? errorText : passwordErr ? errorText :
+    const { userExists, invalidBank, invalidEmail, invalidPassword, invalidPhone, passwordErr, missingFields, errorText } = this.props
+    let errorMessage = userExists ? errorText : invalidPassword ? errorText : passwordErr ? errorText : invalidPhone ? errorText :
                        missingFields ? errorText : invalidEmail ? errorText : invalidBank ? errorText : false
 
+    console.log('ERROR TEXT', errorText)
     let modalActions = [
       <FlatButton
         key={0}

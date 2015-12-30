@@ -80,6 +80,7 @@ export function splashPageReducer(state = {
   showSignup: false,
   invalidEmail: false,
   invalidPassword: false,
+  invalidPhone: false,
   invalidBank: false,
   userExists: false,
   passwordMatchError: false,
@@ -108,6 +109,8 @@ export function splashPageReducer(state = {
       return Object.assign({}, state, {userExists: true, errorText: 'Looks like there is already a user with that email in our system. Please choose a different email.'})
     case 'PASSWORD_MATCH_ERR':
       return Object.assign({}, state, {passwordMatchError: true, errorText: 'Oops, looks like those passwords don\'t match. Please re-enter your password in both fields and try again.'})
+    case 'PHONE_NUMBER_ERR':
+      return Object.assign({}, state, {invalidPhone: true, errorText: 'Please enter a 10 digit phone number.'})
     case 'MISSING_SIGNUP_FIELDS':
       return Object.assign({}, state, {missingSignupFields: true, errorText: 'Please fill out all fields.'})
     default:

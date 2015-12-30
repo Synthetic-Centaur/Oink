@@ -226,6 +226,15 @@ export function passwordMatchError() {
   }
 }
 
+// The phone number entered is not valid 10 digit phone number
+export function phoneNumberError() {
+  return (dispatch) => {
+    dispatch({
+      type: 'PHONE_NUMBER_ERR'
+    })
+  }
+}
+
 // Missing required fields for signup
 export function missingSignupFields() {
   return (dispatch) => {

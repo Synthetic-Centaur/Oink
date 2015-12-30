@@ -1,5 +1,6 @@
 .dashboard-el {
   background-color: #262626;
+  background-image: linear-gradient(#333333, #262626);
 }
 
 .dashboard .options {
