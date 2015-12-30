@@ -257,7 +257,7 @@ export function goalPageReducer(state = {
 
 export function transactionMapReducer(state = {
   childrenCluster: {},
-  mapDate: null,
+  mapDate: {},
   currentAddress: null
 }, action = null) {
   switch (action.type) {

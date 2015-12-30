@@ -3,8 +3,8 @@ import Slider from 'material-ui/lib/slider'
 import List from 'material-ui/lib/lists/list';
 import Divider from 'material-ui/lib/lists/list-divider'
 import ListItem from 'material-ui/lib/lists/list-item'
-import DropDownMenu from 'material-ui/lib/drop-down-menu'
 import _ from 'underscore'
+const style = {width: 400, margin: 50};
 let map
 let markers
 let overlays
@@ -29,31 +29,24 @@ export default class TransactionMap extends Component {
   }
 
   render() {
-    const { categories, currentChildren, mapDate, currentAddress } = this.props
+    const { categories, currentChildren, mapDate, currentAddress, transactions } = this.props
 
-    let listItems = this.formatPurchases(currentChildren, currentAddress)
-
-    let menuItems = [{ payload: 'Choose a category', text: 'Choose a category'}]
-
-    if (categories !== undefined) {
-      let categoryItems = categories.map((category) => {
-        return {payload: category, text: category}
-      })
-      menuItems = menuItems.concat(categoryItems)
-    }
+    let listItems = this.formatPurchases(currentChildren, currentAddress, mapDate, transactions)
+    let header = this.formatHeader(mapDate, transactions)
 
     return (
       <div className="container">
         <div className="sixteen columns" style={{height: '80px'}}>
-          <span className="four columns offset-by-four" style={{color: 'white'}}>Showing transactions before {mapDate}</span>
+          { header }
         </div>
         <div className="row" style={{width: '100%'}}>
           <div id="map" className="eight columns" style={{height: '700px'}} />
-          <List className="four columns" >
+          <List className="four columns" sytle={{height: '700px'}} >
             { listItems }
           </List>
         </div>
         <Slider ref="slider" name = "timeSlider" defaultValue={1} onDragStop={this.sliderValue.bind(this)}/>
+        <Slider ref="slider2" name = "slider2" defaultValue={0} onDragStop={this.sliderValue.bind(this)}/>
       </div>
     )
   }
@@ -63,6 +56,7 @@ export default class TransactionMap extends Component {
     L.mapbox.accessToken = 'pk.eyJ1IjoiYWFja2VybWFuMDUwIiwiYSI6ImNpaW94NmswbDAxZ3V0cmtuZ3RmbzlyZWEifQ.5o1kSPi-0DNLrs2iyYpEpg'
     map = L.mapbox.map('map', 'mapbox.streets').setView([37.7833, -122.4167], 12)
     overlays = L.layerGroup().addTo(map)
+
     geocoder = new google.maps.Geocoder
     TransactionMarker = L.Marker.extend({
       options: {
@@ -70,12 +64,26 @@ export default class TransactionMap extends Component {
       }
     })
 
-    updateMapDate(transactions[transactions.length - 1].date.toString().slice(0, 16))
+    updateMapDate({startDate: transactions[0].date.toString().slice(0, 16), endDate: transactions[transactions.length - 1].date.toString().slice(0, 16)})
     this.addMarkers(transactions)
 
   }
 
-  formatPurchases(currentChildren, currentAddress) {
+  formatHeader(mapDate, transactions) {
+    let startDate
+    let endDate
+    if (Object.keys(mapDate).length === 0) {
+      startDate = transactions[0].date.toString().slice(0, 16)
+      endDate = transactions[transactions.length - 1].date.toString().slice(0, 16)
+    } else {
+      startDate = mapDate.startDate
+      endDate = mapDate.endDate
+    }
+    // console.log(mapDate.startDate, mapDate.endDate, transactions[0].date.toString().slice(0, 16))
+    return <span className="four columns offset-by-four" style={{color: 'white'}}>Showing transactions from {startDate} to {endDate}</span>
+  }
+
+  formatPurchases(currentChildren, currentAddress, mapDate, transactions) {
     let purchases = []
     for (var key in currentChildren) {
       purchases.push([key, currentChildren[key]])
@@ -88,14 +96,14 @@ export default class TransactionMap extends Component {
     let listItems = purchases.map((purchase) => {
       return (
         <ListItem
-          primaryText={purchase[0]}
-          secondaryText={purchase[1].visits + ' visits'}
+          primaryText={purchase[0] + ' - ' + purchase[1].visits +  ' purchases'}
+          secondaryText={'$' + purchase[1].totalSpent + ' spent'}
           onClick={this.show.bind(this, 'pop')}/>
       )
     })
 
     if (currentAddress) {
-      listItems.unshift(<ListItem primaryText={'Your top purchases near ' + currentAddress} />)
+      listItems.unshift(<ListItem primaryText={'Your top purchases near ' + currentAddress} secondaryText={'Range: ' + mapDate.startDate + ' - ' + mapDate.endDate}/>)
     } else {
       listItems.unshift(<ListItem primaryText={'Select a marker to view your purchases'} />)
     }
@@ -106,9 +114,16 @@ export default class TransactionMap extends Component {
 
   sliderValue(e) {
     const { transactions, updateMapDate } = this.props
-    let index = Math.floor(transactions.length * this.refs.slider.getValue())
-    let filteredTransactions = transactions.slice(0, index)
-    updateMapDate(filteredTransactions[filteredTransactions.length - 1].date.toString().slice(0, 16))
+    let slider1 = this.refs.slider.getValue()
+    let slider2 = this.refs.slider2.getValue()
+    let minIndex = Math.floor(transactions.length * Math.min(slider1, slider2))
+    let maxIndex = Math.floor(transactions.length * Math.max(slider1, slider2))
+    console.log(minIndex, maxIndex)
+    // let index = Math.floor(transactions.length * this.refs.slider.getValue())
+    let filteredTransactions = transactions.slice(minIndex, maxIndex)
+    let startDate = filteredTransactions[0].date.toString().slice(0, 16)
+    let endDate = filteredTransactions[filteredTransactions.length - 1].date.toString().slice(0, 16)
+    updateMapDate({startDate: startDate, endDate: endDate})
     this.addMarkers(filteredTransactions)
   }
 
