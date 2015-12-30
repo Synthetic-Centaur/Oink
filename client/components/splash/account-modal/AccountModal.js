@@ -117,7 +117,6 @@ class AccountModal extends Component {
         style={{border: '2px solid #c4c4c4'}}
       />
     ]
-
     return (
       <Dialog
         ref="modal"
@@ -126,6 +125,7 @@ class AccountModal extends Component {
         autoDetectWindowHeight={true}
         autoScrollBodyContent={true}
         modal={true}
+        contentStyle={{maxWidth: '500px'}}
         titleStyle={{color: '#666', textAlign: 'center', paddingTop: '10px'}}
       >
         <div>

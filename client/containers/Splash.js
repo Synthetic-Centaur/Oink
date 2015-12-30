@@ -12,6 +12,7 @@ import ThemeManager from 'material-ui/lib/styles/theme-manager'
 class Splash extends Component {
   componentWillMount() {
     this.checkAuth()
+    document.body.style.backgroundColor = '#fff'
   }
 
   checkAuth() {
