@@ -4,7 +4,9 @@ import {GoogleMapLoader, GoogleMap, Marker} from 'react-google-maps'
 import Slider from 'material-ui/lib/slider'
 import RaisedButton from 'material-ui/lib/raised-button'
 import _ from 'underscore'
-let map, heatmap, markerClusterer
+let map
+let heatmap
+let markerClusterer
 
 export default class GoogleHeatMap extends Component {
 

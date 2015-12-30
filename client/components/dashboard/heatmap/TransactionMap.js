@@ -1,10 +1,8 @@
 import react, { Component, PropTypes } from 'react'
 import Slider from 'material-ui/lib/slider'
-import List from 'material-ui/lib/lists/list';
-import Divider from 'material-ui/lib/lists/list-divider'
+import List from 'material-ui/lib/lists/list'
 import ListItem from 'material-ui/lib/lists/list-item'
 import _ from 'underscore'
-const style = {width: 400, margin: 50};
 let map
 let markers
 let overlays
@@ -79,7 +77,7 @@ export default class TransactionMap extends Component {
       startDate = mapDate.startDate
       endDate = mapDate.endDate
     }
-    // console.log(mapDate.startDate, mapDate.endDate, transactions[0].date.toString().slice(0, 16))
+
     return <span className="four columns offset-by-four" style={{color: 'white'}}>Showing transactions from {startDate} to {endDate}</span>
   }
 
@@ -118,8 +116,6 @@ export default class TransactionMap extends Component {
     let slider2 = this.refs.slider2.getValue()
     let minIndex = Math.floor(transactions.length * Math.min(slider1, slider2))
     let maxIndex = Math.floor(transactions.length * Math.max(slider1, slider2))
-    console.log(minIndex, maxIndex)
-    // let index = Math.floor(transactions.length * this.refs.slider.getValue())
     let filteredTransactions = transactions.slice(minIndex, maxIndex)
     let startDate = filteredTransactions[0].date.toString().slice(0, 16)
     let endDate = filteredTransactions[filteredTransactions.length - 1].date.toString().slice(0, 16)
@@ -129,7 +125,7 @@ export default class TransactionMap extends Component {
 
   addMarkers(transactions) {
     overlays.clearLayers()
-    markers = new L.MarkerClusterGroup({zoomToBoundsOnClick: false}).addTo(overlays);
+    markers = new L.MarkerClusterGroup({zoomToBoundsOnClick: false}).addTo(overlays)
 
     markers.on('clusterclick', this.clusterChildren.bind(this))
 

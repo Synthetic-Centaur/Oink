@@ -5,7 +5,7 @@ import apiHandler from './handlers/apiHandler'
 let jobSchedules = {
 
   emailSchedule() {
-      //currently set up to email on Sundays at 10 AM
+    //currently set up to email on Sundays at 10 AM
     let rule = new schedule.RecurrenceRule()
     rule.dayOfWeek = 0
     rule.hour = 10
@@ -21,6 +21,5 @@ let jobSchedules = {
   }
 
 }
-
 
 export default jobSchedules
