@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import GoogleMap from '../components/dashboard/heatmap/GoogleHeatMap'
 import TransactionMap from '../components/dashboard/heatmap/TransactionMap'
 import { updateCluster, updateMapDate, updateAddress } from '../actions/actions'
 
