@@ -68,6 +68,8 @@ export function asyncStatusReducer(state = {
       return Object.assign({}, state, {isLoading: false, data: action.data, error: false})
     case 'REQ_DATA':
       return Object.assign({}, state, {isLoading: true, error: false})
+    case 'REQ_FINISHED':
+      return Object.assign({}, state, {isLoading: false, error: false})
     default:
       return state
   }
