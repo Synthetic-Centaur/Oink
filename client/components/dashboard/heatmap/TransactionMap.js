@@ -2,6 +2,7 @@ import react, { Component, PropTypes } from 'react'
 import Slider from 'material-ui/lib/slider'
 import List from 'material-ui/lib/lists/list'
 import ListItem from 'material-ui/lib/lists/list-item'
+import { Paper, DatePicker } from 'material-ui'
 import _ from 'underscore'
 let map
 let markers
@@ -39,9 +40,27 @@ export default class TransactionMap extends Component {
         </div>
         <div className="row" style={{width: '100%'}}>
           <div id="map" className="eight columns" style={{height: '700px'}} />
-          <List className="four columns" style={{height: '700px'}} >
-            { listItems }
-          </List>
+          <Paper zDepth={1} rounded={false} className="four columns" style={{height: '700px'}}>
+            <div className="row">
+              <DatePicker 
+                fullWidth={true}
+                ref="startDate"
+                autoOk={true}
+                hintText="Select a start date" />
+            </div>
+            <div className="row">
+              <DatePicker 
+                fullWidth={true}
+                ref="endDate"
+                autoOk={true}
+                hintText="Select an end date" />
+            </div>
+            <div className ="row">
+              <List>
+                { listItems }
+              </List>
+            </div>
+          </Paper>
         </div>
         <Slider ref="slider" description="testing" name = "timeSlider" defaultValue={1} onDragStop={this.sliderValue.bind(this)}/>
         <Slider ref="slider2" name = "slider2" defaultValue={0} onDragStop={this.sliderValue.bind(this)}/>
@@ -105,7 +124,7 @@ export default class TransactionMap extends Component {
       listItems.unshift(<ListItem primaryText={'Select a marker to view your purchases'} />)
     }
 
-    listItems = listItems.slice(0, 9)
+    listItems = listItems.slice(0, 8)
     return listItems
   }
 
