@@ -6,13 +6,13 @@ export default {
   spacing: Spacing,
   fontFamily: 'Roboto, sans-serif',
   palette: {
-    primary1Color: '#222',
+    primary1Color: '#BFF3FF',
     primary2Color: '#FF1970',
-    primary3Color: '#999',
+    primary3Color: '#BFF3FF',
     accent1Color: '#FF1970',
     accent2Color: Colors.pinkA400,
     accent3Color: Colors.pinkA100,
-    textColor: '#222',
+    textColor: Colors.fullWhite,
     primaryTextColor: '#FF1970',
     alternateTextColor: '#4B4B4B',
     canvasColor: '#4B4B4B',
@@ -20,3 +20,4 @@ export default {
     disabledColor: ColorManipulator.fade(Colors.fullWhite, 0.3)
   }
 }
+
