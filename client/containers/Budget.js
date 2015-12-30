@@ -1,3 +1,5 @@
+// ## Budget View Container
+
 import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -20,12 +22,12 @@ class Budget extends Component {
 
   renderPieChart() {
     const { data } = this.props
-    return data.budgets ? (data.budgets.length === 0 ? <WelcomeMessage /> : <PieChart data = { data } />) : null
+    return data.budgets ? (data.budgets.length === 0 ? <WelcomeMessage /> : <PieChart data={data} />) : null
   }
 
   renderBarChart() {
     const { data } = this.props
-    return data.budgets ? (data.budgets.length === 0 ? null : <BarChart data = { data }/>) : null
+    return data.budgets ? (data.budgets.length === 0 ? null : <BarChart data={data} />) : null
   }
   
   render() {
@@ -38,15 +40,17 @@ class Budget extends Component {
 
             <div className="row">
               <div className="eight columns">
-                { this.renderPieChart() }
+
+                {this.renderPieChart()}
+
               </div>
 
               <div className="options-container four columns u-pull-right">
                 <OptionsBar
-                  budgetPage = { budgetPage }
-                  actions = { actions }
-                  homePage = { homePage }
-                  data = { data }
+                  budgetPage={budgetPage}
+                  actions={actions}
+                  homePage={homePage}
+                  data={data}
                 />
               </div>
 
@@ -54,12 +58,13 @@ class Budget extends Component {
           </div>
         </div>
 
-
         <div className="actuals-container">
           <div className="container">
             <div className="row">
               <div className="u-full-width">
-                { this.renderBarChart() }
+
+                {this.renderBarChart()}
+
               </div>
             </div>
           </div>
@@ -68,18 +73,23 @@ class Budget extends Component {
       </div>
     )
   }
-
 }
 
-Budget.PropTypes = {
-  
+// Specify what props are required by the container
+Budget.propTypes = {
+  isLoading: PropTypes.bool.isRequired,
+  data: PropTypes.object.isRequired,
+  error: PropTypes.bool.isRequired,
+  homePage: PropTypes.object.isRequired,
+  budgetPage: PropTypes.object.isRequired
 }
 
+// Required for passing down Material UI Theme to children components
 Budget.childContextTypes = {
   muiTheme: PropTypes.object
 }
 
-//Unpack state onto container props
+// Specify which pieces of state should be available as props
 function mapStateToProps(state) {
   return {
     isLoading: state.asyncStatus.isLoading,
@@ -90,7 +100,7 @@ function mapStateToProps(state) {
   }
 }
 
-//Bind container actions to dispatch
+// Bind Redux store's dispatch to container actions and make available as props
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({

@@ -9,11 +9,13 @@
 }
 
 .dashboard .options-icon {
-  margin-top: 15px;
+  margin-top: 5px;
+  margin-bottom: 15px;
 }
 
 .dashboard .header {
   background-color: #4B4B4B;
+  border-bottom: 2px solid #eee;
 }
 
 .dashboard .header .container {
@@ -24,10 +26,15 @@
   padding-top: 10px;
   text-align: center;
   color: #ccc;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-.dashboard .header {
-  border-bottom: 2px solid #eee;
+.dashboard .phoneVerify {
+  padding-top: 15px;
+  position: fixed;
+  left: 0;
 }
 
 .loading-indicator.first-pull:before {

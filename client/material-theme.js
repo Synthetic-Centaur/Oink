@@ -1,7 +1,10 @@
+// ## Material Theme for Dashboard Page
+
 import Colors from 'material-ui/lib/styles/colors'
 import ColorManipulator from 'material-ui/lib/utils/color-manipulator'
 import Spacing from 'material-ui/lib/styles/spacing'
 
+// Will be applied to Dashboard container and all of its children components.
 export default {
   spacing: Spacing,
   fontFamily: 'Roboto, sans-serif',

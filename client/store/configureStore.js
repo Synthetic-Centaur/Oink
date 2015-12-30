@@ -1,3 +1,5 @@
+// ## Function to generate Redux Store
+
 import { createStore, applyMiddleware, compose } from 'redux'
 import { devTools, persistState as persistStateDev } from 'redux-devtools'
 import persistState from 'redux-localstorage'

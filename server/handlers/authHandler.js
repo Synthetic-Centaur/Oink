@@ -147,6 +147,7 @@ let authHandler = {
             // .then( (transactions) => {
             //   budgetController.saveTransactions(transactions, userid)
             // })
+        
             apiController.setWebhook(user.token_plaid)
 
           } else {
