@@ -443,10 +443,7 @@ export function updateSecuritySettings(item) {
   }
 }
 
-/********************************************************
-                    TRANSACTION MAP REDUX ACTIONS
-*********************************************************/
-
+// # TRANSACTION MAP REDUX ACTIONS
 
 export function updateCluster(data) {
   return (dispatch) => {

@@ -140,7 +140,7 @@ let authHandler = {
             let number = user.phone_number
 
             // get transactions from plaid
-            apiController.retrieveTransactions(user.attributes.token_plaid, user.id, () => {
+            apiController.retrieveTransactions(user.token_plaid, user.id, () => {
               res.sendStatus(200)
             })
             

@@ -5,8 +5,16 @@ import SnackBar from 'material-ui/lib/snackbar'
 import LoginField from './LoginField'
 import SignupField from './SignupField'
 import PlaidButton from './PlaidButton'
+import Theme from '../../../splash-theme.js'
+import ThemeManager from 'material-ui/lib/styles/theme-manager'
 
 class AccountModal extends Component {
+  getChildContext() {
+    return {
+      muiTheme: ThemeManager.getMuiTheme(Theme),
+    }
+  }
+
   componentDidMount() {
     const { hideLoginModal, hideSignupModal } = this.props
     hideLoginModal()
@@ -97,14 +105,16 @@ class AccountModal extends Component {
       <FlatButton
         key={0}
         label="Cancel"
-        secondary={true}
+        primary={true}
         onTouchTap={this.handleCancel.bind(this)}
+        style={{border: '2px solid #c4c4c4', marginRight: '4px'}}
       />,
       <FlatButton
         key={1}
         label="Submit"
         primary={true}
         onTouchTap={this.handleSubmit.bind(this)}
+        style={{border: '2px solid #c4c4c4'}}
       />
     ]
 
@@ -116,6 +126,7 @@ class AccountModal extends Component {
         autoDetectWindowHeight={true}
         autoScrollBodyContent={true}
         modal={true}
+        titleStyle={{color: '#666', textAlign: 'center', paddingTop: '10px'}}
       >
         <div>
 
@@ -138,6 +149,10 @@ AccountModal.propTypes = {
   hideSignupModal: PropTypes.func.isRequired,
   showSignupModal: PropTypes.func.isRequired,
   showLoginModal: PropTypes.func.isRequired
+}
+
+AccountModal.childContextTypes = {
+  muiTheme: PropTypes.object
 }
 
 export default AccountModal

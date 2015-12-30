@@ -25,6 +25,7 @@ class ProfileCard extends Component {
 
             <a className="github-icon one-third column" href={ github }>
               <IconButton
+                style={{left: '50%', transform: 'translateX(-50%)'}}
                 tooltipPosition="bottom-center"
                 tooltip="Github"
               >
@@ -34,6 +35,7 @@ class ProfileCard extends Component {
             
             <a className="linkedin-icon one-third column" href={ linkedin }>
               <IconButton
+                style={{left: '50%', transform: 'translateX(-50%)'}}
                 tooltipPosition="bottom-center"
                 tooltip="LinkedIn"
               >
@@ -43,6 +45,7 @@ class ProfileCard extends Component {
 
             <a className="email-icon one-third column" href={ 'mailto:' + email }>
               <IconButton
+                style={{left: '50%', transform: 'translateX(-50%)'}}
                 tooltipPosition="bottom-center"
                 tooltip="Email">
                 <img src="/images/email.png" alt="email"/>

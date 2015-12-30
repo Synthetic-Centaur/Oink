@@ -32,6 +32,7 @@ class PlaidButton extends Component {
         <RaisedButton
           label="Link your Bank Account"
           onClick={this.handlePlaid.bind(this)}
+          style={{position: 'relative', left: '50%', transform: 'translateX(-50%)'}}
         />
       </div>
     )
