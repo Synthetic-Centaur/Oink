@@ -6,22 +6,22 @@ export class SignupField extends React.Component {
     return (
       <form style={{padding: '24px'}}>
         <div className="row">
-          <TextField ref="firstName" hintText="First Name"/>
+          <TextField ref="firstName" hintText="First Name" fullWidth={true} />
         </div>
         <div className="row">
-          <TextField ref="lastName" hintText="Last Name"/>
+          <TextField ref="lastName" hintText="Last Name" fullWidth={true} />
         </div>
         <div className="row">
-          <TextField ref="phone" hintText="Phone"/>
+          <TextField ref="phone" hintText="Phone" fullWidth={true} />
         </div>
         <div className="row">
-          <TextField ref="email" hintText="Email"/>
+          <TextField ref="email" hintText="Email" fullWidth={true} />
         </div>
         <div className="row">
-          <TextField ref="password" type="password" hintText="Password"/>
+          <TextField ref="password" type="password" hintText="Password" fullWidth={true} />
         </div>
         <div className="row">
-          <TextField ref="verifyPassword" type="password" hintText="Verify Your Password" />
+          <TextField ref="verifyPassword" type="password" hintText="Verify Your Password" fullWidth={true} />
         </div>
       </form>
     )

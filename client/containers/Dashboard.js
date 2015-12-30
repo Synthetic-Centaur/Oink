@@ -103,7 +103,7 @@ class Dashboard extends React.Component {
               <div className="container">
                 <div className="row">
 
-                <div className="phoneVerify u-pull-left">
+                <div className="u-pull-left">
                   <PhoneVerifyIcon
                     showPhoneVerify={actions.showPhoneVerify}
                     showVerify={homePage.showVerify}

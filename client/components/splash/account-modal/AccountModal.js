@@ -138,7 +138,7 @@ class AccountModal extends Component {
 
           { this.renderInputFields() }
 
-          { errorText ? <span className="error-text animated fadeInUp">{errorMessage}</span> : null }
+          { errorText ? <div className="error-text animated fadeInUp">{errorMessage}</div> : null }
 
         </div>
       </Dialog>
