@@ -1,15 +1,19 @@
+// ## MAP CONTAINER
+
+// Imports Transaction Map component, actions, and react/redux
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import TransactionMap from '../components/dashboard/heatmap/TransactionMap'
 import { updateCluster, updateMapDate, updateAddress } from '../actions/actions'
 
-class HeatMap extends Component {
+class Map extends Component {
 
   render() {
-
+    // Receives actions as well as data set by map component on state
     const { actions, data, currentChildren, mapDate, currentAddress } = this.props
 
+    // Converts dates to objects and sorts transactions from earliest date to latest date
     data.transactions.forEach((transaction) => {
       transaction.date = new Date(transaction.date)
     })
@@ -18,6 +22,7 @@ class HeatMap extends Component {
       return a.date - b.date
     })
 
+    // Passes state properties to Transaction Map component
     return (
       <TransactionMap
         transactions = { data.transactions }
@@ -33,6 +38,7 @@ class HeatMap extends Component {
   }
 }
 
+//Binds state to properties on container
 function mapStateToProps(state) {
   return {
     data: state.asyncStatus.data,
@@ -42,7 +48,7 @@ function mapStateToProps(state) {
   }
 }
 
-//Bind container actions to dispatch
+//Binds container actions to dispatch
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
@@ -52,4 +58,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(HeatMap)
+export default connect(mapStateToProps, mapDispatchToProps)(Map)

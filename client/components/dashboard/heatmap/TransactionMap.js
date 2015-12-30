@@ -48,7 +48,8 @@ export default class TransactionMap extends Component {
                 ref="startDate"
                 autoOk={true}
                 hintText="Select a start date"
-                onChange={this.handleDates.bind(this)} />
+                onChange={this.handleDates.bind(this)} 
+                />
             </div>
             <div className="row">
               <DatePicker
