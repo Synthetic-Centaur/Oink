@@ -43,7 +43,7 @@ export default class TransactionMap extends Component {
           <Paper zDepth={1} rounded={false} className="four columns" style={{height: '700px'}}>
             <div className="row">
               <DatePicker
-                className="center" 
+                className="center"
                 fullWidth={true}
                 ref="startDate"
                 autoOk={true}
@@ -51,7 +51,7 @@ export default class TransactionMap extends Component {
                 onChange={this.handleDates.bind(this)} />
             </div>
             <div className="row">
-              <DatePicker 
+              <DatePicker
                 className="center"
                 fullWidth={true}
                 ref="endDate"
