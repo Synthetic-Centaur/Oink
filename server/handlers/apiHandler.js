@@ -243,7 +243,7 @@ let apiHandler = {
         })
       })
     }
-  }
+  },
 
   //Job for retrieving every users new daily transactions
   usersDailyTransactions() {

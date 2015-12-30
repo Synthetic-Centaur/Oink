@@ -14,13 +14,11 @@ let cronHandler = {
       .then((users) => {
         if (users) {
           Promise.each(users, (user) => {
-
             //get users transactions/actul for week
             cronController.userTransactions(user.id)
               .then((sums) => {
-
                 cronController.makeEmailChart(sums)
-
+                console.log('bout to send some email yo')
                 let mailOptions = {
                   from: 'aaronbackerman@gmail.com',
                   to: user.email,
@@ -31,19 +29,14 @@ let cronHandler = {
                     path: __dirname + '/../staticUserCharts/chart.png'
                   }]
                 }
-
                 transporter.sendMail(mailOptions, (error, info) => {
                   if (error) {
                     return console.log(error)
                   }
                 })
-
               })
-
           })
-
         }
-
       })
   },
 

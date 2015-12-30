@@ -12,10 +12,12 @@ let jobSchedules = {
     rule.minute = 0
 
     let job = schedule.scheduleJob(rule, cronHandler.sendMail)
-  }
+    return job
+  },
 
   dailyTransactions() {
-    let job = schedule.scheduleJob('00 00 24 * * *', apiHandler.usersDailyTransactions)
+    let job = schedule.scheduleJob('0 0 0 * * *', apiHandler.usersDailyTransactions)
+    return job
   }
 
 }
