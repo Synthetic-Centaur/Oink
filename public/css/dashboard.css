@@ -47,6 +47,7 @@
 
 .view-container {
   padding-top: 100px;
+  padding-left: 60px;
 }
 
 .loading-indicator.first-pull:before {
@@ -114,4 +115,12 @@ th,td {
   padding: 0px;
   text-align: left;
   border-bottom: 0px solid #E1E1E1;
+}
+
+@media (max-width: 500px) {
+  .dashboard .header h1 {
+    font-size: 2em;
+    left: 54%;
+    top: 18%;
+  }
 }
