@@ -6,11 +6,13 @@ import SplashNavBar from '../components/splash/navbar/SplashNavBar'
 import { postLogin, postSignup, splashRedirect, getPlaid, postPlaid } from '../actions/api/authActions'
 import { showLogin, hideLogin, showSignup, hideSignup, getJWT, showPlaid, hidePlaid, removeAlerts, passwordMatchError, missingSignupFields } from '../actions/actions'
 import ProfileCard from '../components/splash/ProfileCard'
+import Theme from '../splash-theme.js'
+import ThemeManager from 'material-ui/lib/styles/theme-manager'
 
 class Splash extends Component {
-  
   componentWillMount() {
     this.checkAuth()
+    document.body.style.backgroundColor = '#fff'
   }
 
   checkAuth() {
