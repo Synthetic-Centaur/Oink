@@ -95,8 +95,7 @@ export default class TransactionMap extends Component {
       return (
         <ListItem
           primaryText={purchase[0] + ' - ' + purchase[1].visits +  ' purchases'}
-          secondaryText={'$' + purchase[1].totalSpent + ' spent'}
-          onClick={this.show.bind(this, 'pop')}/>
+          secondaryText={'$' + purchase[1].totalSpent + ' spent'} />
       )
     })
 
@@ -193,8 +192,4 @@ export default class TransactionMap extends Component {
     })
   }
 
-  show(key, e) {
-    console.log('you just clicked on some shit yo!!')
-    console.log(this)
-  }
 }

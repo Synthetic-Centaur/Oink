@@ -18,7 +18,6 @@ let cronHandler = {
             cronController.userTransactions(user.id)
               .then((sums) => {
                 cronController.makeEmailChart(sums)
-                console.log('bout to send some email yo')
                 let mailOptions = {
                   from: 'aaronbackerman@gmail.com',
                   to: user.email,

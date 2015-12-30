@@ -78,14 +78,14 @@ describe('Home Container Components', () => {
 
   // })
 
-  describe('Transaction map', () => {
+  // describe('Transaction map', () => {
 
 
-    it('should render correctly', (done) => {
-      const { output } = MapSetup()
-      expect(output.type).toBe('div')
-    })
-  })
+  //   it('should render correctly', (done) => {
+  //     const { output } = MapSetup()
+  //     expect(output.type).toBe('div')
+  //   })
+  // })
 })
 
 describe('Goal Container Components', () => {
