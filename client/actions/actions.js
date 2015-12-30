@@ -137,6 +137,11 @@ export function receiveError(data) {
   }
 }
 
+// we have recieved a successful response but have no data to update state with
+export function requestFinished() {
+  return { type: 'REQ_FINISHED' }
+}
+
 // ## LOGIN REDUX ACTIONS
 
 // We should show the pop-up login modal
@@ -218,6 +223,15 @@ export function passwordMatchError() {
   return (dispatch) => {
     dispatch({
       type: 'PASSWORD_MATCH_ERR'
+    })
+  }
+}
+
+// The phone number entered is not valid 10 digit phone number
+export function phoneNumberError() {
+  return (dispatch) => {
+    dispatch({
+      type: 'PHONE_NUMBER_ERR'
     })
   }
 }

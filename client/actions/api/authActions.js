@@ -188,8 +188,10 @@ export function sendPhoneVerification() {
     })
     .then((response) => {
       if (response.status === 200) {
+        dispatch(ACTIONS.requestFinished())
         console.log('sent verification code')
       } else if (response.status === 500) {
+        dispatch(ACTIONS.requestFinished())
         throw new Error('Error on the server', response)
       }
     })
@@ -217,12 +219,14 @@ export function checkPhoneVerification(code) {
     .then((response) => {
       if (response.status === 202) {
         // user phone_verified property should now be true
-        getInitialState()(dispatch)
+        dispatch(ACTIONS.requestFinished())
         dispatch(ACTIONS.phoneVerifySuccess())
       } else if (response.status === 401) {
         // code that user enered is not correct --> show them error message
+        dispatch(ACTIONS.requestFinished())
         dispatch(ACTIONS.phoneVerifyError())
       } else if (response.status === 500) {
+        dispatch(ACTIONS.requestFinished())
         throw new Error('Error on the server', response)
       }
     })

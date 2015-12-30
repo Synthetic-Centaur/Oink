@@ -19,7 +19,7 @@ class SecuritySettingsField extends React.Component {
     let newPassword = this.refs.newPassword ? this.refs.newPassword.getValue() : ''
     let passwordCheck = this.refs.passwordCheck ? this.refs.passwordCheck.getValue() : ''
 
-    let error = newPassword === passwordCheck ? '' : 'Password Fields Must Match'
+    let error = newPassword === passwordCheck ? '' : 'Password fields do not match'
 
     this.props.updateSecuritySettings({ newPassword: newPassword, passwordCheck: passwordCheck, errorText: error})
   }
@@ -34,12 +34,12 @@ class SecuritySettingsField extends React.Component {
         <form style={{padding: '24px 50px 24px 24px'}}>
           <div className='row'>
             <div className='two columns offset-by-two'>
-              <FlatButton label="Change Password" onTouchTap={this.handleEditStart.bind(this, 'PASSWORD')}/>
+              <RaisedButton label="Change Password" onTouchTap={this.handleEditStart.bind(this, 'PASSWORD')}/>
             </div>
             <div className='two columns offset-by-three'>
-              <FlatButton label="Delete Account" labelPosition="after" onTouchTap={this.handleEditStart.bind(this, 'DELETE_ACCOUNT')}>
-                <FontIcon className="material-icons" style={{color: '#ff1970'}}>delete</FontIcon>
-              </FlatButton>
+              <RaisedButton label="Delete Account" labelPosition="before" onTouchTap={this.handleEditStart.bind(this, 'DELETE_ACCOUNT')}>
+                <FontIcon className="material-icons" style={{color: '#FF8A80'}}>delete</FontIcon>
+              </RaisedButton>
             </div>
           </div>
         </form>
@@ -77,11 +77,11 @@ class SecuritySettingsField extends React.Component {
         <h4>Are You Sure?</h4>
         <h6>If you delete your account you cannot get it back</h6>
         <div className="row">
-          <div className="four columns offset-by-one">
-            <RaisedButton label='No, Take me back to settings' primary={true} onTouchTap={this.handleEditFinish.bind(this, 'DELETE_ACCOUNT')}/>
-          </div>
           <div className="four columns offset-by-two">
-            <RaisedButton label='Yes, Please Delete My Account' onTouchTap={this.handleDeleteAccount.bind(this)} />
+            <RaisedButton label='Yes, Please Delete My Account' primary={true} onTouchTap={this.handleDeleteAccount.bind(this)} />
+          </div>
+          <div className="four columns offset-by-one">
+            <RaisedButton label='No, Take me back to settings' secondary={true} onTouchTap={this.handleEditFinish.bind(this, 'DELETE_ACCOUNT')}/>
           </div>
         </div>
       </div>

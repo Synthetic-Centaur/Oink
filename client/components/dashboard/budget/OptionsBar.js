@@ -55,7 +55,7 @@ export class OptionsBar extends React.Component {
 
     return (
       <Paper zDepth={1} style={{
-        'box-shadow': '0 6px 11px #000, 0 9px 14px #000'
+        'box-shadow': '0 2px 2px #000, 0 3px 3px #000'
       }} className="options-bar container">
 
         <div className="row">
@@ -64,7 +64,7 @@ export class OptionsBar extends React.Component {
 
         <div className="row">
           <div className=" u-pull-left">
-            <RaisedButton label="ADD" onTouchTap={this.changeView.bind(this, 'ADD')} />
+            <RaisedButton label="ADD" primary={true} onTouchTap={this.changeView.bind(this, 'ADD')} />
           </div>
           <div className=" u-pull-right">
             <RaisedButton label="EDIT" secondary={true} onTouchTap={this.changeView.bind(this, 'EDIT')} />
