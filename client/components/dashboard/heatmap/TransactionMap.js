@@ -46,14 +46,16 @@ export default class TransactionMap extends Component {
                 fullWidth={true}
                 ref="startDate"
                 autoOk={true}
-                hintText="Select a start date" />
+                hintText="Select a start date"
+                onChange={this.handleDates.bind(this)} />
             </div>
             <div className="row">
               <DatePicker 
                 fullWidth={true}
                 ref="endDate"
                 autoOk={true}
-                hintText="Select an end date" />
+                hintText="Select an end date"
+                onChange={this.handleDates.bind(this)} />
             </div>
             <div className ="row">
               <List>
@@ -139,6 +141,13 @@ export default class TransactionMap extends Component {
     let endDate = filteredTransactions[filteredTransactions.length - 1].date.toString().slice(0, 16)
     updateMapDate({startDate: startDate, endDate: endDate})
     this.addMarkers(filteredTransactions)
+  }
+
+  handleDates(e) {
+    const { transactions, updateMapDate } = this.props
+    let startDate = this.refs.startDate.getDate()
+    let endDate = this.refs.endDate.getDate()
+    console.log(startDate, endDate)
   }
 
   addMarkers(transactions) {
