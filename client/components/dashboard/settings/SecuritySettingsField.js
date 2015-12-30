@@ -41,7 +41,7 @@ class SecuritySettingsField extends React.Component {
                 <FontIcon className="material-icons" style={{color: '#ff1970'}}>delete</FontIcon>
               </FlatButton>
             </div>
-          </div>  
+          </div>
         </form>
       )
     }

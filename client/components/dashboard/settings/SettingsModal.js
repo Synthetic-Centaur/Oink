@@ -61,15 +61,15 @@ class SettingsModal extends Component {
 
   handleCancel(e) {
     e.preventDefault()
-    const { showSettings, hideSettingsModal, editFinishAll, editingEmail, editingPassword, editingFirstName,
-            editingLastName, editingPhoneNumber, editingDeleteAccount } = this.props
-    if (editingEmail || editingPhoneNumber || editingPassword || editingFirstName || editingLastName ) {
+    const {showSettings, hideSettingsModal, editFinishAll, editingEmail, editingPassword,
+           editingFirstName, editingLastName, editingPhoneNumber, editingDeleteAccount} = this.props
+    if (editingEmail || editingPhoneNumber || editingPassword || editingFirstName || editingLastName) {
       if (confirm('You have unsaved changes to your settngs, are you sure you want to quit?')) {
         showSettings ? hideSettingsModal() : null
         editFinishAll()
         this.refs.modal.dismiss()
       }
-    } else {  
+    } else {
       showSettings ? hideSettingsModal() : null
       editFinishAll()
       this.refs.modal.dismiss()
@@ -85,10 +85,9 @@ class SettingsModal extends Component {
   }
 
   tabStyle(ref) {
-    console.log('settings', this.refs)
     let tabRefs = ['accountTab', 'communicationTab', 'securityTab']
 
-    for (let i=0; i<tabRefs.length; i++) {
+    for (let i = 0; i < tabRefs.length; i++) {
       let tab = tabRefs[i]
       if (tab === ref) {
         this.refs[tab].props.style.color = '#ff1970'
@@ -103,14 +102,16 @@ class SettingsModal extends Component {
   tabStyleConst(ref) {
     if (this.refs[ref]) {
       if (this.refs[ref].props.selected) {
-        console.log('setting pink color')
         return {color: '#ff1970', backgroundColor: '#4B4B4B'}
       }
+
       return {color: '#4B4B4B', backgroundColor: '#222'}
     }
+    
     if (ref === 'accountTab') {
       return {color: '#ff1970', backgroundColor: '#4B4B4B'}
     }
+
     return {color: '#4B4B4B', backgroundColor: '#222'}
   }
 
