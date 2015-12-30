@@ -19,6 +19,7 @@ export function getInitialState() {
       }
     })
     .then((response) => {
+      console.log('Initial state------->', response)
       dispatch(ACTIONS.receiveData(response))
     })
     .catch((err) => {

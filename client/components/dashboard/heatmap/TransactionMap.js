@@ -50,8 +50,8 @@ export default class TransactionMap extends Component {
   }
 
   componentDidMount() {
-    const { transactions, updateMapDate } = this.props
-    L.mapbox.accessToken = 'pk.eyJ1IjoiYWFja2VybWFuMDUwIiwiYSI6ImNpaW94NmswbDAxZ3V0cmtuZ3RmbzlyZWEifQ.5o1kSPi-0DNLrs2iyYpEpg'
+    const { transactions, updateMapDate, accessToken } = this.props
+    L.mapbox.accessToken = accessToken
     map = L.mapbox.map('map', 'mapbox.streets').setView([37.7833, -122.4167], 12)
     overlays = L.layerGroup().addTo(map)
 
