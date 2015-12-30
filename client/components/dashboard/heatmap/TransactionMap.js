@@ -41,11 +41,11 @@ export default class TransactionMap extends Component {
         </div>
         <div className="row" style={{width: '100%'}}>
           <div id="map" className="eight columns" style={{height: '700px'}} />
-          <List className="four columns" sytle={{height: '700px'}} >
+          <List className="four columns" style={{height: '700px'}} >
             { listItems }
           </List>
         </div>
-        <Slider ref="slider" name = "timeSlider" defaultValue={1} onDragStop={this.sliderValue.bind(this)}/>
+        <Slider ref="slider" description="testing" name = "timeSlider" defaultValue={1} onDragStop={this.sliderValue.bind(this)}/>
         <Slider ref="slider2" name = "slider2" defaultValue={0} onDragStop={this.sliderValue.bind(this)}/>
       </div>
     )
