@@ -4,6 +4,7 @@ import List from 'material-ui/lib/lists/list'
 import ListItem from 'material-ui/lib/lists/list-item'
 import { Paper, DatePicker } from 'material-ui'
 import _ from 'underscore'
+import moment from 'moment'
 let map
 let markers
 let overlays
@@ -84,7 +85,7 @@ export default class TransactionMap extends Component {
       }
     })
 
-    updateMapDate({startDate: transactions[0].date.toString().slice(0, 16), endDate: transactions[transactions.length - 1].date.toString().slice(0, 16)})
+    updateMapDate({startDate: moment(transactions[transactions.length - 1].date).format("dddd, MMMM Do YYYY"), endDate: moment(transactions[0].date).format("dddd, MMMM Do YYYY")})
     this.addMarkers(transactions)
 
   }
@@ -93,8 +94,8 @@ export default class TransactionMap extends Component {
     let startDate
     let endDate
     if (Object.keys(mapDate).length === 0) {
-      startDate = transactions[0].date.toString().slice(0, 16)
-      endDate = transactions[transactions.length - 1].date.toString().slice(0, 16)
+      startDate = moment(transactions[transactions.length - 1].date).format("dddd, MMMM Do YYYY")
+      endDate = moment(transactions[0].date).format("dddd, MMMM Do YYYY")
     } else {
       startDate = mapDate.startDate
       endDate = mapDate.endDate
@@ -134,14 +135,16 @@ export default class TransactionMap extends Component {
 
   handleDates(e) {
     const { transactions, updateMapDate } = this.props
-    let startDate = this.refs.startDate.getDate() || transactions[0].date
-    let endDate = this.refs.endDate.getDate() || transactions[transactions.length - 1].date
+    let startDate = this.refs.startDate.getDate() || transactions[transactions.length - 1].date
+    let endDate = this.refs.endDate.getDate() || transactions[0].date
     if (startDate && endDate) {
       let filteredTransactions = _.filter(transactions, (transaction) => {
-        return transaction.date <= endDate && transaction.date >= startDate
+        return new Date(transaction.date) <= new Date(endDate) && new Date(transaction.date) >= new Date(startDate)
       })
-      startDate = startDate === undefined ? startDate : startDate.toString().slice(0, 15)
-      endDate = endDate === undefined ? endDate : endDate.toString().slice(0, 15)
+      // startDate = startDate === undefined ? startDate : startDate.toString().slice(0, 15)
+      startDate = moment(startDate).format("dddd, MMMM Do YYYY")
+      // endDate = endDate === undefined ? endDate : endDate.toString().slice(0, 15)
+      endDate = moment(endDate).format("dddd, MMMM Do YYYY")
       console.log(startDate, endDate, filteredTransactions)
       updateMapDate({startDate: startDate, endDate: endDate})
       this.addMarkers(filteredTransactions)
