@@ -3,6 +3,13 @@
   background-image: linear-gradient(#333333, #262626);
 }
 
+.dashboard {
+  position: fixed;
+  width: 100%;
+  z-index: 9;
+  top: 0;
+}
+
 .dashboard .options {
   display: inline;
   margin-top: 10px;
@@ -36,6 +43,10 @@
   padding-top: 15px;
   position: fixed;
   left: 0;
+}
+
+.view-container {
+  padding-top: 100px;
 }
 
 .loading-indicator.first-pull:before {
