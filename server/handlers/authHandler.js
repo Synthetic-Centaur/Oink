@@ -149,7 +149,6 @@ let authHandler = {
             // })
             apiController.setWebhook(user.token_plaid)
 
-
           } else {
             res.sendStatus(500)
           }

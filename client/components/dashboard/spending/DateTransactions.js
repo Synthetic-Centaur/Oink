@@ -10,7 +10,7 @@ class DateTransactions extends Component {
     let transactions = data.transactions.map((transaction) => {
       index++
       if (transaction.date === selectedDate) {
-        let color = -transaction.amount > 0 ? 'green' : 'red'
+        let color = -transaction.amount > 0 ? '#B4CCB9' : '#FF8A80'
         return (
 
           // React requires unique key, using index counter
@@ -23,10 +23,10 @@ class DateTransactions extends Component {
     })
 
     return (
-      <div className = 'container'>
-        <h5 className= "center">Transactions on {moment(selectedDate).format('dddd, MMMM Do YYYY')}</h5>
-        <div className = 'row'>
-          <table className = 'twelve columns'>
+      <div className="container">
+        <h5 className="center">Transactions on {moment(selectedDate).format('dddd, MMMM Do YYYY')}</h5>
+        <div className="row">
+          <table className="twelve columns">
           <tbody>
             <tr>
                 <th>Name</th>

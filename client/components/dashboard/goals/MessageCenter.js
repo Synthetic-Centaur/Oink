@@ -56,8 +56,16 @@ class MessageCenter extends Component {
             </tr>
           </tbody>
         </table>
-        <br/>
-        {data.goals.length > 0 ? <Slider description= {'Adjust your savings below to see the impact!  Current average is $' + this.props.selectedAvg + ' a month saved.'} name="average" ref="average" defaultValue={(curAvg / 1000)} onChange={this.handleAvg.bind(this)}/> : <br/>}
+        <br />
+        {data.goals.length > 0 ?
+          <Slider
+            description={'Adjust your savings below to see the impact!  Current average is $' + this.props.selectedAvg + ' a month saved.'}
+            name="average"
+            ref="average"
+            defaultValue={(curAvg / 1000)}
+            onChange={this.handleAvg.bind(this)}
+          /> : <br />
+        }
         
       </div>
     )

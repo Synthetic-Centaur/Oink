@@ -34,13 +34,13 @@ class Goals extends Component {
                     goalPage = {goalPage}
                     selectedAvg = {goalPage.selectedAvg}
                   />
-                  { data.goals && data.goals.length > 0 ? 
+                  { data.goals && data.goals.length > 0 ?
                     <GoalChart
                       data = {data}
                       goalPage = {goalPage}
                       goalView = {goalPage.goalView}
                       selectedAvg = {goalPage.selectedAvg}
-                    /> : <div /> 
+                    /> : <div />
                   }
               </div>
               <br />

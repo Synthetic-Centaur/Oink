@@ -54,44 +54,54 @@ class GoalUpdate extends Component {
 
     return (
       <div>
-        <div className = 'row'>
+        <div className="row">
           <TextField
             fullWidth={true}
-            ref='description'
+            ref="description"
             defaultValue={goal.description}
-            hintText='What is your goal?'
-            onChange={this.handleEntry.bind(this)} />
+            hintText="What is your goal?"
+            onChange={this.handleEntry.bind(this)}
+          />
         </div>
-        <div className = 'row'>
+        <div className="row">
           <TextField
             fullWidth={true}
-            ref='amount'
+            ref="amount"
             defaultValue={goal.amount}
-            hintText='How much would you like to save?'
-            onChange={this.handleEntry.bind(this)}/>
+            hintText="How much would you like to save?"
+            onChange={this.handleEntry.bind(this)}
+          />
         </div>
-        <div className = 'row'>
+        <div className="row">
           <DatePicker
             fullWidth={true}
-            ref='goalBy'
+            ref="goalBy"
             autoOk={true}
             defaultDate = {moment(goal.goalBy).toDate()}
             minDate={tomorrow}
-            hintText='When do you want your goal by?'
+            hintText="When do you want your goal by?"
             onChange={this.handleEntry.bind(this)}
+          />
+        </div>
+        <br />
+        <div className="row">
+          <div className="u-pull-left">
+            <RaisedButton
+              label="Update"
+              primary={true}
+              disabled={(!this.props.isValid)}
+              onClick={this.handleGoal.bind(this)}
             />
-        </div>
-        <br/>
-        <div className = 'row'>
-          <div className='u-pull-left'>
-            <RaisedButton label='Update' disabled={(!this.props.isValid)}
-              onClick={this.handleGoal.bind(this)}/>
           </div>
-          <div className='u-pull-right'>
-           <RaisedButton label='DELETE' secondary={true} onClick={this.deleteGoal.bind(this)}/>
+          <div className="u-pull-right">
+            <RaisedButton
+              label="DELETE"
+              secondary={true}
+              onClick={this.deleteGoal.bind(this)}
+            />
           </div>
         </div>
-        <br/>
+        <br />
       </div>
     )
   }

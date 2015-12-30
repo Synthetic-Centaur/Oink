@@ -10,42 +10,56 @@ import InfoModule from '../components/dashboard/spending/InfoModule.js'
 import { selectDate } from '../actions/actions'
 
 class Spending extends Component {
+  getChildContext() {
+    return {
+      muiTheme: ThemeManager.getMuiTheme(Theme),
+    }
+  }
 
   render() {
     const { actions, spendingPage, data } = this.props
     return (
-      <div className = 'container infoModule'>
-        <div className = 'row'>
-         <div className= 'twelve columns'>
-           <InfoModule
-              data={ data }
-              selectedDate={spendingPage.selectedDate}
-              selectDate = { actions.selectDate }/>
-          </div>
-        </div>
-        <div className = 'row'>
+      <div className="container infoModule">
+        <br />
+        <div className="row">
           <SpendingChart
-              data= { data }
-              selectedDate={spendingPage.selectedDate}
-              selectDate = { actions.selectDate }/>
+            data= {data}
+            selectedDate={spendingPage.selectedDate}
+            selectDate = {actions.selectDate}
+          />
         </div>
-          {spendingPage.selectedDate === null ? <div/> : <div>
-            <br/>
-            <Paper zDepth={1} rounded={false} className ='twelve columns'>
-              <DateTransactions
-                data={ data }
-                selectedDate={ spendingPage.selectedDate }
-                selectDate = { actions.selectDate }/>
-            
-            </Paper>
-          </div> }
+          { spendingPage.selectedDate === null ?
+            <InfoModule
+              data={data}
+              selectedDate={spendingPage.selectedDate}
+              selectDate={actions.selectDate}
+            /> :
+            <div>
+              <br />
+              <Paper zDepth={1} rounded={false} className="twelve columns">
+                <DateTransactions
+                  data={data}
+                  selectedDate={spendingPage.selectedDate}
+                  selectDate={actions.selectDate}
+                />
+              </Paper>
+            </div>
+          }
       </div>
     )
   }
 }
 
 Spending.propTypes = {
+  isLoading: PropTypes.bool,
+  data: PropTypes.object.isRequired,
+  error: PropTypes.bool,
+  spendingPage: PropTypes.object.isRequired,
+  actions: PropTypes.object.isRequired
+}
 
+Spending.childContextTypes = {
+  muiTheme: PropTypes.object
 }
 
 //Unpack state onto container props

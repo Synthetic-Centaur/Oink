@@ -14,35 +14,37 @@ class GoalConfigurer extends Component {
       case 'CREATE':
         return (
           <div>
-            <br/>
+            <br />
             <GoalAdd
-              data = { data }
-              isValid = { goalPage.isValid }
-              validateGoal = { actions.validateGoal }
-              postGoal = { actions.postGoal }
-              changeGoalView = { actions.changeGoalView } />
+              data = {data}
+              isValid = {goalPage.isValid}
+              validateGoal = {actions.validateGoal}
+              postGoal = {actions.postGoal}
+              changeGoalView = {actions.changeGoalView}
+            />
           </div>
         )
       case 'EDIT' :
         return (
           <div>
-            <br/>
+            <br />
             <GoalUpdate
-              data = { data }
-              isValid = { goalPage.isValid }
-              selectedGoal = { goalPage.selectedGoal }
-              updateGoal = { actions.updateGoal }
-              deleteGoal = { actions.deleteGoal }
-              switchGoal = { actions.switchGoal }
-              changeGoalView = { actions.changeGoalView }
-              validateGoal = { actions.validateGoal }
-              selectAvg = { actions.selectAvg}/>
+              data = {data}
+              isValid = {goalPage.isValid}
+              selectedGoal = {goalPage.selectedGoal}
+              updateGoal = {actions.updateGoal}
+              deleteGoal = {actions.deleteGoal}
+              switchGoal = {actions.switchGoal}
+              changeGoalView = {actions.changeGoalView}
+              validateGoal = {actions.validateGoal}
+              selectAvg = {actions.selectAvg}
+            />
           </div>
         )
 
       // initial view is empty, changed to this after update / add
       default:
-        return <br/>
+        return <br />
     }
   }
 
@@ -62,11 +64,20 @@ class GoalConfigurer extends Component {
         </div>
 
         <div className="row">
-          <div className=" u-pull-left">
-            <RaisedButton label="Create" onTouchTap={this.changeView.bind(this, 'CREATE')} />
+          <div className="u-pull-left">
+            <RaisedButton
+              label="Create"
+              primary={true}
+              onTouchTap={this.changeView.bind(this, 'CREATE')}
+            />
           </div>
-          <div className=" u-pull-right">
-            <RaisedButton label="Edit" secondary={true} disabled ={editValid} onTouchTap={this.changeView.bind(this, 'EDIT')} />
+          <div className="u-pull-right">
+            <RaisedButton
+              label="Edit"
+              secondary={true}
+              disabled ={editValid}
+              onTouchTap={this.changeView.bind(this, 'EDIT')}
+            />
           </div>
         </div>
         { this.switchView() }
