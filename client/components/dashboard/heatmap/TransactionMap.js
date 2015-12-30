@@ -2,6 +2,7 @@ import react, { Component, PropTypes } from 'react'
 import Slider from 'material-ui/lib/slider'
 import List from 'material-ui/lib/lists/list'
 import ListItem from 'material-ui/lib/lists/list-item'
+import { Paper, DatePicker } from 'material-ui'
 import _ from 'underscore'
 let map
 let markers
@@ -34,17 +35,37 @@ export default class TransactionMap extends Component {
 
     return (
       <div className="container">
-        <div className="sixteen columns" style={{height: '80px'}}>
+        <div className="center" style={{height: '80px'}}>
           { header }
         </div>
         <div className="row" style={{width: '100%'}}>
           <div id="map" className="eight columns" style={{height: '700px'}} />
-          <List className="four columns" style={{height: '700px'}} >
-            { listItems }
-          </List>
+          <Paper zDepth={1} rounded={false} className="four columns" style={{height: '700px'}}>
+            <div className="row">
+              <DatePicker
+                className="center"
+                fullWidth={true}
+                ref="startDate"
+                autoOk={true}
+                hintText="Select a start date"
+                onChange={this.handleDates.bind(this)} />
+            </div>
+            <div className="row">
+              <DatePicker
+                className="center"
+                fullWidth={true}
+                ref="endDate"
+                autoOk={true}
+                hintText="Select an end date"
+                onChange={this.handleDates.bind(this)} />
+            </div>
+            <div className ="row" style={{height: '604px'}}>
+              <List>
+                { listItems }
+              </List>
+            </div>
+          </Paper>
         </div>
-        <Slider ref="slider" description="testing" name = "timeSlider" defaultValue={1} onDragStop={this.sliderValue.bind(this)}/>
-        <Slider ref="slider2" name = "slider2" defaultValue={0} onDragStop={this.sliderValue.bind(this)}/>
       </div>
     )
   }
@@ -78,7 +99,7 @@ export default class TransactionMap extends Component {
       endDate = mapDate.endDate
     }
 
-    return <span className="four columns offset-by-four" style={{color: 'white'}}>Showing transactions from {startDate} to {endDate}</span>
+    return <span className="four columns offset-by-four" style={{color: 'white'}}>Your transactions from {startDate} to {endDate}</span>
   }
 
   formatPurchases(currentChildren, currentAddress, mapDate, transactions) {
@@ -92,9 +113,10 @@ export default class TransactionMap extends Component {
     })
 
     let listItems = purchases.map((purchase) => {
+      let plural = purchase[1].visits > 1 ? ' purchases' : ' purchase'
       return (
         <ListItem
-          primaryText={purchase[0] + ' - ' + purchase[1].visits +  ' purchases'}
+          primaryText={purchase[0] + ' - ' + purchase[1].visits +  plural}
           secondaryText={'$' + purchase[1].totalSpent + ' spent'} />
       )
     })
@@ -105,21 +127,24 @@ export default class TransactionMap extends Component {
       listItems.unshift(<ListItem primaryText={'Select a marker to view your purchases'} />)
     }
 
-    listItems = listItems.slice(0, 9)
+    listItems = listItems.slice(0, 8)
     return listItems
   }
 
-  sliderValue(e) {
+  handleDates(e) {
     const { transactions, updateMapDate } = this.props
-    let slider1 = this.refs.slider.getValue()
-    let slider2 = this.refs.slider2.getValue()
-    let minIndex = Math.floor(transactions.length * Math.min(slider1, slider2))
-    let maxIndex = Math.floor(transactions.length * Math.max(slider1, slider2))
-    let filteredTransactions = transactions.slice(minIndex, maxIndex)
-    let startDate = filteredTransactions[0].date.toString().slice(0, 16)
-    let endDate = filteredTransactions[filteredTransactions.length - 1].date.toString().slice(0, 16)
-    updateMapDate({startDate: startDate, endDate: endDate})
-    this.addMarkers(filteredTransactions)
+    let startDate = this.refs.startDate.getDate() || transactions[0].date
+    let endDate = this.refs.endDate.getDate() || transactions[transactions.length - 1].date
+    if (startDate && endDate) {
+      let filteredTransactions = _.filter(transactions, (transaction) => {
+        return transaction.date <= endDate && transaction.date >= startDate
+      })
+      startDate = startDate === undefined ? startDate : startDate.toString().slice(0, 15)
+      endDate = endDate === undefined ? endDate : endDate.toString().slice(0, 15)
+      console.log(startDate, endDate, filteredTransactions)
+      updateMapDate({startDate: startDate, endDate: endDate})
+      this.addMarkers(filteredTransactions)
+    }
   }
 
   addMarkers(transactions) {
