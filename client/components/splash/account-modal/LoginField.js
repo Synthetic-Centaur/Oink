@@ -5,7 +5,7 @@ import { Link } from 'react-router'
 export class LoginField extends Component {
   render() {
     return (
-      <form>
+      <form style={{padding: '24px'}}>
         <div className="row">
           <TextField ref="email" hintText="email"/>
         </div>

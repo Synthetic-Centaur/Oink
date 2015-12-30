@@ -20,7 +20,7 @@ export class CommunicationSettingsField extends React.Component {
 
   render() {
     return (
-      <form>
+      <form style={{padding: '40px'}}>
         <div className="row">
         <Toggle
           ref="text_over_budget"

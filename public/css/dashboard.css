@@ -1,4 +1,3 @@
-
 .dashboard-el {
   background-color: #262626;
 }
@@ -91,3 +90,8 @@
   40% {
     -webkit-transform: scale(1);
             transform: scale(1); } }
+th,td {
+  padding: 0px;
+  text-align: left;
+  border-bottom: 0px solid #E1E1E1;
+}

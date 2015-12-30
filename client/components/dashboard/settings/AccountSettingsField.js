@@ -29,7 +29,7 @@ export class AccountSettingsField extends React.Component {
           />
         </td>
         <td>
-          <FontIcon hoverColor='red' className='material-icons' onTouchTap={this.handleEditFinish.bind(this, item.key)} > close </FontIcon>
+          <FontIcon hoverColor='#ff1970' className='material-icons' onTouchTap={this.handleEditFinish.bind(this, item.key)} > close </FontIcon>
         </td>
       </tr>
     )
@@ -48,7 +48,7 @@ export class AccountSettingsField extends React.Component {
           />
         </td>
         <td>
-          <FontIcon hoverColor='red' className='material-icons' onTouchTap={this.handleEditStart.bind(this, item.key)} > mode_edit </FontIcon>
+          <FontIcon hoverColor='#ff1970' className='material-icons' onTouchTap={this.handleEditStart.bind(this, item.key)} > mode_edit </FontIcon>
         </td>
       </tr>
     )
@@ -95,7 +95,7 @@ export class AccountSettingsField extends React.Component {
   
   render() {
     return (
-      <table className="ten columns offset-by-one" style={{border: '0px'}}>
+      <table className="ten columns offset-by-one">
         <tbody>
           {this.props.userData.map(this.renderItem, this)}
         </tbody>

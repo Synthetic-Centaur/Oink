@@ -1,8 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import FlatButton from 'material-ui/lib/flat-button'
-import Dialog from 'material-ui/lib/dialog'
-import Tabs from 'material-ui/lib/tabs/tabs'
-import Tab from 'material-ui/lib/tabs/tab'
+import { Dialog, Tabs, Tab, FlatButton } from 'material-ui'
 import { Link } from 'react-router'
 import AccountSettingsField from './AccountSettingsField'
 import CommunicationSettingsField from './CommunicationSettingsField'
@@ -19,6 +16,12 @@ class SettingsModal extends Component {
   // shouldComponentUpdate() {
   //   return false
   // }
+
+  handleChange(value) {
+    this.setState({
+      slideIndex: value,
+    })
+  }
 
   componentDidUpdate() {
     if (this.props.showSettings) {
@@ -60,13 +63,13 @@ class SettingsModal extends Component {
     e.preventDefault()
     const { showSettings, hideSettingsModal, editFinishAll, editingEmail, editingPassword, editingFirstName,
             editingLastName, editingPhoneNumber, editingDeleteAccount } = this.props
-    if (editingEmail || editingPhoneNumber || editingPassword || editingFirstName || editingLastName) {
+    if (editingEmail || editingPhoneNumber || editingPassword || editingFirstName || editingLastName ) {
       if (confirm('You have unsaved changes to your settngs, are you sure you want to quit?')) {
         showSettings ? hideSettingsModal() : null
         editFinishAll()
         this.refs.modal.dismiss()
       }
-    } else {
+    } else {  
       showSettings ? hideSettingsModal() : null
       editFinishAll()
       this.refs.modal.dismiss()
@@ -81,7 +84,39 @@ class SettingsModal extends Component {
     return num
   }
 
+  tabStyle(ref) {
+    console.log('settings', this.refs)
+    let tabRefs = ['accountTab', 'communicationTab', 'securityTab']
+
+    for (let i=0; i<tabRefs.length; i++) {
+      let tab = tabRefs[i]
+      if (tab === ref) {
+        this.refs[tab].props.style.color = '#ff1970'
+        this.refs[tab].props.style.backgroundColor = '#4B4B4B'
+      } else {
+        this.refs[tab].props.style.color = '#4B4B4B'
+        this.refs[tab].props.style.backgroundColor = '#222'
+      }
+    }
+  }
+
+  tabStyleConst(ref) {
+    if (this.refs[ref]) {
+      if (this.refs[ref].props.selected) {
+        console.log('setting pink color')
+        return {color: '#ff1970', backgroundColor: '#4B4B4B'}
+      }
+      return {color: '#4B4B4B', backgroundColor: '#222'}
+    }
+    if (ref === 'accountTab') {
+      return {color: '#ff1970', backgroundColor: '#4B4B4B'}
+    }
+    return {color: '#4B4B4B', backgroundColor: '#222'}
+  }
+
   render() {
+    // overwrite material-ui default gutter setting to set padding around modal body to 0
+    this.refs.modal ? this.refs.modal.state.muiTheme.rawTheme.spacing.desktopGutter = 0 : null
     let user = {
       firstName: this.props.data.user ? this.props.data.user.first_name : '',
       lastName: this.props.data.user ? this.props.data.user.last_name : '',
@@ -108,7 +143,6 @@ class SettingsModal extends Component {
         primary={true}
         onTouchTap={this.handleSubmit.bind(this)} />
     ]
-
     return (
       <Dialog
         ref='modal'
@@ -117,8 +151,8 @@ class SettingsModal extends Component {
         autoScrollBodyContent={true}
         modal={true}
       >
-        <Tabs>
-          <Tab label='Account' >
+        <Tabs className='settings-tabs' style={{color: '#ff1970'}}>
+          <Tab label='Account' ref='accountTab' onActive={this.tabStyle.bind(this, 'accountTab')} style={this.tabStyleConst('accountTab')}>
             <div className='modal-content'>
 
               <AccountSettingsField
@@ -140,7 +174,7 @@ class SettingsModal extends Component {
               
             </div>
           </Tab>
-          <Tab label='Communication' >
+          <Tab label='Communication' ref='communicationTab' onActive={this.tabStyle.bind(this, 'communicationTab')} style={this.tabStyleConst('communicationTab')}>
             <div className='modal-content'>
 
               <CommunicationSettingsField
@@ -151,7 +185,7 @@ class SettingsModal extends Component {
               
             </div>
           </Tab>
-          <Tab label='Security' >
+          <Tab label='Security' ref='securityTab' onActive={this.tabStyle.bind(this, 'securityTab')} style={this.tabStyleConst('securityTab')}>
             <div className='modal-content'>
 
               <SecuritySettingsField

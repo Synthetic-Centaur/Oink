@@ -34,7 +34,7 @@ class PhoneVerifyModal extends Component {
       return null
     } else {
       return (
-        <div className='row'>
+        <div className='row' style={{padding: '24px'}}>
           <div className='send-code-btn u-pull-left' style={{paddingTop:'30px', paddingLeft:'30px'}}>
             <FlatButton
               key={0}

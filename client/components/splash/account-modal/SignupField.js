@@ -4,7 +4,7 @@ import TextField from 'material-ui/lib/text-field'
 export class SignupField extends React.Component {
   render() {
     return (
-      <form>
+      <form style={{padding: '24px'}}>
         <div className="row">
           <TextField ref="firstName" hintText="First Name"/>
         </div>
