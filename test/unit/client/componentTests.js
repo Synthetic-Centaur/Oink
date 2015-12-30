@@ -7,6 +7,7 @@ import GoalList from '../../../client/components/dashboard/goals/GoalList'
 import MessageCenter from '../../../client/components/dashboard/goals/MessageCenter'
 import InfoModule from '../../../client/components/dashboard/spending/InfoModule'
 import DateTransactions from '../../../client/components/dashboard/spending/DateTransactions'
+import TransactionMap from '../../../client/components/dashboard/heatmap/TransactionMap'
 
 function setup() {
   let props = {
@@ -18,6 +19,23 @@ function setup() {
 
   let renderer = TestUtils.createRenderer()
   renderer.render(<BudgetCategories {...props} />)
+  let output = renderer.getRenderOutput()
+
+  return {
+    props,
+    output,
+    renderer
+  }
+}
+
+function MapSetup() {
+  let props = {
+    updateCluster: expect.createSpy(),
+    updateMapDate: expect.createSpy()
+  }
+
+  let renderer = TestUtils.createRenderer()
+  renderer.render(<TransactionMap {...props} />)
   let output = renderer.getRenderOutput()
 
   return {
@@ -59,6 +77,15 @@ describe('Home Container Components', () => {
   // describe('Nav Bar', () => {
 
   // })
+
+  describe('Transaction map', () => {
+
+
+    it('should render correctly', (done) => {
+      const { output } = MapSetup()
+      expect(output.type).toBe('div')
+    })
+  })
 })
 
 describe('Goal Container Components', () => {
