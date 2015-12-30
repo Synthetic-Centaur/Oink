@@ -36,13 +36,13 @@ class PhoneVerifyModal extends Component {
       return (
         <div className='row' style={{padding: '24px'}}>
           <div className='send-code-btn u-pull-left' style={{paddingTop:'30px', paddingLeft:'30px'}}>
-            <FlatButton
+            <RaisedButton
               key={0}
               label='Text My Code'
               primary={false}
-              style={{fontSize: '30px'}}
+              labelStyle={{fontSize: '30px', padding: '15px'}}
               onTouchTap={this.sendCode.bind(this)}>
-            </FlatButton>
+            </RaisedButton>
           </div>
           <div className='enter-code-field u-pull-right' style={{paddingRight:'80px'}}>
             <h4>Please Enter Code:</h4>
@@ -89,6 +89,7 @@ class PhoneVerifyModal extends Component {
         autoScrollBodyContent={true}
         open={this.props.showVerify}
         onRequestClose={this.handleCancel.bind(this)}
+        titleStyle={{padding: '24px'}}
       >
         
         {this.renderVerifyContent()}

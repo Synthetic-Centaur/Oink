@@ -4,13 +4,15 @@ import { connect } from 'react-redux'
 import AccountModal from '../components/splash/account-modal/AccountModal'
 import SplashNavBar from '../components/splash/navbar/SplashNavBar'
 import { postLogin, postSignup, splashRedirect, getPlaid, postPlaid } from '../actions/api/authActions'
-import { showLogin, hideLogin, showSignup, hideSignup, getJWT, showPlaid, hidePlaid, removeAlerts, passwordMatchError, missingSignupFields } from '../actions/actions'
+import { showLogin, hideLogin, showSignup, hideSignup, getJWT, showPlaid, hidePlaid, removeAlerts, passwordMatchError, phoneNumberError, missingSignupFields } from '../actions/actions'
 import ProfileCard from '../components/splash/ProfileCard'
+import Theme from '../splash-theme.js'
+import ThemeManager from 'material-ui/lib/styles/theme-manager'
 
 class Splash extends Component {
-  
   componentWillMount() {
     this.checkAuth()
+    document.body.style.backgroundColor = '#fff'
   }
 
   checkAuth() {
@@ -40,11 +42,13 @@ class Splash extends Component {
           showPlaid={showPlaid}
           invalidEmail={splashPage.invalidEmail}
           invalidPassword={splashPage.invalidPassword}
+          invalidPhone={splashPage.invalidPhone}
           invalidBank={splashPage.invalidBank}
           userExists={splashPage.userExists}
           errorText={splashPage.errorText}
           removeAlerts={actions.removeAlerts}
           passwordErr={passwordErr}
+          phoneNumberError={actions.phoneNumberError}
           passwordMatchError={actions.passwordMatchError}
           missingFields={missingFields}
           missingSignupFields={actions.missingSignupFields}
@@ -228,6 +232,7 @@ function mapDispatchToProps(dispatch) {
       hidePlaid,
       removeAlerts,
       passwordMatchError,
+      phoneNumberError,
       missingSignupFields
     }, dispatch),
   }

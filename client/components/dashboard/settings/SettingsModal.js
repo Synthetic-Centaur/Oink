@@ -7,16 +7,6 @@ import SecuritySettingsField from './SecuritySettingsField'
 
 class SettingsModal extends Component {
 
-  // componentWillReceiveProps(nextProps) {
-  //   if (nextProps.showSettings) {
-  //     this.props.showSettings ? return : this.refs.modal.show()
-  //   }
-  // }
-
-  // shouldComponentUpdate() {
-  //   return false
-  // }
-
   handleChange(value) {
     this.setState({
       slideIndex: value,
@@ -31,8 +21,9 @@ class SettingsModal extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    const { showSettings } = this.props
+    const { showSettings, editFinishAll } = this.props
     showSettings ? this.handleSettings() : null
+    editFinishAll()
   }
 
   handleSettings() {
@@ -42,7 +33,9 @@ class SettingsModal extends Component {
     let completeData = {}
 
     for (let key in accountData) {
-      completeData[key] = accountData[key]
+      if (key !== 'errorText') {
+        completeData[key] = accountData[key]
+      }
     }
 
     for (let key in communicationData) {
@@ -90,7 +83,7 @@ class SettingsModal extends Component {
     for (let i = 0; i < tabRefs.length; i++) {
       let tab = tabRefs[i]
       if (tab === ref) {
-        this.refs[tab].props.style.color = '#ff1970'
+        this.refs[tab].props.style.color = '#ff8a80'
         this.refs[tab].props.style.backgroundColor = '#4B4B4B'
       } else {
         this.refs[tab].props.style.color = '#4B4B4B'
@@ -102,14 +95,14 @@ class SettingsModal extends Component {
   tabStyleConst(ref) {
     if (this.refs[ref]) {
       if (this.refs[ref].props.selected) {
-        return {color: '#ff1970', backgroundColor: '#4B4B4B'}
+        return {color: '#ff8a80', backgroundColor: '#4B4B4B'}
       }
 
       return {color: '#4B4B4B', backgroundColor: '#222'}
     }
     
     if (ref === 'accountTab') {
-      return {color: '#ff1970', backgroundColor: '#4B4B4B'}
+      return {color: '#ff8a80', backgroundColor: '#4B4B4B'}
     }
 
     return {color: '#4B4B4B', backgroundColor: '#222'}
@@ -136,12 +129,12 @@ class SettingsModal extends Component {
       <FlatButton
         key={0}
         label='Cancel'
-        secondary={true}
+        primary={true}
         onTouchTap={this.handleCancel.bind(this)} />,
       <FlatButton
         key={1}
         label='Save'
-        primary={true}
+        secondary={true}
         onTouchTap={this.handleSubmit.bind(this)} />
     ]
     return (
@@ -171,6 +164,7 @@ class SettingsModal extends Component {
                 updateAccountSettings={this.props.updateAccountSettings}
                 updateCommunicationSettings={this.props.updateCommunicationSettings}
                 updateSecuritySettings={this.props.updateSecuritySettings}
+                accountData={this.props.accountData}
               />
               
             </div>

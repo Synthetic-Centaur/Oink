@@ -37,20 +37,20 @@ class MessageCenter extends Component {
             </tr>
             <tr>
               <td>Last Month: </td>
-              <td style={{ color: -data.avgNet.lastMonth > 0 ? 'green' : 'red', textAlign: 'right' }}>${-data.avgNet.lastMonth.toFixed(2)}</td>
+              <td style={{ color: -data.avgNet.lastMonth > 0 ? '#B4CCB9' : '#FF8A80', textAlign: 'right' }}>${-data.avgNet.lastMonth.toFixed(2)}</td>
             </tr>
             <tr>
               <td>Over Last 3 Months: </td>
-              <td style={{ color: -data.avgNet.lastThree > 0 ? 'green' : 'red', textAlign: 'right' }}>${-data.avgNet.lastThree.toFixed(2)}</td>
+              <td style={{ color: -data.avgNet.lastThree > 0 ? '#B4CCB9' : '#FF8A80', textAlign: 'right' }}>${-data.avgNet.lastThree.toFixed(2)}</td>
             </tr>
             <tr>
               <td>Over Last 6 Months: </td>
-              <td style={{ color: -data.avgNet.lastSix > 0 ? 'green' : 'red', textAlign: 'right' }}>${-data.avgNet.lastSix.toFixed(2)}</td>
+              <td style={{ color: -data.avgNet.lastSix > 0 ? '#B4CCB9' : '#FF8A80', textAlign: 'right' }}>${-data.avgNet.lastSix.toFixed(2)}</td>
             </tr>
             <tr>
               <td>Over the Last Year: </td>
               <td style={{
-                color: -data.avgNet.lastYear > 0 ? 'green' : 'red',
+                color: -data.avgNet.lastYear > 0 ? '#B4CCB9' : '#FF8A80',
                 textAlign: 'right'
               }}>${-data.avgNet.lastYear.toFixed(2)}</td>
             </tr>

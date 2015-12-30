@@ -5,7 +5,7 @@
   box-sizing:border-box;
   font-family:Roboto, sans-serif;
   -webkit-tap-highlight-color:rgba(0,0,0,0);
-  box-shadow:0 3px 10px #000, 0 3px 10px #000;
+  box-shadow:0 2px 6px #000, 0 3px 6px #000;
   border-radius:0px;
   height:100%;
   width:256px;
@@ -27,7 +27,7 @@
 }
 
 .sidenav .header {
-  color: #FF1970;
+  color: #FF8A80;
   border-bottom: 2px solid #eee;
   padding: 23px 0px 10px 0;
 }

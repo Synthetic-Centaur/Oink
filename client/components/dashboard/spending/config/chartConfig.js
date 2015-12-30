@@ -71,9 +71,9 @@ function chartConfig(data, selectDate) {
       data: series || [],
       zones: [{
         value: 0,
-        color: 'red'
+        color: '#FF8A80'
       }, {
-        color: 'green'
+        color: '#B4CCB9'
       }]
     }]
   }

@@ -15,12 +15,10 @@ button {
   color: #999;
 }
 
-
 .hero .heading h1 {
   text-align: center;
   margin-bottom: 0rem;
 }
-
 
 .hero .subheading h2 {
   text-align: center;
@@ -141,15 +139,18 @@ button {
 }
 
 .card .icon-container .github-icon img {
-  transform: scale(0.7, 0.7);
+  transform: scale(0.7, 0.7) translateX(-5px);
+  position: relative;
 }
 
 .card .icon-container .linkedin-icon img {
-  transform: scale(0.8, 0.8);
+  transform: scale(0.8, 0.8) translateX(-5px);
+  position: relative;
 }
 
 .card .icon-container .email-icon img {
-  transform: scale(0.6, 0.6);
+  transform: scale(0.6, 0.6) translateX(-5px);
+  position: relative;
 }
 
 .opensource {

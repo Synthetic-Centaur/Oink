@@ -6,18 +6,19 @@ export default {
   spacing: Spacing,
   fontFamily: 'Roboto, sans-serif',
   palette: {
-    primary1Color: '#BFF3FF',
-    primary2Color: '#FF1970',
-    primary3Color: '#BFF3FF',
-    accent1Color: '#FF1970',
-    accent2Color: Colors.pinkA400,
-    accent3Color: Colors.pinkA100,
-    textColor: Colors.fullWhite,
-    primaryTextColor: '#FF1970',
+    primary1Color: '#B4CCB9',
+    primary2Color: '#B4CCB9',
+    primary3Color: '#B4CCB9',
+    accent1Color: '#FF8A80',
+    accent2Color: '#FF8A80',
+    accent3Color: '#FF8A80',
+    textColor: '#ccc',
+    primaryTextColor: '#FF8A80',
+    secondaryTextColor: '#B4CCB9',
     alternateTextColor: '#4B4B4B',
     canvasColor: '#4B4B4B',
-    borderColor: ColorManipulator.fade(Colors.fullWhite, 0.3),
-    disabledColor: ColorManipulator.fade(Colors.fullWhite, 0.3)
+    borderColor: ColorManipulator.fade('#ccc', 0.3),
+    disabledColor: ColorManipulator.fade('#ccc', 0.3)
   }
 }
 

@@ -21,7 +21,7 @@ export class SignupField extends React.Component {
           <TextField ref="password" type="password" hintText="Password"/>
         </div>
         <div className="row">
-          <TextField ref="verifyPassword" type="password" hintText="Verify Your Password"/>
+          <TextField ref="verifyPassword" type="password" hintText="Verify Your Password" />
         </div>
       </form>
     )
