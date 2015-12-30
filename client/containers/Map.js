@@ -15,25 +15,6 @@ class Map extends Component {
     // Receives actions as well as data set by map component on state
     const { actions, data, currentChildren, mapDate, currentAddress } = this.props
 
-    let sortedTransactions = data.transactions.slice()
-    sortedTransactions.sort((a,b) => {
-      return a.date - b.date
-    })
-
-
-    // console.log('sortedTransactions: ', sortedTransactions, 'transactions: ', data.transactions)
-    // let sortedTransactions = data.transactions.slice()
-    // // Converts dates to objects and sorts transactions from earliest date to latest date
-    // sortedTransactions.forEach((transaction) => {
-    //   transaction.date = new Date(transaction.date)
-    // })
-
-    // sortedTransactions.sort((a, b) => {
-    //   return a.date - b.date
-    // })
-    // console.log(sortedTransactions)
-
-    // Passes state properties to Transaction Map component
     return (
       <TransactionMap
         transactions = { data.transactions }
@@ -50,7 +31,10 @@ class Map extends Component {
 }
 
 Map.PropTypes = {
-
+  data: PropTypes.obj,
+  actions: PropTypes.obj,
+  mapDate: PropTypes.obj,
+  currentAddress: PropTypes.string
 }
 
 //Binds state to properties on container
