@@ -100,30 +100,6 @@ class Splash extends Component {
           </div>
         </div>
 
-        <div className="opensource">
-          <div className="container">
-
-            <div className="row">
-              <div className="u-full-width">
-                <h3>Oink Financial is an Open Source Project.</h3>
-              </div>
-            </div>
-
-            <div className="row">
-              <a href="https://github.com/Synthetic-Centaur/Oink" target="_blank">
-                <button>Github</button>
-              </a>
-            </div>
-
-            <div className="row">
-              <a href="/documentation" target="_blank">
-                <button>Documentation</button>
-              </a>
-            </div>
-
-          </div>
-        </div>
-
         <div className="about">
           <div className="container">
 
@@ -184,6 +160,30 @@ class Splash extends Component {
               </div>
 
             </div>
+          </div>
+        </div>
+
+        <div className="opensource">
+          <div className="container">
+
+            <div className="row">
+              <div className="six columns">
+                <h3>Oink Financial is an Open Source Project.</h3>
+              </div>
+
+              <div className="three columns">
+                <a href="https://github.com/Synthetic-Centaur/Oink" target="_blank">
+                  <button>Github</button>
+                </a>
+              </div>
+
+              <div className="three columns">
+                <a href="/documentation" target="_blank">
+                  <button>Documentation</button>
+                </a>
+              </div>
+            </div>
+
           </div>
         </div>
 
