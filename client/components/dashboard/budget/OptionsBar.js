@@ -55,7 +55,7 @@ export class OptionsBar extends React.Component {
 
     return (
       <Paper zDepth={1} style={{
-        'box-shadow': '0 2px 2px #000, 0 3px 3px #000'
+        'boxShadow': '0 2px 2px #000, 0 3px 3px #000'
       }} className="options-bar container">
 
         <div className="row">

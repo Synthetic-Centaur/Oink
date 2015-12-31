@@ -36,7 +36,14 @@ class Spending extends Component {
             /> :
             <div>
               <br />
-              <Paper zDepth={1} rounded={false} className="twelve columns">
+              <Paper
+                zDepth={1}
+                rounded={false}
+                className="twelve columns"
+                style={{
+                  'boxShadow': '0 2px 2px #000, 0 3px 3px #000'
+                }}
+              >
                 <DateTransactions
                   data={data}
                   selectedDate={spendingPage.selectedDate}

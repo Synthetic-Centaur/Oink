@@ -29,6 +29,8 @@ class GoalAdd extends Component {
     if (this.props.isValid) {
       this.props.postGoal(goal)
 
+      this.props.validateGoal(false)
+
       // Hides add goal component on addition
       this.props.changeGoalView('')
     }
