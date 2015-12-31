@@ -29,7 +29,7 @@ export class AccountSettingsField extends React.Component {
           />
         </td>
         <td>
-          <FontIcon hoverColor='#ff1970' className='material-icons' onTouchTap={this.handleEditFinish.bind(this, item.key)} > close </FontIcon>
+          <FontIcon hoverColor='#FF8A80' className='material-icons' onTouchTap={this.handleEditFinish.bind(this, item.key)} > close </FontIcon>
         </td>
       </tr>
     )
@@ -51,7 +51,7 @@ export class AccountSettingsField extends React.Component {
           />
         </td>
         <td>
-          <FontIcon hoverColor='#ff1970' className='material-icons' onTouchTap={this.handleEditFinish.bind(this, item.key)} > close </FontIcon>
+          <FontIcon hoverColor='#FF8A80' className='material-icons' onTouchTap={this.handleEditFinish.bind(this, item.key)} > close </FontIcon>
         </td>
       </tr>
     )
@@ -70,7 +70,7 @@ export class AccountSettingsField extends React.Component {
           />
         </td>
         <td>
-          <FontIcon hoverColor='#ff1970' className='material-icons' onTouchTap={this.handleEditStart.bind(this, item.key)} > mode_edit </FontIcon>
+          <FontIcon hoverColor='#FF8A80' className='material-icons' onTouchTap={this.handleEditStart.bind(this, item.key)} > mode_edit </FontIcon>
         </td>
       </tr>
     )

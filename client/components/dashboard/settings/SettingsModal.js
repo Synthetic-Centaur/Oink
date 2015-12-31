@@ -4,8 +4,16 @@ import { Link } from 'react-router'
 import AccountSettingsField from './AccountSettingsField'
 import CommunicationSettingsField from './CommunicationSettingsField'
 import SecuritySettingsField from './SecuritySettingsField'
+import Theme from '../../../settings-theme.js'
+import ThemeManager from 'material-ui/lib/styles/theme-manager'
 
 class SettingsModal extends Component {
+
+  getChildContext() {
+    return {
+      muiTheme: ThemeManager.getMuiTheme(Theme),
+    }
+  }
 
   handleChange(value) {
     this.setState({
@@ -83,11 +91,11 @@ class SettingsModal extends Component {
     for (let i = 0; i < tabRefs.length; i++) {
       let tab = tabRefs[i]
       if (tab === ref) {
-        this.refs[tab].props.style.color = '#ff8a80'
-        this.refs[tab].props.style.backgroundColor = '#4B4B4B'
+        this.refs[tab].props.style.color = '#222'
+        this.refs[tab].props.style.backgroundColor = '#ccc'
       } else {
-        this.refs[tab].props.style.color = '#4B4B4B'
-        this.refs[tab].props.style.backgroundColor = '#222'
+        this.refs[tab].props.style.color = '#B4CCB9'
+        this.refs[tab].props.style.backgroundColor = '#4B4B4B'
       }
     }
   }
@@ -95,17 +103,17 @@ class SettingsModal extends Component {
   tabStyleConst(ref) {
     if (this.refs[ref]) {
       if (this.refs[ref].props.selected) {
-        return {color: '#ff8a80', backgroundColor: '#4B4B4B'}
+        return {color: '#222', backgroundColor: '#ccc'}
       }
 
-      return {color: '#4B4B4B', backgroundColor: '#222'}
+      return {color: '#B4CCB9', backgroundColor: '#4B4B4B'}
     }
     
     if (ref === 'accountTab') {
-      return {color: '#ff8a80', backgroundColor: '#4B4B4B'}
+      return {color: '#222', backgroundColor: '#ccc'}
     }
 
-    return {color: '#4B4B4B', backgroundColor: '#222'}
+    return {color: '#B4CCB9', backgroundColor: '#4B4B4B'}
   }
 
   render() {
@@ -130,11 +138,12 @@ class SettingsModal extends Component {
         key={0}
         label='Cancel'
         primary={true}
+        style={{backgroundColor: "#ccc"}}
         onTouchTap={this.handleCancel.bind(this)} />,
       <FlatButton
         key={1}
         label='Save'
-        secondary={true}
+        style={{backgroundColor: "#ccc"}}
         onTouchTap={this.handleSubmit.bind(this)} />
     ]
     return (
@@ -144,6 +153,7 @@ class SettingsModal extends Component {
         autoDetectWindowHeight={true}
         autoScrollBodyContent={true}
         modal={true}
+        contentStyle={{backgroundColor: "#ccc"}}
       >
         <Tabs className='settings-tabs' style={{color: '#ff1970'}}>
           <Tab label='Account' ref='accountTab' onActive={this.tabStyle.bind(this, 'accountTab')} style={this.tabStyleConst('accountTab')}>
@@ -207,4 +217,7 @@ SettingsModal.propTypes = {
   showSettingsModal: PropTypes.func.isRequired
 }
 
+SettingsModal.childContextTypes = {
+  muiTheme: PropTypes.object
+}
 export default SettingsModal

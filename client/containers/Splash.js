@@ -130,8 +130,7 @@ class Splash extends Component {
                   email="chalmer.lucilla@gmail.com"
                   github="https://www.linkedin.com/in/LucillaChalmer"
                   linkedin="https://www.linkedin.com/in/LucillaChalmer"
-                  description=" Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                Donec mattis pretium massa. Aliquam erat volutpat."
+                  description="Lucilla is focused on tactical problem solving and passionate about delivering an exceptional user experience."
                 />
               </div>
               <div className="three columns">
