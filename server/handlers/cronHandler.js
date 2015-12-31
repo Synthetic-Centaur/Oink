@@ -8,16 +8,21 @@ const makeChart = Promise.promisify(cronController.makeEmailChart)
 
 let cronHandler = {
 
+  // Sends email to each user in database
   sendMail: function() {
-    //get all users by mailBoolean
+    // Get all users by mailBoolean
     cronController.findUsersByMail()
       .then((users) => {
         if (users) {
           Promise.each(users, (user) => {
-            //get users transactions/actul for week
+            // Get user's transactions/actual for week
             cronController.userTransactions(user.id)
               .then((sums) => {
+
+                // Create highcharts png with transaction data
                 cronController.makeEmailChart(sums)
+
+                // Create email with png attachment
                 let mailOptions = {
                   from: 'aaronbackerman@gmail.com',
                   to: user.email,
@@ -28,6 +33,8 @@ let cronHandler = {
                     path: __dirname + '/../staticUserCharts/chart.png'
                   }]
                 }
+
+                // Send out email
                 transporter.sendMail(mailOptions, (error, info) => {
                   if (error) {
                     return console.log(error)
@@ -39,6 +46,7 @@ let cronHandler = {
       })
   },
 
+  // Cancels email job for specific user
   cancelEmail: function(req, res) {
     authController.findUserByToken(req)
       .then((user) => {

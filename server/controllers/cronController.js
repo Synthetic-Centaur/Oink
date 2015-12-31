@@ -1,4 +1,3 @@
-//Node scheduler for cron jobs
 import schedule from 'node-schedule'
 import Promise from 'bluebird'
 import highcharts from 'highcharts'
@@ -11,6 +10,8 @@ import authController from './authController'
 const writeFile = Promise.promisify(fs.writeFile)
 
 let cronController = {
+
+  // Find all users who have not opted out of email
   findUsersByMail() {
     return db.knex.select().table('users').where({email_updates: true})
       .then((users) => {
@@ -22,6 +23,7 @@ let cronController = {
       })
   },
 
+  // Cancel email for user who has opted outs
   cancelEmail(user, callback) {
 
     user.attributes.email_updates = false
@@ -33,6 +35,7 @@ let cronController = {
     
   },
 
+  // Retrieve transactions for user from past week
   userTransactions(userId) {
     let categories = {}
     return db.knex
@@ -65,14 +68,13 @@ let cronController = {
   },
 
   makeEmailChart(sums) {
-    //create document and window for highchart
+    // Create mock document and window for highchart
     var doc = jsdom.jsdom('<!doctype html><html><body><div id="container"></div></body></html>')
     var win = doc.defaultView
     doc.createElementNS = (ns, tagName) => {
       var elem = doc.createElement(tagName)
 
-      // Set private namespace to satisfy jsdom's getter
-      elem._namespaceURI = ns // eslint-disable-line no-underscore-dangle
+      elem._namespaceURI = ns
 
       elem.createSVGRect = function() {}
 
@@ -102,7 +104,6 @@ let cronController = {
             height += lineHeight
           }
 
-          // New line
           if (child.getAttribute('dy') !== null) {
             lineWidth = 0
           }
@@ -139,11 +140,11 @@ let cronController = {
     // Generate the chart into the container
     Highcharts.chart('container', chartConfig(sums))
 
-    //get svg and remove div container surrounding it
+    // Get svg and remove div container surrounding it
     var svg = win.document.getElementById('container').innerHTML.slice(178)
     svg = svg.slice(0, -6)
 
-    //write svg file and convert it to png
+    // Write svg file and convert it to png
     writeFile(__dirname + '/../staticUserCharts/chart.svg', svg).then(() => {
       svg2png(__dirname + '/../staticUserCharts/chart.svg', __dirname + '/../staticUserCharts/chart.png', (err) => {
         if (err) {
@@ -160,7 +161,7 @@ let cronController = {
 
 function chartConfig(data) {
 
-  //convert sums to datapoints for highchart
+  // Convert sums to datapoints for highchart
   let userCategories = []
   let dataPoints = []
   for (var key in data) {
@@ -168,6 +169,7 @@ function chartConfig(data) {
     dataPoints.push({y: data[key]})
   }
 
+  // Return custom high chart data
   return {
     chart: {
       type: 'column',
@@ -203,8 +205,6 @@ function chartConfig(data) {
     },
 
     series: [{
-
-      //switch out hardCoded data with user data points
       name: 'Categories',
       data: dataPoints
     }]

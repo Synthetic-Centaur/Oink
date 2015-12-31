@@ -4,12 +4,14 @@ import List from 'material-ui/lib/lists/list'
 import ListItem from 'material-ui/lib/lists/list-item'
 import { Paper, DatePicker } from 'material-ui'
 import _ from 'underscore'
+import moment from 'moment'
 let map
 let markers
 let overlays
 let geocoder
 let TransactionMarker
 
+// Assigns each category a symbol type for its marker
 let categories = {
   'Bank Fees': 'bank',
   'Food and Drink': 'restaurant',
@@ -23,6 +25,7 @@ let categories = {
 
 export default class TransactionMap extends Component {
 
+  // Ensures that class receives new state on update
   componentDidUpdate() {
 
   }
@@ -30,16 +33,23 @@ export default class TransactionMap extends Component {
   render() {
     const { categories, currentChildren, mapDate, currentAddress, transactions } = this.props
 
+    // Formats each purchase into a Material-UI List Item
     let listItems = this.formatPurchases(currentChildren, currentAddress, mapDate, transactions)
+
+    // Formats header to list start date and end date of transactions
     let header = this.formatHeader(mapDate, transactions)
 
+    // Renders class with header, map, date picker, and transaction list
     return (
       <div className="container">
         <div className="center" style={{height: '80px'}}>
           { header }
         </div>
         <div className="row" style={{width: '100%'}}>
-          <div id="map" className="eight columns" style={{height: '700px'}} />
+          <div id="map" 
+            className="eight columns" 
+            style={{height: '700px'}} 
+          />
           <Paper zDepth={1} rounded={false} className="four columns" style={{height: '700px'}}>
             <div className="row">
               <DatePicker
@@ -48,7 +58,8 @@ export default class TransactionMap extends Component {
                 ref="startDate"
                 autoOk={true}
                 hintText="Select a start date"
-                onChange={this.handleDates.bind(this)} />
+                onChange={this.handleDates.bind(this)} 
+              />
             </div>
             <div className="row">
               <DatePicker
@@ -57,7 +68,8 @@ export default class TransactionMap extends Component {
                 ref="endDate"
                 autoOk={true}
                 hintText="Select an end date"
-                onChange={this.handleDates.bind(this)} />
+                onChange={this.handleDates.bind(this)} 
+              />
             </div>
             <div className ="row" style={{height: '604px'}}>
               <List>
@@ -70,30 +82,45 @@ export default class TransactionMap extends Component {
     )
   }
 
+  // Initializes mapbox after component has mounted
   componentDidMount() {
     const { transactions, updateMapDate, accessToken } = this.props
+
+    // Creates mapbox using access token, and assign it to div with classname 'map'
     L.mapbox.accessToken = accessToken
-    map = L.mapbox.map('map', 'mapbox.streets').setView([37.7833, -122.4167], 12)
+    map = L.mapbox.map('map', 'mapbox.streets', {zoomControl: false}).setView([37.7833, -122.4167], 12)
+
+    // Creates overlay to store and display markers
     overlays = L.layerGroup().addTo(map)
 
-    geocoder = new google.maps.Geocoder
+    // Sets Zoom controller to top right of map
+    new L.Control.Zoom({ position: 'topright' }).addTo(map);
+
+    // Extends marker class to have price property, enabling storage of transaction cost data
     TransactionMarker = L.Marker.extend({
       options: {
         price: 0
       }
     })
 
-    updateMapDate({startDate: transactions[0].date.toString().slice(0, 16), endDate: transactions[transactions.length - 1].date.toString().slice(0, 16)})
+    // Initializes google geocoder to convert lat/lng to nearest street address
+    geocoder = new google.maps.Geocoder
+
+    // Sets start date and end date of transactions on state
+    updateMapDate({startDate: moment(transactions[transactions.length - 1].date).format("dddd, MMMM Do YYYY"), endDate: moment(transactions[0].date).format("dddd, MMMM Do YYYY")})
+
+    // Creates a marker for each transaction
     this.addMarkers(transactions)
 
   }
 
+  // Formats header from date object to string with format dddd, MMMM, Do YYYY and creates span
   formatHeader(mapDate, transactions) {
     let startDate
     let endDate
     if (Object.keys(mapDate).length === 0) {
-      startDate = transactions[0].date.toString().slice(0, 16)
-      endDate = transactions[transactions.length - 1].date.toString().slice(0, 16)
+      startDate = moment(transactions[transactions.length - 1].date).format("dddd, MMMM Do YYYY")
+      endDate = moment(transactions[0].date).format("dddd, MMMM Do YYYY")
     } else {
       startDate = mapDate.startDate
       endDate = mapDate.endDate
@@ -102,6 +129,7 @@ export default class TransactionMap extends Component {
     return <span className="four columns offset-by-four" style={{color: 'white'}}>Your transactions from {startDate} to {endDate}</span>
   }
 
+  // Sorts transactions according to number of visits and formats each transaction as a Material-UI List Item
   formatPurchases(currentChildren, currentAddress, mapDate, transactions) {
     let purchases = []
     for (var key in currentChildren) {
@@ -122,7 +150,7 @@ export default class TransactionMap extends Component {
     })
 
     if (currentAddress) {
-      listItems.unshift(<ListItem primaryText={'Your top purchases near ' + currentAddress} secondaryText={'Range: ' + mapDate.startDate + ' - ' + mapDate.endDate}/>)
+      listItems.unshift(<ListItem primaryText={'Your top purchases near ' + currentAddress} />)
     } else {
       listItems.unshift(<ListItem primaryText={'Select a marker to view your purchases'} />)
     }
@@ -131,22 +159,23 @@ export default class TransactionMap extends Component {
     return listItems
   }
 
+  // Filters transactions and markers according to user selected dates and updates dates on state
   handleDates(e) {
     const { transactions, updateMapDate } = this.props
-    let startDate = this.refs.startDate.getDate() || transactions[0].date
-    let endDate = this.refs.endDate.getDate() || transactions[transactions.length - 1].date
+    let startDate = this.refs.startDate.getDate() || transactions[transactions.length - 1].date
+    let endDate = this.refs.endDate.getDate() || transactions[0].date
     if (startDate && endDate) {
       let filteredTransactions = _.filter(transactions, (transaction) => {
-        return transaction.date <= endDate && transaction.date >= startDate
+        return new Date(transaction.date) <= new Date(endDate) && new Date(transaction.date) >= new Date(startDate)
       })
-      startDate = startDate === undefined ? startDate : startDate.toString().slice(0, 15)
-      endDate = endDate === undefined ? endDate : endDate.toString().slice(0, 15)
-      console.log(startDate, endDate, filteredTransactions)
+      startDate = moment(startDate).format("dddd, MMMM Do YYYY")
+      endDate = moment(endDate).format("dddd, MMMM Do YYYY")
       updateMapDate({startDate: startDate, endDate: endDate})
       this.addMarkers(filteredTransactions)
     }
   }
 
+  // Creates a new marker for each transaction and adds marker to mapbox overlay
   addMarkers(transactions) {
     overlays.clearLayers()
     markers = new L.MarkerClusterGroup({zoomToBoundsOnClick: false}).addTo(overlays)
@@ -168,30 +197,21 @@ export default class TransactionMap extends Component {
       markers.addLayer(marker)
     })
 
-    // map.addLayer(markers);
   }
 
-  markerFilter(event) {
-    let value = event.target.value
-    let symbol = (value in categories) ? categories[value] : 'marker-stroked'
-    map.featureLayer.setFilter((f) => {
-      return f.properties['marker-symbol'] === symbol
-    })
-    console.log('should have set filter')
-    return false
-  }
-
+  // Gets all children of clicked cluster as well as geolocation address of cluster and updates state with data
   clusterChildren(a) {
     const { updateCluster, updateMapDate, updateAddress } = this.props
 
-    //get all markers contained within cluster
+    // Gets all markers contained within cluster
     let children = a.layer.getAllChildMarkers()
 
-    //get coordinates of cluster bounding box
+    // Gets coordinates of cluster bounding box
     let bounds = a.layer.getBounds()
 
-    //hash number of visits for each transaction
+    // Hashs number of visits and price for each transaction
     let hash = {}
+
     _.each(children, (child) => {
       let title = child.options.title
       let transactionSum  = Math.floor(child.options.price)
@@ -203,14 +223,14 @@ export default class TransactionMap extends Component {
       }
     })
 
-    //get address of cluster marker from google geocode
+    // Gets address of cluster marker from google geocode
     let latlng = {lat: parseFloat(a.layer._cLatLng.lat), lng: parseFloat(a.layer._cLatLng.lng)}
     geocoder.geocode({location: latlng}, (results, status) => {
       if (status === google.maps.GeocoderStatus.OK) {
         if (results[1]) {
           let address = results[1].formatted_address.replace(/-/g, '').replace(/[0-9]/g, '')
 
-          //update transactions and address on state
+          // Updates transactions and address on state
           updateCluster({markers: hash, address: address})
         }
       }

@@ -1,13 +1,13 @@
+// ## CONTAINER STORE
+
+// Imports containers
 import Budget from '../containers/Budget'
 import Goals from '../containers/Goals'
 import Spending from '../containers/Spending'
-import HeatMap from '../containers/HeatMap'
+import Map from '../containers/Map'
 
-// TODO: Update below once there is a heatmap container
-// import HeatMap from '../components/dashboard/GoogleHeatMap'
 
-//Please add your component in here, plus it's text and icon for the side navbar
-
+// Bundles an array of objects for each container with Header text, Nav-bar text and icon to be stored on State when object is selected via Nav-bar
 export const DROPDOWN_ACTIONS = [
   {
     text: 'Budget',
@@ -29,17 +29,7 @@ export const DROPDOWN_ACTIONS = [
 
   {
     text: 'Transaction Map',
-    component: HeatMap,
+    component: Map,
     icon: 'add_location'
   }
-
-  // {
-  //   text: 'Recommendations',
-  //   icon: 'lightbulb_outline'
-  // },
-  // {
-  //   text: 'Forecast',
-  //   icon: 'trending_up'
-  // }
-
 ]

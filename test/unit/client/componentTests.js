@@ -70,10 +70,6 @@ describe('Home Container Components', () => {
     })
   })
 
-  // describe('Pie Chart', () => {
-
-  // }
-
   // describe('Nav Bar', () => {
 
   // })
