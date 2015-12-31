@@ -1,7 +1,9 @@
 import React, { Component, PropTypes } from 'react'
+import { FontIcon, FlatButton, RaisedButton, Badge } from 'material-ui'
 import LeftNav from 'material-ui/lib/left-nav'
 import MenuItem from 'material-ui/lib/menus/menu-item'
 import MenuDivider from 'material-ui/lib/menus/menu-divider'
+import PhoneVerifyIcon from '../phoneVerify/PhoneVerifyIcon'
 
 class SideNav extends Component {
 
@@ -11,10 +13,41 @@ class SideNav extends Component {
     handleNavigation(item)
   }
 
+  openPhoneVerify() {
+    this.props.showPhoneVerify()
+  }
+
+  renderVerifyNeeded() {
+    return (
+      <MenuItem
+        className='menu-item phone-verify'
+        onTouchTap={this.openPhoneVerify.bind(this)}
+      >
+        {"Verify Phone"}
+        <i className="test">
+          <Badge ref="badge" primary={true} style={{padding:"0px"}} badgeStyle={{height: "10px", width: "10px"}}>
+            <span className="material-icons">cellphone</span>
+          </Badge>
+          </i>
+      </MenuItem>
+    )
+  }
+
+  handlePhoneVerifyRender() {
+    if (this.props.userIsVerified) {
+      return ''
+    } else {
+      return this.renderVerifyNeeded()
+    }
+  }
+
   render() {
 
     // Receives array of component objects and renders each component's icon and text in side bar
     const { handleNavigation, dropDownComponents } = this.props
+
+    // Conditionally renders phone verify icon if user has not yet verified their phone number
+    let phoneVerifyIcon = this.handlePhoneVerifyRender()
 
     // Maps over each component and returns a menu item with text, icon and click event binding
     let menuItems = dropDownComponents.map((item, index) => {
@@ -38,6 +71,7 @@ class SideNav extends Component {
           <h4 className="logo-text">ink.</h4>
         </div>
         { menuItems }
+        { phoneVerifyIcon }
       </div>
     )
   }
