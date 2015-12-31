@@ -44,7 +44,14 @@ class Goals extends Component {
                   }
               </div>
               <br />
-              <Paper zDepth={1} rounded={false} className="four columns">
+              <Paper
+                zDepth={1}
+                rounded={false}
+                className="four columns"
+                style={{
+                  'boxShadow': '0 2px 2px #000, 0 3px 3px #000'
+                }}
+              >
                 <GoalList
                   data = {data}
                   goalPage = {goalPage}
