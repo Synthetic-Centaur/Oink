@@ -129,6 +129,10 @@ div.error-text.animated.fadeInUp {
   transform: translate(-50%, 0%);
 }
 
+.card {
+  margin-bottom: 10px;
+}
+
 .card .header {
   text-align: center;
 }
@@ -159,12 +163,14 @@ div.error-text.animated.fadeInUp {
 
 .opensource {
   padding-top: 30px;
-  background-color: #E8E9EB;
+  padding-bottom: 10px;
+  border-top: 3px solid #fff;
+  background-color: #555;
 }
 
 .opensource h3 {
-  text-align: center;
-  font-size: 1.6em;
+  text-align: left;
+  font-size: 19px;
   color: #999;
 }
 
@@ -186,4 +192,16 @@ div.error-text.animated.fadeInUp {
   background-color: #fff;
   border-color: #c4c4c4;
   opacity: 0.6;
+}
+
+@media (max-width: 550px) {
+  a.github-icon.one-third.column {
+    width: 33%;
+  }
+  a.linkedin-icon.one-third.column {
+    width: 33%;
+  }
+  a.email-icon.one-third.column {
+    width: 33%;
+  }
 }

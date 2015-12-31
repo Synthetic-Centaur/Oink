@@ -48,7 +48,7 @@ class AccountModal extends Component {
 
   handleSignup() {
     const { signupField } = this.refs
-    const { signup, hideSignupModal, passwordMatchError, phoneNumberError, missingSignupFields } = this.props
+    const { signup, hideSignupModal, passwordMatchError, phoneNumberError, missingSignupFields, removeAlerts } = this.props
 
     let firstName = signupField.refs.firstName.getValue()
     let lastName = signupField.refs.lastName.getValue()
