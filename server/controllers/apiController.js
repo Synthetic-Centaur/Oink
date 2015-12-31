@@ -4,6 +4,12 @@ import budgetController from './budgetController'
 // private environmental variables
 import config from '../env/envConfig'
 
+// plaid imports
+import request from 'request'
+import plaid from 'plaid'
+import bluebird from 'bluebird'
+bluebird.promisifyAll(plaid)
+
 // twilio
 const accountSid = config.twilio_private.accountSid
 const authToken = config.twilio_private.authToken
@@ -15,10 +21,6 @@ const client = require('twilio')(accountSid, authToken)
 const clientId = config.plaid_private.clientId
 const secret = config.plaid_private.secret
 
-import request from 'request'
-import plaid from 'plaid'
-import bluebird from 'bluebird'
-bluebird.promisifyAll(plaid)
 
 let plaidClient = new plaid.Client(clientId, secret, plaid.environments.tartan)
 
@@ -35,7 +37,7 @@ let apiController = {
     plaidClient.patchConnectUser(plaid_token,
     {},
     {
-      webhook: 'http://28b2127e.ngrok.io/webhook'
+      webhook: 'https://oinkfinancial.com/webhook'
     },
     (err, mfaResponse, response) => {
       // The webhook URI should receive a code 4 "webhook acknowledged" webhook
@@ -52,7 +54,7 @@ let apiController = {
     return plaidClient.getConnectUser(plaid_token,
     {
       // TODO: update webhook
-      webhook: 'http://28b2127e.ngrok.io/webhook'
+      webhook: 'https://oinkfinancial.com/webhook'
     },
     (err, response) => {
       if (err) {

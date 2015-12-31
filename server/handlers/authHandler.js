@@ -190,7 +190,7 @@ let authHandler = {
       authController.checkVerificationCode(user, code).then((result) => {
         if (result) {
           // send welcome message
-          apiController.sendMessage('Hello ' + user.first_name + '! Welcome to Oink, Lets Budget Together!!', user.phone_number)
+          apiController.sendMessage('Hello ' + user.first_name + '! Welcome to Oink, Let\'s Budget Together!!', user.phone_number)
           res.sendStatus(202)
         } else {
           res.sendStatus(401)

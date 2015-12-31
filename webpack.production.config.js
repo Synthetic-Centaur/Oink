@@ -3,6 +3,7 @@ var webpack = require('webpack')
 
 module.exports = {
   entry: [
+    'babel-core/polyfill',
     './client/index.js'
   ],
   output: {

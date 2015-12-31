@@ -106,7 +106,6 @@ class AccountModal extends Component {
     let errorMessage = userExists ? errorText : invalidPassword ? errorText : passwordErr ? errorText : invalidPhone ? errorText :
                        missingFields ? errorText : invalidEmail ? errorText : invalidBank ? errorText : false
 
-    console.log('ERROR TEXT', errorText)
     let modalActions = [
       <FlatButton
         key={0}
