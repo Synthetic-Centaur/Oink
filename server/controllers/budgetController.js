@@ -70,22 +70,10 @@ let budgetController = {
     })
   },
 
-  sumTransactionByCategory(categoryId) {
-    // Return the sum of all transactions in a provided category
-    return db.knex('transactions').sum('amount').where('category_id', categoryId).then((sum)=> {
-      if (sum) {
-        // Type conversion to number
-        return +sum[0].sum
-      } else {
-        return 0
-      }
-    })
-  },
-
-  sumTransactionByCategoryMonthly(categoryId) {
+  sumTransactionByCategoryMonthly(categoryId, userId) {
     // Return the sum of all transactions in a provided category
     //return db.knex('transactions').sum('amount').where({'category_id': categoryId}).whereBetween('date', [new Date().getMonth()-1, new Date()]).then((sum)=> {
-    return db.knex('transactions').where({category_id: categoryId}).select().then((transactions)=> {
+    return db.knex('transactions').where({category_id: categoryId, user_id: userId}).select().then((transactions)=> {
       let sum = 0
       return Promise.map(transactions, (transaction) => {
         if (transaction.date >= moment().startOf('month')) {
@@ -133,7 +121,7 @@ let budgetController = {
       // loop through categories in budget
       return Promise.map(budget, (item, pos) => {
         // sum transactions for user in each category
-        return budgetController.sumTransactionByCategoryMonthly(item.category_id).then((sum) => {
+        return budgetController.sumTransactionByCategoryMonthly(item.category_id, userId).then((sum) => {
           // if sum of transactions in a given category does not match actual
           // TODO: May want to add in if statement so only updating if actual has changed but need to add in logic to whipe actual each month first
           if (sum !== item.actual) {
