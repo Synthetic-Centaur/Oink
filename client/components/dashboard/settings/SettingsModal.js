@@ -29,9 +29,16 @@ class SettingsModal extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    const { showSettings, editFinishAll } = this.props
-    showSettings ? this.handleSettings() : null
-    editFinishAll()
+    const { showSettings, editFinishAll, accountData, securityData } = this.props
+
+    console.log('ACC DATA', accountData)
+    console.log('SEC DATA', securityData)
+
+    // verify that there are no errors on page before submitting
+    if (!accountData.errorText && !securityData.errorText) {    
+      this.handleSettings()
+      editFinishAll()
+    }
   }
 
   handleSettings() {
