@@ -88,10 +88,13 @@ export default class TransactionMap extends Component {
 
     // Creates mapbox using access token, and assign it to div with classname 'map'
     L.mapbox.accessToken = accessToken
-    map = L.mapbox.map('map', 'mapbox.streets').setView([37.7833, -122.4167], 12)
+    map = L.mapbox.map('map', 'mapbox.streets', {zoomControl: false}).setView([37.7833, -122.4167], 12)
 
     // Creates overlay to store and display markers
     overlays = L.layerGroup().addTo(map)
+
+    // Sets Zoom controller to top right of map
+    new L.Control.Zoom({ position: 'topright' }).addTo(map);
 
     // Extends marker class to have price property, enabling storage of transaction cost data
     TransactionMarker = L.Marker.extend({
