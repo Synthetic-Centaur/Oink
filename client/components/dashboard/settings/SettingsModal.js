@@ -136,28 +136,28 @@ class SettingsModal extends Component {
     let modalActions = [
       <FlatButton
         key={0}
-        label='Cancel'
+        label="Cancel"
         primary={true}
-        style={{backgroundColor: "#ccc"}}
+        style={{backgroundColor: '#ccc'}}
         onTouchTap={this.handleCancel.bind(this)} />,
       <FlatButton
         key={1}
-        label='Save'
-        style={{backgroundColor: "#ccc"}}
+        label="Save"
+        style={{backgroundColor: '#ccc'}}
         onTouchTap={this.handleSubmit.bind(this)} />
     ]
     return (
       <Dialog
-        ref='modal'
+        ref="modal"
         actions={modalActions}
         autoDetectWindowHeight={true}
         autoScrollBodyContent={true}
         modal={true}
-        contentStyle={{backgroundColor: "#ccc"}}
+        contentStyle={{backgroundColor: '#ccc'}}
       >
-        <Tabs className='settings-tabs' style={{color: '#ff1970'}}>
-          <Tab label='Account' ref='accountTab' onActive={this.tabStyle.bind(this, 'accountTab')} style={this.tabStyleConst('accountTab')}>
-            <div className='modal-content'>
+        <Tabs className="settings-tabs" style={{color: '#ff1970'}}>
+          <Tab label="Account" ref="accountTab" onActive={this.tabStyle.bind(this, 'accountTab')} style={this.tabStyleConst('accountTab')}>
+            <div className="modal-content">
 
               <AccountSettingsField
                 userData={userData}
@@ -179,8 +179,8 @@ class SettingsModal extends Component {
               
             </div>
           </Tab>
-          <Tab label='Communication' ref='communicationTab' onActive={this.tabStyle.bind(this, 'communicationTab')} style={this.tabStyleConst('communicationTab')}>
-            <div className='modal-content'>
+          <Tab label="Communication" ref="communicationTab" onActive={this.tabStyle.bind(this, 'communicationTab')} style={this.tabStyleConst('communicationTab')}>
+            <div className="modal-content">
 
               <CommunicationSettingsField
                 user={this.props.data.user}
@@ -190,8 +190,8 @@ class SettingsModal extends Component {
               
             </div>
           </Tab>
-          <Tab label='Security' ref='securityTab' onActive={this.tabStyle.bind(this, 'securityTab')} style={this.tabStyleConst('securityTab')}>
-            <div className='modal-content'>
+          <Tab label="Security" ref="securityTab" onActive={this.tabStyle.bind(this, 'securityTab')} style={this.tabStyleConst('securityTab')}>
+            <div className="modal-content">
 
               <SecuritySettingsField
                 editStart={this.props.editStart}

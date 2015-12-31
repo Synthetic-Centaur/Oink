@@ -34,22 +34,22 @@ class PhoneVerifyModal extends Component {
       return null
     } else {
       return (
-        <div className='row' style={{padding: '24px'}}>
-          <div className='send-code-btn u-pull-left' style={{paddingTop:'30px', paddingLeft:'30px'}}>
+        <div className="row" style={{padding: '24px'}}>
+          <div className="send-code-btn u-pull-left" style={{paddingTop:'30px', paddingLeft:'30px'}}>
             <RaisedButton
               key={0}
-              label='Text My Code'
+              label="Text My Code"
               primary={false}
-              style={{backgroundColor: "#B4CCB9", color: "#4B4B4B"}}
-              labelStyle={{fontSize: '30px', padding: '15px', color: "#4B4B4B", backgroundColor: "#B4CCB9"}}
+              style={{backgroundColor: '#B4CCB9', color: '#4B4B4B'}}
+              labelStyle={{fontSize: '30px', padding: '15px', color: '#4B4B4B', backgroundColor: '#B4CCB9'}}
               onTouchTap={this.sendCode.bind(this)}>
             </RaisedButton>
           </div>
-          <div className='enter-code-field u-pull-right' style={{paddingRight:'80px'}}>
+          <div className="enter-code-field u-pull-right" style={{paddingRight:'80px'}}>
             <h4>Please Enter Code:</h4>
             <TextField
-              ref='phoneVerifyCode'
-              type='text'
+              ref="phoneVerifyCode"
+              type="text"
             />
             <div>
               { errorText ? <span className="error-text animated fadeInUp">{errorText}</span> : null }
@@ -68,13 +68,13 @@ class PhoneVerifyModal extends Component {
     const modalActions = verifySuccess ? [
       <FlatButton
         key={1}
-        label='Close'
+        label="Close"
         style={{fontSize: '20px'}}
         onTouchTap={this.handleCancel.bind(this)} />
     ] : [
       <FlatButton
         key={0}
-        label='Submit'
+        label="Submit"
         primary={true}
         style={{fontSize: '20px'}}
         onTouchTap={this.handleSubmit.bind(this)} />
@@ -84,7 +84,7 @@ class PhoneVerifyModal extends Component {
       <Dialog
         title={titleText}
         className="container"
-        ref='phoneVerify'
+        ref="phoneVerify"
         actions={modalActions}
         autoDetectWindowHeight={true}
         autoScrollBodyContent={true}
