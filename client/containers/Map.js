@@ -17,15 +17,16 @@ class Map extends Component {
 
     return (
       <TransactionMap
-        transactions = { data.transactions }
-        categories = { data.categories }
-        accessToken = { data.mapbox.accessToken }
-        currentChildren = { currentChildren }
-        updateCluster = { actions.updateCluster }
-        mapDate = { mapDate }
-        updateMapDate = { actions.updateMapDate }
-        currentAddress = { currentAddress }
-        updateAddress = { updateAddress } />
+        transactions = {data.transactions}
+        categories = {data.categories}
+        accessToken = {data.mapbox.accessToken}
+        currentChildren = {currentChildren}
+        updateCluster = {actions.updateCluster}
+        mapDate = {mapDate}
+        updateMapDate = {actions.updateMapDate}
+        currentAddress = {currentAddress}
+        updateAddress = {updateAddress} 
+      />
     )
   }
 }

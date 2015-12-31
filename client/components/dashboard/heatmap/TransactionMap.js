@@ -46,7 +46,10 @@ export default class TransactionMap extends Component {
           { header }
         </div>
         <div className="row" style={{width: '100%'}}>
-          <div id="map" className="eight columns" style={{height: '700px'}} />
+          <div id="map" 
+            className="eight columns" 
+            style={{height: '700px'}} 
+          />
           <Paper zDepth={1} rounded={false} className="four columns" style={{height: '700px'}}>
             <div className="row">
               <DatePicker
@@ -56,7 +59,7 @@ export default class TransactionMap extends Component {
                 autoOk={true}
                 hintText="Select a start date"
                 onChange={this.handleDates.bind(this)} 
-                />
+              />
             </div>
             <div className="row">
               <DatePicker
@@ -65,7 +68,8 @@ export default class TransactionMap extends Component {
                 ref="endDate"
                 autoOk={true}
                 hintText="Select an end date"
-                onChange={this.handleDates.bind(this)} />
+                onChange={this.handleDates.bind(this)} 
+              />
             </div>
             <div className ="row" style={{height: '604px'}}>
               <List>
