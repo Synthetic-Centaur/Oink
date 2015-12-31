@@ -19,12 +19,12 @@ class SideNav extends Component {
   renderVerifyNeeded() {
     return (
       <MenuItem
-        className='menu-item phone-verify'
+        className="menu-item phone-verify"
         onTouchTap={this.openPhoneVerify.bind(this)}
       >
-        {"Verify Phone"}
+        {'Verify Phone'}
         <i className="test">
-          <Badge ref="badge" primary={true} style={{padding:"0px"}} badgeStyle={{height: "10px", width: "10px"}}>
+          <Badge ref="badge" primary={true} style={{padding:'0px'}} badgeStyle={{height: '10px', width: '10px'}}>
             <span className="material-icons">cellphone</span>
           </Badge>
           </i>
