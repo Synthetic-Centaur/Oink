@@ -49,7 +49,7 @@ class Goals extends Component {
                 rounded={false}
                 className="four columns"
                 style={{
-                  'boxShadow': '0 2px 2px #000, 0 3px 3px #000'
+                  boxShadow: '0 2px 2px #000, 0 3px 3px #000'
                 }}
               >
                 <GoalList

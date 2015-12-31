@@ -124,3 +124,12 @@ th,td {
     top: 18%;
   }
 }
+
+@media (max-width: 900px) {
+  .four.columns {
+    width: 90%;
+  }
+  .eight.columns {
+    width: 90%;
+  }
+}

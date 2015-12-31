@@ -104,11 +104,6 @@ class Dashboard extends React.Component {
                 <div className="row">
 
                 <div className="u-pull-left">
-                  <PhoneVerifyIcon
-                    showPhoneVerify={actions.showPhoneVerify}
-                    showVerify={homePage.showVerify}
-                    userIsVerified={userIsVerified}
-                  />
                 </div>
 
                   <h1>{currentComponent.text}</h1>

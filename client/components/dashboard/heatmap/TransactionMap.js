@@ -46,9 +46,9 @@ export default class TransactionMap extends Component {
           { header }
         </div>
         <div className="row" style={{width: '100%'}}>
-          <div id="map" 
-            className="eight columns" 
-            style={{height: '700px'}} 
+          <div id="map"
+            className="eight columns"
+            style={{height: '700px'}}
           />
           <Paper zDepth={1} rounded={false} className="four columns" style={{height: '700px'}}>
             <div className="row">
@@ -58,7 +58,7 @@ export default class TransactionMap extends Component {
                 ref="startDate"
                 autoOk={true}
                 hintText="Select a start date"
-                onChange={this.handleDates.bind(this)} 
+                onChange={this.handleDates.bind(this)}
               />
             </div>
             <div className="row">
@@ -68,7 +68,7 @@ export default class TransactionMap extends Component {
                 ref="endDate"
                 autoOk={true}
                 hintText="Select an end date"
-                onChange={this.handleDates.bind(this)} 
+                onChange={this.handleDates.bind(this)}
               />
             </div>
             <div className ="row" style={{height: '604px'}}>
@@ -94,7 +94,7 @@ export default class TransactionMap extends Component {
     overlays = L.layerGroup().addTo(map)
 
     // Sets Zoom controller to top right of map
-    new L.Control.Zoom({ position: 'topright' }).addTo(map);
+    new L.Control.Zoom({ position: 'topright' }).addTo(map)
 
     // Extends marker class to have price property, enabling storage of transaction cost data
     TransactionMarker = L.Marker.extend({
@@ -107,7 +107,7 @@ export default class TransactionMap extends Component {
     geocoder = new google.maps.Geocoder
 
     // Sets start date and end date of transactions on state
-    updateMapDate({startDate: moment(transactions[transactions.length - 1].date).format("dddd, MMMM Do YYYY"), endDate: moment(transactions[0].date).format("dddd, MMMM Do YYYY")})
+    updateMapDate({startDate: moment(transactions[transactions.length - 1].date).format('dddd, MMMM Do YYYY'), endDate: moment(transactions[0].date).format('dddd, MMMM Do YYYY')})
 
     // Creates a marker for each transaction
     this.addMarkers(transactions)
@@ -119,8 +119,8 @@ export default class TransactionMap extends Component {
     let startDate
     let endDate
     if (Object.keys(mapDate).length === 0) {
-      startDate = moment(transactions[transactions.length - 1].date).format("dddd, MMMM Do YYYY")
-      endDate = moment(transactions[0].date).format("dddd, MMMM Do YYYY")
+      startDate = moment(transactions[transactions.length - 1].date).format('dddd, MMMM Do YYYY')
+      endDate = moment(transactions[0].date).format('dddd, MMMM Do YYYY')
     } else {
       startDate = mapDate.startDate
       endDate = mapDate.endDate
@@ -168,8 +168,8 @@ export default class TransactionMap extends Component {
       let filteredTransactions = _.filter(transactions, (transaction) => {
         return new Date(transaction.date) <= new Date(endDate) && new Date(transaction.date) >= new Date(startDate)
       })
-      startDate = moment(startDate).format("dddd, MMMM Do YYYY")
-      endDate = moment(endDate).format("dddd, MMMM Do YYYY")
+      startDate = moment(startDate).format('dddd, MMMM Do YYYY')
+      endDate = moment(endDate).format('dddd, MMMM Do YYYY')
       updateMapDate({startDate: startDate, endDate: endDate})
       this.addMarkers(filteredTransactions)
     }
