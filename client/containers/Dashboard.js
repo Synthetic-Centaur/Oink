@@ -90,6 +90,9 @@ class Dashboard extends React.Component {
           changeView={actions.changeView}
           handleNavigation={this.handleNavigation.bind(this)}
           dropDownComponents={DROPDOWN_ACTIONS}
+          showPhoneVerify={actions.showPhoneVerify}
+          showVerify={homePage.showVerify}
+          userIsVerified={userIsVerified}
         />
 
         <div className="dashboard">
