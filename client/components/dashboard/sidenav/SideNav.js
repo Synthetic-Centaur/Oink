@@ -3,7 +3,6 @@ import { FontIcon, FlatButton, RaisedButton, Badge } from 'material-ui'
 import LeftNav from 'material-ui/lib/left-nav'
 import MenuItem from 'material-ui/lib/menus/menu-item'
 import MenuDivider from 'material-ui/lib/menus/menu-divider'
-import PhoneVerifyIcon from '../phoneVerify/PhoneVerifyIcon'
 
 class SideNav extends Component {
 
