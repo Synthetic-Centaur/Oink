@@ -54,9 +54,7 @@ export class OptionsBar extends React.Component {
     const { actions, homePage, data } = this.props
 
     return (
-      <Paper zDepth={1} style={{
-        'boxShadow': '0 2px 2px #000, 0 3px 3px #000'
-      }} className="options-bar container">
+      <div className="options-bar container">
 
         <div className="row">
           <h5>Budget Management</h5>
@@ -73,7 +71,7 @@ export class OptionsBar extends React.Component {
 
         { this.renderView() }
 
-      </Paper>
+      </div>
     )
   }
 }

@@ -25,7 +25,7 @@ class Map extends Component {
         mapDate = {mapDate}
         updateMapDate = {actions.updateMapDate}
         currentAddress = {currentAddress}
-        updateAddress = {updateAddress} 
+        updateAddress = {updateAddress}
       />
     )
   }

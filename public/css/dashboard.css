@@ -3,17 +3,26 @@
   background-image: linear-gradient(#333333, #262626);
 }
 
+.dashboard {
+  position: fixed;
+  width: 100%;
+  z-index: 9;
+  top: 0;
+}
+
 .dashboard .options {
   display: inline;
   margin-top: 10px;
 }
 
 .dashboard .options-icon {
-  margin-top: 15px;
+  margin-top: 5px;
+  margin-bottom: 15px;
 }
 
 .dashboard .header {
   background-color: #4B4B4B;
+  border-bottom: 2px solid #eee;
 }
 
 .dashboard .header .container {
@@ -24,10 +33,21 @@
   padding-top: 10px;
   text-align: center;
   color: #ccc;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
 }
 
-.dashboard .header {
-  border-bottom: 2px solid #eee;
+.dashboard .phoneVerify {
+  padding-top: 15px;
+  position: fixed;
+  left: 0;
+}
+
+.view-container {
+  padding-top: 100px;
+  padding-left: 60px;
 }
 
 .loading-indicator.first-pull:before {
@@ -95,4 +115,21 @@ th,td {
   padding: 0px;
   text-align: left;
   border-bottom: 0px solid #E1E1E1;
+}
+
+@media (max-width: 500px) {
+  .dashboard .header h1 {
+    font-size: 2em;
+    left: 54%;
+    top: 18%;
+  }
+}
+
+@media (max-width: 900px) {
+  .four.columns {
+    width: 90%;
+  }
+  .eight.columns {
+    width: 90%;
+  }
 }

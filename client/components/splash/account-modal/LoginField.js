@@ -7,10 +7,10 @@ export class LoginField extends Component {
     return (
       <form style={{padding: '24px'}}>
         <div className="row">
-          <TextField ref="email" hintText="email"/>
+          <TextField ref="email" hintText="Email" fullWidth={true} />
         </div>
         <div className="row">
-          <TextField ref="password" type="password" hintText="password"/>
+          <TextField ref="password" type="Password" hintText="password" fullWidth={true} />
         </div>
         <div className="row">
         </div>

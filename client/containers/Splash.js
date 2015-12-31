@@ -1,3 +1,5 @@
+// ## Splashpage View Container
+
 import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -11,15 +13,8 @@ import ThemeManager from 'material-ui/lib/styles/theme-manager'
 
 class Splash extends Component {
   componentWillMount() {
-    this.checkAuth()
+    // Necessary in the case where a user logouts of the Dashboard and is redirected to the splash page
     document.body.style.backgroundColor = '#fff'
-  }
-
-  checkAuth() {
-    const { actions, isAuthenticated } = this.props
-    if (isAuthenticated) {
-      actions.splashRedirect()
-    }
   }
 
   render() {

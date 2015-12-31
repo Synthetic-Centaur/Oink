@@ -1,3 +1,5 @@
+// ## Dashboard View Container
+
 import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -27,7 +29,8 @@ class Dashboard extends React.Component {
     }
   }
 
-  // This is our delayed call to initial state after transactions are loaded on server side on first pull
+  // This is delays the call to initial state until transactions are loaded server side
+  // This is necessary because we need to do significant processing server side on the first pull from plaid
   shouldComponentUpdate(nextProps) {
     if (this.props.firstPull !== nextProps.firstPull) {
       this.props.actions.getInitialState()
@@ -36,16 +39,16 @@ class Dashboard extends React.Component {
     return true
   }
 
-  //Render home container with chart, budget input, and navbar
+  // Render Dashboard container if the user is authenticated
   componentWillMount() {
     this.checkAuth()
     document.body.style.backgroundColor = '#262626'
   }
 
-  //Get initial state of app when component is mounted only when not first call for an user
+  // Get the initial state of app when component is mounted
   componentDidMount() {
+    // Check if this is the first time we are pulling the user's transactions
     if (!this.props.firstPull) {
-      //Get initial state of app, including all of user's transactions
       this.props.actions.getInitialState()
     }
   }
@@ -65,13 +68,13 @@ class Dashboard extends React.Component {
     }
   }
 
+  // Switch between Dashboard views
   handleNavigation(component) {
     const { actions } = this.props
     actions.switchComponent(component)
   }
 
   render() {
-
     const { actions, currentComponent, data, homePage, editingFirstName, editingLastName,
             editingEmail, editingPhoneNumber, editingPassword, editingDeleteAccount,
             accountData, communicationData, securityData, isLoading, firstPull } = this.props
@@ -84,41 +87,35 @@ class Dashboard extends React.Component {
         <LoadingIndicator isLoading={isLoading} firstPull={firstPull} />
       
         <SideNav
-          handleNavigation = {this.handleNavigation.bind(this)}
-          dropDownComponents = { DROPDOWN_ACTIONS } />
+          changeView={actions.changeView}
+          handleNavigation={this.handleNavigation.bind(this)}
+          dropDownComponents={DROPDOWN_ACTIONS}
+        />
 
         <div className="dashboard">
-            <div className="row">
+          <div className="row">
 
-              <div className="options u-pull-right">
-                <Options logout={ actions.authLogout } showSettings={ actions.showSettings }/>
-              </div>
+            <div className="options u-pull-right">
+              <Options logout={actions.authLogout} showSettings={actions.showSettings} />
+            </div>
 
-              <div className="needsVerify u-pull-left" style={{paddingTop: '20px', paddingLeft: '20px', position: 'relative', zIndex: '4'}}>
-                <PhoneVerifyIcon
-                  showPhoneVerify={actions.showPhoneVerify}
-                  showVerify={homePage.showVerify}
-                  userIsVerified={userIsVerified}
-                />
-              </div>
+            <div className="header">
+              <div className="container">
+                <div className="row">
 
+                <div className="u-pull-left">
+                </div>
 
+                  <h1>{currentComponent.text}</h1>
 
-              <div className="header">
-                <div className="container">
-                  <div className="row">
-
-                    <h1>{ currentComponent.text }</h1>
-
-                  </div>
                 </div>
               </div>
             </div>
+          </div>
         </div>
 
         <div className="view-container container">
-          <ComponentPlayground
-            currentComponent = { currentComponent } />
+          <ComponentPlayground currentComponent={currentComponent} />
         </div>
         
        <PhoneVerifyModal
@@ -161,10 +158,12 @@ class Dashboard extends React.Component {
   }
 }
 
+// Required for passing down Material UI Theme to children components
 Dashboard.childContextTypes = {
   muiTheme: PropTypes.object
 }
 
+// Specify which pieces of state should be available as props
 function mapStateToProps(state) {
   return {
     firstPull: state.homePage.firstPull,
@@ -188,6 +187,7 @@ function mapStateToProps(state) {
   }
 }
 
+// Bind Redux store's dispatch to container actions and make available as props
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
