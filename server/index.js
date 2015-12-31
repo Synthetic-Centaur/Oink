@@ -1,5 +1,3 @@
-//************Entry point********************//
-
 // ES2015 Compiler
 require('babel/register')
 

@@ -22,11 +22,14 @@ class GoalList extends Component {
       index++
 
       // unique key is required by React, using index counter
-      return <ListItem key={ index } primaryText = { goal.description } value = { index }/>
+      return <ListItem key={index} primaryText={goal.description} value={index} />
     })
     return (
-      <SelectableList valueLink = {{value: this.props.selectedGoal, requestChange: this.selectGoal.bind(this)}}
-        subheader="Select from your goals" subheaderStyle={{color: '#ccc'}}>
+      <SelectableList
+        valueLink={{value: this.props.selectedGoal, requestChange: this.selectGoal.bind(this)}}
+        subheader="Select from your goals"
+        subheaderStyle={{color: '#ccc'}}
+      >
         { goalList }
       </SelectableList>
     )

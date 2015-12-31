@@ -207,10 +207,10 @@ describe('Spending Container Components', () => {
         }
       })()
 
-      expect(output.type).toBe('div')
+      expect(output.type).toBe('ul')
       expect(output.props.className).toBe('center')
-      expect(output.props.children[0].type).toBe('span')
-      expect(output.props.children[1].type).toBe('p')
+      expect(output.props.children[0].type).toBe('li')
+      expect(output.props.children[1].type).toBe('li')
     })
   })
   describe('DateTransactions Component', () => {
