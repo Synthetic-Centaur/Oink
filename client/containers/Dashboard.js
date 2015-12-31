@@ -13,7 +13,6 @@ import { changeView, switchComponent, showSettings, hideSettings, editStart, edi
 import SideNav from '../components/dashboard/sidenav/SideNav'
 import SettingsModal from '../components/dashboard/settings/SettingsModal'
 import PhoneVerifyModal from '../components/dashboard/phoneVerify/PhoneVerifyModal'
-import PhoneVerifyIcon from '../components/dashboard/phoneVerify/PhoneVerifyIcon'
 import Budget from './Budget'
 import Goals from './Goals'
 import Options from '../components/dashboard/Options'
