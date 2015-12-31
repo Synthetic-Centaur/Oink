@@ -84,7 +84,6 @@ class Dashboard extends React.Component {
         <LoadingIndicator isLoading={isLoading} firstPull={firstPull} />
       
         <SideNav
-          changeView={ actions.changeView }
           handleNavigation = {this.handleNavigation.bind(this)}
           dropDownComponents = { DROPDOWN_ACTIONS } />
 

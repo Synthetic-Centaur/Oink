@@ -4,8 +4,8 @@ import apiHandler from './handlers/apiHandler'
 
 let jobSchedules = {
 
+  // Schedules cron job to send out user mail on Sundays at 10 AM
   emailSchedule() {
-    //currently set up to email on Sundays at 10 AM
     let rule = new schedule.RecurrenceRule()
     rule.dayOfWeek = 0
     rule.hour = 10
@@ -15,6 +15,7 @@ let jobSchedules = {
     return job
   },
 
+  // Schedules cron job to update user plaid transactions daily at midnight
   dailyTransactions() {
     let job = schedule.scheduleJob('0 0 0 * * *', apiHandler.usersDailyTransactions)
     return job
