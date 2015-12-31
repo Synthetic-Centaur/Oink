@@ -159,6 +159,19 @@
 // #### [Splash.js](./client!containers!Splash.js.html)
 // * React api actions
 
+// #### [index.js](./client!reducers!index.js.html)
+// * stuff
+
+// #### [reducers.js](./client!reducers!reducers.js.html)
+// * stuff
+
+// #### [splash-theme.js](./client!splash-theme.js.html)
+// * stuff
+
+// #### [configureStore.js](./client!store!configureStore.js.html)
+// * more stuff
+
+
 // ## Back-End
 
 // #### [server.js](./server!server.js.html)
