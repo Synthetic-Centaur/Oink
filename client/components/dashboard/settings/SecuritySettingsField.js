@@ -34,12 +34,10 @@ class SecuritySettingsField extends React.Component {
         <form style={{padding: '24px 50px 24px 24px'}}>
           <div className='row'>
             <div className='two columns offset-by-two'>
-              <RaisedButton label="Change Password" onTouchTap={this.handleEditStart.bind(this, 'PASSWORD')}/>
+              <RaisedButton label="Change Password" primary={true} onTouchTap={this.handleEditStart.bind(this, 'PASSWORD')} />
             </div>
             <div className='two columns offset-by-three'>
-              <RaisedButton label="Delete Account" labelPosition="before" onTouchTap={this.handleEditStart.bind(this, 'DELETE_ACCOUNT')}>
-                <FontIcon className="material-icons" style={{color: '#FF8A80'}}>delete</FontIcon>
-              </RaisedButton>
+              <RaisedButton label="Delete Account" secondary={true} labelPosition="before" onTouchTap={this.handleEditStart.bind(this, 'DELETE_ACCOUNT')} />
             </div>
           </div>
         </form>
@@ -49,20 +47,24 @@ class SecuritySettingsField extends React.Component {
 
   renderEditPassword() {
     return (
-      <div style={{padding: '24px'}}>
+      <div style={{padding: '24px', color: "#4B4B4B"}}>
         <h4>Update Password</h4>
         <div>
           <TextField
             ref='newPassword'
             hintText='Please enter new password'
+            hintStyle={{color: '#4B4B4B'}}
             type='password'
+            underlineStyle={{borderColor: '#4B4B4B'}}
           />
         </div>
         <div>
           <TextField
             ref='passwordCheck'
             hintText='Please re-enter new password'
+            hintStyle={{color: '#4B4B4B'}}
             type='password'
+            underlineStyle={{borderColor: '#4B4B4B'}}
             errorText={this.props.securityData.errorText}
             onChange={this.updateSecuritySettings.bind(this)}
           />

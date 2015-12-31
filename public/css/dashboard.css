@@ -23,6 +23,7 @@
 .dashboard .header {
   background-color: #4B4B4B;
   border-bottom: 2px solid #eee;
+  box-shadow:0 4px 4px #000;
 }
 
 .dashboard .header .container {

@@ -40,7 +40,8 @@ class PhoneVerifyModal extends Component {
               key={0}
               label='Text My Code'
               primary={false}
-              labelStyle={{fontSize: '30px', padding: '15px'}}
+              style={{backgroundColor: "#B4CCB9", color: "#4B4B4B"}}
+              labelStyle={{fontSize: '30px', padding: '15px', color: "#4B4B4B", backgroundColor: "#B4CCB9"}}
               onTouchTap={this.sendCode.bind(this)}>
             </RaisedButton>
           </div>
