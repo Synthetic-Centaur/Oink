@@ -153,8 +153,7 @@ class Splash extends Component {
                   email="todd.levin@me.com"
                   github="https://github.com/tlevin"
                   linkedin="https://www.linkedin.com/in/toddglevin"
-                  description=" Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                Donec mattis pretium massa. Aliquam erat volutpat."
+                  description="Todd is focused on building logical systems to support a responsive interaction for the user."
                 />
               </div>
 

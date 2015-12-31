@@ -168,7 +168,6 @@ Dashboard.childContextTypes = {
 // Specify which pieces of state should be available as props
 function mapStateToProps(state) {
   return {
-    firstPull: state.homePage.firstPull,
     isLoading: state.asyncStatus.isLoading,
     data: state.asyncStatus.data,
     error: state.asyncStatus.error,

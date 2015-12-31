@@ -1,3 +1,6 @@
+//Babel Polyfill
+require('babel-core/polyfill')
+
 // ES2015 Compiler
 require('babel/register')
 
