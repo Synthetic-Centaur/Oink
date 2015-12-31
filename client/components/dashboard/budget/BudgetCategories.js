@@ -9,7 +9,7 @@ class BudgetCategories extends React.Component{
   // Form validation for input field/budget amount
   handleNumError(e) {
     let value = e.target.value
-    let isNumeric = !isNaN(parseFloat(value)) && isFinite(value)
+    let isNumeric = !isNaN(parseFloat(value)) && isFinite(value) && value >= 0
     
     this.props.numberValidation(isNumeric)
   }

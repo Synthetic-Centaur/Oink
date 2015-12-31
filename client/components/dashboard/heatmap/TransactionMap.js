@@ -86,6 +86,18 @@ export default class TransactionMap extends Component {
   componentDidMount() {
     const { transactions, updateMapDate, accessToken } = this.props
 
+    let latitude
+    let longitude
+    console.log(transactions[transactions.length - 1])
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        latitude = position.coords.latitude
+        longitude = position.coords.longitude
+      })
+    }
+
+    console.log(latitude, longitude)
+
     // Creates mapbox using access token, and assign it to div with classname 'map'
     L.mapbox.accessToken = accessToken
     map = L.mapbox.map('map', 'mapbox.streets', {zoomControl: false}).setView([37.7833, -122.4167], 12)
@@ -152,7 +164,7 @@ export default class TransactionMap extends Component {
     if (currentAddress) {
       listItems.unshift(<ListItem primaryText={'Your top purchases near ' + currentAddress} />)
     } else {
-      listItems.unshift(<ListItem primaryText={'Select a marker to view your purchases'} />)
+      listItems.unshift(<ListItem primaryText={'Select a cluster to view your purchases'} />)
     }
 
     listItems = listItems.slice(0, 8)
@@ -193,7 +205,7 @@ export default class TransactionMap extends Component {
         title: title,
         price: price
       })
-      marker.bindPopup(title)
+      marker.bindPopup(title + " - $" + price)
       markers.addLayer(marker)
     })
 

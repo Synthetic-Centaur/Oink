@@ -183,8 +183,7 @@ function mapStateToProps(state) {
     editingDeleteAccount: state.settings.editingDeleteAccount,
     accountData: state.settings.accountData,
     communicationData: state.settings.communicationData,
-    securityData: state.settings.securityData,
-    firstPull: state.homePage.firstPull
+    securityData: state.settings.securityData
   }
 }
 
