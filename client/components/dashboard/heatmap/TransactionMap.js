@@ -147,7 +147,7 @@ export default class TransactionMap extends Component {
     })
 
     if (currentAddress) {
-      listItems.unshift(<ListItem primaryText={'Your top purchases near ' + currentAddress} secondaryText={'Range: ' + mapDate.startDate + ' - ' + mapDate.endDate}/>)
+      listItems.unshift(<ListItem primaryText={'Your top purchases near ' + currentAddress} />)
     } else {
       listItems.unshift(<ListItem primaryText={'Select a marker to view your purchases'} />)
     }
