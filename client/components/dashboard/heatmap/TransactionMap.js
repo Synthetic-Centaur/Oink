@@ -86,18 +86,6 @@ export default class TransactionMap extends Component {
   componentDidMount() {
     const { transactions, updateMapDate, accessToken } = this.props
 
-    let latitude
-    let longitude
-    console.log(transactions[transactions.length - 1])
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        latitude = position.coords.latitude
-        longitude = position.coords.longitude
-      })
-    }
-
-    console.log(latitude, longitude)
-
     // Creates mapbox using access token, and assign it to div with classname 'map'
     L.mapbox.accessToken = accessToken
     map = L.mapbox.map('map', 'mapbox.streets', {zoomControl: false}).setView([37.7833, -122.4167], 12)
