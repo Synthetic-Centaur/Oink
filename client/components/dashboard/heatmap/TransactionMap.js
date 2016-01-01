@@ -152,7 +152,7 @@ export default class TransactionMap extends Component {
     if (currentAddress) {
       listItems.unshift(<ListItem primaryText={'Your top purchases near ' + currentAddress} />)
     } else {
-      listItems.unshift(<ListItem primaryText={'Select a marker to view your purchases'} />)
+      listItems.unshift(<ListItem primaryText={'Select a cluster to view your purchases'} />)
     }
 
     listItems = listItems.slice(0, 8)
@@ -193,7 +193,7 @@ export default class TransactionMap extends Component {
         title: title,
         price: price
       })
-      marker.bindPopup(title)
+      marker.bindPopup(title + " - $" + price)
       markers.addLayer(marker)
     })
 

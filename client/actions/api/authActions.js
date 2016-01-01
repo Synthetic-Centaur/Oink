@@ -171,6 +171,7 @@ export function splashRedirect() {
 export function authLogout() {
   return function(dispatch) {
     dispatch(ACTIONS.removeJWT())
+    dispatch(ACTIONS.resetState())
     dispatch(updatePath('/'))
   }
 }

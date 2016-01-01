@@ -114,7 +114,9 @@ let authController = {
     return db.knex('users').where(user).del().then((userRows) => {
       return db.knex('transactions').where({user_id: user.id}).del().then((transRows) => {
         return db.knex('budgets').where({user_id: user.id}).del().then((budgetRows) => {
-          return {userRows: userRows, transRows: transRows, budgetRows: budgetRows}
+          return db.knex('goals').where({user_id: user.id}).del().then((goalsRows) => {
+            return {userRows: userRows, transRows: transRows, budgetRows: budgetRows, goalsRows: goalsRows}
+          })
         })
       })
     })

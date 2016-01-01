@@ -72,7 +72,6 @@ let apiHandler = {
       authController.findUserByToken(req).then((user) => {
         // Check if user is in db
         if (user) {
-
           // Search for all budgets from user
           budgetController.getBudgets(user.id).then((budgets) => {
             if (budgets) {
