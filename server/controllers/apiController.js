@@ -40,19 +40,17 @@ let apiController = {
     },
     (err, mfaResponse, response) => {
       // The webhook URI should receive a code 4 "webhook acknowledged" webhook
-      // log ('ERROR', err)
-      // log ('MFA', mfaResponse)
-
       // this will get initial state. All accounts and transactions
-      // log ('User has been patched, webhook should receive a code 4 "webhook acknowledged" webhook')
+
+      if (err) {
+        console.error(err)
+      }
     })
   },
 
   retrieveTransactions(plaid_token, userid, cb) {
-    // TODO: this logic should be reorganized -- > need to add update budget method on budget controller to simplify
     return plaidClient.getConnectUser(plaid_token,
     {
-      // TODO: update webhook
       webhook: 'https://oinkfinancial.com/webhook'
     },
     (err, response) => {
@@ -60,7 +58,6 @@ let apiController = {
         console.error('ERROR', err)
       } else {
 
-        //TODO: need to make async and move this logic to controller to send back
         budgetController.updateTransactions(response.transactions, userid).then((response) => {
 
           // indicate to plaid call that transactions have been received
@@ -80,38 +77,32 @@ let apiController = {
   },
 
   updateTransactions(plaid_token, userid) {
-
-    // TODO: update transactions and get transactions are basically the same call -- the only dif is that update transactions
-    // only is pulling trans from the last month to keep pulls smaller -- should reorganize this for more code reuse
-    // TODO: this logic should be reorganized -- > need to add update budget method on budget controller to simplify
     return plaidClient.getConnectUser(plaid_token,
     {
       gte: '30 days ago',
-
-      // TODO: update webhook
-      webhook: 'http://28b2127e.ngrok.io/webhook'
+      webhook: 'https://oinkfinancial.com/webhook'
     },
     (err, response) => {
       if (err) {
         console.error('ERROR', err)
       } else {
-        // log ('Transactions (first 4): ', response.transactions.slice(0, 4))
-
-        // log ('You have ' + response.transactions.length + ' transactions')
-
-        //TODO: need to make async and move this logic to controller to send back
         budgetController.updateTransactions(response.transactions, userid).then((response) => {
-
-          // log ('response from update transactions -- inside api controller', response)
-
-          // check to see if new transactions were updated
-          // TODO: FIX THIS!!!! response always coming back populated so check doesn't work
-          //if (response.length > 0) {
-          // TODO: this inner logic should be modularized
-          // sum user's budget
-          budgetController.updateBudget(userid)
-
-          //}
+          // if there were new transactions
+          if (response.length > 0) {
+            budgetController.findUserByID(userid).then((user) => {
+              // sum user's budget
+              budgetController.updateBudget(userid).then(() => {
+                // check to see if user has gone over their total budget if they have selected to recieve text notifications
+                if (user[0].phone_verified && user[0].text_over_total) {
+                  budgetController.checkTotalMonthlySpending(user[0])
+                }
+                // check to see if user has gone over budget in any category if they have selected to recieve text notifications
+                if (user[0].phone_verified && user[0].text_over_budget) {
+                  budgetController.checkMonthlySpendingByCategory(user[0])
+                }
+              })
+            })
+          }
         })
       }
     })

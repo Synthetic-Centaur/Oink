@@ -29,14 +29,14 @@ let budgetController = {
       return db.knex('budgets').where({category_id: categoryId, user_id: userId}).then((result) => {
         if (result.length > 0) {
           return db.knex('budgets').where(result[0]).update({target: amount}).then((budget) => {
-            budgetController.updateBudget(userId).then((description) => {
+            budgetController.updateBudget(userId).then((response) => {
               return budget
             })
           })
         } else {
           let newBudget = {category_id: categoryId, user_id: userId, target: amount}
           return db.knex('budgets').insert(newBudget).then((budget) => {
-            budgetController.updateBudget(userId).then((description) => {
+            budgetController.updateBudget(userId).then((response) => {
               return budget
             })
           })
@@ -115,6 +115,19 @@ let budgetController = {
     })
   },
 
+  checkMonthlySpendingByCategory(user) {
+    return db.knex('budgets').where({user_id: user.id}).select().then((budget) => {
+      return Promise.map(budget, (item) => {
+        if (item.actual > item.target) {
+          return budgetController.getCategoryName(item.category_id).then((description) => {
+            apiController.sendMessage('Oink Oink!! \n\nHey ' + user.first_name + ' looks like you have gone over your '
+            + description[0].description + ' budget for this month! \n \n Budget: $' + item.target + ' \n Actual: $' + item.actual, user.phone_number)
+          })
+        }
+      })
+    })
+  },
+
   updateBudget(userId) {
     // get budget for text
     return db.knex('budgets').where({user_id: userId}).select().then((budget) => {
@@ -122,70 +135,17 @@ let budgetController = {
       return Promise.map(budget, (item, pos) => {
         // sum transactions for user in each category
         return budgetController.sumTransactionByCategoryMonthly(item.category_id, userId).then((sum) => {
-          // if sum of transactions in a given category does not match actual
-          // TODO: May want to add in if statement so only updating if actual has changed but need to add in logic to whipe actual each month first
-          if (sum !== item.actual) {
-            // update actual
-            return db.knex('budgets').where({user_id: userId, category_id: item.category_id}).update({actual: sum}).then((response) => {
-              // if actual is over target in any category
-              if (sum > item.target) {
-                // send text letting user know that they have exceeded their budget for that category
-                // get user for text
-                return budgetController.findUserByID(userId).then((user) => {
-                  // get category name for text
-                  return budgetController.getCategoryName(item.category_id).then((description) => {
-                    // check to see if user has indicated that they would like to recieve text notifications when they go over budget
-                    if (user[0].text_over_budget) {
-                      apiController.sendMessage('Oink Oink!! \n\nHey ' + user[0].first_name + ' looks like you have gone over your '
-                      + description[0].description + ' budget for this month! \n \n Budget: $' + item.target + ' \n Actual: $' + sum.toFixed(2), user[0].phone_number)
-                    }
-
-                    if (user[0].text_over_total && pos === budget.length - 1) {
-                      budgetController.checkTotalMonthlySpending(user[0])
-                    }
-
-                    return description
-                  })
-                })
-              }
-            })
-          }
+          // update actual
+          return db.knex('budgets').where({user_id: userId, category_id: item.category_id}).update({actual: sum}).then((response) => {
+            return sum;
+          })
         })
       })
     })
   },
 
-  // TODO: Update Transactions is currently being used for both update and save. May be possible to remove save transactions
-  saveTransactions(transactions, user_id) {
-
-    // loop over transactions array
-    return Promise.map(transactions, (item) => {
-      // this breaks if transaction doesn't have a category so check if category is definied first
-      if (item.category) {
-        // We are only concerned with first category
-        const category = item.category[0]
-
-        let newCat = new Category({description: category})
-
-        return newCat.fetch().then((category) => {
-          if (category) {
-            //if category already exists, save in database setting all of transaction data plus user_id and category id
-            const category_id = category.id
-            return saveTransaction(item, user_id, category_id)
-          } else {
-            //create a new category
-            return newCat.save().then((category) => {
-              return saveTransaction(item, user_id, category.id)
-            })
-          }
-        })
-      }
-    })
-  },
-
   updateTransactions(transactions, user_id) {
 
-    // TODO: Fix promise
     // pull previous transactions for user out of database
     return db.knex('transactions').where({user_id: user_id}).select('transaction_id').then((oldTransactions) => {
       // transform OldTransactions into an array of their transaction_Ids
@@ -208,19 +168,17 @@ let budgetController = {
         let category = 'Other'
 
         if (transaction.category) {
-
+          
           // We are only concerned with the first category listed
           category = transaction.category[0]
         }
 
         return db.knex('categories').where({description: category}).select().then((result) => {
-
           if (result.length > 0) {
             let category_id = result[0].id
             return saveTransaction(transaction, user_id, category_id)
           } else {
             return db.knex('categories').insert({description: category}).returning('id').then((result) => {
-
               let category_id = result[0].id
               return saveTransaction(transaction, user_id, category_id)
             })

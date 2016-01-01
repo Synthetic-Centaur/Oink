@@ -8,7 +8,6 @@ export class CommunicationSettingsField extends React.Component {
     let updates = {
       text_over_budget: this.refs.text_over_budget.isToggled(),
       text_over_total: this.refs.text_over_total.isToggled(),
-      text_recs: this.refs.text_recs.isToggled(),
       email_updates: this.refs.email_updates.isToggled()
     }
     this.refs[ref].setToggled(updates[ref])
@@ -40,13 +39,6 @@ export class CommunicationSettingsField extends React.Component {
           labelStyle={{fontFamily: 'Roboto', fontWeight: 'normal'}}
           onToggle={this.handleCommunicationSettings.bind(this, 'text_over_total')}
           defaultToggled={this.props.user.text_over_total}
-        />
-        <Toggle
-          ref="text_recs"
-          label="Text me recomendations to help me meet my goals"
-          labelStyle={{fontFamily: 'Roboto', fontWeight: 'normal'}}
-          onToggle={this.handleCommunicationSettings.bind(this, 'text_recs')}
-          defaultToggled={this.props.user.text_recs}
         />
         <Toggle
           ref="email_updates"

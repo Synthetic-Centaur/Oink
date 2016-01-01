@@ -18,12 +18,6 @@ let authController = {
     return newUser.save().then((user) => {
       return user
     })
-
-    // user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(8), null)
-    // return db.knex('users').insert(user).returning('*').then((user) => {
-    //   console.log('inside addUser returned user is', user)
-    //   return user[0]
-    // })
   },
 
   findUser(user) {
@@ -35,15 +29,6 @@ let authController = {
         return null
       }
     })
-
-    // return db.knex('users').where({email: user.email}).select().then((user) => {
-    //   if (user.length > 0) {
-    //     console.log('inside findUser user was found to be', user)
-    //     return user[0]
-    //   } else {
-    //     return null
-    //   }
-    // })
   },
 
   findUserByToken(req, secure) {
@@ -77,18 +62,6 @@ let authController = {
   },
 
   savePlaidToken(tokenPlaid, tokenAuth) {
-    // let newUser = new User({token_auth: tokenAuth})
-    // return newUser.fetch().then((user) => {
-    //   if (user) {
-    //     user.attributes.token_plaid = tokenPlaid
-    //     return user.save().then((user) => {
-    //       return user
-    //     })
-    //   } else {
-    //     // user was not found
-    //     console.error('Error: USER not found')
-    //   }
-    // })
     return db.knex('users').where({token_auth: tokenAuth}).update({token_plaid: tokenPlaid}).returning('*').then((user) => {
       if (user.length > 0) {
         console.log('inside save plaid token returning user', user)
@@ -123,18 +96,6 @@ let authController = {
   },
 
   saveAuthToken(token, userID) {
-    // let newUser = new User({id: userID})
-    // return newUser.fetch().then((user) => {
-    //   if (user) {
-    //     user.attributes.token_auth = token
-    //     return user.save().then((user) => {
-    //       return user
-    //     })
-    //   } else {
-    //     // user was not found
-    //     console.error('Error: USER not found')
-    //   }
-    // })
     return db.knex('users').where({id: userID}).update({token_auth: token}).returning('*').then((user) => {
       if (user.length > 0) {
         console.log('inside save auth token returning user', user)

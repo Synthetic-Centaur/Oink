@@ -72,7 +72,7 @@ class BudgetCategories extends React.Component{
           <RaisedButton className="submit-budget-button"
             ref="input"
             style={{float: 'left'}}
-            label="Add new category"
+            label="Add to budget"
             disabled={this.props.numberError || this.props.categoryError}
             onClick={this.handleBudget.bind(this)} />
         </div>

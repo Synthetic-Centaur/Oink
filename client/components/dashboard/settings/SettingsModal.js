@@ -29,35 +29,51 @@ class SettingsModal extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    const { showSettings, editFinishAll } = this.props
-    showSettings ? this.handleSettings() : null
-    editFinishAll()
+    const { showSettings, editFinishAll, accountData, securityData } = this.props
+
+    // verify that there are no errors on page before submitting
+    if (!accountData.errorText && !securityData.errorText) {    
+      this.handleSettings()
+      editFinishAll()
+    }
   }
 
   handleSettings() {
 
-    const { accountData, communicationData, securityData } = this.props
+    const { showSettings, hideSettingsModal, editFinishAll, accountData, communicationData, securityData } = this.props
 
     let completeData = {}
+    let dataLength = 0
 
     for (let key in accountData) {
       if (key !== 'errorText') {
         completeData[key] = accountData[key]
+        dataLength++
       }
     }
 
     for (let key in communicationData) {
       completeData[key] = communicationData[key]
+      dataLength++
     }
 
     // verify that new password field in security data exists and that password has been verified
     if (securityData.newPassword && !securityData.errorText) {
       completeData.password = securityData.newPassword
+      dataLength++
     }
 
-    this.props.postSettings(completeData)
-    this.props.hideSettingsModal()
-    this.refs.modal.dismiss()
+    // verify that user has made changes before sending
+    if (dataLength > 0) {    
+      this.props.postSettings(completeData)
+      this.props.hideSettingsModal()
+      this.refs.modal.dismiss()
+    } else {
+      // if user has not made any changes, assume they hit save to close and close modal
+      showSettings ? hideSettingsModal() : null
+      editFinishAll()
+      this.refs.modal.dismiss()
+    }
   }
 
   handleCancel(e) {

@@ -10,6 +10,7 @@ app.post('/webhook', (req, res) => {
   
   if (req.body.code === 2) {
     apiController.sendMessage('YAY WEBHOOK HAS FIRED!!!! You have a new transaction', 7344749351)
+    apiHandler.usersDailyTransactions()
   }
 })
 
@@ -17,7 +18,7 @@ app.get('/setWebhook', apiHandler.setWebhook)
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-app.get('/transactions', apiHandler.retrieveTransactions)
+app.get('/transactions', apiHandler.usersDailyTransactions)
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 app.post('/auth/login', authHandler.login)
