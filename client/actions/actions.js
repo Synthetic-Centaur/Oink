@@ -50,6 +50,14 @@ export function phoneVerifySuccess() {
   }
 }
 
+export function phoneVerifyFailed() {
+  return (dispatch) => {
+    dispatch({
+      type: 'PHONE_VERIFY_FAILED'
+    })
+  }
+}
+
 export function phoneVerifyError() {
   return (dispatch) => {
     dispatch({

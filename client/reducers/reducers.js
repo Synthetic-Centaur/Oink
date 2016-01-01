@@ -123,7 +123,7 @@ export function homePageReducer(state = {
   categoryError: true,
   showSettings: false,
   showVerify: false,
-  verifySuccess: false,
+  verifySuccess: true,
   firstPull: false,
   errorText: '',
   category: ''
@@ -149,6 +149,8 @@ export function homePageReducer(state = {
       return Object.assign({}, state, {showVerify: false})
     case 'PHONE_VERIFY_SUCCESS':
       return Object.assign({}, state, {verifySuccess: true})
+    case 'PHONE_VERIFY_FAILED':
+      return Object.assign({}, state, {verifySuccess: false})
     case 'FIRST_PULL_START':
       return Object.assign({}, state, {firstPull: true})
     case 'FIRST_PULL_COMPLETE':
