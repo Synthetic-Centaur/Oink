@@ -44,7 +44,7 @@ export class UpdateField extends React.Component {
     let amount = data.budgets[currentBudget.index].target.toString()
 
     return (
-      <div>
+      <div className="budget-fields">
       
         <span className="budget-title">{ title }</span>
 
