@@ -34,12 +34,13 @@ class Dashboard extends React.Component {
     if (this.props.firstPull !== nextProps.firstPull) {
       this.props.actions.getInitialState()
     }
+
     if (nextProps.data.user) {
-      console.log("I fired")
-     if (!nextProps.data.user.phone_verified && nextProps.homePage.verifySuccess && !this.props.homePage.showVerify) {
+      if (!nextProps.data.user.phone_verified && nextProps.homePage.verifySuccess && !this.props.homePage.showVerify) {
         this.props.actions.phoneVerifyFailed()
       }
     }
+
     return true
   }
 
