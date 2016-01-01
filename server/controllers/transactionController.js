@@ -3,6 +3,7 @@ import db from '../db/dbConfig'
 
 let transactionController = {
   getTransactionsByTime(userId, month, year) {
+    console.log("userid in get transactions---------->", userId)
     let start = moment().subtract(4, 'years')
     let end = moment()
 

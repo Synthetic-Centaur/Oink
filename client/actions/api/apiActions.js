@@ -72,6 +72,7 @@ export function deleteAccount() {
       if (response.status === 204) {
         dispatch(ACTIONS.removeJWT())
         dispatch(updatePath('/'))
+        dispatch(ACTIONS.resetState())
       } else if (response.status === 403) {
         console.log('User not authenticated -- delete request failed')
       } else if (response.status === 500) {

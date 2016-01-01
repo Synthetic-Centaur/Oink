@@ -72,7 +72,6 @@ let apiHandler = {
       authController.findUserByToken(req).then((user) => {
         // Check if user is in db
         if (user) {
-
           // Search for all budgets from user
           budgetController.getBudgets(user.id).then((budgets) => {
             if (budgets) {
@@ -86,6 +85,7 @@ let apiHandler = {
                     goalController.generateReport(user.id).then((avgNet) => {
                       transactionController.getTransactionsByTime(user.id).then((transactions) => {
                         // Build response object
+                        console.log("transactions--------->", transactions)
                         let mapbox = {accessToken: mapbox_private.accessToken}
                         let state = {
                           transactions,
