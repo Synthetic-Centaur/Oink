@@ -185,12 +185,19 @@ let authHandler = {
 
   checkVerificationCode(req, res) {
     let code = req.body.code
-    console.log('code inside check verification handler is ', code)
     authController.findUserByToken(req).then((user, secure) => {
       authController.checkVerificationCode(user, code).then((result) => {
         if (result) {
-          // send welcome message
-          apiController.sendMessage('Hello ' + user.first_name + '! Welcome to Oink, Let\'s Budget Together!!', user.phone_number)
+          // check if user has already created a budget
+          budgetController.getBudgets(user.id).then((budget) => {
+            // if user has created a budget send them a text to thank them for verifying their phone number
+            if (budget) {
+              apiController.sendMessage('Hello ' + user.first_name + '!\nThanks for verifying your phone with Oink!!', user.phone_number)
+            } else {
+              // send user welcome to Oink text
+              apiController.sendMessage('Hello ' + user.first_name + '!\nWelcome to Oink, Let\'s Budget Together!!', user.phone_number)
+            }
+          })
           res.sendStatus(202)
         } else {
           res.sendStatus(401)
