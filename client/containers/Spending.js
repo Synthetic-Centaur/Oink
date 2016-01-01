@@ -41,7 +41,7 @@ class Spending extends Component {
                 rounded={false}
                 className="twelve columns"
                 style={{
-                  boxShadow: '0 2px 2px #000, 0 3px 3px #000'
+                  boxShadow:'0 8px 8px #000, 0 3px 3px #000'
                 }}
               >
                 <DateTransactions

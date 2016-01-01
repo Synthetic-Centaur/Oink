@@ -41,41 +41,51 @@ export default class TransactionMap extends Component {
 
     // Renders class with header, map, date picker, and transaction list
     return (
-      <div className="container">
-        <div className="center" style={{height: '80px'}}>
+      <div className="container heatmap">
+
           { header }
-        </div>
-        <div className="row" style={{width: '100%'}}>
-          <div id="map"
-            className="eight columns"
-            style={{height: '700px'}}
-          />
-          <Paper zDepth={1} rounded={false} className="four columns" style={{height: '700px'}}>
+
+        <div className="row">
+
+          <div id="map" style={{height: '700px', marginBottom: '20px'}} className="eight columns"/>
+
+          <Paper
+            style={{boxShadow:'0 8px 8px #000, 0 3px 3px #000', height: '700px'}}
+            zDepth={1}
+            rounded={false}
+            className="heatmap-controls four columns"
+          >
+
             <div className="row">
               <DatePicker
                 className="center"
                 fullWidth={true}
+                style={{padding: '0 10px'}}
                 ref="startDate"
                 autoOk={true}
                 hintText="Select a start date"
                 onChange={this.handleDates.bind(this)}
               />
             </div>
+
             <div className="row">
               <DatePicker
                 className="center"
                 fullWidth={true}
+                style={{padding: '10px'}}
                 ref="endDate"
                 autoOk={true}
                 hintText="Select an end date"
                 onChange={this.handleDates.bind(this)}
               />
             </div>
-            <div className ="row" style={{height: '604px'}}>
+
+            <div className="row">
               <List>
                 { listItems }
               </List>
             </div>
+
           </Paper>
         </div>
       </div>
@@ -126,7 +136,7 @@ export default class TransactionMap extends Component {
       endDate = mapDate.endDate
     }
 
-    return <span className="four columns offset-by-four" style={{color: 'white'}}>Your transactions from {startDate} to {endDate}</span>
+    return <h5 style={{color: '#ccc', textAlign: 'center'}}>Your transactions from {startDate} to {endDate}</h5>
   }
 
   // Sorts transactions according to number of visits and formats each transaction as a Material-UI List Item
@@ -193,7 +203,7 @@ export default class TransactionMap extends Component {
         title: title,
         price: price
       })
-      marker.bindPopup(title + " - $" + price)
+      marker.bindPopup(title + ' - $' + price)
       markers.addLayer(marker)
     })
 
