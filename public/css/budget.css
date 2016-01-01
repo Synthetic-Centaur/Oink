@@ -5,9 +5,13 @@
 .options-container {
   color: #fff;
   background-color: #4B4B4B;
-  padding: 1.5em;
+  padding: 20px 0;
 }
 
 .options-bar {
   text-align: center;
+}
+
+.budget-fields {
+  margin-top: 15px;
 }

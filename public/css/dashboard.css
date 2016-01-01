@@ -72,6 +72,18 @@
   transform: translate(-50%, 0%);
 }
 
+.leaflet-top.leaflet-right {
+  z-index: 5;
+}
+
+.leaflet-control-attribution.leaflet-control.leaflet-compact-attribution {
+  display: none;
+}
+
+.mapbox-logo.leaflet-control.mapbox-logo-true {
+  display: none;
+}
+
 .sk-three-bounce {
   width: 100px;
   text-align: center;
@@ -134,5 +146,11 @@ th,td {
   }
   .eight.columns {
     width: 90%;
+  }
+}
+
+@media (max-width: 900px) {
+  .heatmap-controls {
+    margin-left: 0;
   }
 }

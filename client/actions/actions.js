@@ -485,3 +485,11 @@ export function updateMapDate(date) {
   }
 }
 
+export function resetState() {
+  return (dispatch) => {
+    dispatch({
+      type: 'RESET_STATE'
+    })
+  }
+}
+

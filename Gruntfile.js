@@ -9,6 +9,16 @@ module.exports = function(grunt) {
         }
       }
     },
+    autoprefixer: {
+      options: {
+          browsers: ['last 2 versions']
+      },
+      dist: {
+          files: {
+              'public/css/main.min.css': 'public/css/styles.min.css'
+          }
+      }
+    },
     cssmin: {
       options: {
         shorthandCompacting: false,
@@ -16,7 +26,7 @@ module.exports = function(grunt) {
       },
       target: {
         files: {
-          'public/css/main.min.css': [
+          'public/css/styles.min.css': [
             'public/css/normalize.css', 'public/css/skeleton.css',
             'public/css/splash.css', 'public/css/sidenav.css',
             'public/css/dashboard.css', 'public/css/budget.css',
@@ -27,8 +37,11 @@ module.exports = function(grunt) {
     }
   });
 
+  grunt.loadNpmTasks('grunt-postcss');
   grunt.loadNpmTasks('grunt-docco-plus');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-autoprefixer');
   grunt.registerTask('default', ['docco-plus']);
-  grunt.registerTask('mincss', ['cssmin']);
+  grunt.registerTask('mincss', ['cssmin', 'autoprefixer']);
+
 };

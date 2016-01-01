@@ -61,12 +61,13 @@ export class OptionsBar extends React.Component {
         </div>
 
         <div className="row">
-          <div className=" u-pull-left">
+          <div className="u-pull-left">
             <RaisedButton label="ADD" primary={true} onTouchTap={this.changeView.bind(this, 'ADD')} />
           </div>
-          <div className=" u-pull-right">
+          <div className="u-pull-right">
             <RaisedButton label="EDIT" secondary={true} onTouchTap={this.changeView.bind(this, 'EDIT')} />
           </div>
+
         </div>
 
         { this.renderView() }

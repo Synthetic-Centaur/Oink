@@ -19,6 +19,8 @@ export function dashboardReducer(state = {
   switch (action.type) {
     case 'SWITCH_COMPONENT':
       return Object.assign({}, state, {currentComponent: action.data})
+    case 'RESET_STATE':
+      return Object.assign({}, state, {currentComponent: DROPDOWN_ACTIONS[0]})
     default:
       return state
   }
@@ -33,6 +35,8 @@ export function budgetReducer(state = {
       return Object.assign({}, state, {settingsView: action.view})
     case 'CHANGE_CURRENT_BUDGET':
       return Object.assign({}, state, {currentBudget: { index: action.budgetIndex }})
+    case 'RESET_STATE':
+      return Object.assign({}, state, {settingsView: 'ADD', currentBudget: {index: null}})
     default:
       return state
   }
@@ -49,6 +53,8 @@ export function plaidReducer(state = {
       return Object.assign({}, state, {showPlaid: true})
     case 'HIDE_PLAID':
       return Object.assign({}, state, {showPlaid: false})
+    case 'RESET_STATE':
+      return Object.assign({}, state, {publicKey: '', showPlaid: false})
     default:
       return state
   }
@@ -69,6 +75,8 @@ export function asyncStatusReducer(state = {
       return Object.assign({}, state, {isLoading: true, error: false})
     case 'REQ_FINISHED':
       return Object.assign({}, state, {isLoading: false, error: false})
+    case 'RESET_STATE':
+      return Object.assign({}, state, {isLoading: false, data: {}, error: false})
     default:
       return state
   }
@@ -112,6 +120,8 @@ export function splashPageReducer(state = {
       return Object.assign({}, state, {invalidPhone: true, errorText: 'Please enter a 10 digit phone number.'})
     case 'MISSING_SIGNUP_FIELDS':
       return Object.assign({}, state, {missingSignupFields: true, errorText: 'Please fill out all fields.'})
+    case 'RESET_STATE':
+      return Object.assign({}, state, {showLogin: false, showSignup: false, invalidEmail: false, invalidPassword: false, invalidPhone: false, invalidBank: false, userExists: false, passwordMatchError: false, missingSignupFields: false, errorText: ''})
     default:
       return state
   }
@@ -157,6 +167,8 @@ export function homePageReducer(state = {
       return Object.assign({}, state, {firstPull: false})
     case 'PHONE_VERIFY_ERROR':
       return Object.assign({}, state, {errorText:'Incorrect Code. Please try again'})
+    case 'RESET_STATE':
+      return Object.assign({}, state, {numberError: true, categoryError: true, showSettings: false, showVerify: false, verifySuccess: false, firstPull: false, errorText: '', category: ''})
     default:
       return state
   }
@@ -168,6 +180,8 @@ export function spendingPageReducer(state = {
   switch (action.type) {
     case 'SELECT_DATE':
       return Object.assign({}, state, {selectedDate: action.data})
+    case 'RESET_STATE':
+      return Object.assign({}, state, {selectedDate: null})
     default:
       return state
   }
@@ -199,6 +213,8 @@ export function settingsReducer(state = {
           return Object.assign({}, state, {editingPassword: true})
         case 'DELETE_ACCOUNT':
           return Object.assign({}, state, {editingDeleteAccount: true})
+        case 'RESET_STATE':
+          return Object.assign({}, state, {editingFirstName: false, editingLastName: false, editingEmail: false, editingPhoneNumber: false, editingPassword: false, editingDeleteAccount: false, accountData: {}, communicationData: {},  securityData: {}})
         default:
           return state
       }
@@ -256,6 +272,8 @@ export function goalPageReducer(state = {
       return Object.assign({}, state, {selectedAvg: action.data})
     case 'CHANGE_GOAL_VIEW':
       return Object.assign({}, state, {goalView: action.data})
+    case 'RESET_STATE':
+      return Object.assign({}, state, {selectedGoal: 1, isValid: false, selectedAvg: 0})
     default:
       return state
   }
@@ -271,6 +289,8 @@ export function transactionMapReducer(state = {
       return Object.assign({}, state, {childrenCluster: action.data.markers, currentAddress: action.data.address})
     case 'UPDATE_MAP_DATE':
       return Object.assign({}, state, {mapDate: action.data, currentAddress: null, childrenCluster: {}})
+    case 'RESET_STATE':
+      return Object.assign({}, state, {childrenCluster: {}, mapDate: {}, currentAddress: null})
     default:
       return state
   }
@@ -289,6 +309,8 @@ export function authReducer(state = {
       return Object.assign({}, state, {isAuthenticated: false, token: '', expiryDate: null})
     case 'AUTHENTICATE_USER':
       return Object.assign({}, state, {isAuthenticated: true})
+    case 'RESET_STATE':
+      return Object.assign({}, state, {isAuthenticated: false, token: '', expiryDate: null})
     default:
       return state
   }

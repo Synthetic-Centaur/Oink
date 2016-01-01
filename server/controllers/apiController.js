@@ -21,7 +21,6 @@ const client = require('twilio')(accountSid, authToken)
 const clientId = config.plaid_private.clientId
 const secret = config.plaid_private.secret
 
-
 let plaidClient = new plaid.Client(clientId, secret, plaid.environments.tartan)
 
 //let plaidClient = new plaid.Client('test_id', 'test_secret', plaid.environments.tartan)

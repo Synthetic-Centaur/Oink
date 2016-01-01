@@ -9,7 +9,7 @@ class BudgetCategories extends React.Component{
   // Form validation for input field/budget amount
   handleNumError(e) {
     let value = e.target.value
-    let isNumeric = !isNaN(parseFloat(value)) && isFinite(value)
+    let isNumeric = !isNaN(parseFloat(value)) && isFinite(value) && value >= 0
     
     this.props.numberValidation(isNumeric)
   }
@@ -50,9 +50,12 @@ class BudgetCategories extends React.Component{
     }
 
     return (
-      <div className="container">
+      <div className="budget-fields">
         <div className="row">
           <DropDownMenu className="category-dropdown"
+            style={{float: 'left', width: '100%'}}
+            iconStyle={{top: '14px', right: '-8px', float: 'right'}}
+            autoWidth={false}
             ref="category"
             menuItems={menuItems}
             errorText="Please choose a category."
@@ -60,7 +63,7 @@ class BudgetCategories extends React.Component{
         </div>
         <div className="row">
           <TextField
-            fullWidth={true}
+            style={{float: 'left', width: '100%'}}
             ref="amount"
             hintText="Enter a sum"
             onChange={this.handleNumError.bind(this)} />
@@ -68,6 +71,7 @@ class BudgetCategories extends React.Component{
         <div className="row">
           <RaisedButton className="submit-budget-button"
             ref="input"
+            style={{float: 'left'}}
             label="Add new category"
             disabled={this.props.numberError || this.props.categoryError}
             onClick={this.handleBudget.bind(this)} />
