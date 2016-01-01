@@ -156,7 +156,7 @@ describe('homePageReducer', () => {
       category: '',
       showSettings: false,
       showVerify: false,
-      verifySuccess: false,
+      verifySuccess: true,
       errorText: ''
     })
   })
@@ -173,7 +173,7 @@ describe('homePageReducer', () => {
       category: '',
       showSettings: false,
       showVerify: false,
-      verifySuccess: false,
+      verifySuccess: true,
       errorText: ''
     })
   })
@@ -190,7 +190,7 @@ describe('homePageReducer', () => {
       showSettings: false,
       firstPull: false,
       showVerify: false,
-      verifySuccess: false,
+      verifySuccess: true,
       errorText: ''
     })
   })
@@ -208,7 +208,7 @@ describe('homePageReducer', () => {
       showSettings: false,
       firstPull: false,
       showVerify: false,
-      verifySuccess: false,
+      verifySuccess: true,
       errorText: ''
     })
   })
@@ -225,7 +225,7 @@ describe('homePageReducer', () => {
       showSettings: false,
       firstPull: false,
       showVerify: false,
-      verifySuccess: false,
+      verifySuccess: true,
       errorText: ''
     })
   })
@@ -242,7 +242,7 @@ describe('homePageReducer', () => {
       showSettings: true,
       firstPull: false,
       showVerify: false,
-      verifySuccess: false,
+      verifySuccess: true,
       errorText: ''
     })
   })
@@ -259,7 +259,7 @@ describe('homePageReducer', () => {
       showSettings: false,
       firstPull: false,
       showVerify: false,
-      verifySuccess: false,
+      verifySuccess: true,
       errorText: ''
     })
   })
@@ -276,7 +276,7 @@ describe('homePageReducer', () => {
       showSettings: false,
       firstPull: false,
       showVerify: true,
-      verifySuccess: false,
+      verifySuccess: true,
       errorText: ''
     })
   })
@@ -293,7 +293,7 @@ describe('homePageReducer', () => {
       showSettings: false,
       firstPull: false,
       showVerify: false,
-      verifySuccess: false,
+      verifySuccess: true,
       errorText: ''
     })
   })
@@ -327,7 +327,7 @@ describe('homePageReducer', () => {
       showSettings: false,
       firstPull: false,
       showVerify: false,
-      verifySuccess: false,
+      verifySuccess: true,
       errorText: 'Incorrect Code. Please try again'
     })
   })
@@ -344,7 +344,7 @@ describe('homePageReducer', () => {
       showSettings: false,
       firstPull: true,
       showVerify: false,
-      verifySuccess: false,
+      verifySuccess: true,
       errorText: ''
     })
   })
@@ -361,7 +361,7 @@ describe('homePageReducer', () => {
       showSettings: false,
       firstPull: false,
       showVerify: false,
-      verifySuccess: false,
+      verifySuccess: true,
       errorText: ''
     })
   })

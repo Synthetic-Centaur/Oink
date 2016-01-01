@@ -9,7 +9,7 @@ import { authRedirect, authLogout, sendPhoneVerification, checkPhoneVerification
 import { getInitialState, postSettings, deleteAccount } from '../actions/api/apiActions'
 import { changeView, switchComponent, showSettings, hideSettings, editStart, editFinish,
          updateAccountSettings, updateCommunicationSettings, updateSecuritySettings,
-         showPhoneVerify, hidePhoneVerify, editFinishAll, removeJWT } from '../actions/actions'
+         showPhoneVerify, hidePhoneVerify, editFinishAll, removeJWT, phoneVerifyFailed, phoneVerifySuccess } from '../actions/actions'
 import SideNav from '../components/dashboard/sidenav/SideNav'
 import SettingsModal from '../components/dashboard/settings/SettingsModal'
 import PhoneVerifyModal from '../components/dashboard/phoneVerify/PhoneVerifyModal'
@@ -34,7 +34,13 @@ class Dashboard extends React.Component {
     if (this.props.firstPull !== nextProps.firstPull) {
       this.props.actions.getInitialState()
     }
-    
+
+    if (nextProps.data.user) {
+      if (!nextProps.data.user.phone_verified && nextProps.homePage.verifySuccess && !this.props.homePage.showVerify) {
+        this.props.actions.phoneVerifyFailed()
+      }
+    }
+
     return true
   }
 
@@ -78,7 +84,7 @@ class Dashboard extends React.Component {
             editingEmail, editingPhoneNumber, editingPassword, editingDeleteAccount,
             accountData, communicationData, securityData, isLoading, firstPull } = this.props
 
-    const userIsVerified = data.user ? data.user.phone_verified : true
+    let userIsVerified = data.user ? data.user.phone_verified : false
 
     return (
       <div className="dashboard-el">
@@ -92,6 +98,9 @@ class Dashboard extends React.Component {
           showPhoneVerify={actions.showPhoneVerify}
           showVerify={homePage.showVerify}
           userIsVerified={userIsVerified}
+          verifySuccess={homePage.verifySuccess}
+          phoneVerifyFailed={actions.phoneVerifyFailed}
+          data={data}
         />
 
         <div className="dashboard">
@@ -194,6 +203,8 @@ function mapDispatchToProps(dispatch) {
     actions: bindActionCreators({
       getInitialState,
       authRedirect,
+      phoneVerifyFailed,
+      phoneVerifySuccess,
       authLogout,
       showSettings,
       hideSettings,

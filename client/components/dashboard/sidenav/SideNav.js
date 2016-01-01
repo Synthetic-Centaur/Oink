@@ -33,7 +33,7 @@ class SideNav extends Component {
   }
 
   handlePhoneVerifyRender() {
-    if (this.props.userIsVerified) {
+    if (this.props.verifySuccess) {
       return ''
     } else {
       return this.renderVerifyNeeded()
