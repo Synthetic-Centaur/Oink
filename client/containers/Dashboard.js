@@ -30,8 +30,7 @@ class Dashboard extends React.Component {
 
   // This is delays the call to initial state until transactions are loaded server side
   // This is necessary because we need to do significant processing server side on the first pull from plaid
-  componentWillReceiveProps(nextProps) {
-    console.log("props--------->", this.props.firstPull, nextProps.firstPull)
+  shouldComponentUpdate(nextProps) {
     if (this.props.firstPull !== nextProps.firstPull) {
       this.props.actions.getInitialState()
     }
@@ -184,7 +183,8 @@ function mapStateToProps(state) {
     editingDeleteAccount: state.settings.editingDeleteAccount,
     accountData: state.settings.accountData,
     communicationData: state.settings.communicationData,
-    securityData: state.settings.securityData
+    securityData: state.settings.securityData,
+    firstPull: state.homePage.firstPull
   }
 }
 
