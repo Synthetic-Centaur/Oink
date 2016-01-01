@@ -203,7 +203,7 @@ export default class TransactionMap extends Component {
         title: title,
         price: price
       })
-      marker.bindPopup(title + " - $" + price)
+      marker.bindPopup(title + ' - $' + price)
       markers.addLayer(marker)
     })
 
