@@ -35,7 +35,7 @@ class Dashboard extends React.Component {
       this.props.actions.getInitialState()
     }
 
-    if (nextProps.data.user) {
+    if (this.props.data.user !== nextProps.data.user) {
       if (!nextProps.data.user.phone_verified && nextProps.homePage.verifySuccess && !this.props.homePage.showVerify) {
         this.props.actions.phoneVerifyFailed()
       }
