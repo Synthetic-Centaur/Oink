@@ -85,7 +85,6 @@ let apiHandler = {
                     goalController.generateReport(user.id).then((avgNet) => {
                       transactionController.getTransactionsByTime(user.id).then((transactions) => {
                         // Build response object
-                        console.log("transactions--------->", transactions)
                         let mapbox = {accessToken: mapbox_private.accessToken}
                         let state = {
                           transactions,
