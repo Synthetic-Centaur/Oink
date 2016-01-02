@@ -133,8 +133,7 @@ let authController = {
   },
   
   allUsers() {
-    return db.knex('users')
-      .select('*')
+    return db.knex.select('*').from('users')
   }
 }
 

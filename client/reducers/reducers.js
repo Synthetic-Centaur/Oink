@@ -168,7 +168,7 @@ export function homePageReducer(state = {
     case 'PHONE_VERIFY_ERROR':
       return Object.assign({}, state, {errorText:'Incorrect Code. Please try again'})
     case 'RESET_STATE':
-      return Object.assign({}, state, {numberError: true, categoryError: true, showSettings: false, showVerify: false, verifySuccess: false, firstPull: false, errorText: '', category: ''})
+      return Object.assign({}, state, {numberError: true, categoryError: true, showSettings: false, showVerify: false, verifySuccess: true, firstPull: false, errorText: '', category: ''})
     default:
       return state
   }

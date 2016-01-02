@@ -43,7 +43,7 @@ function chartConfig(data, net, avg) {
 
       // this is to show a line on the current date
       plotLines: [{
-        color: '#FF1970',
+        color: '#FF8A80',
         label: {
           text: 'Today',
           align: 'left',
