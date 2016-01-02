@@ -35,10 +35,11 @@ Map.PropTypes = {
   data: PropTypes.obj,
   actions: PropTypes.obj,
   mapDate: PropTypes.obj,
-  currentAddress: PropTypes.string
+  currentAddress: PropTypes.string,
+  currentChildren: PropTypes.obj
 }
 
-//Binds state to properties on container
+// Binds state to properties on container
 function mapStateToProps(state) {
   return {
     data: state.asyncStatus.data,

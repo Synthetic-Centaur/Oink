@@ -3,7 +3,7 @@ import authController from '../controllers/authController'
 import Promise from 'bluebird'
 import nodemailer from 'nodemailer'
 
-var transporter = nodemailer.createTransport()
+let transporter = nodemailer.createTransport()
 const makeChart = Promise.promisify(cronController.makeEmailChart)
 
 let cronHandler = {

@@ -150,10 +150,11 @@ export default class TransactionMap extends Component {
       return b[1].visits - a[1].visits
     })
 
-    let listItems = purchases.map((purchase) => {
+    let listItems = purchases.map((purchase, index) => {
       let plural = purchase[1].visits > 1 ? ' purchases' : ' purchase'
       return (
         <ListItem
+          key={index}
           primaryText={purchase[0] + ' - ' + purchase[1].visits +  plural}
           secondaryText={'$' + purchase[1].totalSpent + ' spent'} />
       )
@@ -247,4 +248,16 @@ export default class TransactionMap extends Component {
     })
   }
 
+}
+
+TransactionMap.PropTypes = {
+  transactions: PropTypes.array,
+  categories: PropTypes.array,
+  accessToken: PropTypes.string,
+  currentChildren: PropTypes.obj,
+  updateCluster: PropTypes.func,
+  mapDate: PropTypes.obj,
+  updateMapDate: PropTypes.func,
+  currentAddress: PropTypes.string,
+  updateAddress: PropTypes.func
 }

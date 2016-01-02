@@ -69,24 +69,24 @@ let cronController = {
 
   makeEmailChart(sums) {
     // Create mock document and window for highchart
-    var doc = jsdom.jsdom('<!doctype html><html><body><div id="container"></div></body></html>')
-    var win = doc.defaultView
+    let doc = jsdom.jsdom('<!doctype html><html><body><div id="container"></div></body></html>')
+    let win = doc.defaultView
     doc.createElementNS = (ns, tagName) => {
-      var elem = doc.createElement(tagName)
+      let elem = doc.createElement(tagName)
 
       elem._namespaceURI = ns
 
       elem.createSVGRect = function() {}
 
       elem.getBBox = function() {
-        var lineWidth = 0
-        var width = 0
-        var height = 0
+        let lineWidth = 0
+        let width = 0
+        let height = 0
 
         Array.prototype.forEach.call(elem.children.length ? elem.children : [elem], (child) => {
-          var fontSize = child.style.fontSize || elem.style.fontSize
-          var lineHeight
-          var textLength
+          let fontSize = child.style.fontSize || elem.style.fontSize
+          let lineHeight
+          let textLength
 
           // The font size and lineHeight is based on empirical values, copied from
           // the SVGRenderer.fontMetrics function in Highcharts.
@@ -141,7 +141,7 @@ let cronController = {
     Highcharts.chart('container', chartConfig(sums))
 
     // Get svg and remove div container surrounding it
-    var svg = win.document.getElementById('container').innerHTML.slice(178)
+    let svg = win.document.getElementById('container').innerHTML.slice(178)
     svg = svg.slice(0, -6)
 
     // Write svg file and convert it to png
