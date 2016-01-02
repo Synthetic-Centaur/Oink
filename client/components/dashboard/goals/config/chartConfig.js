@@ -91,7 +91,10 @@ function chartConfig(data, net, avg) {
     }, {
       name: 'Experiment!',
       data: userPath
-    }]
+    }],
+    credits: {
+      enabled: false
+    }
   }
 
   return config
