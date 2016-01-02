@@ -62,10 +62,11 @@ let goalController = {
     })
   },
 
-  getMonthlySavings(userId, start, end) {
+  getMonthlySavings(userId, start) {
     let sum = 0
-    start = moment().subtract(start, 'days').startOf('month')
-    end =  moment().subtract(end, 'days').startOf('month')
+    start = moment().subtract(start, 'months').startOf('month')
+    let end =  moment().startOf('month')
+    console.log('The difference is: ', start.diff(end, 'days'))
     return db.knex('transactions')
     .where('user_id', userId)
     .then((transactions) => {
@@ -79,48 +80,20 @@ let goalController = {
   },
 
   generateReport(userId) {
-    var lastYear = [30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330, 360]
-    let end = 0
-    let result = Promise.map(lastYear, (start, index) => {
-      if (lastYear[index - 1] === undefined) {
-        end = 0
-      } else {
-        end = lastYear[index - 1]
-      }
-
-      return goalController.getMonthlySavings(userId, start, end)
+    // Sets months for us to check averages
+    let months = [1, 3, 6, 12]
+    let result = Promise.map(months, (start) => {
+      return goalController.getMonthlySavings(userId, start)
     })
-    var resultObj = {
-      lastMonth: result[0],
-      lastThree: null,
-      lastSix: null,
-      lastYear: null
-    }
-    return result
-    .reduce((acc, item, index) => {
-      if (index === 0) {
-        acc.lastMonth = item
-        acc.lastThree += item
-        acc.lastSix += item
-        acc.lastYear += item
-      } else if (index < 3) {
-        acc.lastThree += item
-        acc.lastSix += item
-        acc.lastYear += item
-      } else if (index < 6) {
-        acc.lastSix += item
-        acc.lastYear += item
-      } else if (index < 11) {
-        acc.lastYear += item
-      } else if (index === 11) {
-        acc.lastYear += item
-        acc.lastYear /= 12
-        acc.lastSix /= 6
-        acc.lastThree /= 3
-      }
 
+    // Formats return object
+    return result.reduce((acc, item, index) => {
+      acc.lastMonth = index === 0 ? item : acc.lastMonth
+      acc.lastThree = index === 1 ? (item / 3) : acc.lastThree
+      acc.lastSix = index === 2 ? (item / 6) : acc.lastSix
+      acc.lastYear = index === 3 ? (item / 12) : acc.lastYear
       return acc
-    }, resultObj)
+    }, {})
   }
 }
 

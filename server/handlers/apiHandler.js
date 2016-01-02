@@ -13,41 +13,11 @@ let apiHandler = {
 
   retrieveTransactions(req, res) {
 
-    // TODO: Add Token Plaid logic
+    // Route handler for testing updates to transactions
     authController.findUserByToken(req, true).then((user) => {
       apiController.retrieveTransactions(user.token_plaid, user.id)
     })
-  },
-
-  getTransactions(req, res) {
-    
-    // Find the user based on auth token
-    if (!req.headers.authorization) {
-      res.status(403)
-      res.json({ success: false, message: 'Failed, user is not authenticated'})
-    } else {
-      authController.findUserByToken(req).then((user) => {
-        if (req.params.year && req.params.month) {
-          transactionController.getTransactionsByTime(user.id, req.params.month, req.params.year)
-          .then((transactions) => {
-            if (transactions) {
-              res.json(transactions)
-            } else {
-              res.json({success: false, message: 'Error retrieving transactions'})
-            }
-          })
-        } else {
-          transactionController.getTransactionsByTime(user.id)
-          .then((transactions) => {
-            if (transactions) {
-              res.json(transactions)
-            } else {
-              res.json({success: false, message: 'Error retrieving transactions'})
-            }
-          })
-        }
-      })
-    }
+    res.send('OK')
   },
 
   setWebhook(req, res) {
@@ -126,7 +96,6 @@ let apiHandler = {
           budgetController.createBudget(req.params.id, user.id, req.body.amount).then((budget) => {
             if (budget) {
               // Send back the budget created
-              // res.json(budget)
               res.send(200)
             } else {
               res.json({ success: false, message: 'Failed, error creating budget.' })
@@ -151,7 +120,6 @@ let apiHandler = {
           budgetController.deleteBudget(req.params.id, user.id).then((result) => {
             if (result) {
               // Send back the budget created
-              // res.json(budget)
               res.send(200)
             } else {
               res.json({ success: false, message: 'Failed, error deleting budget.' })
@@ -236,6 +204,8 @@ let apiHandler = {
     } else {
       authController.findUserByToken(req).then((user) => {
         authController.deleteAccount(user).then((rowsDeleted) => {
+
+          // Verifies that user has been deleted, if so send success response
           if (rowsDeleted.userRows > 0) {
             res.status(204)
             res.json(user)

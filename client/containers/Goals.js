@@ -13,6 +13,7 @@ import { switchGoal, validateGoal, selectAvg, changeGoalView } from '../actions/
 
 class Goals extends Component {
   getChildContext() {
+    // Passes theme to children components
     return {
       muiTheme: ThemeManager.getMuiTheme(Theme),
     }
@@ -79,7 +80,9 @@ class Goals extends Component {
 
 Goals.PropTypes = {
   data: PropTypes.object.isRequired,
-  goalPage: PropTypes.object.isRequired
+  goalPage: PropTypes.object.isRequired,
+  error: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool.isRequired
 }
 
 Goals.childContextTypes = {

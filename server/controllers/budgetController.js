@@ -72,7 +72,6 @@ let budgetController = {
 
   sumTransactionByCategoryMonthly(categoryId, userId) {
     // Return the sum of all transactions in a provided category
-    //return db.knex('transactions').sum('amount').where({'category_id': categoryId}).whereBetween('date', [new Date().getMonth()-1, new Date()]).then((sum)=> {
     return db.knex('transactions').where({category_id: categoryId, user_id: userId}).select().then((transactions)=> {
       let sum = 0
       return Promise.map(transactions, (transaction) => {
@@ -106,8 +105,11 @@ let budgetController = {
   },
 
   checkTotalMonthlySpending(user) {
+    // Sums the targets of all budgets for an user
     return db.knex('budgets').sum('target').where({user_id: user.id}).then((target)=> {
+      // Sums the actuals
       return db.knex('budgets').sum('actual').where({user_id: user.id}).then((actual) => {
+        // Send text if above budgets
         if (actual[0].sum > target[0].sum) {
           apiController.sendMessage('Oink Oink!! \n\nHey ' + user.first_name + ' looks like you have gone over your total budget for this month! \n \n Budget: $' + target[0].sum + ' \n Actual: $' + actual[0].sum, user.phone_number)
         }
@@ -117,9 +119,11 @@ let budgetController = {
 
   checkMonthlySpendingByCategory(user) {
     return db.knex('budgets').where({user_id: user.id}).select().then((budget) => {
+      // Iterates over all budgets
       return Promise.map(budget, (item) => {
         if (item.actual > item.target) {
           return budgetController.getCategoryName(item.category_id).then((description) => {
+            // Text message to user when over budget in an individual category
             apiController.sendMessage('Oink Oink!! \n\nHey ' + user.first_name + ' looks like you have gone over your '
             + description[0].description + ' budget for this month! \n \n Budget: $' + item.target + ' \n Actual: $' + item.actual, user.phone_number)
           })

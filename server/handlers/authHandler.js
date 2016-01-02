@@ -3,7 +3,7 @@ import apiController from '../controllers/apiController'
 import budgetController from '../controllers/budgetController'
 import jwt from 'jsonwebtoken'
 
-// shhhhh secrets
+// import secrets
 import config from '../env/envConfig'
 
 const jwt_secret = config.jwt_private.secret
@@ -38,6 +38,7 @@ let authHandler = {
       })
 
     } else {
+
       // if there is no token
       // return an error
       return res.status(403).json({
@@ -61,6 +62,7 @@ let authHandler = {
         res.status(403)
         res.json({success: false, message: 'Invalid Bank'})
       } else {
+
         // Checks if provided password is valid
         if (!user.validPassword(req.body.password)) {
           res.status(403)
@@ -74,6 +76,7 @@ let authHandler = {
         })
 
         authController.saveAuthToken(token, user.attributes.id).then((user) => {
+
           // return the information including token as JSON
           res.status(200)
           res.json({
@@ -88,6 +91,7 @@ let authHandler = {
   },
 
   signup(req, res, next) {
+
     // Finds the user with provided email
     authController.findUser({email: req.body.email}).then((user) => {
       if (!user) {
@@ -121,6 +125,7 @@ let authHandler = {
   },
 
   plaid(req, res) {
+
     // Get user token from header
     let token_auth = req.headers.authorization.split(' ')[1]
     let public_token = req.body.public_token
@@ -143,10 +148,6 @@ let authHandler = {
             apiController.retrieveTransactions(user.token_plaid, user.id, () => {
               res.sendStatus(200)
             })
-            
-            // .then( (transactions) => {
-            //   budgetController.saveTransactions(transactions, userid)
-            // })
         
             apiController.setWebhook(user.token_plaid)
 
@@ -155,6 +156,7 @@ let authHandler = {
           }
         })
       } else {
+
         // error handle
         res.sendStatus(500)
       }
@@ -162,13 +164,13 @@ let authHandler = {
   },
 
   getPlaid(req, res) {
+
+    // Returns public key for client to access
     res.json(config.plaid_private.publicKey)
   },
 
   sendVerificationCode(req, res) {
-    console.log('inside send verification')
     authController.findUserByToken(req).then((user) => {
-      console.log('inside send verification code handler user is ', user)
       let phone = user.phone_number
       let name = user.first_name
       authController.generateVerificationCode(user).then((code) => {
@@ -188,12 +190,15 @@ let authHandler = {
     authController.findUserByToken(req).then((user, secure) => {
       authController.checkVerificationCode(user, code).then((result) => {
         if (result) {
+
           // check if user has already created a budget
           budgetController.getBudgets(user.id).then((budget) => {
+
             // if user has created a budget send them a text to thank them for verifying their phone number
             if (budget) {
               apiController.sendMessage('Hello ' + user.first_name + '!\nThanks for verifying your phone with Oink!!', user.phone_number)
             } else {
+
               // send user welcome to Oink text
               apiController.sendMessage('Hello ' + user.first_name + '!\nWelcome to Oink, Let\'s Budget Together!!', user.phone_number)
             }
