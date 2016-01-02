@@ -63,10 +63,10 @@ class Splash extends Component {
             <div className="row">
 
               <div className="row heading u-full-width">
-                <h1>PLAN FOR THE FUTURE.</h1>
+                <h1>PLAN FOR THE FUTURE</h1>
               </div>
               <div className="row subheading u-full-width">
-                <h2>Make intelligent budgets and be notified when you go over them.</h2>
+                <h2>Make intelligent budgets and be notified when you go over them</h2>
               </div>
               <div className="row signup u-full-width">
                 <button onClick={actions.showSignup}>Get started</button>
@@ -104,7 +104,7 @@ class Splash extends Component {
           <div className="container">
 
             <div className="row">
-              <h3 className="heading">Our Team.</h3>
+              <h3 className="heading">Meet the Team</h3>
             </div>
 
             <div className="row">
@@ -118,8 +118,7 @@ class Splash extends Component {
                   email="claykschneider@gmail.com"
                   github="https://github.com/claytonschneider"
                   linkedin="https://www.linkedin.com/in/claytonschneider"
-                  description=" Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                Donec mattis pretium massa. Aliquam erat volutpat."
+                  description="Clayton is enthusiastic about staying on the bleeding edge of JavaScript development by building with technologies like React.js"
                 />
               </div>
               <div className="three columns">
@@ -128,7 +127,7 @@ class Splash extends Component {
                   title="Fullstack Engineer"
                   picture="images/Lucilla_Chalmer.jpg"
                   email="chalmer.lucilla@gmail.com"
-                  github="https://www.linkedin.com/in/LucillaChalmer"
+                  github="https://github.com/LucillaC"
                   linkedin="https://www.linkedin.com/in/LucillaChalmer"
                   description="Lucilla is focused on tactical problem solving and passionate about delivering an exceptional user experience."
                 />
@@ -141,8 +140,7 @@ class Splash extends Component {
                   email="a.ackerman050@gmail.com"
                   github="https://github.com/aackerman050"
                   linkedin="https://www.linkedin.com/in/aackerman050"
-                  description=" Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                Donec mattis pretium massa. Aliquam erat volutpat."
+                  description="Aaron is interested in full-stack software design for maintaining efficient and expandable websites."
                 />
               </div>
               <div className="three columns">
@@ -153,7 +151,7 @@ class Splash extends Component {
                   email="todd.levin@me.com"
                   github="https://github.com/tlevin"
                   linkedin="https://www.linkedin.com/in/toddglevin"
-                  description="Todd is focused on building logical systems to support a responsive interaction for the user."
+                  description="Todd is committed to building responsible software by writing modular and maintainable code."
                 />
               </div>
 
@@ -166,7 +164,7 @@ class Splash extends Component {
 
             <div className="row">
               <div className="six columns">
-                <h3>Oink Financial is an Open Source Project.</h3>
+                <h3>Oink Financial is an Open Source Project</h3>
               </div>
 
               <div className="three columns">
