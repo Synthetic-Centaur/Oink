@@ -66,7 +66,6 @@ let goalController = {
     let sum = 0
     start = moment().subtract(start, 'months').startOf('month')
     let end =  moment().startOf('month')
-    console.log('The difference is: ', start.diff(end, 'days'))
     return db.knex('transactions')
     .where('user_id', userId)
     .then((transactions) => {
