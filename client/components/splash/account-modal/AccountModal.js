@@ -172,7 +172,7 @@ AccountModal.propTypes = {
   phoneNumberError: PropTypes.func.isRequired,
   passwordMatchError: PropTypes.func.isRequired,
   missingFields: PropTypes.bool.isRequired,
-  missingSignupFields: PropTypes.bool.isRequired
+  missingSignupFields: PropTypes.func.isRequired
 }
 
 // Required for passing down Material UI Theme to children components

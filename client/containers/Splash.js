@@ -51,7 +51,7 @@ class Splash extends Component {
         />
 
         <div className="navbar">
-          <div className="container">
+          <div className="splashnav-container container">
             <div className="row">
               <SplashNavBar showLoginModal={actions.showLogin} />
             </div>
@@ -191,11 +191,8 @@ class Splash extends Component {
 // Specify what props are required by the container
 Splash.propTypes = {
   actions: PropTypes.object.isRequired,
-  isLoading: PropTypes.bool.isRequired,
-  data: PropTypes.object.isRequired,
-  error: PropTypes.bool.isRequired,
   splashPage: PropTypes.object.isRequired,
-  isAuthenticated: PropTypes.bool.isAuthenticated,
+  isAuthenticated: PropTypes.bool.isRequired,
   token: PropTypes.string.isRequired,
   publicKey: PropTypes.string.isRequired,
   showPlaid: PropTypes.bool.isRequired,

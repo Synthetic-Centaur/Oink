@@ -31,6 +31,7 @@ class SideNav extends Component {
             primary={true}
             style={{padding:'0px'}}
             badgeStyle={{height: '10px', width: '10px'}}
+            badgeContent=""
           >
             <span className="material-icons">cellphone</span>
           </Badge>
