@@ -75,7 +75,10 @@ function chartConfig(data, selectDate) {
       }, {
         color: '#B4CCB9'
       }]
-    }]
+    }],
+    credits: {
+      enabled: false
+    }
   }
 
   return config

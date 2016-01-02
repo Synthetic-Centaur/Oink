@@ -40,7 +40,10 @@ function chartConfig(data) {
       name: 'Budget',
       colorByPoint: true,
       data: budget
-    }]
+    }],
+    credits: {
+      enabled: false
+    }
   }
 
   return config

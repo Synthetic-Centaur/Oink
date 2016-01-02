@@ -61,7 +61,10 @@ function chartConfig(data) {
       data: actual,
       pointPadding: 0.4,
       pointPlacement: 0.0
-    }]
+    }],
+    credits: {
+      enabled: false
+    }
 
   }
 
