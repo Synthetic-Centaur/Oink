@@ -1,3 +1,5 @@
+// ## Left Navigation Menu
+
 import React, { Component, PropTypes } from 'react'
 import { FontIcon, FlatButton, RaisedButton, Badge } from 'material-ui'
 import LeftNav from 'material-ui/lib/left-nav'
@@ -24,7 +26,13 @@ class SideNav extends Component {
       >
         {'Verify Phone'}
         <i className="test">
-          <Badge ref="badge" primary={true} style={{padding:'0px'}} badgeStyle={{height: '10px', width: '10px'}}>
+          <Badge
+            ref="badge"
+            primary={true}
+            style={{padding:'0px'}}
+            badgeStyle={{height: '10px', width: '10px'}}
+            badgeContent=""
+          >
             <span className="material-icons">cellphone</span>
           </Badge>
           </i>
@@ -65,20 +73,31 @@ class SideNav extends Component {
 
     return (
       <div className="sidenav">
+
         <div className="header">
           <img className="logo" src="/images/Oink-logo.png" alt="oink financial logo"/>
           <h4 className="logo-text">ink.</h4>
         </div>
+
         { menuItems }
         { phoneVerifyIcon }
+        
       </div>
     )
   }
 }
 
+// Specify what props are required by the component
 SideNav.propTypes = {
-  handleNavigation: PropTypes.func,
-  dropDownComponents: PropTypes.array
+  changeView: PropTypes.func.isRequired,
+  handleNavigation: PropTypes.func.isRequired,
+  dropDownComponents: PropTypes.array.isRequired,
+  showPhoneVerify: PropTypes.func.isRequired,
+  showVerify: PropTypes.bool.isRequired,
+  userIsVerified: PropTypes.bool.isRequired,
+  verifySuccess: PropTypes.bool.isRequired,
+  phoneVerifyFailed: PropTypes.func.isRequired,
+  data: PropTypes.object.isRequired
 }
 
 export default SideNav

@@ -1,3 +1,5 @@
+// ## Bar chart for visualizing budget vs. actual spending
+
 import React, { Component, PropTypes } from 'react'
 import ReactDOM from 'react-dom'
 import ChartTheme from '../../../chart-theme'
@@ -8,7 +10,7 @@ let ReactHighCharts
 
 class BarChart extends Component {
 
-  // Check if our charts should re-render
+  // Check if the charts should re-render
   shouldComponentUpdate(nextProps) {
 
     // If the user has any budgets in state
@@ -32,7 +34,8 @@ class BarChart extends Component {
   render() {
     const { data } = this.props
     let config = data.budgets !== undefined ? chartConfig(data.budgets) : null
-
+    
+    // This check is required for our testing enviroment due to the fact that there is no DOM when tests run
     if (window !== undefined) {
       ReactHighCharts = require('react-highcharts/dist/bundle/highcharts')
       ReactHighCharts.Highcharts.setOptions(ChartTheme)
@@ -51,6 +54,11 @@ class BarChart extends Component {
       )
   }
 
+}
+
+// Specify what props are required by the component
+BarChart.propTypes = {
+  data: PropTypes.object.isRequired
 }
 
 export default BarChart

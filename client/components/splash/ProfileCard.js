@@ -1,4 +1,6 @@
-import React, { Component, PropTypes } from 'react'
+// ## Profile Card displaying info for each team member
+
+import React, {Component, PropTypes } from 'react'
 import Card from 'material-ui/lib/card/card'
 import CardHeader from 'material-ui/lib/card/card-header'
 import CardText from 'material-ui/lib/card/card-text'
@@ -15,15 +17,15 @@ class ProfileCard extends Component {
         <CardHeader
           className="header"
           style={{padding: '16px 0', height: '160px'}}
-          title={ name }
-          subtitle={ title }
-          avatar={ <Avatar className="avatar" src={ picture } size={ 100 } /> }
+          title={name}
+          subtitle={title}
+          avatar={<Avatar className="avatar" src={picture} size={100} />}
         />
 
         <div className="icon-container u-full-width">
           <div className="row">
 
-            <a className="github-icon one-third column" href={ github }>
+            <a className="github-icon one-third column" href={github}>
               <IconButton
                 style={{left: '50%', transform: 'translateX(-50%)'}}
                 tooltipPosition="bottom-center"
@@ -33,7 +35,7 @@ class ProfileCard extends Component {
               </IconButton>
             </a>
             
-            <a className="linkedin-icon one-third column" href={ linkedin }>
+            <a className="linkedin-icon one-third column" href={linkedin}>
               <IconButton
                 style={{left: '50%', transform: 'translateX(-50%)'}}
                 tooltipPosition="bottom-center"
@@ -43,7 +45,7 @@ class ProfileCard extends Component {
               </IconButton>
             </a>
 
-            <a className="email-icon one-third column" href={ 'mailto:' + email }>
+            <a className="email-icon one-third column" href={'mailto:' + email}>
               <IconButton
                 style={{left: '50%', transform: 'translateX(-50%)'}}
                 tooltipPosition="bottom-center"
@@ -63,6 +65,7 @@ class ProfileCard extends Component {
   }
 }
 
+// Specify what props are required by the component
 ProfileCard.propTypes = {
   name: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,

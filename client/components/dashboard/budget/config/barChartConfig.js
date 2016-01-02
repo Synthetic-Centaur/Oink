@@ -1,6 +1,4 @@
-
-
-//configures data for High-chart
+// ## Configures data for Bar Chart
 
 function chartConfig(data) {
   //data should be formatted as an array with objects for data points

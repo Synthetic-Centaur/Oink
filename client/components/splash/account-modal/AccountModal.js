@@ -1,3 +1,5 @@
+// ## Login/Signup pop up modal
+
 import React, { Component, PropTypes } from 'react'
 import FlatButton from 'material-ui/lib/flat-button'
 import Dialog from 'material-ui/lib/dialog'
@@ -145,6 +147,7 @@ class AccountModal extends Component {
   }
 }
 
+// Specify what props are required by the component
 AccountModal.propTypes = {
   login: PropTypes.func.isRequired,
   signup: PropTypes.func.isRequired,
@@ -153,9 +156,26 @@ AccountModal.propTypes = {
   hideLoginModal: PropTypes.func.isRequired,
   hideSignupModal: PropTypes.func.isRequired,
   showSignupModal: PropTypes.func.isRequired,
-  showLoginModal: PropTypes.func.isRequired
+  showLoginModal: PropTypes.func.isRequired,
+  authenticate: PropTypes.func.isRequired,
+  getKey: PropTypes.func.isRequired,
+  publicKey: PropTypes.string.isRequired,
+  showPlaid: PropTypes.bool.isRequired,
+  invalidEmail: PropTypes.bool.isRequired,
+  invalidPassword: PropTypes.bool.isRequired,
+  invalidPhone: PropTypes.bool.isRequired,
+  invalidBank: PropTypes.bool.isRequired,
+  userExists: PropTypes.bool.isRequired,
+  errorText: PropTypes.string.isRequired,
+  removeAlerts: PropTypes.func.isRequired,
+  passwordErr: PropTypes.bool.isRequired,
+  phoneNumberError: PropTypes.func.isRequired,
+  passwordMatchError: PropTypes.func.isRequired,
+  missingFields: PropTypes.bool.isRequired,
+  missingSignupFields: PropTypes.func.isRequired
 }
 
+// Required for passing down Material UI Theme to children components
 AccountModal.childContextTypes = {
   muiTheme: PropTypes.object
 }

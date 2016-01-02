@@ -141,7 +141,7 @@ let budgetController = {
         return budgetController.sumTransactionByCategoryMonthly(item.category_id, userId).then((sum) => {
           // update actual
           return db.knex('budgets').where({user_id: userId, category_id: item.category_id}).update({actual: sum}).then((response) => {
-            return sum;
+            return sum
           })
         })
       })

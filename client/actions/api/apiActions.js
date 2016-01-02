@@ -1,8 +1,10 @@
+// ## API actions for client-server data flow
+
 import * as ACTIONS from '../actions'
 import fetch from 'isomorphic-fetch'
 import { updatePath } from 'redux-simple-router'
 
-//Get initial state data for user
+// Get initial state data for user
 export function getInitialState() {
   return function(dispatch) {
     dispatch(ACTIONS.requestData())
@@ -27,9 +29,8 @@ export function getInitialState() {
   }
 }
 
-// update user settings
+// Update user's settings
 export function postSettings(data) {
-  console.log('Data is:', data)
   return function(dispatch) {
     dispatch(ACTIONS.requestData())
     return fetch('/api/settings', {
@@ -44,7 +45,7 @@ export function postSettings(data) {
       if (response.status === 201) {
         getInitialState()(dispatch)
       } else if (response.status === 409) {
-        console.log('Cannot Update User Fields')
+        throw new Error('Cannot Update User Fields')
       } else if (response.status === 500) {
         throw new Error('Error on the server', response)
       }
@@ -56,9 +57,8 @@ export function postSettings(data) {
   }
 }
 
-// delete user's account
+// Delete user's account
 export function deleteAccount() {
-  console.log('Inside Delete Account')
   return function(dispatch) {
     dispatch(ACTIONS.requestData())
     return fetch('/api/deleteAccount', {
@@ -74,7 +74,7 @@ export function deleteAccount() {
         dispatch(updatePath('/'))
         dispatch(ACTIONS.resetState())
       } else if (response.status === 403) {
-        console.log('User not authenticated -- delete request failed')
+        throw new Error('User not authenticated -- delete request failed')
       } else if (response.status === 500) {
         throw new Error('Error on the server', response)
       }
@@ -86,7 +86,7 @@ export function deleteAccount() {
   }
 }
 
-//Post user budget data
+// Add a user's budget
 export function postBudget(data) {
   return function(dispatch) {
     dispatch(ACTIONS.requestData())
@@ -111,6 +111,7 @@ export function postBudget(data) {
   }
 }
 
+// Add a user's goal
 export function postGoal(data) {
   return function(dispatch) {
     dispatch(ACTIONS.requestData())
@@ -137,6 +138,7 @@ export function postGoal(data) {
   }
 }
 
+// Delete a user's budget
 export function deleteBudget(data) {
   return (dispatch) => {
     dispatch(ACTIONS.requestData())
@@ -159,6 +161,7 @@ export function deleteBudget(data) {
   }
 }
 
+// Delete a user's goal
 export function deleteGoal(id) {
   return (dispatch) => {
     dispatch(ACTIONS.requestData())
@@ -181,6 +184,7 @@ export function deleteGoal(id) {
   }
 }
 
+// Update a user's goal
 export function updateGoal(data) {
   return (dispatch) => {
     dispatch(ACTIONS.requestData())

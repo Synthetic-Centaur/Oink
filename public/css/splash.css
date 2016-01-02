@@ -6,6 +6,19 @@ div.error-text.animated.fadeInUp {
   text-align: center;
 }
 
+.oink-logo {
+  transform: scale(0.8, 0.8) translate(12px, -8px);
+}
+
+.splashnav-container {
+  padding-top: 10px;
+  padding-bottom: 5px; 
+}
+
+.logo-text {
+  font-size: 2.4rem;
+}
+
 .hero {
   background: url('/../images/desk.jpg') no-repeat center center;
   -webkit-background-size: cover;

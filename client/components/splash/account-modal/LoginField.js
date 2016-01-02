@@ -1,3 +1,5 @@
+// ## Login fields for AccountModal.js
+
 import React, { Component, PropTypes } from 'react'
 import TextField from 'material-ui/lib/text-field'
 import { Link } from 'react-router'

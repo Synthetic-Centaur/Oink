@@ -1,3 +1,5 @@
+// ## Welcome message display if the user has not made a budget before
+
 import React, { Component, PropTypes } from 'react'
 import ReactDOM from 'react-dom'
 

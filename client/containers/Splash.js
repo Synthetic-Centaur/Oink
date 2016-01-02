@@ -6,7 +6,8 @@ import { connect } from 'react-redux'
 import AccountModal from '../components/splash/account-modal/AccountModal'
 import SplashNavBar from '../components/splash/navbar/SplashNavBar'
 import { postLogin, postSignup, splashRedirect, getPlaid, postPlaid } from '../actions/api/authActions'
-import { showLogin, hideLogin, showSignup, hideSignup, getJWT, showPlaid, hidePlaid, removeAlerts, passwordMatchError, phoneNumberError, missingSignupFields } from '../actions/actions'
+import { showLogin, hideLogin, showSignup, hideSignup, getJWT, showPlaid, hidePlaid,
+         removeAlerts, passwordMatchError, phoneNumberError, missingSignupFields } from '../actions/actions'
 import ProfileCard from '../components/splash/ProfileCard'
 import Theme from '../splash-theme.js'
 import ThemeManager from 'material-ui/lib/styles/theme-manager'
@@ -50,7 +51,7 @@ class Splash extends Component {
         />
 
         <div className="navbar">
-          <div className="container">
+          <div className="splashnav-container container">
             <div className="row">
               <SplashNavBar showLoginModal={actions.showLogin} />
             </div>
@@ -108,7 +109,6 @@ class Splash extends Component {
             </div>
 
             <div className="row">
-
 
               <div className="three columns">
                 <ProfileCard
@@ -188,10 +188,19 @@ class Splash extends Component {
   }
 }
 
+// Specify what props are required by the container
 Splash.propTypes = {
-  actions: PropTypes.object.isRequired
+  actions: PropTypes.object.isRequired,
+  splashPage: PropTypes.object.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+  token: PropTypes.string.isRequired,
+  publicKey: PropTypes.string.isRequired,
+  showPlaid: PropTypes.bool.isRequired,
+  passwordErr: PropTypes.bool.isRequired,
+  missingFields: PropTypes.bool.isRequired
 }
 
+// Specify which pieces of state should be available as props
 function mapStateToProps(state) {
   return {
     isLoading: state.isLoading,
@@ -207,6 +216,7 @@ function mapStateToProps(state) {
   }
 }
 
+// Bind Redux store's dispatch to container actions and make available as props
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({

@@ -42,6 +42,7 @@ export function hidePhoneVerify() {
   }
 }
 
+// Phone # was successfully verified
 export function phoneVerifySuccess() {
   return (dispatch) => {
     dispatch({
@@ -50,6 +51,7 @@ export function phoneVerifySuccess() {
   }
 }
 
+// Phone # verification failed
 export function phoneVerifyFailed() {
   return (dispatch) => {
     dispatch({
@@ -58,6 +60,7 @@ export function phoneVerifyFailed() {
   }
 }
 
+// There was an error with the phone # verification
 export function phoneVerifyError() {
   return (dispatch) => {
     dispatch({
@@ -88,6 +91,7 @@ export function changeCurrentBudget(budgetIndex) {
   }
 }
 
+// Validate categories on Budget Management console
 export function categoryValidation(allow, category) {
   if (!allow) {
     return (dispatch) => {
@@ -105,6 +109,7 @@ export function categoryValidation(allow, category) {
   }
 }
 
+// Validate that an input form contains numerical values
 export function numberValidation(allow) {
   if (allow) {
     return (dispatch) => {
@@ -322,6 +327,7 @@ export function removeJWT() {
   }
 }
 
+// Authenticate the user
 export function authenticateUser() {
   return (dispatch) => {
     dispatch({

@@ -1,3 +1,5 @@
+// ## Budget Management Console with Create, Update, Delete functionality
+
 import React, { Component, PropTypes } from 'react'
 import { List, ListDivider, ListItem, Paper, RaisedButton } from 'material-ui'
 import BudgetCategories from './BudgetCategories'
@@ -11,32 +13,32 @@ export class OptionsBar extends React.Component {
       case 'ADD':
         return (
             <BudgetCategories className="add-budget-form"
-              data = { data }
-              postBudget={ actions.postBudget }
-              numberValidation={ actions.numberValidation }
-              categoryValidation={ actions.categoryValidation }
-              numberError={ homePage.numberError }
-              categoryError={ homePage.categoryError }
-              category={ homePage.category }
+              data={data}
+              postBudget={actions.postBudget}
+              numberValidation={actions.numberValidation}
+              categoryValidation={actions.categoryValidation}
+              numberError={homePage.numberError}
+              categoryError={homePage.categoryError}
+              category={homePage.category}
             />
           )
       case 'EDIT':
         return (
             <BudgetList
-              data = { data }
-              editBudget={ actions.changeSettingsView }
-              showBudget={ actions.changeCurrentBudget }
+              data={data}
+              editBudget={actions.changeSettingsView}
+              showBudget={actions.changeCurrentBudget}
             />
           )
       case 'UPDATE':
         return (
             <UpdateField
-              changeSettingsView = { actions.changeSettingsView }
-              postBudget = { actions.postBudget }
-              deleteBudget = { actions.deleteBudget }
-              data = { data }
-              currentBudget = { budgetPage.currentBudget }
-              showBudget={ actions.changeCurrentBudget }
+              changeSettingsView={actions.changeSettingsView}
+              postBudget={actions.postBudget}
+              deleteBudget={actions.deleteBudget}
+              data={data}
+              currentBudget={budgetPage.currentBudget}
+              showBudget={actions.changeCurrentBudget}
             />
           )
 
@@ -61,11 +63,21 @@ export class OptionsBar extends React.Component {
         </div>
 
         <div className="row">
+
           <div className="u-pull-left">
-            <RaisedButton label="ADD" primary={true} onTouchTap={this.changeView.bind(this, 'ADD')} />
+            <RaisedButton
+              label="ADD"
+              primary={true}
+              onTouchTap={this.changeView.bind(this, 'ADD')}
+            />
           </div>
+
           <div className="u-pull-right">
-            <RaisedButton label="EDIT" secondary={true} onTouchTap={this.changeView.bind(this, 'EDIT')} />
+            <RaisedButton
+              label="EDIT"
+              secondary={true}
+              onTouchTap={this.changeView.bind(this, 'EDIT')}
+            />
           </div>
 
         </div>
@@ -75,6 +87,14 @@ export class OptionsBar extends React.Component {
       </div>
     )
   }
+}
+
+// Specify what props are required by the component
+OptionsBar.propTypes = {
+  actions: PropTypes.object.isRequired,
+  budgetPage: PropTypes.object.isRequired,
+  homePage: PropTypes.object.isRequired,
+  data: PropTypes.object.isRequired
 }
 
 export default OptionsBar
