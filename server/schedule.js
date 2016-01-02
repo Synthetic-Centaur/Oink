@@ -17,7 +17,7 @@ let jobSchedules = {
 
   // Schedules cron job to update user plaid transactions daily at midnight
   dailyTransactions() {
-    let job = schedule.scheduleJob('0 0 0 * * *', apiHandler.usersDailyTransactions)
+    let job = schedule.scheduleJob('0 0 12 * * *', apiHandler.usersDailyTransactions)
     return job
   }
 
