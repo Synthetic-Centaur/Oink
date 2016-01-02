@@ -1,3 +1,5 @@
+// ## Plaid Bank log in button
+
 import React, { Component, PropTypes } from 'react'
 import RaisedButton from 'material-ui/lib/raised-button'
 
@@ -39,8 +41,12 @@ class PlaidButton extends Component {
   }
 }
 
+// Specify what props are required by the component
 PlaidButton.propTypes = {
-  authenticate: PropTypes.func.isRequired
+  authenticate: PropTypes.func.isRequired,
+  accountModal: PropTypes.object.isRequired,
+  getKey: PropTypes.func.isRequired,
+  publicKey: PropTypes.string.isRequired
 }
 
 export default PlaidButton

@@ -96,6 +96,7 @@ let apiController = {
                 if (user[0].phone_verified && user[0].text_over_total) {
                   budgetController.checkTotalMonthlySpending(user[0])
                 }
+                
                 // check to see if user has gone over budget in any category if they have selected to recieve text notifications
                 if (user[0].phone_verified && user[0].text_over_budget) {
                   budgetController.checkMonthlySpendingByCategory(user[0])

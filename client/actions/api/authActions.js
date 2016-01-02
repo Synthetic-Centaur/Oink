@@ -1,7 +1,10 @@
+// ## API actions for authentication related actions
+
 import { updatePath } from 'redux-simple-router'
 import * as ACTIONS from '../actions'
 import { getInitialState } from './apiActions'
 
+// API request to login the user
 export function postLogin(data) {
   return function(dispatch) {
     dispatch(ACTIONS.requestData())
@@ -35,6 +38,7 @@ export function postLogin(data) {
         }
 
         if (data.message === 'Invalid Password') { dispatch(ACTIONS.invalidPassword()) }
+          
       } else {
         dispatch(ACTIONS.addJWT(data))
         dispatch(ACTIONS.authenticateUser())
@@ -50,6 +54,7 @@ export function postLogin(data) {
   }
 }
 
+// API request to signup the user
 export function postSignup(data) {
   return function(dispatch) {
     dispatch(ACTIONS.requestData())
@@ -94,6 +99,7 @@ export function postSignup(data) {
   }
 }
 
+// API request to send a user's public plaid token to the server
 export function postPlaid(data) {
   return function(dispatch) {
     dispatch(ACTIONS.authenticateUser())
@@ -123,6 +129,7 @@ export function postPlaid(data) {
   }
 }
 
+// API request from an authorized user to retrieve the server's public plaid API key
 export function getPlaid() {
   return function(dispatch) {
     dispatch(ACTIONS.requestData())
@@ -156,18 +163,21 @@ export function getPlaid() {
   }
 }
 
+// Redirect the user to the splash page if they are not authenticated
 export function authRedirect() {
   return function(dispatch) {
     dispatch(updatePath('/'))
   }
 }
 
+// Redirect the user to the dashboard once they are authenticated
 export function splashRedirect() {
   return function(dispatch) {
     dispatch(updatePath('/dashboard'))
   }
 }
 
+// Handle a user logging out
 export function authLogout() {
   return function(dispatch) {
     dispatch(ACTIONS.removeJWT())
@@ -176,8 +186,8 @@ export function authLogout() {
   }
 }
 
+// API request to get their phone verification code from the server
 export function sendPhoneVerification() {
-  console.log('inside send phone verification')
   return function(dispatch) {
     dispatch(ACTIONS.requestData())
     return fetch('auth/phoneVerification/send', {
@@ -190,7 +200,6 @@ export function sendPhoneVerification() {
     .then((response) => {
       if (response.status === 200) {
         dispatch(ACTIONS.requestFinished())
-        console.log('sent verification code')
       } else if (response.status === 500) {
         dispatch(ACTIONS.requestFinished())
         throw new Error('Error on the server', response)
@@ -203,8 +212,8 @@ export function sendPhoneVerification() {
   }
 }
 
+// API request for a user to send back their phone verification code
 export function checkPhoneVerification(code) {
-  console.log('inside check phone verification')
   return function(dispatch) {
     dispatch(ACTIONS.requestData())
     return fetch('auth/phoneVerification/check', {
@@ -219,11 +228,9 @@ export function checkPhoneVerification(code) {
     })
     .then((response) => {
       if (response.status === 202) {
-        // user phone_verified property should now be true
         dispatch(ACTIONS.requestFinished())
         dispatch(ACTIONS.phoneVerifySuccess())
       } else if (response.status === 401) {
-        // code that user enered is not correct --> show them error message
         dispatch(ACTIONS.requestFinished())
         dispatch(ACTIONS.phoneVerifyError())
       } else if (response.status === 500) {

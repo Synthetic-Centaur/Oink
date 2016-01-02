@@ -52,7 +52,10 @@ class Budget extends Component {
                 </div>
               </div>
 
-              <Paper style={{boxShadow:'0 8px 8px #000, 0 3px 3px #000'}} className="options-container four columns">
+              <Paper
+                style={{boxShadow:'0 8px 8px #000, 0 3px 3px #000'}}
+                className="options-container four columns"
+              >
                 <OptionsBar
                   budgetPage={budgetPage}
                   actions={actions}
@@ -72,6 +75,7 @@ class Budget extends Component {
 
 // Specify what props are required by the container
 Budget.propTypes = {
+  actions: PropTypes.object.isRequired,
   isLoading: PropTypes.bool.isRequired,
   data: PropTypes.object.isRequired,
   error: PropTypes.bool.isRequired,

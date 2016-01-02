@@ -1,4 +1,4 @@
-//configures data for High-chart
+// ## Configures data for Pie Chart
 
 function chartConfig(data) {
   //data should be formatted as an array with objects for data points

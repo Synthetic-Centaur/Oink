@@ -32,7 +32,7 @@ class SettingsModal extends Component {
     const { showSettings, editFinishAll, accountData, securityData } = this.props
 
     // verify that there are no errors on page before submitting
-    if (!accountData.errorText && !securityData.errorText) {    
+    if (!accountData.errorText && !securityData.errorText) {
       this.handleSettings()
       editFinishAll()
     }
@@ -64,11 +64,12 @@ class SettingsModal extends Component {
     }
 
     // verify that user has made changes before sending
-    if (dataLength > 0) {    
+    if (dataLength > 0) {
       this.props.postSettings(completeData)
       this.props.hideSettingsModal()
       this.refs.modal.dismiss()
     } else {
+      
       // if user has not made any changes, assume they hit save to close and close modal
       showSettings ? hideSettingsModal() : null
       editFinishAll()

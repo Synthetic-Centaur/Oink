@@ -1,3 +1,5 @@
+// ## Pie chart for visualizing a user's budgets
+
 import React, { Component, PropTypes } from 'react'
 import ReactDOM from 'react-dom'
 import ChartTheme from '../../../chart-theme'
@@ -33,6 +35,7 @@ class PieChart extends Component {
     const { data } = this.props
     let config = data.budgets !== undefined ? chartConfig(data.budgets) : null
 
+    // This check is required for our testing enviroment due to the fact that there is no DOM when tests run
     if (window !== undefined) {
       ReactHighCharts = require('react-highcharts/dist/bundle/highcharts')
       ReactHighCharts.Highcharts.setOptions(ChartTheme)
@@ -50,7 +53,11 @@ class PieChart extends Component {
         </div>
       )
   }
+}
 
+// Specify what props are required by the component
+PieChart.propTypes = {
+  data: PropTypes.object.isRequired
 }
 
 export default PieChart

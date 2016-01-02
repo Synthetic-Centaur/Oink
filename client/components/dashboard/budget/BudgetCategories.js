@@ -1,3 +1,5 @@
+// ## Dropdown menu for selecting a budget category
+
 import React, { Component, PropTypes } from 'react'
 import DropDownMenu from 'material-ui/lib/drop-down-menu'
 import TextField from 'material-ui/lib/text-field'
@@ -59,14 +61,16 @@ class BudgetCategories extends React.Component{
             ref="category"
             menuItems={menuItems}
             errorText="Please choose a category."
-            onChange={this.handleCatError.bind(this)} />
+            onChange={this.handleCatError.bind(this)}
+          />
         </div>
         <div className="row">
           <TextField
             style={{float: 'left', width: '100%'}}
             ref="amount"
             hintText="Enter a sum"
-            onChange={this.handleNumError.bind(this)} />
+            onChange={this.handleNumError.bind(this)}
+          />
         </div>
         <div className="row">
           <RaisedButton className="submit-budget-button"
@@ -74,12 +78,22 @@ class BudgetCategories extends React.Component{
             style={{float: 'left'}}
             label="Add to budget"
             disabled={this.props.numberError || this.props.categoryError}
-            onClick={this.handleBudget.bind(this)} />
+            onClick={this.handleBudget.bind(this)}
+          />
         </div>
       </div>
     )
   }
+}
 
+// Specify what props are required by the component
+BudgetCategories.propTypes = {
+  data: PropTypes.object.isRequired,
+  postBudget: PropTypes.func.isRequired,
+  numberValidation: PropTypes.func.isRequired,
+  numberError: PropTypes.bool.isRequired,
+  categoryError: PropTypes.bool.isRequired,
+  category: PropTypes.string.isRequired
 }
 
 export default BudgetCategories
