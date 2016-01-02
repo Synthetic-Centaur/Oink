@@ -282,7 +282,7 @@ export function goalPageReducer(state = {
 export function transactionMapReducer(state = {
   childrenCluster: {},
   mapDate: {},
-  currentAddress: ""
+  currentAddress: ''
 }, action = null) {
   switch (action.type) {
     case 'UPDATE_CLUSTER':
