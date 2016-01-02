@@ -248,3 +248,15 @@ export default class TransactionMap extends Component {
   }
 
 }
+
+TransactionMap.PropTypes = {
+  transactions: PropTypes.array,
+  categories: PropTypes.array,
+  accessToken: PropTypes.string,
+  currentChildren: PropTypes.obj,
+  updateCluster: PropTypes.func,
+  mapDate: PropTypes.obj,
+  updateMapDate: PropTypes.func,
+  currentAddress: PropTypes.string,
+  updateAddress: PropTypes.func
+}
