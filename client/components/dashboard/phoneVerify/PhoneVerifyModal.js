@@ -63,7 +63,7 @@ class PhoneVerifyModal extends Component {
   render() {
 
     const { verifySuccess } = this.props
-    const titleText = verifySuccess ? 'Your phone has been verified! Welcome to Oink!!' : 'Oink Oink! Looks like you still need to verify your phone number'
+    const titleText = verifySuccess ? 'Your phone has been verified!' : 'Oink Oink! Looks like you still need to verify your phone number'
    
     const modalActions = verifySuccess ? [
       <FlatButton

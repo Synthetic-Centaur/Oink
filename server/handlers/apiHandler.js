@@ -11,27 +11,69 @@ apiController.getCategories()
 
 let apiHandler = {
 
+  // #### Transaction Handlers
   retrieveTransactions(req, res) {
 
-    // Route handler for testing updates to transactions
+    // Find the user based on jwt auth token 
     authController.findUserByToken(req, true).then((user) => {
+
+      // Retrieves all transactions for given user
       apiController.retrieveTransactions(user.token_plaid, user.id)
     })
-    res.send('OK')
   },
 
+  getTransactions(req, res) {
+    
+    // Find the user based on jwt auth token
+    if (!req.headers.authorization) {
+      // If no token is present send back error message to let client know that user is not authenticated
+      res.status(403)
+      res.json({ success: false, message: 'Failed, user is not authenticated'})
+    } else {
+
+      authController.findUserByToken(req).then((user) => {
+
+        // if year and month params were given, we want to only return transactions for specified time period
+        if (req.params.year && req.params.month) {
+          transactionController.getTransactionsByTime(user.id, req.params.month, req.params.year)
+          .then((transactions) => {
+            if (transactions) {
+              res.json(transactions)
+            } else {
+              res.json({success: false, message: 'Error retrieving transactions'})
+            }
+          })
+        } else {
+          transactionController.getTransactionsByTime(user.id)
+          .then((transactions) => {
+            if (transactions) {
+              res.json(transactions)
+            } else {
+              res.json({success: false, message: 'Error retrieving transactions'})
+            }
+          })
+        }
+      })
+    }
+  },
+
+  // #### Webhook Handlers
   setWebhook(req, res) {
-    // get user from database using token
+    // Get user from database using token
     authController.findUserByToken(req).then((user) => {
       if (user.attributes.token_plaid) {
+
+        // Set up webhook with Plaid API
         apiController.setWebhook(user.attributes.token_plaid)
         res.sendStatus(200)
+
       } else {
         res.sendStatus(500)
       }
     })
   },
 
+  // #### State Handlers
   initialState(req, res) {
 
     // Find the user based on auth token
@@ -84,7 +126,10 @@ let apiHandler = {
     }
   },
 
+  // #### Budget Handlers
   addOrUpdateBudget(req, res) {
+
+    // Check incomming request for jwt session token 
     if (!req.headers.authorization) {
       res.status(403)
       res.json({ success: false, message: 'Failed, user is not authenticated'})
@@ -95,13 +140,16 @@ let apiHandler = {
           // Create budget with category, amount, and userId
           budgetController.createBudget(req.params.id, user.id, req.body.amount).then((budget) => {
             if (budget) {
-              // Send back the budget created
+
+              // Send success code after successful budget creation
               res.send(200)
             } else {
               res.json({ success: false, message: 'Failed, error creating budget.' })
             }
           })
         } else {
+
+          // Send error code of budget could not be created or updated
           res.sendStatus(500)
         }
       })
@@ -109,6 +157,8 @@ let apiHandler = {
   },
 
   deleteBudget(req, res) {
+
+    // Check incomming request for jwt session token
     if (!req.headers.authorization) {
       res.status(403)
       res.json({ success: false, message: 'Failed, user is not authenticated'})
@@ -119,20 +169,28 @@ let apiHandler = {
           // Create budget with category, amount, and userId
           budgetController.deleteBudget(req.params.id, user.id).then((result) => {
             if (result) {
-              // Send back the budget created
+
+              // Send success code after budget has been deleted
               res.send(200)
             } else {
+
+              // Send error if budget could not be deleted
               res.json({ success: false, message: 'Failed, error deleting budget.' })
             }
           })
         } else {
+
+          // Send back server error if user could not be located in database
           res.sendStatus(500)
         }
       })
     }
   },
 
+  // #### Goal Handlers
   createGoal(req, res) {
+
+    // Check incomming request for jwt session token
     if (!req.headers.authorization) {
       res.status(403)
       res.json({ success: false, message: 'Failed, user is not authenticated'})
@@ -147,15 +205,23 @@ let apiHandler = {
   },
 
   deleteGoal(req, res) {
+
+    // Check incomming request for jwt session token
     if (!req.headers.authorization) {
       res.status(403)
       res.json({ success: false, message: 'Failed, user is not authenticated'})
     } else {
       authController.findUserByToken(req).then((user) => {
+
+        // Delete goal for specified user
         goalController.deleteGoal(user.id, req.params.id).then((goal) => {
           if (goal) {
+
+            // Send success code on successful goal deletion
             res.sendStatus(200)
           } else {
+
+            // Send error message if goal could not be deleted
             res.json({success: false, message: 'Failed, error deleting goal'})
           }
         })
@@ -164,16 +230,24 @@ let apiHandler = {
   },
 
   updateGoal(req, res) {
+
+    // Check incomming request for jwt session token
     if (!req.headers.authorization) {
       res.status(403)
       res.json({ success: false, message: 'Failed, user is not authenticated'})
     } else {
       authController.findUserByToken(req).then((user) => {
+
+        // update goal with params passed in req.body
         goalController.updateGoal(user.id, req.params.id, req.body).then((goal) => {
           if (goal) {
+
+            // Send success code on goal update completion
             res.status(201)
             res.json(goal)
           } else {
+
+            // Send error message if goal failed to update
             res.json({success: false, message: 'Failed, error updating goal'})
           }
         })
@@ -181,16 +255,27 @@ let apiHandler = {
     }
   },
   
+  // #### Settings Handlers
   settings(req, res) {
+
+    // Check incomming request for jwt session token
     if (!req.headers.authorization) {
       res.status(403)
       res.json({success: false, message: 'Failed, user is not authenticated'})
     } else {
       authController.findUserByToken(req).then((user) => {
+
+        // Update all fields included in req.body in user table
         authController.updateUser(user, req.body).then((user) => {
           if (user) {
+
+            // Send success code on completeion
             res.status(201)
             res.json(user)
+          } else {
+
+            // Send error code in user could not be updated
+            res.sendStatus(500)
           }
         })
       })
@@ -198,6 +283,8 @@ let apiHandler = {
   },
 
   deleteAccount(req, res) {
+
+    // Check incomming request for jwt session token
     if (!req.headers.authorization) {
       res.status(403)
       res.json({success: false, message: 'Failed, user is not authenticated'})
@@ -217,7 +304,8 @@ let apiHandler = {
     }
   },
 
-  //Job for retrieving every users new daily transactions
+  // #### Daily Transaction Pull
+  //Job for retrieving every users new transactions
   usersDailyTransactions() {
     //Retrieve all users
     authController.allUsers()
