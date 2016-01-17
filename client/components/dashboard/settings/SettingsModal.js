@@ -267,7 +267,7 @@ class SettingsModal extends Component {
 SettingsModal.propTypes = {
   accountData: PropTypes.object,
   communicationData: PropTypes.object,
-  data: object,
+  data: PropTypes.object,
   deleteAccount: PropTypes.func,
   editFinish: PropTypes.func,
   editFinishAll: PropTypes.func,
