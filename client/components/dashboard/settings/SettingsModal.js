@@ -10,6 +10,8 @@ import ThemeManager from 'material-ui/lib/styles/theme-manager'
 class SettingsModal extends Component {
 
   getChildContext() {
+
+    // Get styles for settings modal
     return {
       muiTheme: ThemeManager.getMuiTheme(Theme),
     }
@@ -28,12 +30,19 @@ class SettingsModal extends Component {
   }
 
   handleSubmit(e) {
+
+    // Prevent defualt action on submit button
     e.preventDefault()
+
     const { showSettings, editFinishAll, accountData, securityData } = this.props
 
-    // verify that there are no errors on page before submitting
+    // Verify that there are no errors on page before submitting
     if (!accountData.errorText && !securityData.errorText) {
+
+      // Submit all changes
       this.handleSettings()
+
+      // Update all editing properties on state to false
       editFinishAll()
     }
   }
@@ -42,9 +51,11 @@ class SettingsModal extends Component {
 
     const { showSettings, hideSettingsModal, editFinishAll, accountData, communicationData, securityData } = this.props
 
+    // Create variables to store fields to update in database
     let completeData = {}
     let dataLength = 0
 
+    // Loop through account data and add all properties that require an update to completeData
     for (let key in accountData) {
       if (key !== 'errorText') {
         completeData[key] = accountData[key]
@@ -52,25 +63,26 @@ class SettingsModal extends Component {
       }
     }
 
+    // Loop through communication data and add all properties that require an update to completeData
     for (let key in communicationData) {
       completeData[key] = communicationData[key]
       dataLength++
     }
 
-    // verify that new password field in security data exists and that password has been verified
+    // Verify that new password field in security data exists and that password has been verified
     if (securityData.newPassword && !securityData.errorText) {
       completeData.password = securityData.newPassword
       dataLength++
     }
 
-    // verify that user has made changes before sending
-    if (dataLength > 0) {
+    // Verify that user has made changes before sending
+    if (dataLength > 0) {    
       this.props.postSettings(completeData)
       this.props.hideSettingsModal()
       this.refs.modal.dismiss()
     } else {
-      
-      // if user has not made any changes, assume they hit save to close and close modal
+
+      // If user has not made any changes, assume they hit save to close and close modal
       showSettings ? hideSettingsModal() : null
       editFinishAll()
       this.refs.modal.dismiss()
@@ -78,16 +90,29 @@ class SettingsModal extends Component {
   }
 
   handleCancel(e) {
+
+    // Prevent defualt action on cancel button
     e.preventDefault()
+
     const {showSettings, hideSettingsModal, editFinishAll, editingEmail, editingPassword,
            editingFirstName, editingLastName, editingPhoneNumber, editingDeleteAccount} = this.props
+
+    // If user has edited any of their settings have them verify that they want to cancel before closing modal
     if (editingEmail || editingPhoneNumber || editingPassword || editingFirstName || editingLastName) {
       if (confirm('You have unsaved changes to your settngs, are you sure you want to quit?')) {
+
+        // Hide modal
         showSettings ? hideSettingsModal() : null
+
+        // Set all editing fields on state to false and discard any changes
         editFinishAll()
+
+        // Dismiss modal
         this.refs.modal.dismiss()
       }
     } else {
+
+      // If user has not made any changes to their settings close without sending a warning
       showSettings ? hideSettingsModal() : null
       editFinishAll()
       this.refs.modal.dismiss()
@@ -95,7 +120,11 @@ class SettingsModal extends Component {
   }
 
   parsePhoneNumber(num) {
+
+    // Check phone number to verify that it is 10 digits long
     if (num.length === 10) {
+
+      // Display phone number in user friendly format
       return '(' + num.slice(0, 3) + ')' + num.slice(3, 6) + '-' + num.slice(6)
     }
 
@@ -103,8 +132,12 @@ class SettingsModal extends Component {
   }
 
   tabStyle(ref) {
+
+    // List of all tab refs
     let tabRefs = ['accountTab', 'communicationTab', 'securityTab']
 
+
+    // Highlight the currently active tab by checking each tab and coloring appropriately
     for (let i = 0; i < tabRefs.length; i++) {
       let tab = tabRefs[i]
       if (tab === ref) {
@@ -118,6 +151,8 @@ class SettingsModal extends Component {
   }
 
   tabStyleConst(ref) {
+
+    // Set the initial tab style to the account tab highlighted as active
     if (this.refs[ref]) {
       if (this.refs[ref].props.selected) {
         return {color: '#222', backgroundColor: '#ccc'}
@@ -134,7 +169,8 @@ class SettingsModal extends Component {
   }
 
   render() {
-    // overwrite material-ui default gutter setting to set padding around modal body to 0
+
+    // Overwrite material-ui default gutter setting to set padding around modal body to 0
     this.refs.modal ? this.refs.modal.state.muiTheme.rawTheme.spacing.desktopGutter = 0 : null
     let user = {
       firstName: this.props.data.user ? this.props.data.user.first_name : '',
@@ -229,9 +265,27 @@ class SettingsModal extends Component {
 }
 
 SettingsModal.propTypes = {
-  showSettings: PropTypes.bool.isRequired,
-  hideSettingsModal: PropTypes.func.isRequired,
-  showSettingsModal: PropTypes.func.isRequired
+  accountData: PropTypes.object,
+  communicationData: PropTypes.object,
+  data: PropTypes.object,
+  deleteAccount: PropTypes.func,
+  editFinish: PropTypes.func,
+  editFinishAll: PropTypes.func,
+  editStart: PropTypes.func,
+  editingDeleteAccount: PropTypes.bool,
+  editingEmail: PropTypes.bool,
+  editingFirstName: PropTypes.bool,
+  editingLastName: PropTypes.bool,
+  editingPassword: PropTypes.bool,
+  editingPhoneNumber: PropTypes.bool,
+  hideSettingsModal: PropTypes.func,
+  postSettings: PropTypes.func,
+  securityData: PropTypes.object,
+  showSettings: PropTypes.bool,
+  showSettingsModal: PropTypes.func,
+  updateAccountSettings: PropTypes.func,
+  updateCommunicationSettings: PropTypes.func,
+  updateSecuritySettings: PropTypes.func
 }
 
 SettingsModal.childContextTypes = {

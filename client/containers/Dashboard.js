@@ -28,9 +28,10 @@ class Dashboard extends React.Component {
     }
   }
 
-  // This is delays the call to initial state until transactions are loaded server side
-  // This is necessary because we need to do significant processing server side on the first pull from plaid
   shouldComponentUpdate(nextProps) {
+
+    // This is delays the call to initial state until transactions are loaded server side
+    // This is necessary because we need to do significant processing server side on the first pull from plaid
     if (this.props.firstPull !== nextProps.firstPull) {
       this.props.actions.getInitialState()
     }
@@ -44,14 +45,18 @@ class Dashboard extends React.Component {
     return true
   }
 
-  // Render Dashboard container if the user is authenticated
   componentWillMount() {
+    
+    // Render Dashboard container if the user is authenticated
     this.checkAuth()
+
+    // Set background color for dashboard
     document.body.style.backgroundColor = '#262626'
   }
 
   // Get the initial state of app when component is mounted
   componentDidMount() {
+
     // Check if this is the first time we are pulling the user's transactions
     if (!this.props.firstPull) {
       this.props.actions.getInitialState()
@@ -172,6 +177,11 @@ class Dashboard extends React.Component {
 // Required for passing down Material UI Theme to children components
 Dashboard.childContextTypes = {
   muiTheme: PropTypes.object
+}
+
+// Define property types for the Dashboard
+Dashboard.propTypes = {
+  actions: PropTypes.object.isRequired
 }
 
 // Specify which pieces of state should be available as props
